@@ -57,7 +57,7 @@
 	</div>
 
 <body>
-    <h1>Audio Player</h1>
+        <h1>Audio Player</h1>
     <ul class="song-list" id="playlist">
         <!-- Playlist items will be dynamically added here -->
     </ul>
@@ -88,7 +88,7 @@
 
             // Listen for songs added from Tracks page
             window.addEventListener('storage', function(event) {
-                if (event.key === 'newSong') {
+                if (event.key === 'newSong' && event.newValue) {
                     const newSong = JSON.parse(event.newValue);
                     addToPlaylist(newSong.src, newSong.title);
 
