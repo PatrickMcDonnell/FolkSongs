@@ -17,19 +17,20 @@
 <![endif]-->
 
  
-<meta charset="UTF-8">
+head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audio Player with Background Image</title>
+    <title>Audio Player with Playlist</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('');
+            background-image: url('background.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
             margin: 0;
             padding: 20px;
-            color: #000;
+            color: #000; /* Set text color to black */
         }
         .song-list {
             list-style-type: none;
@@ -38,42 +39,15 @@
         .song-list li {
             margin: 5px 0;
             cursor: pointer;
-            color: #000;
+            color: #000; /* Set text color to black */
             text-decoration: underline;
         }
     </style>
-
-  </head>
-  
-<body class="home page-template page-template-no-title page page-id-11 single-author singular">
-<div id="page" class="hfeed">
-	<div id="header">
-    	    	    		<img src="logo.png" class="logo" alt="logo" />
-    	     	
-    	<h1 class="alignleft">Pat&#039;s Jukebox</a></h1>
-    	<h2 id="site-description" class="alignleft">Explore. Listen. Play.</h2>
-        <div class="clr"></div>
-		<div class="menu"><ul>
-<li class="current_page_item">Home</li><li class="page_item page-item-14">
-About<uli>
-<li class="page_item page-item-16">Contact</li>
-<li class="page_item page-item-15">Tracks</li>
-</ul></div>
-	</div>
-
-
-
+</head>
 <body>
-
-
-    <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
-
-<<h1>Audio Player</h1>
-    <ul class="song-list">
-
-        <li data-src="Tracks/Coming Through The Rye.mp3">Coming Through the Rye</li>
-        <li data-src="song2.mp3">Song 2</li>
-        <li data-src="song3.mp3">Song 3</li>
+    <h1>Audio Player</h1>
+    <ul class="song-list" id="playlist">
+        <!-- Playlist items will be dynamically added here -->
     </ul>
     <audio id="audio-player" controls>
         Your browser does not support the audio element.
@@ -82,17 +56,36 @@ About<uli>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const audioPlayer = document.getElementById('audio-player');
-            const songListItems = document.querySelectorAll('.song-list li');
+            const playlist = document.getElementById('playlist');
 
-            songListItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const songSrc = this.getAttribute('data-src');
+            // Function to add a song to the playlist
+            function addToPlaylist(songSrc, songTitle) {
+                const listItem = document.createElement('li');
+                listItem.textContent = songTitle;
+                listItem.setAttribute('data-src', songSrc);
+                listItem.addEventListener('click', function() {
                     audioPlayer.src = songSrc;
                     audioPlayer.play();
                 });
+                playlist.appendChild(listItem);
+            }
+
+            // Load playlist from localStorage
+            const savedPlaylist = JSON.parse(localStorage.getItem('playlist')) || [];
+            savedPlaylist.forEach(song => addToPlaylist(song.src, song.title));
+
+            // Listen for songs added from Tracks page
+            window.addEventListener('storage', function(event) {
+                if (event.key === 'newSong') {
+                    const newSong = JSON.parse(event.newValue);
+                    addToPlaylist(newSong.src, newSong.title);
+
+                    // Update playlist in localStorage
+                    savedPlaylist.push(newSong);
+                    localStorage.setItem('playlist', JSON.stringify(savedPlaylist));
+                }
             });
         });
     </script>
-
-  </body>
+</body>
 </html>

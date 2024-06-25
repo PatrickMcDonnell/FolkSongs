@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set text color to black */
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .track-list li {
+            margin: 5px 0;
+            cursor: pointer;
+            color: #000; /* Set text color to black */
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select Tracks</h1>
+    <ul class="track-list">
+        <li data-src="Tracks/song1.mp3" data-title="Song 1">Song 1</li>
+        <li data-src="Tracks/song2.mp3" data-title="Song 2">Song 2</li>
+        <li data-src="Tracks/song3.mp3" data-title="Song 3">Song 3</li>
+    </ul>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const trackListItems = document.querySelectorAll('.track-list li');
+
+            trackListItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const songSrc = this.getAttribute('data-src');
+                    const songTitle = this.getAttribute('data-title');
+                    const newSong = { src: songSrc, title: songTitle };
+
+                    // Add song to localStorage and trigger storage event
+                    localStorage.setItem('newSong', JSON.stringify(newSong));
+                    localStorage.removeItem('newSong');  // Trigger the event
+                    alert(`Added ${songTitle} to playlist.`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
