@@ -3,20 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracks</title>
+    <title>Audio Player with Playlist</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
             margin: 0;
             padding: 20px;
             color: #000; /* Set text color to black */
         }
-        .track-list {
+        .song-list {
             list-style-type: none;
             padding: 0;
         }
-        .track-list li {
+        .song-list li {
             margin: 5px 0;
             cursor: pointer;
             color: #000; /* Set text color to black */
@@ -25,29 +28,45 @@
     </style>
 </head>
 <body>
-    <h1>Select Tracks</h1>
-    <ul class="track-list">
-        <li data-src="Tracks/Coming Through The Rye.mp3" data-title="Coming Through The Rye">Coming Through The Rye</li>
-        <li data-src="Tracks/song2.mp3" data-title="Song 2">Song 2</li>
-        <li data-src="Tracks/song3.mp3" data-title="Song 3">Song 3</li>
+    <h1>Audio Player</h1>
+    <ul class="song-list" id="playlist">
+        <!-- Playlist items will be dynamically added here -->
     </ul>
+    <audio id="audio-player" controls>
+        Your browser does not support the audio element.
+    </audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const trackListItems = document.querySelectorAll('.track-list li');
+            const audioPlayer = document.getElementById('audio-player');
+            const playlist = document.getElementById('playlist');
 
-            trackListItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const songSrc = this.getAttribute('data-src');
-                    const songTitle = this.getAttribute('data-title');
-                    const newSong = { src: songSrc, title: songTitle };
-
-                    // Add song to localStorage and trigger storage event
-                    localStorage.setItem('newSong', JSON.stringify(newSong));
-                    // Remove the item immediately after to ensure the event fires each time
-                    setTimeout(() => localStorage.removeItem('newSong'), 0);
-                    alert(`Added ${songTitle} to playlist.`);
+            // Function to add a song to the playlist
+            function addToPlaylist(songSrc, songTitle) {
+                const listItem = document.createElement('li');
+                listItem.textContent = songTitle;
+                listItem.setAttribute('data-src', songSrc);
+                listItem.addEventListener('click', function() {
+                    audioPlayer.src = songSrc;
+                    audioPlayer.play();
                 });
+                playlist.appendChild(listItem);
+            }
+
+            // Load playlist from localStorage
+            const savedPlaylist = JSON.parse(localStorage.getItem('playlist')) || [];
+            savedPlaylist.forEach(song => addToPlaylist(song.src, song.title));
+
+            // Listen for songs added from Tracks page
+            window.addEventListener('storage', function(event) {
+                if (event.key === 'newSong' && event.newValue) {
+                    const newSong = JSON.parse(event.newValue);
+                    addToPlaylist(newSong.src, newSong.title);
+
+                    // Update playlist in localStorage
+                    savedPlaylist.push(newSong);
+                    localStorage.setItem('playlist', JSON.stringify(savedPlaylist));
+                }
             });
         });
     </script>
