@@ -16,6 +16,21 @@
 <script src="html5.js" type="text/javascript"></script>
 <![endif]-->
 
+ <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .song-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .song-list li {
+            margin: 5px 0;
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+    </style>
 
   </head>
   
@@ -35,7 +50,37 @@ About<uli>
 </ul></div>
 	</div>
 
+
+
 <body>
+
+
     <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
+
+<h1>Audio Player</h1>
+    <ul class="song-list">
+        <li data-src="song1.mp3">Song 1</li>
+        <li data-src="song2.mp3">Song 2</li>
+        <li data-src="song3.mp3">Song 3</li>
+    </ul>
+    <audio id="audio-player" controls>
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audio-player');
+            const songListItems = document.querySelectorAll('.song-list li');
+
+            songListItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const songSrc = this.getAttribute('data-src');
+                    audioPlayer.src = songSrc;
+                    audioPlayer.play();
+                });
+            });
+        });
+    </script>
+
   </body>
 </html>
