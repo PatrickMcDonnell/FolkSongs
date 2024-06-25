@@ -10,15 +10,100 @@
 <!--<![endif]--><html>
 
 
-  <head>
-<head>
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audio Player with Playlist</title>
+    <title>Pat&#039;s Jukebox | Explore. Listen. Play.</title>
+    
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('background.jpg');
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set text color to black */
+        }
+        .song-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .song-list li {
+            margin: 5px 0;
+            cursor: pointer;
+            color: #000; /* Set text color to black */
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body class="home page-template page-template-no-title page page-id-11 single-author singular">
+<div id="page" class="hfeed">
+	<div id="header">
+    	<class="alignleft" title="Pat&#039;s Jukebox">
+    	    		<img src="logo.png" class="logo" alt="logo" />
+    	     	</a> 
+    	<h1 class="alignleft"><a href="">Pat&#039;s Jukebox</a></h1>
+    	<h2 id="site-description" class="alignleft">Explore. Listen. Play.</h2>
+        <div class="clr"></div>
+		<div class="menu"><ul>
+<li class="current_page_item"><a href="">Home</a></li>
+<li class="page_item page-item-14"><a href="">About</a></li>
+<li class="page_item page-item-16"><a href="">Contact</a></li>
+<li class="page_item page-item-15"><a href="/tracks/">Tracks</a></li>
+</ul></div>
+	</div>
+
+<body>
+    <h1>Audio Player</h1>
+    <ul class="song-list" id="playlist">
+        <!-- Playlist items will be dynamically added here -->
+    </ul>
+    <audio id="audio-player" controls>
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audio-player');
+            const playlist = document.getElementById('playlist');
+
+            // Function to add a song to the playlist
+            function addToPlaylist(songSrc, songTitle) {
+                const listItem = document.createElement('li');
+                listItem.textContent = songTitle;
+                listItem.setAttribute('data-src', songSrc);
+                listItem.addEventListener('click', function() {
+                    audioPlayer.src = songSrc;
+                    audioPlayer.play();
+                });
+                playlist.appendChild(listItem);
+            }
+
+            // Load playlist from localStorage
+            const savedPlaylist = JSON.parse(localStorage.getItem('playlist')) || [];
+            savedPlaylist.forEach(song => addToPlaylist(song.src, song.title));
+
+            // Listen for songs added from Tracks page
+            window.addEventListener('storage', function(event) {
+                if (event.key === 'newSong') {
+                    const newSong = JSON.parse(event.newValue);
+                    addToPlaylist(newSong.src, newSong.title);
+
+                    // Update playlist in localStorage
+                    savedPlaylist.push(newSong);
+                    localStorage.setItem('playlist', JSON.stringify(savedPlaylist));
+                }
+            });
+        });
+    </script>
+</body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
