@@ -27,7 +27,7 @@
 <body>
     <h1>Select Tracks</h1>
     <ul class="track-list">
-        <li data-src="Tracks/Coming Through the Rye" data-title="Song 1">Coming Through The Rye</li>
+        <li data-src="Tracks/Coming Through The Rye.mp3" data-title="Coming Through The Rye">Coming Through The Rye</li>
         <li data-src="Tracks/song2.mp3" data-title="Song 2">Song 2</li>
         <li data-src="Tracks/song3.mp3" data-title="Song 3">Song 3</li>
     </ul>
@@ -44,7 +44,8 @@
 
                     // Add song to localStorage and trigger storage event
                     localStorage.setItem('newSong', JSON.stringify(newSong));
-                    localStorage.removeItem('newSong');  // Trigger the event
+                    // Remove the item immediately after to ensure the event fires each time
+                    setTimeout(() => localStorage.removeItem('newSong'), 0);
                     alert(`Added ${songTitle} to playlist.`);
                 });
             });
@@ -52,3 +53,4 @@
     </script>
 </body>
 </html>
+
