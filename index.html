@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('background.jpg');
+            background-image: url('');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -29,15 +29,18 @@
 </head>
 <body>
     <h1>Audio Player</h1>
+
+    <audio id="audio-player" controls>
+        Your browser does not support the audio element.
+    </audio>
+
     <ul class="song-list" id="playlist">
         <li data-src="Tracks/Coming Through The Rye.mp3">Coming Through The Rye</li>
         <li data-src="song2.mp3">Song 2</li>
         <li data-src="song3.mp3">Song 3</li>
         <!-- Add more songs here as needed -->
     </ul>
-    <audio id="audio-player" controls>
-        Your browser does not support the audio element.
-    </audio>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
