@@ -43,11 +43,46 @@
 <div id="wrap">
     <div id="header">
         <h1><a href="#">Folksong Collection</a></h1>
+<!--
         <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="">Tracks</a> &middot; <a href="">Comment</a></p>
     </div>
+-->
     <img id="frontphoto" src="img/Notesheader2.jpg" width="760" height="190" alt="" />
     <div id="contentwide">
         <h1>Select Tracks</h1>
+
+        <button class="finished-button" id="finished-selecting">Finished Selecting</button>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const trackListItems = document.querySelectorAll('.track-list li');
+                const finishedButton = document.getElementById('finished-selecting');
+
+                finishedButton.addEventListener('click', function() {
+                    const selectedPlaylist = [];
+                    trackListItems.forEach(item => {
+                        if (item.classList.contains('selected')) {
+                            const songSrc = item.getAttribute('data-src');
+                            const songTitle = item.textContent;
+                            selectedPlaylist.push({ src: songSrc, title: songTitle });
+                        }
+                    });
+
+                    // Store selected playlist in localStorage
+                    localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+                    // Redirect back to index.html
+                    window.location.href = 'index.html';
+                });
+
+                trackListItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        item.classList.toggle('selected');
+                    });
+                });
+            });
+        </script>
+
         <ul class="track-list">
            
 <li data-src="Tracks/A Drink for My Father.mp3"data-title="A Drink for My Father">A Drink for My Father</li>
@@ -224,37 +259,7 @@
 
             <!-- Add more tracks here as needed -->
         </ul>
-        <button class="finished-button" id="finished-selecting">Finished Selecting</button>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const trackListItems = document.querySelectorAll('.track-list li');
-                const finishedButton = document.getElementById('finished-selecting');
-
-                finishedButton.addEventListener('click', function() {
-                    const selectedPlaylist = [];
-                    trackListItems.forEach(item => {
-                        if (item.classList.contains('selected')) {
-                            const songSrc = item.getAttribute('data-src');
-                            const songTitle = item.textContent;
-                            selectedPlaylist.push({ src: songSrc, title: songTitle });
-                        }
-                    });
-
-                    // Store selected playlist in localStorage
-                    localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
-
-                    // Redirect back to index.html
-                    window.location.href = 'index.html';
-                });
-
-                trackListItems.forEach(item => {
-                    item.addEventListener('click', function() {
-                        item.classList.toggle('selected');
-                    });
-                });
-            });
-        </script>
     </div>
     <div id="footer">
         <p>Copyright &copy; 2024 <a href="#">Thomas Patrick McDonnell</a> &middot; 
