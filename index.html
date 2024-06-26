@@ -1,17 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Folksong Collection</title>
-<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
-<link rel="stylesheet" type="text/css" href="print.css" media="print" />
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audio Player</title>
-
-
+    <title>Folksong Collection</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,117 +28,72 @@
             text-decoration: underline;
         }
     </style>
-
-
 </head>
 <body>
 <div id="wrap">
-  <div id="header">
-    <h1><a href="#">Folksong Collection</a></h1>
-    <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="">Tracks</a> &middot; <a href="">Comment</a></p>
-  </div>
-  <img id="frontphoto" src="img/1812TheaterHeader.jpg" width="760" height="190" alt="" />
-  <div id="leftside">
-    <h2 class="hide">Menu:</h2>
-    <ul class="avmenu">
-      <li><a href="#">Home</a></li>
-      <li><a class="current" href="">Folksongs</a></li>
-      <li><a href="">About</a></li>
-      <li><a href="Tracks.html">Tracks</a></li>
-      <li><a href="">Comment</a>
-
-<!--    <ul>
-      <li><a href="#">Subpage 1</a></li>
-          <li><a href="#">Subpage 2</a></li> 
-        </ul> 
--->
-      </li>
-
-      <li><a href="">Something Else</a></li>
-    </ul>
-<!--   <div class="announce">
-      <h2>Version history</h2>
-      <p>Previous versions of the andreas01 website template:</p>
-      <p><strong>Jan 11, 2007:</strong><br />
-       Improved: v2.5!</p>
-      <p><strong>June 25, 2006:</strong><br />
-        Major upgrade: v2.0.</p>
-      <p><strong>June 25, 2005:</strong><br />
-        First release: v1.0.</p>
-      <p class="textright"><a href="#">Read more...</a></p>
+    <div id="header">
+        <h1><a href="#">Folksong Collection</a></h1>
+        <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="Tracks.html">Tracks</a> &middot; <a href="">Comment</a></p>
     </div>
--->
+    <img id="frontphoto" src="img/1812TheaterHeader.jpg" width="760" height="190" alt="" />
+    <div id="leftside">
+        <h2 class="hide">Menu:</h2>
+        <ul class="avmenu">
+            <li><a href="#">Home</a></li>
+            <li><a class="current" href="">Folksongs</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="Tracks.html">Tracks</a></li>
+            <li><a href="">Comment</a></li>
+            <li><a href="">Something Else</a></li>
+        </ul>
+    </div>
+    <div id="contentwide">
+        <h1>Audio Player</h1>
+        <audio id="audio-player" controls>
+            Your browser does not support the audio element.
+        </audio>
+        <ul class="song-list" id="playlist">
+            <!-- Playlist items will be dynamically added here -->
+        </ul>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const audioPlayer = document.getElementById('audio-player');
+                const playlist = document.getElementById('playlist');
 
+                // Function to add a song to the playlist
+                function addToPlaylist(songSrc, songTitle) {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = songTitle;
+                    listItem.setAttribute('data-src', songSrc);
+                    listItem.addEventListener('click', function() {
+                        audioPlayer.src = songSrc;
+                        audioPlayer.play();
+                    });
+                    playlist.appendChild(listItem);
+                }
 
-</div>
-  <div id="contentwide">
+                // Load playlist from localStorage
+                const savedPlaylist = JSON.parse(localStorage.getItem('playlist')) || [];
+                savedPlaylist.forEach(song => addToPlaylist(song.src, song.title));
 
- <h1>Audio Player</h1>
+                // Listen for songs added via localStorage
+                window.addEventListener('storage', function(event) {
+                    if (event.key === 'newSong') {
+                        const newSong = JSON.parse(event.newValue);
+                        addToPlaylist(newSong.src, newSong.title);
 
-    <audio id="audio-player" controls>
-        Your browser does not support the audio element.
-    </audio>
-
-    <ul class="song-list" id="playlist">
-        <li data-src="Tracks/Coming Through The Rye.mp3">Coming Through The Rye</li>
-        <li data-src="song2.mp3">Song 2</li>
-        <li data-src="song3.mp3">Song 3</li>
-        <!-- Add more songs here as needed -->
-    </ul>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const audioPlayer = document.getElementById('audio-player');
-            const playlistItems = document.querySelectorAll('#playlist li');
-
-            playlistItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const songSrc = this.getAttribute('data-src');
-                    audioPlayer.src = songSrc;
-                    audioPlayer.play();
+                        // Update the saved playlist in localStorage
+                        savedPlaylist.push(newSong);
+                        localStorage.setItem('playlist', JSON.stringify(savedPlaylist));
+                    }
                 });
             });
-        });
-    </script>
-
-<!--
-    <h2>Welcome to the McDonnell Family History Website</h2>
-    <p>This is a simple landing page for links to information about the descendants of Patrick McDonnell and related families.  Some of the documents are stored in a Google Drive folder.</p>
-
-<p>The full family history in searchable genealogy format is linked to a subsite on the Roots Magic website.  You can search for families and individuals in a name index on that site.  From there you can view individual and family profiles from a dynamic pedigree chart along with family photos.  The Roots Magic database can be downloaded in full in the format of a Roots Magic file for import into the Roots Magic application on your home computer.</p>
-
-<p>A standard GEDCOM file (genealogical Data communication file) can also be downloaded to import into any of the other family history management applications.</p>
-
-     <h3>Patrick McDonnell</h3>
-    <img src="img/PatrickMcDonnell200x200px.jpg" height="200" width="200" class="right" alt="Patrick McDonnell image" />
-    <p>The short story about Patrick McDonnell is that he was born, possibly in Dublin, in 1813.  He worked as a driver before immigrating to the U.S. around 1850.  His first wife was Deliah, maiden name unknown.  With Deliah Patrick had one son before leaving Ireland, Thomas.  His second son was born to Cecile Connelly in Brooklyn, New York in 1856.  Patrick and his sons worked as railroad laborers moving westward from New York through Chicago before settling in Kansas City, Missouri sometime before 1890.</p>
-
-<img src="" height "50" width="50" />
-
-<h3>Philip McManus</h3>
-    <img src="img/PhilipMcManusTombstonewidth200px.jpg" height="299" width="200" class="right" alt="Patrick McDonnell image" />
-    <p>The McManus family in America descended from Philip McManus who was born in 1829 in County Fermanagh, the son of Philip (b 1804) and Rosanna (nee Foley) McManus. Two of Philip's sisters also emigrated to the U.S. - Catherine (b 1834) and Rosannah (b 1840).  Having arrived in Philadephia in 1855, Philip and his sisters lived in Indiana near Bean Blossom Township, then in Bloomington and Terre Haute until the start of the Civil War.</p>
-
-<p>At age 27 Philip joinied the "Monroe Grenadiers" and served in the Union Army Company F of the 27th Indiana Volunteer Infantry Regiment until he was wounded at Antietam and discharged from an army hospital in May of 1863.  Philip married Margaret Reilly (1838-1891). The family moved from Indiana to settle on a 160-acre farm near Baring, Knox County, Missouri, where they raised six sons and a daughter.  </p>
-
--->
-
-<!--    <h3>Adding your own header image</h3>
-    <p>The default header image shows a snowy street in the small town of Porjus, northern Sweden. It is easy to add a custom header. Just replace front.jpg with an image of your own! If you use the same file name and image size as the default image, 760x175 pixels, you don't need to edit the header image tag at all.</p> -->
-
- 
-  </div>
-  <div id="footer">
-    <p>Copyright &copy; 2024 <a href="#">Thomas Patrick McDonnell</a> &middot; 
-
-<!--Design by <a href="http://andreasviklund.com/">Andreas Viklund</a>
--->
- | <a href="#">Homepage</a></p>
-  </div>
+        </script>
+    </div>
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="#">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="#">Homepage</a></p>
+    </div>
 </div>
-
-
-
 </body>
 </html>

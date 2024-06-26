@@ -1,17 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Folksong Collection</title>
-<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
-<link rel="stylesheet" type="text/css" href="print.css" media="print" />
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audio Player</title>
-
-
+    <title>Folksong Collection</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,53 +28,46 @@
             text-decoration: underline;
         }
     </style>
-
-
 </head>
 <body>
 <div id="wrap">
-  <div id="header">
-    <h1><a href="#">Folksong Collection</a></h1>
-    <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="">Tracks</a> &middot; <a href="">Comment</a></p>
-  </div>
-  <img id="frontphoto" src="img/Notesheader2.jpg" width="760" height="190" alt="" />
+    <div id="header">
+        <h1><a href="#">Folksong Collection</a></h1>
+        <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="">Tracks</a> &middot; <a href="">Comment</a></p>
+    </div>
+    <img id="frontphoto" src="img/Notesheader2.jpg" width="760" height="190" alt="" />
+    <div id="contentwide">
+        <h1>Select Tracks</h1>
+        <ul class="track-list">
+            <li data-src="Tracks/Coming Through The Rye.mp3" data-title="Coming Through The Rye">Coming Through The Rye</li>
+            <li data-src="Tracks/song2.mp3" data-title="Song 2">Song 2</li>
+            <li data-src="Tracks/song3.mp3" data-title="Song 3">Song 3</li>
+        </ul>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const trackListItems = document.querySelectorAll('.track-list li');
 
-<!--
-  <div id="leftside">
-    <h2 class="hide">Menu:</h2>
-    <ul class="avmenu">
-      <li><a href="#">Home</a></li>
-      <li><a class="current" href="">Folksongs</a></li>
-      <li><a href="">About</a></li>
-      <li><a href="Tracks.html">Tracks</a></li>
-      <li><a href="">Comment</a>
--->
+                trackListItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        const songSrc = this.getAttribute('data-src');
+                        const songTitle = this.getAttribute('data-title');
+                        const newSong = { src: songSrc, title: songTitle };
 
-    <h1>Select Tracks</h1>
-    <ul class="track-list">
-        <li data-src="Tracks/Coming Through The Rye.mp3" data-title="Coming Through The Rye">Coming Through The Rye</li>
-        <li data-src="Tracks/song2.mp3" data-title="Song 2">Song 2</li>
-        <li data-src="Tracks/song3.mp3" data-title="Song 3">Song 3</li>
-    </ul>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const trackListItems = document.querySelectorAll('.track-list li');
-
-            trackListItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const songSrc = this.getAttribute('data-src');
-                    const songTitle = this.getAttribute('data-title');
-                    const newSong = { src: songSrc, title: songTitle };
-
-                    // Add song to localStorage and trigger storage event
-                    localStorage.setItem('newSong', JSON.stringify(newSong));
-                    // Remove the item immediately after to ensure the event fires each time
-                    setTimeout(() => localStorage.removeItem('newSong'), 0);
-                    alert(`Added ${songTitle} to playlist.`);
+                        // Add song to localStorage and trigger storage event
+                        localStorage.setItem('newSong', JSON.stringify(newSong));
+                        // Remove the item immediately after to ensure the event fires each time
+                        setTimeout(() => localStorage.removeItem('newSong'), 0);
+                        alert(`Added ${songTitle} to playlist.`);
+                    });
                 });
             });
-        });
-    </script>
+        </script>
+    </div>
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="#">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="#">Homepage</a></p>
+    </div>
+</div>
 </body>
 </html>
+
