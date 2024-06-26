@@ -133,36 +133,7 @@
 <!--    <h3>Adding your own header image</h3>
     <p>The default header image shows a snowy street in the small town of Porjus, northern Sweden. It is easy to add a custom header. Just replace front.jpg with an image of your own! If you use the same file name and image size as the default image, 760x175 pixels, you don't need to edit the header image tag at all.</p> -->
 
- <h1>Audio Player</h1>
-
-    <audio id="audio-player" controls>
-        Your browser does not support the audio element.
-    </audio>
-
-    <ul class="song-list" id="playlist">
-        <li data-src="Tracks/Coming Through The Rye.mp3">Coming Through The Rye</li>
-        <li data-src="song2.mp3">Song 2</li>
-        <li data-src="song3.mp3">Song 3</li>
-        <!-- Add more songs here as needed -->
-    </ul>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const audioPlayer = document.getElementById('audio-player');
-            const playlistItems = document.querySelectorAll('#playlist li');
-
-            playlistItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const songSrc = this.getAttribute('data-src');
-                    audioPlayer.src = songSrc;
-                    audioPlayer.play();
-                });
-            });
-        });
-    </script>
-
-
+ 
   </div>
   <div id="footer">
     <p>Copyright &copy; 2024 <a href="#">Thomas Patrick McDonnell</a> &middot; 
