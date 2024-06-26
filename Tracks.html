@@ -20,11 +20,13 @@
         .track-list {
             list-style-type: none;
             padding: 0;
-<!--        margin: 0; /* Adjust margin to remove space */  -->
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
         }
         .track-list li {
-            margin: 5px 0;
- <!--       line-height: 1.5; /* Set line height for single spacing */ -->
+            margin: 0;
+            line-height: 1.5; /* Set line height for single spacing */
             cursor: pointer;
             color: #000; /* Default text color */
         }
