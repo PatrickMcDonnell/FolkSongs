@@ -43,7 +43,7 @@
     <h1><a href="#">Folksong Collection</a></h1>
     <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="">Tracks</a> &middot; <a href="">Comment</a></p>
   </div>
-  <img id="frontphoto" src="img/1812TheaterHeader.jpg" width="768" height="192" alt="" />
+  <img id="frontphoto" src="img/1812TheaterHeader.jpg" width="768" height="190" alt="" />
   <div id="leftside">
     <h2 class="hide">Menu:</h2>
     <ul class="avmenu">
@@ -75,9 +75,40 @@
     </div>
 -->
 
-<!--
+
 </div>
   <div id="contentwide">
+
+ <h1>Audio Player</h1>
+
+    <audio id="audio-player" controls>
+        Your browser does not support the audio element.
+    </audio>
+
+    <ul class="song-list" id="playlist">
+        <li data-src="Tracks/Coming Through The Rye.mp3">Coming Through The Rye</li>
+        <li data-src="song2.mp3">Song 2</li>
+        <li data-src="song3.mp3">Song 3</li>
+        <!-- Add more songs here as needed -->
+    </ul>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audio-player');
+            const playlistItems = document.querySelectorAll('#playlist li');
+
+            playlistItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const songSrc = this.getAttribute('data-src');
+                    audioPlayer.src = songSrc;
+                    audioPlayer.play();
+                });
+            });
+        });
+    </script>
+
+<!--
     <h2>Welcome to the McDonnell Family History Website</h2>
     <p>This is a simple landing page for links to information about the descendants of Patrick McDonnell and related families.  Some of the documents are stored in a Google Drive folder.</p>
 
