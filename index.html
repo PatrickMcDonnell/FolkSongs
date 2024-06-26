@@ -60,20 +60,28 @@
                 const audioPlayer = document.getElementById('audio-player');
                 const playlist = document.getElementById('playlist');
 
+                let currentTrackIndex = 0;
+                let savedPlaylist = JSON.parse(localStorage.getItem('playlist')) || [];
+
                 // Function to add a song to the playlist
                 function addToPlaylist(songSrc, songTitle) {
                     const listItem = document.createElement('li');
                     listItem.textContent = songTitle;
                     listItem.setAttribute('data-src', songSrc);
                     listItem.addEventListener('click', function() {
-                        audioPlayer.src = songSrc;
-                        audioPlayer.play();
+                        currentTrackIndex = [...playlist.children].indexOf(listItem);
+                        playSong(songSrc);
                     });
                     playlist.appendChild(listItem);
                 }
 
+                // Function to play a song
+                function playSong(songSrc) {
+                    audioPlayer.src = songSrc;
+                    audioPlayer.play();
+                }
+
                 // Load playlist from localStorage
-                const savedPlaylist = JSON.parse(localStorage.getItem('playlist')) || [];
                 savedPlaylist.forEach(song => addToPlaylist(song.src, song.title));
 
                 // Listen for songs added via localStorage
@@ -87,6 +95,15 @@
                         localStorage.setItem('playlist', JSON.stringify(savedPlaylist));
                     }
                 });
+
+                // Play next song when current one ends
+                audioPlayer.addEventListener('ended', function() {
+                    currentTrackIndex++;
+                    if (currentTrackIndex < playlist.children.length) {
+                        const nextTrack = playlist.children[currentTrackIndex];
+                        playSong(nextTrack.getAttribute('data-src'));
+                    }
+                });
             });
         </script>
     </div>
@@ -97,3 +114,4 @@
 </div>
 </body>
 </html>
+

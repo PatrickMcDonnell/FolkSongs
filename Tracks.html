@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Folksong Collection</title>
+    <title>Folksong Collection - Select Tracks</title>
     <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
     <link rel="stylesheet" type="text/css" href="print.css" media="print" />
     <style>
@@ -17,15 +17,23 @@
             padding: 20px;
             color: #000; /* Set text color to black */
         }
-        .song-list {
+        .track-list {
             list-style-type: none;
             padding: 0;
         }
-        .song-list li {
+        .track-list li {
             margin: 5px 0;
             cursor: pointer;
             color: #000; /* Set text color to black */
             text-decoration: underline;
+        }
+        .finished-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -40,34 +48,43 @@
         <h1>Select Tracks</h1>
         <ul class="track-list">
             <li data-src="Tracks/Coming Through The Rye.mp3" data-title="Coming Through The Rye">Coming Through The Rye</li>
-            <li data-src="Tracks/Goober Peas.mp3" data-title="Song 2">Goober Peas</li>
-            <li data-src="Tracks/Geordie.mp3" data-title="Geordie">Geordie</li>
+            <li data-src="Tracks/song2.mp3" data-title="Song 2">Song 2</li>
+            <li data-src="Tracks/song3.mp3" data-title="Song 3">Song 3</li>
+            <!-- Add more tracks here as needed -->
         </ul>
+        <button class="finished-button" id="finished-selecting">Finished Selecting</button>
+
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const trackListItems = document.querySelectorAll('.track-list li');
+                const finishedButton = document.getElementById('finished-selecting');
+
+                finishedButton.addEventListener('click', function() {
+                    const selectedPlaylist = [];
+                    trackListItems.forEach(item => {
+                        if (item.classList.contains('selected')) {
+                            const songSrc = item.getAttribute('data-src');
+                            const songTitle = item.textContent;
+                            selectedPlaylist.push({ src: songSrc, title: songTitle });
+                        }
+                    });
+
+                    // Store selected playlist in localStorage
+                    localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+                    // Redirect back to index.html
+                    window.location.href = 'index.html';
+                });
 
                 trackListItems.forEach(item => {
                     item.addEventListener('click', function() {
-                        const songSrc = this.getAttribute('data-src');
-                        const songTitle = this.getAttribute('data-title');
-                        const newSong = { src: songSrc, title: songTitle };
-
-                        // Add song to localStorage and trigger storage event
-                        localStorage.setItem('newSong', JSON.stringify(newSong));
-                        // Remove the item immediately after to ensure the event fires each time
-                        setTimeout(() => localStorage.removeItem('newSong'), 0);
-                        alert(`Added ${songTitle} to playlist.`);
+                        item.classList.toggle('selected');
                     });
                 });
             });
         </script>
     </div>
     <div id="footer">
-        <p>Copyright &copy; 2024 <a href="#">Thomas Patrick McDonnell</a> &middot; 
-            | <a href="#">Homepage</a></p>
-    </div>
-</div>
-</body>
-</html>
+        <p>Copyright &copy; 2024 <a href="#">Thomas Patrick 
+
 
