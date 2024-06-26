@@ -79,6 +79,8 @@ p {
 #frontphoto {
     margin:0 0 10px;
     border:0;
+    max-width: 100%;
+    height: auto;
 }
 
 /***** Left sidebar *****/
@@ -369,16 +371,6 @@ ul.avmenu ul ul a {
 
 @media only screen and (max-width: 768px) {
     #header, #footer {
-        width: 100%;
-    }
-
-    #header h1 {
-        width: 100%;
-        font-size: 1.5em;
-        text-align: center;
-    }
-
-    #header p {
         width: 100%;
         text-align: center;
         float: none;
