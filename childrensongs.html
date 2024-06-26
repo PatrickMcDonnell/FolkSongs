@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folksong Collection - Children's Songs</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set default text color to black */
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
+        }
+        .track-list li {
+            margin: 0;
+            line-height: 1.5; /* Set line height for single spacing */
+            cursor: pointer;
+            color: #000; /* Default text color */
+        }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
+        }
+        .finished-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <h1><a href="#">Folksong Collection</a></h1>
+<!--
+        <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="">Tracks</a> &middot; <a href="">Comment</a></p>
+    </div>
+-->
+    <img id="frontphoto" src="img/Notesheader2.jpg" width="760" height="190" alt="" />
+<!--
+    <div id="contentwide">
+
+-->
+        <h1>Select Tracks</h1>
+
+        <button class="finished-button" id="finished-selecting">Finished Selecting</button>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const trackListItems = document.querySelectorAll('.track-list li');
+                const finishedButton = document.getElementById('finished-selecting');
+
+                finishedButton.addEventListener('click', function() {
+                    const selectedPlaylist = [];
+                    trackListItems.forEach(item => {
+                        if (item.classList.contains('selected')) {
+                            const songSrc = item.getAttribute('data-src');
+                            const songTitle = item.textContent;
+                            selectedPlaylist.push({ src: songSrc, title: songTitle });
+                        }
+                    });
+
+                    // Store selected playlist in localStorage
+                    localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+                    // Redirect back to index.html
+                    window.location.href = 'index.html';
+                });
+
+                trackListItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        item.classList.toggle('selected');
+                    });
+                });
+            });
+        </script>
+
+        <ul class="track-list">
+           
+<li data-src="Tracks/Buffalo Boy.mp3"data-title="Buffalo Boy">Buffalo Boy</li>
+<li data-src="Tracks/Cut The Cake.mp3"data-title="Cut The Cake">Cut The Cake</li>
+<li data-src="Tracks/Froggie Went A-Courtin'.mp3"data-title="Froggie Went A-Courtin'">Froggie Went A-Courtin'</li>
+<li data-src="Tracks/Goober Peas.mp3"data-title="Goober Peas">Goober Peas</li>
+<li data-src="Tracks/Grandfather's Clock.mp3"data-title="Grandfather's Clock">Grandfather's Clock</li>
+<li data-src="Tracks/Hush Little Baby.mp3"data-title="Hush Little Baby">Hush Little Baby</li>
+<li data-src="Tracks/I Wish I Was A Mole In The Ground.mp3"data-title="I Wish I Was A Mole In The Ground">I Wish I Was A Mole In The Ground</li>
+<li data-src="Tracks/Old King Cole.mp3"data-title="Old King Cole">Old King Cole</li>
+<li data-src="Tracks/Old McDonald.mp3"data-title="Old McDonald">Old McDonald</li>
+<li data-src="Tracks/Oo-de-Lally.mp3"data-title="Oo-de-Lally">Oo-de-Lally</li>
+<li data-src="Tracks/Polly Wally Doodle.mp3"data-title="Polly Wally Doodle">Polly Wally Doodle</li>
+<li data-src="Tracks/Riddle Song.mp3"data-title="Riddle Song">Riddle Song</li>
+<li data-src="Tracks/She'll Be Coming Round the Mountain.mp3"data-title="She'll Be Coming Round the Mountain">She'll Be Coming Round the Mountain</li>
+<li data-src="Tracks/Yankee Doodle.mp3"data-title="Yankee Doodle">Yankee Doodle</li>
+
+            <!-- Add more tracks here as needed -->
+        </ul>
+
+<!--
+    </div>
+-->
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="#">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="#">Homepage</a></p>
+    </div>
+</div>
+</body>
+</html>
+
