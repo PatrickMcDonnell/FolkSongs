@@ -15,7 +15,7 @@
             background-position: center;
             margin: 0;
             padding: 20px;
-            color: #000; /* Set text color to black */
+            color: #000; /* Set default text color to black */
         }
         .track-list {
             list-style-type: none;
@@ -24,14 +24,16 @@
         .track-list li {
             margin: 5px 0;
             cursor: pointer;
-            color: #000; /* Set text color to black */
-            text-decoration: underline;
+            color: #000; /* Default text color */
+        }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
         }
         .finished-button {
             margin-top: 20px;
             padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
             border: none;
             cursor: pointer;
         }
@@ -48,8 +50,8 @@
         <h1>Select Tracks</h1>
         <ul class="track-list">
             <li data-src="Tracks/Coming Through The Rye.mp3" data-title="Coming Through The Rye">Coming Through The Rye</li>
-            <li data-src="Tracks/Goober Peas.mp3" data-title="Goober Peas">Goober Peas</li>
-            <li data-src="Tracks/Caledonia.mp3" data-title="Caledonia">Caledonia</li>
+            <li data-src="Tracks/song2.mp3" data-title="Song 2">Song 2</li>
+            <li data-src="Tracks/song3.mp3" data-title="Song 3">Song 3</li>
             <!-- Add more tracks here as needed -->
         </ul>
         <button class="finished-button" id="finished-selecting">Finished Selecting</button>
@@ -85,6 +87,10 @@
         </script>
     </div>
     <div id="footer">
-        <p>Copyright &copy; 2024 <a href="#">Thomas Patrick 
-
+        <p>Copyright &copy; 2024 <a href="#">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="#">Homepage</a></p>
+    </div>
+</div>
+</body>
+</html>
 

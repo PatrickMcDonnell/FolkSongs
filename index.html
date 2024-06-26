@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Folksong Collection</title>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
     <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
     <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,7 +31,16 @@
             color: #000; /* Set text color to black */
             text-decoration: underline;
         }
+        .clear-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
     </style>
+
 </head>
 <body>
 <div id="wrap">
@@ -44,74 +57,75 @@
             <li><a href="">About</a></li>
             <li><a href="Tracks.html">Tracks</a></li>
             <li><a href="">Comment</a></li>
-            <li><a href="">Something Else</a></li>
+            <li><a href="#">Something Else</a></li>
         </ul>
     </div>
     <div id="contentwide">
         <h1>Audio Player</h1>
+
         <audio id="audio-player" controls>
             Your browser does not support the audio element.
         </audio>
+
         <ul class="song-list" id="playlist">
             <!-- Playlist items will be dynamically added here -->
         </ul>
+
+        <button class="clear-button" id="clear-playlist">Clear Playlist</button>
+
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const audioPlayer = document.getElementById('audio-player');
                 const playlist = document.getElementById('playlist');
+                const clearButton = document.getElementById('clear-playlist');
 
-                let currentTrackIndex = 0;
-                let savedPlaylist = JSON.parse(localStorage.getItem('playlist')) || [];
+                // Function to initialize playlist from localStorage
+                function initializePlaylist() {
+                    playlist.innerHTML = ''; // Clear existing playlist
+                    const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
 
-                // Function to add a song to the playlist
-                function addToPlaylist(songSrc, songTitle) {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = songTitle;
-                    listItem.setAttribute('data-src', songSrc);
-                    listItem.addEventListener('click', function() {
-                        currentTrackIndex = [...playlist.children].indexOf(listItem);
-                        playSong(songSrc);
-                    });
-                    playlist.appendChild(listItem);
+                    if (storedPlaylist) {
+                        storedPlaylist.forEach(song => {
+                            const li = document.createElement('li');
+                            li.textContent = song.title;
+                            li.setAttribute('data-src', song.src);
+                            li.classList.add('song-item');
+                            playlist.appendChild(li);
+                        });
+                    }
                 }
 
-                // Function to play a song
-                function playSong(songSrc) {
-                    audioPlayer.src = songSrc;
-                    audioPlayer.play();
+                // Function to clear playlist
+                function clearPlaylist() {
+                    localStorage.removeItem('playlist');
+                    playlist.innerHTML = ''; // Clear the displayed playlist
                 }
 
-                // Load playlist from localStorage
-                savedPlaylist.forEach(song => addToPlaylist(song.src, song.title));
+                // Event listener for clear playlist button
+                clearButton.addEventListener('click', function() {
+                    clearPlaylist();
+                });
 
-                // Listen for songs added via localStorage
-                window.addEventListener('storage', function(event) {
-                    if (event.key === 'newSong') {
-                        const newSong = JSON.parse(event.newValue);
-                        addToPlaylist(newSong.src, newSong.title);
-
-                        // Update the saved playlist in localStorage
-                        savedPlaylist.push(newSong);
-                        localStorage.setItem('playlist', JSON.stringify(savedPlaylist));
+                // Event listener for playing songs from playlist
+                playlist.addEventListener('click', function(event) {
+                    if (event.target && event.target.matches('li.song-item')) {
+                        const songSrc = event.target.getAttribute('data-src');
+                        audioPlayer.src = songSrc;
+                        audioPlayer.play();
                     }
                 });
 
-                // Play next song when current one ends
-                audioPlayer.addEventListener('ended', function() {
-                    currentTrackIndex++;
-                    if (currentTrackIndex < playlist.children.length) {
-                        const nextTrack = playlist.children[currentTrackIndex];
-                        playSong(nextTrack.getAttribute('data-src'));
-                    }
-                });
+                // Initialize playlist on page load
+                initializePlaylist();
             });
         </script>
+
     </div>
     <div id="footer">
-        <p>Copyright &copy; 2024 <a href="#">Thomas Patrick McDonnell</a> &middot; 
-            | <a href="#">Homepage</a></p>
+        <p>Copyright &copy; 2024 <a href="#">Thomas Patrick McDonnell</a> &middot; | <a href="#">Homepage</a></p>
     </div>
 </div>
 </body>
 </html>
+
 
