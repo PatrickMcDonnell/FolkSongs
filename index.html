@@ -37,6 +37,22 @@
             border: none;
             cursor: pointer;
         }
+        .search-container {
+            margin-top: 20px;
+        }
+        .search-input {
+            padding: 10px;
+            width: 80%;
+            font-size: 16px;
+        }
+        .search-button {
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -78,11 +94,23 @@
 
         <button class="clear-button" id="clear-playlist">Clear Playlist</button>
 
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="Search for songs..." />
+            <button id="search-button" class="search-button">Search</button>
+        </div>
+
+        <ul class="song-list" id="search-results">
+            <!-- Search results will be dynamically added here -->
+        </ul>
+
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const audioPlayer = document.getElementById('audio-player');
                 const playlist = document.getElementById('playlist');
                 const clearButton = document.getElementById('clear-playlist');
+                const searchInput = document.getElementById('search-input');
+                const searchButton = document.getElementById('search-button');
+                const searchResults = document.getElementById('search-results');
                 let currentSongIndex = 0;
 
                 // Function to initialize playlist from localStorage
@@ -117,6 +145,30 @@
                     currentSongIndex = 0; // Reset current song index
                 }
 
+                // Function to search for songs in Tracks.html
+                function searchSongs(query) {
+                    fetch('Tracks.html')
+                        .then(response => response.text())
+                        .then(data => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(data, 'text/html');
+                            const allSongs = doc.querySelectorAll('.song-item');
+                            searchResults.innerHTML = ''; // Clear previous search results
+
+                            allSongs.forEach(song => {
+                                const title = song.textContent || song.innerText;
+                                if (title.toLowerCase().includes(query.toLowerCase())) {
+                                    const li = document.createElement('li');
+                                    li.textContent = title;
+                                    li.setAttribute('data-src', song.getAttribute('data-src'));
+                                    li.classList.add('song-item');
+                                    searchResults.appendChild(li);
+                                }
+                            });
+                        })
+                        .catch(error => console.error('Error fetching tracks:', error));
+                }
+
                 // Event listener for clear playlist button
                 clearButton.addEventListener('click', function() {
                     clearPlaylist();
@@ -132,6 +184,15 @@
                     }
                 });
 
+                // Event listener for playing songs from search results
+                searchResults.addEventListener('click', function(event) {
+                    if (event.target && event.target.matches('li.song-item')) {
+                        const songSrc = event.target.getAttribute('data-src');
+                        audioPlayer.src = songSrc;
+                        audioPlayer.play();
+                    }
+                });
+
                 // Event listener for ended song
                 audioPlayer.addEventListener('ended', function() {
                     currentSongIndex++;
@@ -142,6 +203,14 @@
                         audioPlayer.play();
                     } else {
                         currentSongIndex = 0; // Reset to beginning of playlist
+                    }
+                });
+
+                // Event listener for search button
+                searchButton.addEventListener('click', function() {
+                    const query = searchInput.value;
+                    if (query) {
+                        searchSongs(query);
                     }
                 });
 
