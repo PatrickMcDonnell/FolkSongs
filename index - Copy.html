@@ -98,13 +98,6 @@
                             li.classList.add('song-item');
                             playlist.appendChild(li);
                         });
-
-                        // Automatically play the first song if the playlist is not empty
-                        if (storedPlaylist.length > 0) {
-                            const firstSong = playlist.children[0];
-                            audioPlayer.src = firstSong.getAttribute('data-src');
-                            audioPlayer.play();
-                        }
                     }
                 }
 
@@ -157,3 +150,5 @@
 </div>
 </body>
 </html>
+
+
