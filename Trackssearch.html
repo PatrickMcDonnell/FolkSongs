@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folksong Collection - Select Tracks</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set default text color to black */
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
+        }
+        .track-list li {
+            margin: 0;
+            line-height: 1.5; /* Set line height for single spacing */
+            cursor: pointer;
+            color: #000; /* Default text color */
+        }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
+        }
+        .finished-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
+        .search-container {
+            margin-bottom: 20px;
+        }
+        .search-input {
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <h1><a href="#">Folksong Collection</a></h1>
+<!--
+        <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="">Tracks</a> &middot; <a href="">Comment</a></p>
+    </div>
+-->
+    <img id="frontphoto" src="img/Notesheader2.jpg" width="760" height="190" alt="" />
+<!--
+    <div id="contentwide">
+
+-->
+        <h1>Select Tracks</h1>
+
+        <div class="search-container">
+            <input type="text" class="search-input" id="search-input" placeholder="Search for a song...">
+        </div>
+
+        <button class="finished-button" id="finished-selecting">Play</button>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const trackListItems = document.querySelectorAll('.track-list li');
+                const finishedButton = document.getElementById('finished-selecting');
+                const searchInput = document.getElementById('search-input');
+
+                finishedButton.addEventListener('click', function() {
+                    const selectedPlaylist = [];
+                    trackListItems.forEach(item => {
+                        if (item.classList.contains('selected')) {
+                            const songSrc = item.getAttribute('data-src');
+                            const songTitle = item.textContent;
+                            selectedPlaylist.push({ src: songSrc, title: songTitle });
+                        }
+                    });
+
+                    // Store selected playlist in localStorage
+                    localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+                    // Redirect back to index.html
+                    window.location.href = 'index.html';
+                });
+
+                trackListItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        item.classList.toggle('selected');
+                    });
+                });
+
+                searchInput.addEventListener('input', function() {
+                    const filter = searchInput.value.toLowerCase();
+                    trackListItems.forEach(item => {
+                        const text = item.textContent.toLowerCase();
+                        if (text.includes(filter)) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <ul class="track-list">
+            <li data-src="Tracks/A Drink for My Father.mp3" data-title="A Drink for My Father">A Drink for My Father</li>
+            <li data-src="Tracks/Ain't Nobody's Dirty Business.mp3" data-title="Ain't Nobody's Dirty Business">Ain't Nobody's Dirty Business</li>
+            <li data-src="Tracks/All For Me Grog.mp3" data-title="All For Me Grog">All For Me Grog</li>
+            <li data-src="Tracks/Amazing Grace.mp3" data-title="Amazing Grace">Amazing Grace</li>
+            <li data-src="Tracks/Anachie Gordon.mp3" data-title="Anachie Gordon">Anachie Gordon</li>
+            <li data-src="Tracks/Auld Lang Syne.mp3" data-title="Auld Lang Syne">Auld Lang Syne</li>
+            <li data-src="Tracks/Awa' wi' Your Witchcraft o' Beauty's Alarms.mp3" data-title="Awa' wi' Your Witchcraft o' Beauty's Alarms">Awa' wi' Your Witchcraft o' Beauty's Alarms</li>
+            <li data-src="Tracks/Barbara Allen.mp3" data-title="Barbara Allen">Barbara Allen</li>
+            <li data-src="Tracks/Bard of Armagh.mp3" data-title="Bard of Armagh">Bard of Armagh</li>
+            <li data-src="Tracks/Battle Of New Orleans.mp3" data-title="Battle Of New Orleans">Battle Of New Orleans</li>
+            <li data-src="Tracks/Believe Me If All Those Endearing Young Charms.mp3" data-title="Believe Me If All Those Endearing Young Charms">Believe Me If All Those Endearing Young Charms</li>
+            <li data-src="Tracks/Beware o' Bonnie Ann.mp3" data-title="Beware o' Bonnie Ann">Beware o' Bonnie Ann</li>
+            <li data-src="Tracks/Black Velvet Band.mp3" data-title="Black Velvet Band">Black Velvet Band</li>
+            <li data-src="Tracks/Blow Away The Morning Dew.mp3" data-title="Blow Away The Morning Dew">Blow Away The Morning Dew</li>
+            <li data-src="Tracks/Blow The Candles Out.mp3" data-title="Blow The Candles Out">Blow The Candles Out</li>
+            <li data-src="Tracks/Blow The Man Down (1).mp3" data-title="Blow The Man Down (1)">Blow The Man Down (1)</li>
+            <li data-src="Tracks/Blow The Man Down.mp3" data-title="Blow The Man Down">Blow The Man Down</li>
+            <li data-src="Tracks/Bold Fenian Men.mp3" data-title="Bold Fenian Men">Bold Fenian Men</li>
+            <li data-src="Tracks/Both Sides the Tweed.mp3" data-title="Both Sides the Tweed">Both Sides the Tweed</li>
+            <li data-src="Tracks/Buffalo Boy.mp3" data-title="Buffalo Boy">Buffalo Boy</li>
+            <li data-src="Tracks/Buttermilk Hill.mp3" data-title="Buttermilk Hill">Buttermilk Hill</li>
+            <li data-src="Tracks/Caledonia.mp3" data-title="Caledonia">Caledonia</li>
+            <li data-src="Tracks/Can the Circle Be Unbroken.mp3" data-title="Can the Circle Be Unbroken">Can the Circle Be Unbroken</li>
+            <li data-src="Tracks/Clementine.mp3" data-title="Clementine">Clementine</li>
+            <li data-src="Tracks/Cod Liver Oil.mp3" data-title="Cod Liver Oil">Cod Liver Oil</li>
+            <li data-src="Tracks/Coming Through The Rye.mp3" data-title="Coming Through The Rye">Coming Through The Rye</li>
+            <li data-src="Tracks/Cut The Cake.mp3" data-title="Cut The Cake">Cut The Cake</li>
+            <li data-src="Tracks/Danny Boy.mp3" data-title="Danny Boy">Danny Boy</li>
+            <li data-src="Tracks/Danny's Song.mp3" data-title="Danny's Song">Danny's Song</li>
+            <li data-src="Tracks/Dead Horse.mp3" data-title="Dead Horse">Dead Horse</li>
+            <li data-src="Tracks/Do You Want Your Old Lobby Washed Down.mp3" data-title="Do You Want Your Old Lobby Washed Down">Do You Want Your Old Lobby Washed Down</li>
+            <li data-src="Tracks/Don't Forget Your Shovel.mp3" data-title="Don't Forget Your Shovel">Don't Forget Your Shovel</li>
+            <li data-src="Tracks/Down in the Valley.mp3" data-title="Down in the Valley">Down in the Valley</li>
+            <li data-src="Tracks/Drink To Me Only With Thine Eyes.mp3" data-title="Drink To Me Only With Thine Eyes">Drink To Me Only With Thine Eyes</li>
+            <li data-src="Tracks/Dublin Jack of All Trades.mp3" data-title="Dublin Jack of All Trades">Dublin Jack of All Trades</li>
+            <li data-src="Tracks/East Virginia.mp3" data-title="East Virginia">East Virginia</li>
+            <li data-src="Tracks/Edward.mp3" data-title="Edward">Edward</li>
+            <li data-src="Tracks/Eileen Aroon.mp3" data-title="Eileen Aroon">Eileen Aroon</li>
+            <li data-src="Tracks/Fiddler's Green.mp3" data-title="Fiddler's Green">Fiddler's Green</li>
+            <li data-src="Tracks/Fish and Chips.mp3" data-title="Fish and Chips">Fish and Chips</li>
+            <li data-src="Tracks/Foggy Dew.mp3" data-title="Foggy Dew">Foggy Dew</li>
+            <li data-src="Tracks/Fox On The Run.mp3" data-title="Fox On The Run">Fox On The Run</li>
+            <li data-src="Tracks/Frankie and Johnny.mp3" data-title="Frankie and Johnny">Frankie and Johnny</li>
+            <li data-src="Tracks/Galway Bay.mp3" data-title="Galway Bay">Galway Bay</li>
+            <li data-src="Tracks/Garden Song.mp3" data-title="Garden Song">Garden Song</li>
+            <li data-src="Tracks/Gentle Annie.mp3" data-title="Gentle Annie">Gentle Annie</li>
+            <li data-src="Tracks/Goin' Down Slow.mp3" data-title="Goin' Down Slow">Goin' Down Slow</li>
+            <li data-src="Tracks/Good Night Irene.mp3" data-title="Good Night Irene">Good Night Irene</li>
+            <li data-src="Tracks/Gordon.mp3" data-title="Gordon">Gordon</li>
+            <li data-src="Tracks/Gotta Get You.mp3" data-title="Gotta Get You">Gotta Get You</li>
+            <li data-src="Tracks/Green Fields of America.mp3" data-title="Green Fields of America">Green Fields of America</li>
+            <li data-src="Tracks/Green Grow the Lilacs.mp3" data-title="Green Grow the Lilacs">Green Grow the Lilacs</li>
+            <li data-src="Tracks/Gypsy Rover.mp3" data-title="Gypsy Rover">Gypsy Rover</li>
+            <li data-src="Tracks/Hannah.mp3" data-title="Hannah">Hannah</li>
+            <li data-src="Tracks/Haul Away Joe.mp3" data-title="Haul Away Joe">Haul Away Joe</li>
+            <li data-src="Tracks/He's Got The Whole World In His Hands.mp3" data-title="He's Got The Whole World In His Hands">He's Got The Whole World In His Hands</li>
+            <li data-src="Tracks/Here We Go Loop De Loop.mp3" data-title="Here We Go Loop De Loop">Here We Go Loop De Loop</li>
+            <li data-src="Tracks/High Germany.mp3" data-title="High Germany">High Germany</li>
+            <li data-src="Tracks/Holy Ground.mp3" data-title="Holy Ground">Holy Ground</li>
+            <li data-src="Tracks/Home From The Sea.mp3" data-title="Home From The Sea">Home From The Sea</li>
+            <li data-src="Tracks/House of the Rising Sun.mp3" data-title="House of the Rising Sun">House of the Rising Sun</li>
+            <li data-src="Tracks/I Am A Man Of Constant Sorrow.mp3" data-title="I Am A Man Of Constant Sorrow">I Am A Man Of Constant Sorrow</li>
+            <li data-src="Tracks/I Once Loved A Lass.mp3" data-title="I Once Loved A Lass">I Once Loved A Lass</li>
+            <li data-src="Tracks/I Ride An Old Paint.mp3" data-title="I Ride An Old Paint">I Ride An Old Paint</li>
+            <li data-src="Tracks/If I Had A Hammer.mp3" data-title="If I Had A Hammer">If I Had A Hammer</li>
+            <li data-src="Tracks/If I Were a Carpenter.mp3" data-title="If I Were a Carpenter">If I Were a Carpenter</li>
+            <li data-src="Tracks/Ill Fly Away.mp3" data-title="Ill Fly Away">Ill Fly Away</li>
+            <li data-src="Tracks/In The Garden.mp3" data-title="In The Garden">In The Garden</li>
+            <li data-src="Tracks/Irish Rover.mp3" data-title="Irish Rover">Irish Rover</li>
+            <li data-src="Tracks/Isn't It Grand.mp3" data-title="Isn't It Grand">Isn't It Grand</li>
+            <li data-src="Tracks/It's a Long Way to Tipperary.mp3" data-title="It's a Long Way to Tipperary">It's a Long Way to Tipperary</li>
+            <li data-src="Tracks/Jack of Diamonds.mp3" data-title="Jack of Diamonds">Jack of Diamonds</li>
+            <li data-src="Tracks/Jamaica Farewell.mp3" data-title="Jamaica Farewell">Jamaica Farewell</li>
+            <li data-src="Tracks/John Barleycorn.mp3" data-title="John Barleycorn">John Barleycorn</li>
+            <li data-src="Tracks/John Henry.mp3" data-title="John Henry">John Henry</li>
+            <li data-src="Tracks/Johnny McEldoo.mp3" data-title="Johnny McEldoo">Johnny McEldoo</li>
+            <li data-src="Tracks/Johnny's Gone for a Soldier.mp3" data-title="Johnny's Gone for a Soldier">Johnny's Gone for a Soldier</li>
+            <li data-src="Tracks/Jug of Punch.mp3" data-title="Jug of Punch">Jug of Punch</li>
+            <li data-src="Tracks/June Apple.mp3" data-title="June Apple">June Apple</li>
+            <li data-src="Tracks/Katie Morey.mp3" data-title="Katie Morey">Katie Morey</li>
+            <li data-src="Tracks/Katy.mp3" data-title="Katy">Katy</li>
+            <li data-src="Tracks/Kisses Sweeter Than Wine.mp3" data-title="Kisses Sweeter Than Wine">Kisses Sweeter Than Wine</li>
+            <li data-src="Tracks/Lakes of Ponchartrain.mp3" data-title="Lakes of Ponchartrain">Lakes of Ponchartrain</li>
+            <li data-src="Tracks/Leaving On A Jet Plane.mp3" data-title="Leaving On A Jet Plane">Leaving On A Jet Plane</li>
+            <li data-src="Tracks/Let Him Go Let Him Tarry.mp3" data-title="Let Him Go Let Him Tarry">Let Him Go Let Him Tarry</li>
+            <li data-src="Tracks/Li'l Liza Jane.mp3" data-title="Li'l Liza Jane">Li'l Liza Jane</li>
+            <li data-src="Tracks/Limerick Rake.mp3" data-title="Limerick Rake">Limerick Rake</li>
+            <li data-src="Tracks/Lord of the Dance.mp3" data-title="Lord of the Dance">Lord of the Dance</li>
+            <li data-src="Tracks/Loch Lomond.mp3" data-title="Loch Lomond">Loch Lomond</li>
+            <li data-src="Tracks/Long Black Veil.mp3" data-title="Long Black Veil">Long Black Veil</li>
+            <li data-src="Tracks/Long Lonesome Road.mp3" data-title="Long Lonesome Road">Long Lonesome Road</li>
+            <li data-src="Tracks/Maids When You’re Young Never Wed An Old Man.mp3" data-title="Maids When You’re Young Never Wed An Old Man">Maids When You’re Young Never Wed An Old Man</li>
+            <li data-src="Tracks/Makes A Long Time Man Feel Bad.mp3" data-title="Makes A Long Time Man Feel Bad">Makes A Long Time Man Feel Bad</li>
+            <li data-src="Tracks/Mari Mac.mp3" data-title="Mari Mac">Mari Mac</li>
+            <li data-src="Tracks/Mary Hamilton.mp3" data-title="Mary Hamilton">Mary Hamilton</li>
+            <li data-src="Tracks/Molly Malone.mp3" data-title="Molly Malone">Molly Malone</li>
+            <li data-src="Tracks/Morning Dew.mp3" data-title="Morning Dew">Morning Dew</li>
+            <li data-src="Tracks/Mountain Dew.mp3" data-title="Mountain Dew">Mountain Dew</li>
+            <li data-src="Tracks/My Darling Clementine.mp3" data-title="My Darling Clementine">My Darling Clementine</li>
+            <li data-src="Tracks/My Grandfather's Clock.mp3" data-title="My Grandfather's Clock">My Grandfather's Clock</li>
+            <li data-src="Tracks/My Little Mohee.mp3" data-title="My Little Mohee">My Little Mohee</li>
+            <li data-src="Tracks/Nell Flaherty's Drake.mp3" data-title="Nell Flaherty's Drake">Nell Flaherty's Drake</li>
+            <li data-src="Tracks/Never Marry An Old Man.mp3" data-title="Never Marry An Old Man">Never Marry An Old Man</li>
+            <li data-src="Tracks/New River Train.mp3" data-title="New River Train">New River Train</li>
+            <li data-src="Tracks/Norwegian Wood.mp3" data-title="Norwegian Wood">Norwegian Wood</li>
+            <li data-src="Tracks/Northwest Passage.mp3" data-title="Northwest Passage">Northwest Passage</li>
+            <li data-src="Tracks/Oh Danny Boy.mp3" data-title="Oh Danny Boy">Oh Danny Boy</li>
+            <li data-src="Tracks/Oh Shenandoah.mp3" data-title="Oh Shenandoah">Oh Shenandoah</li>
+            <li data-src="Tracks/Old Dan Tucker.mp3" data-title="Old Dan Tucker">Old Dan Tucker</li>
+            <li data-src="Tracks/Old House.mp3" data-title="Old House">Old House</li>
+            <li data-src="Tracks/Old Maid in the Garrett.mp3" data-title="Old Maid in the Garrett">Old Maid in the Garrett</li>
+            <li data-src="Tracks/Old Paint.mp3" data-title="Old Paint">Old Paint</li>
+            <li data-src="Tracks/One Morning in May.mp3" data-title="One Morning in May">One Morning in May</li>
+            <li data-src="Tracks/Ordinary Day.mp3" data-title="Ordinary Day">Ordinary Day</li>
+            <li data-src="Tracks/Pack Up Your Sorrows.mp3" data-title="Pack Up Your Sorrows">Pack Up Your Sorrows</li>
+            <li data-src="Tracks/Patriot Game.mp3" data-title="Patriot Game">Patriot Game</li>
+            <li data-src="Tracks/Plaisir D'Amour.mp3" data-title="Plaisir D'Amour">Plaisir D'Amour</li>
+            <li data-src="Tracks/Po' Boy.mp3" data-title="Po' Boy">Po' Boy</li>
+            <li data-src="Tracks/Polly Wolly Doodle.mp3" data-title="Polly Wolly Doodle">Polly Wolly Doodle</li>
+            <li data-src="Tracks/Pretty Polly.mp3" data-title="Pretty Polly">Pretty Polly</li>
+            <li data-src="Tracks/Railroad Bill.mp3" data-title="Railroad Bill">Railroad Bill</li>
+            <li data-src="Tracks/Rainbow Connection.mp3" data-title="Rainbow Connection">Rainbow Connection</li>
+            <li data-src="Tracks/Ramblin' Boy.mp3" data-title="Ramblin' Boy">Ramblin' Boy</li>
+            <li data-src="Tracks/Red River Valley.mp3" data-title="Red River Valley">Red River Valley</li>
+            <li data-src="Tracks/Ringsend Rose.mp3" data-title="Ringsend Rose">Ringsend Rose</li>
+            <li data-src="Tracks/Rock Island Line.mp3" data-title="Rock Island Line">Rock Island Line</li>
+            <li data-src="Tracks/Row Row Row Your Boat.mp3" data-title="Row Row Row Your Boat">Row Row Row Your Boat</li>
+            <li data-src="Tracks/Sailors Alphabet.mp3" data-title="Sailors Alphabet">Sailors Alphabet</li>
+            <li data-src="Tracks/San Francisco Bay Blues.mp3" data-title="San Francisco Bay Blues">San Francisco Bay Blues</li>
+            <li data-src="Tracks/Santa Ana.mp3" data-title="Santa Ana">Santa Ana</li>
+            <li data-src="Tracks/Scarlet Ribbons.mp3" data-title="Scarlet Ribbons">Scarlet Ribbons</li>
+            <li data-src="Tracks/She'll Be Coming Round the Mountain.mp3" data-title="She'll Be Coming Round the Mountain">She'll Be Coming Round the Mountain</li>
+            <li data-src="Tracks/Ship Titanic.mp3" data-title="Ship Titanic">Ship Titanic</li>
+            <li data-src="Tracks/Simplest Things.mp3" data-title="Simplest Things">Simplest Things</li>
+            <li data-src="Tracks/Sinner Man.mp3" data-title="Sinner Man">Sinner Man</li>
+            <li data-src="Tracks/Sitting on Top of the World.mp3" data-title="Sitting on Top of the World">Sitting on Top of the World</li>
+            <li data-src="Tracks/Sixteen Tons.mp3" data-title="Sixteen Tons">Sixteen Tons</li>
+            <li data-src="Tracks/Sloop John B.mp3" data-title="Sloop John B">Sloop John B</li>
+            <li data-src="Tracks/Snakes.mp3" data-title="Snakes">Snakes</li>
+            <li data-src="Tracks/So Long It’s Been Good To Know You.mp3" data-title="So Long It’s Been Good To Know You">So Long It’s Been Good To Know You</li>
+            <li data-src="Tracks/South Australia.mp3" data-title="South Australia">South Australia</li>
+            <li data-src="Tracks/Spanish Lady.mp3" data-title="Spanish Lady">Spanish Lady</li>
+            <li data-src="Tracks/Springhill Disaster.mp3" data-title="Springhill Disaster">Springhill Disaster</li>
+            <li data-src="Tracks/Star Of The County Down.mp3" data-title="Star Of The County Down">Star Of The County Down</li>
+            <li data-src="Tracks/Streets of Laredo.mp3" data-title="Streets of Laredo">Streets of Laredo</li>
+            <li data-src="Tracks/Summer Side of Life.mp3" data-title="Summer Side of Life">Summer Side of Life</li>
+            <li data-src="Tracks/Summertime.mp3" data-title="Summertime">Summertime</li>
+            <li data-src="Tracks/Sweet Betsy from Pike.mp3" data-title="Sweet Betsy from Pike">Sweet Betsy from Pike</li>
+            <li data-src="Tracks/Swing Low Sweet Chariot.mp3" data-title="Swing Low Sweet Chariot">Swing Low Sweet Chariot</li>
+            <li data-src="Tracks/Ten Thousand Miles Away.mp3" data-title="Ten Thousand Miles Away">Ten Thousand Miles Away</li>
+            <li data-src="Tracks/That's What's The Matter.mp3" data-title="That's What's The Matter">That's What's The Matter</li>
+            <li data-src="Tracks/There Is a Ship.mp3" data-title="There Is a Ship">There Is a Ship</li>
+            <li data-src="Tracks/There Was An Old Lady Who Swallowed A Fly.mp3" data-title="There Was An Old Lady Who Swallowed A Fly">There Was An Old Lady Who Swallowed A Fly</li>
+            <li data-src="Tracks/This Land Is Your Land.mp3" data-title="This Land Is Your Land">This Land Is Your Land</li>
+            <li data-src="Tracks/This Train.mp3" data-title="This Train">This Train</li>
+            <li data-src="Tracks/Three Drunken Maidens.mp3" data-title="Three Drunken Maidens">Three Drunken Maidens</li>
+            <li data-src="Tracks/Tinker’s Frolic.mp3" data-title="Tinker’s Frolic">Tinker’s Frolic</li>
+            <li data-src="Tracks/Tom Dooley.mp3" data-title="Tom Dooley">Tom Dooley</li>
+            <li data-src="Tracks/Tracks In The Snow.mp3" data-title="Tracks In The Snow">Tracks In The Snow</li>
+            <li data-src="Tracks/Tug Boat.mp3" data-title="Tug Boat">Tug Boat</li>
+            <li data-src="Tracks/Turkey in the Straw.mp3" data-title="Turkey in the Straw">Turkey in the Straw</li>
+            <li data-src="Tracks/Twas in the Moon of Wintertime.mp3" data-title="Twas in the Moon of Wintertime">Twas in the Moon of Wintertime</li>
+            <li data-src="Tracks/Twilight on the Trail.mp3" data-title="Twilight on the Trail">Twilight on the Trail</li>
+            <li data-src="Tracks/Twinkle Twinkle Little Star.mp3" data-title="Twinkle Twinkle Little Star">Twinkle Twinkle Little Star</li>
+            <li data-src="Tracks/Two Sisters.mp3" data-title="Two Sisters">Two Sisters</li>
+            <li data-src="Tracks/Wade in the Water.mp3" data-title="Wade in the Water">Wade in the Water</li>
+            <li data-src="Tracks/Walk Right In.mp3" data-title="Walk Right In">Walk Right In</li>
+            <li data-src="Tracks/Waltzing Matilda.mp3" data-title="Waltzing Matilda">Waltzing Matilda</li>
+            <li data-src="Tracks/Water Is Wide.mp3" data-title="Water Is Wide">Water Is Wide</li>
+            <li data-src="Tracks/Wayfaring Stranger.mp3" data-title="Wayfaring Stranger">Wayfaring Stranger</li>
+            <li data-src="Tracks/What Would You Do If You Married a Soldier.mp3" data-title="What Would You Do If You Married a Soldier">What Would You Do If You Married a Soldier</li>
+            <li data-src="Tracks/When The Saints Go Marching In.mp3" data-title="When The Saints Go Marching In">When The Saints Go Marching In</li>
+            <li data-src="Tracks/When You and I Were Young Maggie.mp3" data-title="When You and I Were Young Maggie">When You and I Were Young Maggie</li>
+            <li data-src="Tracks/Wild Mountain Thyme.mp3" data-title="Wild Mountain Thyme">Wild Mountain Thyme</li>
+            <li data-src="Tracks/Wild Rover.mp3" data-title="Wild Rover">Wild Rover</li>
+            <li data-src="Tracks/Wind.mp3" data-title="Wind">Wind</li>
+            <li data-src="Tracks/Worried Man Blues.mp3" data-title="Worried Man Blues">Worried Man Blues</li>
+            <li data-src="Tracks/Yellow Rose of Texas.mp3" data-title="Yellow Rose of Texas">Yellow Rose of Texas</li>
+            <li data-src="Tracks/You Are My Sunshine.mp3" data-title="You Are My Sunshine">You Are My Sunshine</li>
+        </ul>
+    </div>
+</div>
+
+<style>
+  body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; }
+  .container { max-width: 900px; margin: 20px auto; padding: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+  h1, h2, h3 { color: #444; }
+  .audio-container { text-align: center; }
+  .audio-container audio { width: 100%; max-width: 600px; margin-bottom: 20px; }
+  .playlist-container { text-align: left; margin-top: 20px; }
+  .playlist-container ul { list-style-type: none; padding: 0; }
+  .playlist-container li { padding: 10px; border-bottom: 1px solid #ddd; cursor: pointer; }
+  .playlist-container li:hover { background-color: #f9f9f9; }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var playlistItems = document.querySelectorAll('.playlist-container li');
+    var audioPlayer = document.getElementById('audioPlayer');
+
+    playlistItems.forEach(function(item) {
+      item.addEventListener('click', function() {
+        var src = item.getAttribute('data-src');
+        var title = item.getAttribute('data-title');
+        audioPlayer.src = src;
+        audioPlayer.play();
+        document.getElementById('audioTitle').innerText = title;
+      });
+    });
+  });
+</script>
+</body>
+</html>
+
