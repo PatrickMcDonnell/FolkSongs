@@ -277,21 +277,8 @@
 </div>
 
 <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var playlistItems = document.querySelectorAll('.playlist-container li');
-            var audioPlayer = document.getElementById('audioPlayer');
 
-            playlistItems.forEach(function(item) {
-                item.addEventListener('click', function() {
-                    var src = item.getAttribute('data-src');
-                    var title = item.getAttribute('data-title');
-                    audioPlayer.src = src;
-                    audioPlayer.play();
-                    document.getElementById('audioTitle').innerText = title;
-                });
-            });
-
-            // Add search functionality
+// Add search functionality
             var searchInput = document.createElement('input');
             searchInput.setAttribute('type', 'text');
             searchInput.setAttribute('id', 'searchInput');
