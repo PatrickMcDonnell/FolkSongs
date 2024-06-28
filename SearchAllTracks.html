@@ -89,42 +89,6 @@
                 });
             });
 </script>
-<script>
-// Add search functionality
-document.addEventListener('DOMContentLoaded', function() {
-    var playlistItems = document.querySelectorAll('.playlist-container li');
-    var audioPlayer = document.getElementById('audioPlayer');
-    var searchInput = document.createElement('input');
-    searchInput.setAttribute('type', 'text');
-    searchInput.setAttribute('id', 'searchInput');
-    searchInput.setAttribute('placeholder', 'Search for a song...');
-    document.querySelector('.container').insertBefore(searchInput, document.querySelector('.audio-container'));
-
-    searchInput.addEventListener('input', function() {
-        var filter = searchInput.value.toLowerCase();
-        playlistItems.forEach(function(item) {
-            var title = item.getAttribute('data-title').toLowerCase();
-            if (title.includes(filter)) {
-                item.style.display = '';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-    });
-
-    playlistItems.forEach(function(item) {
-        item.addEventListener('click', function() {
-            var src = item.getAttribute('data-src');
-            var title = item.getAttribute('data-title');
-            audioPlayer.src = src;
-            audioPlayer.play();
-            document.getElementById('audioTitle').innerText = title;
-        });
-    });
-});
-
-
-        </script>
 
         <ul class="track-list">
            
@@ -311,6 +275,43 @@ document.addEventListener('DOMContentLoaded', function() {
             | <a href="#">Homepage</a></p>
     </div>
 </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var playlistItems = document.querySelectorAll('.playlist-container li');
+            var audioPlayer = document.getElementById('audioPlayer');
+
+            playlistItems.forEach(function(item) {
+                item.addEventListener('click', function() {
+                    var src = item.getAttribute('data-src');
+                    var title = item.getAttribute('data-title');
+                    audioPlayer.src = src;
+                    audioPlayer.play();
+                    document.getElementById('audioTitle').innerText = title;
+                });
+            });
+
+            // Add search functionality
+            var searchInput = document.createElement('input');
+            searchInput.setAttribute('type', 'text');
+            searchInput.setAttribute('id', 'searchInput');
+            searchInput.setAttribute('placeholder', 'Search for a song...');
+            document.querySelector('.container').insertBefore(searchInput, document.querySelector('.audio-container'));
+
+            searchInput.addEventListener('input', function() {
+                var filter = searchInput.value.toLowerCase();
+                playlistItems.forEach(function(item) {
+                    var title = item.getAttribute('data-title').toLowerCase();
+                    if (title.includes(filter)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+
 </body>
 </html>
 
