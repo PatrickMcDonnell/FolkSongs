@@ -41,8 +41,8 @@
             border: none;
             cursor: pointer;
         }
-/* Add the following CSS for the footer */
-            #footer {
+        /* Add the following CSS for the footer */
+        #footer {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -54,24 +54,47 @@
 <body>
 <div id="wrap">
     <div id="header">
-        <h1><a href="#">Children's Songs</a></h1>
-<!--
+        <h1><a href="#">Children Songs</a></h1>
+        <!--
         <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="">Tracks</a> &middot; <a href="">Comment</a></p>
     </div>
 -->
-    <img id="frontphoto" src="img/kidonguitarheader2.jpg" width="760" height="190" alt="" />
-<!--
+    <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+    <!--
     <div id="contentwide">
-
--->
+    -->
         <h1>Select Tracks</h1>
 
+        <!-- Add the search input here -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+
         <button class="finished-button" id="finished-selecting">Play</button>
+
+  <ul class="track-list">
+           
+<li data-src="Tracks/Buffalo Boy.mp3"data-title="Buffalo Boy">Buffalo Boy</li>
+<li data-src="Tracks/Cut The Cake.mp3"data-title="Cut The Cake">Cut The Cake</li>
+<li data-src="Tracks/Froggie Went A-Courtin'.mp3"data-title="Froggie Went A-Courtin'">Froggie Went A-Courtin'</li>
+<li data-src="Tracks/Goober Peas.mp3"data-title="Goober Peas">Goober Peas</li>
+<li data-src="Tracks/Grandfather's Clock.mp3"data-title="Grandfather's Clock">Grandfather's Clock</li>
+<li data-src="Tracks/Hush Little Baby.mp3"data-title="Hush Little Baby">Hush Little Baby</li>
+<li data-src="Tracks/I Wish I Was A Mole In The Ground.mp3"data-title="I Wish I Was A Mole In The Ground">I Wish I Was A Mole In The Ground</li>
+<li data-src="Tracks/Old King Cole.mp3"data-title="Old King Cole">Old King Cole</li>
+<li data-src="Tracks/Old McDonald.mp3"data-title="Old McDonald">Old McDonald</li>
+<li data-src="Tracks/Oo-de-Lally.mp3"data-title="Oo-de-Lally">Oo-de-Lally</li>
+<li data-src="Tracks/Polly Wally Doodle.mp3"data-title="Polly Wally Doodle">Polly Wally Doodle</li>
+<li data-src="Tracks/Riddle Song.mp3"data-title="Riddle Song">Riddle Song</li>
+<li data-src="Tracks/She'll Be Coming Round the Mountain.mp3"data-title="She'll Be Coming Round the Mountain">She'll Be Coming Round the Mountain</li>
+<li data-src="Tracks/Yankee Doodle.mp3"data-title="Yankee Doodle">Yankee Doodle</li>
+
+            <!-- Add more tracks here as needed -->
+        </ul>
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const trackListItems = document.querySelectorAll('.track-list li');
                 const finishedButton = document.getElementById('finished-selecting');
+                const searchInput = document.getElementById('searchInput');
 
                 finishedButton.addEventListener('click', function() {
                     const selectedPlaylist = [];
@@ -95,32 +118,25 @@
                         item.classList.toggle('selected');
                     });
                 });
+
+                // Add search functionality
+                searchInput.addEventListener('input', function() {
+                    const filter = searchInput.value.toLowerCase();
+                    trackListItems.forEach(function(item) {
+                        const title = item.getAttribute('data-title').toLowerCase();
+                        if (title.includes(filter)) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
             });
         </script>
 
-        <ul class="track-list">
-           
-<li data-src="Tracks/Buffalo Boy.mp3"data-title="Buffalo Boy">Buffalo Boy</li>
-<li data-src="Tracks/Cut The Cake.mp3"data-title="Cut The Cake">Cut The Cake</li>
-<li data-src="Tracks/Froggie Went A-Courtin'.mp3"data-title="Froggie Went A-Courtin'">Froggie Went A-Courtin'</li>
-<li data-src="Tracks/Goober Peas.mp3"data-title="Goober Peas">Goober Peas</li>
-<li data-src="Tracks/Grandfather's Clock.mp3"data-title="Grandfather's Clock">Grandfather's Clock</li>
-<li data-src="Tracks/Hush Little Baby.mp3"data-title="Hush Little Baby">Hush Little Baby</li>
-<li data-src="Tracks/I Wish I Was A Mole In The Ground.mp3"data-title="I Wish I Was A Mole In The Ground">I Wish I Was A Mole In The Ground</li>
-<li data-src="Tracks/Old King Cole.mp3"data-title="Old King Cole">Old King Cole</li>
-<li data-src="Tracks/Old McDonald.mp3"data-title="Old McDonald">Old McDonald</li>
-<li data-src="Tracks/Oo-de-Lally.mp3"data-title="Oo-de-Lally">Oo-de-Lally</li>
-<li data-src="Tracks/Polly Wally Doodle.mp3"data-title="Polly Wally Doodle">Polly Wally Doodle</li>
-<li data-src="Tracks/Riddle Song.mp3"data-title="Riddle Song">Riddle Song</li>
-<li data-src="Tracks/She'll Be Coming Round the Mountain.mp3"data-title="She'll Be Coming Round the Mountain">She'll Be Coming Round the Mountain</li>
-<li data-src="Tracks/Yankee Doodle.mp3"data-title="Yankee Doodle">Yankee Doodle</li>
-
-            <!-- Add more tracks here as needed -->
-        </ul>
-
-<!--
+    <!--
     </div>
--->
+    -->
     <div id="footer">
         <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
             | <a href="homepage.html">Homepage</a></p>
@@ -128,4 +144,3 @@
 </div>
 </body>
 </html>
-

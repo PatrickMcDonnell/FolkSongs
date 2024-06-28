@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Child Ballads</title>
+    <title>Blues</title>
     <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
     <link rel="stylesheet" type="text/css" href="print.css" media="print" />
     <style>
@@ -41,8 +41,8 @@
             border: none;
             cursor: pointer;
         }
-/* Add the following CSS for the footer */
-            #footer {
+        /* Add the following CSS for the footer */
+        #footer {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -54,24 +54,45 @@
 <body>
 <div id="wrap">
     <div id="header">
-        <h1><a href="#">Child Ballads</a></h1>
-<!--
+        <h1><a href="#">Blues</a></h1>
+        <!--
         <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="">Tracks</a> &middot; <a href="">Comment</a></p>
     </div>
 -->
-    <img id="frontphoto" src="img/guitarheader2.jpg" width="760" height="190" alt="" />
-<!--
+    <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+    <!--
     <div id="contentwide">
-
--->
+    -->
         <h1>Select Tracks</h1>
 
+        <!-- Add the search input here -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+
         <button class="finished-button" id="finished-selecting">Play</button>
+
+ <ul class="track-list">
+           
+<li data-src="Tracks/Anachie Gordon.mp3"data-title="Anachie Gordon">Anachie Gordon</li>
+<li data-src="Tracks/Barbara Allen.mp3"data-title="Barbara Allen">Barbara Allen</li>
+<li data-src="Tracks/Blow Away The Morning Dew.mp3"data-title="Blow Away The Morning Dew">Blow Away The Morning Dew</li>
+<li data-src="Tracks/Farewell To Nova Scotia.mp3"data-title="Farewell To Nova Scotia">Farewell To Nova Scotia</li>
+<li data-src="Tracks/Geordie.mp3"data-title="Geordie">Geordie</li>
+<li data-src="Tracks/Greensleeves.mp3"data-title="Greensleeves">Greensleeves</li>
+<li data-src="Tracks/Gypsy Davy.mp3"data-title="Gypsy Davy">Gypsy Davy</li>
+<li data-src="Tracks/Hind Horn.mp3"data-title="Hind Horn">Hind Horn</li>
+<li data-src="Tracks/Lady Margaret.mp3"data-title="Lady Margaret">Lady Margaret</li>
+<li data-src="Tracks/Riddles Wisely Expounded.mp3"data-title="Riddles Wisely Expounded">Riddles Wisely Expounded</li>
+<li data-src="Tracks/The Cruel Brother.mp3"data-title="The Cruel Brother">The Cruel Brother</li>
+<li data-src="Tracks/The Golden Vanity.mp3"data-title="The Golden Vanity">The Golden Vanity</li>
+
+            <!-- Add more tracks here as needed -->
+        </ul>
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const trackListItems = document.querySelectorAll('.track-list li');
                 const finishedButton = document.getElementById('finished-selecting');
+                const searchInput = document.getElementById('searchInput');
 
                 finishedButton.addEventListener('click', function() {
                     const selectedPlaylist = [];
@@ -95,30 +116,25 @@
                         item.classList.toggle('selected');
                     });
                 });
+
+                // Add search functionality
+                searchInput.addEventListener('input', function() {
+                    const filter = searchInput.value.toLowerCase();
+                    trackListItems.forEach(function(item) {
+                        const title = item.getAttribute('data-title').toLowerCase();
+                        if (title.includes(filter)) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
             });
         </script>
 
-        <ul class="track-list">
-           
-<li data-src="Tracks/Anachie Gordon.mp3"data-title="Anachie Gordon">Anachie Gordon</li>
-<li data-src="Tracks/Barbara Allen.mp3"data-title="Barbara Allen">Barbara Allen</li>
-<li data-src="Tracks/Blow Away The Morning Dew.mp3"data-title="Blow Away The Morning Dew">Blow Away The Morning Dew</li>
-<li data-src="Tracks/Farewell To Nova Scotia.mp3"data-title="Farewell To Nova Scotia">Farewell To Nova Scotia</li>
-<li data-src="Tracks/Geordie.mp3"data-title="Geordie">Geordie</li>
-<li data-src="Tracks/Greensleeves.mp3"data-title="Greensleeves">Greensleeves</li>
-<li data-src="Tracks/Gypsy Davy.mp3"data-title="Gypsy Davy">Gypsy Davy</li>
-<li data-src="Tracks/Hind Horn.mp3"data-title="Hind Horn">Hind Horn</li>
-<li data-src="Tracks/Lady Margaret.mp3"data-title="Lady Margaret">Lady Margaret</li>
-<li data-src="Tracks/Riddles Wisely Expounded.mp3"data-title="Riddles Wisely Expounded">Riddles Wisely Expounded</li>
-<li data-src="Tracks/The Cruel Brother.mp3"data-title="The Cruel Brother">The Cruel Brother</li>
-<li data-src="Tracks/The Golden Vanity.mp3"data-title="The Golden Vanity">The Golden Vanity</li>
-
-            <!-- Add more tracks here as needed -->
-        </ul>
-
-<!--
+    <!--
     </div>
--->
+    -->
     <div id="footer">
         <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
             | <a href="homepage.html">Homepage</a></p>
@@ -126,4 +142,3 @@
 </div>
 </body>
 </html>
-
