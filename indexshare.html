@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>Folksong Collection</title>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set text color to black */
+        }
+        .song-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .song-list li {
+            margin: 5px 0;
+            cursor: pointer;
+            color: #000; /* Set text color to black */
+            text-decoration: underline;
+        }
+        .clear-button, .share-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <h1><a href="#">Folksong Collection</a></h1>
+<!--
+        <p>Families: <a href="#">Songs</a> &middot; <a href="#">About</a> &middot; <a href="Tracks.html">Tracks</a> &middot; <a href="#">Comment</a></p>
+-->
+    </div>
+    <ul class="song-list" id="playlist">
+        <!-- List of songs will be populated here -->
+    </ul>
+    <button class="clear-button" onclick="clearPlaylist()">Clear Playlist</button>
+    <button class="share-button" onclick="sharePlaylist()">Share Playlist</button>
+</div>
+<script>
+    const playlist = document.getElementById('playlist');
+
+    // Function to clear the playlist
+    function clearPlaylist() {
+        playlist.innerHTML = '';
+    }
+
+    // Function to share the playlist via email
+    function sharePlaylist() {
+        const songs = playlist.querySelectorAll('li');
+        if (songs.length === 0) {
+            alert('The playlist is empty.');
+            return;
+        }
+
+        let songList = '';
+        songs.forEach(song => {
+            songList += song.textContent + '\n';
+        });
+
+        const subject = encodeURIComponent('My Folksong Playlist');
+        const body = encodeURIComponent('Here is my playlist:\n\n' + songList);
+        const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+
+        window.location.href = mailtoLink;
+    }
+
+    // Example function to add songs to the playlist (You can replace this with your actual code)
+    function addSongToPlaylist(songName) {
+        const li = document.createElement('li');
+        li.textContent = songName;
+        playlist.appendChild(li);
+    }
+
+    // Example songs added to playlist (You can replace this with your actual code)
+    addSongToPlaylist('Song 1');
+    addSongToPlaylist('Song 2');
+    addSongToPlaylist('Song 3');
+</script>
+</body>
+</html>
+    <img id="frontphoto" src="img/1812TheaterHeader.jpg" width="760" height="190" alt="" />
+    <div id="leftside">
+        <h2 class="hide">Menu:</h2>
+        <ul class="avmenu">
+            <li><a href="Tracks.html">All Tracks</a></li>
+            <li><a href="blues.html">Blues</a></li>
+            <li><a href="childballads.html">Child Ballads</a></li>
+            <li><a href="childrensongs.html">Children's Songs</a></li>
+            <li><a href="country.html">Country</a></li>
+            <li><a href="folk.html">Folk Songs</a></li>
+            <li><a href="irish.html">Irish</a></li>
+            <li><a href="gospel.html">Gospel</a></li>
+            <li><a href="ocarolan.html">O'Carolan</a></li>
+            <li><a href="scottish.html">Scottish</a></li>
+            <li><a href="shanties.html">Shanties</a></li>
+        </ul>
+    </div>
+    <div id="contentwide">
+        <h1>Audio Player</h1>
+
+        <audio id="audio-player" controls>
+            Your browser does not support the audio element.
+        </audio>
+
+        <ul class="song-list" id="playlist">
+            <!-- Playlist items will be dynamically added here -->
+        </ul>
+
+        <button class="clear-button" id="clear-playlist">Clear Playlist</button>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const audioPlayer = document.getElementById('audio-player');
+                const playlist = document.getElementById('playlist');
+                const clearButton = document.getElementById('clear-playlist');
+                let currentSongIndex = 0;
+
+                // Function to initialize playlist from localStorage
+                function initializePlaylist() {
+                    playlist.innerHTML = ''; // Clear existing playlist
+                    const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
+
+                    if (storedPlaylist) {
+                        storedPlaylist.forEach((song, index) => {
+                            const li = document.createElement('li');
+                            li.textContent = song.title;
+                            li.setAttribute('data-src', song.src);
+                            li.classList.add('song-item');
+                            playlist.appendChild(li);
+                        });
+
+                        // Automatically play the first song if the playlist is not empty
+                        if (storedPlaylist.length > 0) {
+                            const firstSong = playlist.children[0];
+                            audioPlayer.src = firstSong.getAttribute('data-src');
+                            audioPlayer.play();
+                        }
+                    }
+                }
+
+                // Function to clear playlist
+                function clearPlaylist() {
+                    localStorage.removeItem('playlist');
+                    playlist.innerHTML = ''; // Clear the displayed playlist
+                    audioPlayer.pause(); // Stop audio playback
+                    audioPlayer.currentTime = 0; // Reset playback position
+                    currentSongIndex = 0; // Reset current song index
+                }
+
+                // Event listener for clear playlist button
+                clearButton.addEventListener('click', function() {
+                    clearPlaylist();
+                });
+
+                // Event listener for playing songs from playlist
+                playlist.addEventListener('click', function(event) {
+                    if (event.target && event.target.matches('li.song-item')) {
+                        const songSrc = event.target.getAttribute('data-src');
+                        audioPlayer.src = songSrc;
+                        audioPlayer.play();
+                        currentSongIndex = Array.from(playlist.children).indexOf(event.target);
+                    }
+                });
+
+                // Event listener for ended song
+                audioPlayer.addEventListener('ended', function() {
+                    currentSongIndex++;
+                    if (currentSongIndex < playlist.children.length) {
+                        const nextSong = playlist.children[currentSongIndex];
+                        const nextSongSrc = nextSong.getAttribute('data-src');
+                        audioPlayer.src = nextSongSrc;
+                        audioPlayer.play();
+                    } else {
+                        currentSongIndex = 0; // Reset to beginning of playlist
+                    }
+                });
+
+                // Initialize playlist on page load
+                initializePlaylist();
+            });
+        </script>
+
+    </div>
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
+    </div>
+</div>
+</body>
+</html>
