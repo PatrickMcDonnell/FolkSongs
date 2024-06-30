@@ -84,6 +84,7 @@
                 const playlist = document.getElementById('playlist');
                 const clearButton = document.getElementById('clear-playlist');
                 const shareButton = document.getElementById('share-playlist');
+                const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/'; // Define the base URL
                 let currentSongIndex = 0;
 
                 // Function to initialize playlist from localStorage
@@ -129,11 +130,11 @@
                     let songList = '';
                     songs.forEach(song => {
                         const title = song.textContent;
-                        const url = song.getAttribute('data-src');
+                        const url = baseUrl + song.getAttribute('data-src');
                         songList += `${title}: ${url}\n`;
                     });
 
-                    const subject = encodeURIComponent('My Folksong Playlist');
+                    const subject = encodeURIComponent("Playlist from Pat's Music");
                     const body = encodeURIComponent('Here is my playlist:\n\n' + songList);
                     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
 
