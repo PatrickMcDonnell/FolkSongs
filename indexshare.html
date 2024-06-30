@@ -131,7 +131,7 @@
                     songs.forEach(song => {
                         const title = song.textContent;
                         const relativePath = song.getAttribute('data-src');
-                        const fullUrl = baseUrl + encodeURIComponent(relativePath);
+                        const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
                         songList += `${title}: ${fullUrl}\n`;
                     });
 
