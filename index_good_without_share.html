@@ -29,7 +29,7 @@
             color: #000; /* Set text color to black */
             text-decoration: underline;
         }
-        .clear-button, .share-button {
+        .clear-button {
             margin-top: 10px;
             padding: 10px 20px;
             background-color: #808080; /* Grey background */
@@ -46,6 +46,7 @@
 <!--
         <p>Families: <a href="#">Songs</a> &middot; <a href="#">About</a> &middot; <a href="Tracks.html">Tracks</a> &middot; <a href="#">Comment</a></p>
 -->
+
     </div>
     <img id="frontphoto" src="img/1812TheaterHeader.jpg" width="760" height="190" alt="" />
     <div id="leftside">
@@ -76,15 +77,12 @@
         </ul>
 
         <button class="clear-button" id="clear-playlist">Clear Playlist</button>
-        <button class="share-button" id="share-playlist">Share Playlist</button>
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const audioPlayer = document.getElementById('audio-player');
                 const playlist = document.getElementById('playlist');
                 const clearButton = document.getElementById('clear-playlist');
-                const shareButton = document.getElementById('share-playlist');
-                const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/'; // Define the base URL
                 let currentSongIndex = 0;
 
                 // Function to initialize playlist from localStorage
@@ -119,37 +117,9 @@
                     currentSongIndex = 0; // Reset current song index
                 }
 
-                // Function to share the playlist via email
-                function sharePlaylist() {
-                    const songs = playlist.querySelectorAll('li');
-                    if (songs.length === 0) {
-                        alert('The playlist is empty.');
-                        return;
-                    }
-
-                    let songList = '';
-                    songs.forEach(song => {
-                        const title = song.textContent;
-                        const relativePath = song.getAttribute('data-src');
-                        const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
-                        songList += `${title}: ${fullUrl}\n`;
-                    });
-
-                    const subject = encodeURIComponent("Playlist from Pat's Music");
-                    const body = encodeURIComponent('Here is my playlist:\n\n' + songList);
-                    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
-
-                    window.location.href = mailtoLink;
-                }
-
                 // Event listener for clear playlist button
                 clearButton.addEventListener('click', function() {
                     clearPlaylist();
-                });
-
-                // Event listener for share playlist button
-                shareButton.addEventListener('click', function() {
-                    sharePlaylist();
                 });
 
                 // Event listener for playing songs from playlist
@@ -187,4 +157,3 @@
 </div>
 </body>
 </html>
-
