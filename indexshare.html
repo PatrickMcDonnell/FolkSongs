@@ -128,7 +128,9 @@
 
                     let songList = '';
                     songs.forEach(song => {
-                        songList += song.textContent + '\n';
+                        const title = song.textContent;
+                        const url = song.getAttribute('data-src');
+                        songList += `${title}: ${url}\n`;
                     });
 
                     const subject = encodeURIComponent('My Folksong Playlist');
