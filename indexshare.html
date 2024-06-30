@@ -130,8 +130,9 @@
                     let songList = '';
                     songs.forEach(song => {
                         const title = song.textContent;
-                        const url = baseUrl + song.getAttribute('data-src');
-                        songList += `${title}: ${url}\n`;
+                        const relativePath = song.getAttribute('data-src');
+                        const fullUrl = baseUrl + encodeURIComponent(relativePath);
+                        songList += `${title}: ${fullUrl}\n`;
                     });
 
                     const subject = encodeURIComponent("Playlist from Pat's Music");
