@@ -5,14 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Folk Songs</title>
     <style>
-        /* Add necessary styles */
-        .search-container {
-            display: none;
+        body {
+            font-family: Arial, sans-serif;
         }
         .header {
             display: flex;
-            justify-content: flex-end;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f4f4f4;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .search-container {
+            display: none;
+            margin: 10px 0;
         }
         #searchResults div {
             cursor: pointer;
@@ -23,22 +29,30 @@
         #searchResults div:hover {
             background-color: #f0f0f0;
         }
+        .audio-container {
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <button id="searchButton">Search All Tracks</button>
-        <button id="shareButton">Share</button>
+        <h1>Folk Songs</h1>
+        <div>
+            <button id="searchButton">Search All Tracks</button>
+            <button id="shareButton">Share</button>
+        </div>
     </div>
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search for tracks...">
         <button id="performSearch">Go</button>
         <div id="searchResults"></div>
     </div>
-    <audio id="audioPlayer" controls>
-        <source id="audioSource" src="" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
+    <div class="audio-container">
+        <audio id="audioPlayer" controls>
+            <source id="audioSource" src="" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
 
     <script>
         document.getElementById('searchButton').addEventListener('click', function() {
@@ -51,7 +65,6 @@
         });
 
         function fetchTracks(searchTerm) {
-            // Assuming you have a predefined list of MP3 files
             const tracks = [
                 { name: 'Track 1', path: 'Tracks/track1.mp3' },
                 { name: 'Track 2', path: 'Tracks/track2.mp3' },
