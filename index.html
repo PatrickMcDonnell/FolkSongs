@@ -58,9 +58,6 @@
 <div id="wrap">
     <div id="header">
         <h1><a href="#">Folksong Collection</a></h1>
-<!--
-        <p>Families: <a href="#">Songs</a> &middot; <a href="#">About</a> &middot; <a href="Tracks.html">Tracks</a> &middot; <a href="#">Comment</a></p>
--->
     </div>
     <img id="frontphoto" src="img/1812TheaterHeader.jpg" width="760" height="190" alt="" />
     <div id="leftside">
@@ -94,10 +91,11 @@
         <button class="share-button" id="share-playlist">Share Playlist</button>
     </div>
     <div id="footer">
-        <p>Patrick McDonnell</p>
+        <p>Patrick McDonnell &middot; | You can see other songs here: <a href="homepage.html">Homepage</a></p>
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/jsmediatags@3.9.5/dist/jsmediatags.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const audioPlayer = document.getElementById('audio-player');
@@ -106,6 +104,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const shareButton = document.getElementById('share-playlist');
     const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/'; // Define the base URL
     let currentSongIndex = 0;
+
+    // Function to read comments from mp3 metadata
+    function readCommentsFromMp3(filePath, callback) {
+        jsmediatags.read(filePath, {
+            onSuccess: function(tag) {
+                const comments = tag.tags.comment ? tag.tags.comment.text : '';
+                callback(comments);
+            },
+            onError: function(error) {
+                console.log(error);
+                callback('');
+            }
+        });
+    }
 
     // Function to initialize playlist from localStorage
     function initializePlaylist() {
@@ -117,9 +129,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const li = document.createElement('li');
                 li.textContent = song.title;
                 li.setAttribute('data-src', song.src);
-                li.setAttribute('data-comments', song.comments); // Add comments attribute
                 li.classList.add('song-item');
                 playlist.appendChild(li);
+
+                // Read comments from mp3 file and set data-comments attribute
+                readCommentsFromMp3(song.src, function(comments) {
+                    li.setAttribute('data-comments', comments || 'No comments available');
+                });
             });
 
             // Automatically play the first song if the playlist is not empty
@@ -153,8 +169,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const title = song.textContent;
             const relativePath = song.getAttribute('data-src');
             const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
-            const comments = song.getAttribute('data-comments');
-            songList += `${title}: ${fullUrl}\n\nComments: ${comments}\n\n`; // Add comments after each song
+            const comments = song.getAttribute('data-comments') || 'No comments available';
+            songList += `${title}: ${fullUrl}\n`;
+            if (comments && comments !== 'No comments available') {
+                songList += `Comments: ${comments}\n\n`; // Add comments if they are available
+            }
         });
 
         const subject = encodeURIComponent("Playlist from Pat's Music");
