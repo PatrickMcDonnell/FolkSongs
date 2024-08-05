@@ -94,8 +94,8 @@
         <button class="share-button" id="share-playlist">Share Playlist</button>
     </div>
     <div id="footer">
-        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
-    </div>   
+        <p>Patrick McDonnell</p>
+    </div>
 </div>
 
 <script>
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const li = document.createElement('li');
                 li.textContent = song.title;
                 li.setAttribute('data-src', song.src);
-                li.setAttribute('data-comments', song.comments || ''); // Add comments attribute
+                li.setAttribute('data-comments', song.comments); // Add comments attribute
                 li.classList.add('song-item');
                 playlist.appendChild(li);
             });
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const title = song.textContent;
             const relativePath = song.getAttribute('data-src');
             const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
-            const comments = song.getAttribute('data-comments') || '';
+            const comments = song.getAttribute('data-comments');
             songList += `${title}: ${fullUrl}\n\nComments: ${comments}\n\n`; // Add comments after each song
         });
 
@@ -205,6 +205,5 @@ document.addEventListener('DOMContentLoaded', function() {
     initializePlaylist();
 });
 </script>
-
 </body>
 </html>
