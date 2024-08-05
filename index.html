@@ -132,7 +132,7 @@
                         const title = song.textContent;
                         const relativePath = song.getAttribute('data-src');
                         const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
-                        songList += `${title}: ${fullUrl}\\n`;
+                        songList += `${title}: ${fullUrl}\n`;
                     });
 
 
