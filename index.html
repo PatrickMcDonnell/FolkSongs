@@ -37,6 +37,21 @@
             border: none;
             cursor: pointer;
         }
+        .song-item {
+            position: relative;
+        }
+        .song-item:hover::after {
+            content: attr(data-comments);
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 5px;
+            border-radius: 3px;
+            white-space: pre-wrap; /* Preserve line breaks */
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
@@ -77,117 +92,118 @@
 
         <button class="clear-button" id="clear-playlist">Clear Playlist</button>
         <button class="share-button" id="share-playlist">Share Playlist</button>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const audioPlayer = document.getElementById('audio-player');
-                const playlist = document.getElementById('playlist');
-                const clearButton = document.getElementById('clear-playlist');
-                const shareButton = document.getElementById('share-playlist');
-                const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/'; // Define the base URL
-                let currentSongIndex = 0;
-
-                // Function to initialize playlist from localStorage
-                function initializePlaylist() {
-                    playlist.innerHTML = ''; // Clear existing playlist
-                    const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
-
-                    if (storedPlaylist) {
-                        storedPlaylist.forEach((song, index) => {
-                            const li = document.createElement('li');
-                            li.textContent = song.title;
-                            li.setAttribute('data-src', song.src);
-                            li.classList.add('song-item');
-                            playlist.appendChild(li);
-                        });
-
-                        // Automatically play the first song if the playlist is not empty
-                        if (storedPlaylist.length > 0) {
-                            const firstSong = playlist.children[0];
-                            audioPlayer.src = firstSong.getAttribute('data-src');
-                            audioPlayer.play();
-                        }
-                    }
-                }
-
-                // Function to clear playlist
-                function clearPlaylist() {
-                    localStorage.removeItem('playlist');
-                    playlist.innerHTML = ''; // Clear the displayed playlist
-                    audioPlayer.pause(); // Stop audio playback
-                    audioPlayer.currentTime = 0; // Reset playback position
-                    currentSongIndex = 0; // Reset current song index
-                }
-
-                // Function to share the playlist via email
-                function sharePlaylist() {
-                    const songs = playlist.querySelectorAll('li');
-                    if (songs.length === 0) {
-                        alert('The playlist is empty.');
-                        return;
-                    }
-
-                    let songList = '';
-                    songs.forEach(song => {
-                        const title = song.textContent;
-                        const relativePath = song.getAttribute('data-src');
-                        const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
-                        songList += `${title}: ${fullUrl}\n`;
-                    });
-
-const subject = encodeURIComponent("Playlist from Pat's Music");
-const body = encodeURIComponent(
-    'Here is my playlist:\n\n' + 
-    songList + 
-    '\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
-);
-const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
-
-                    window.location.href = mailtoLink;
-                }
-
-                // Event listener for clear playlist button
-                clearButton.addEventListener('click', function() {
-                    clearPlaylist();
-                });
-
-                // Event listener for share playlist button
-                shareButton.addEventListener('click', function() {
-                    sharePlaylist();
-                });
-
-                // Event listener for playing songs from playlist
-                playlist.addEventListener('click', function(event) {
-                    if (event.target && event.target.matches('li.song-item')) {
-                        const songSrc = event.target.getAttribute('data-src');
-                        audioPlayer.src = songSrc;
-                        audioPlayer.play();
-                        currentSongIndex = Array.from(playlist.children).indexOf(event.target);
-                    }
-                });
-
-                // Event listener for ended song
-                audioPlayer.addEventListener('ended', function() {
-                    currentSongIndex++;
-                    if (currentSongIndex < playlist.children.length) {
-                        const nextSong = playlist.children[currentSongIndex];
-                        const nextSongSrc = nextSong.getAttribute('data-src');
-                        audioPlayer.src = nextSongSrc;
-                        audioPlayer.play();
-                    } else {
-                        currentSongIndex = 0; // Reset to beginning of playlist
-                    }
-                });
-
-                // Initialize playlist on page load
-                initializePlaylist();
-            });
-        </script>
-
     </div>
     <div id="footer">
-        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
+        <p>Patrick McDonnell</p>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const audioPlayer = document.getElementById('audio-player');
+    const playlist = document.getElementById('playlist');
+    const clearButton = document.getElementById('clear-playlist');
+    const shareButton = document.getElementById('share-playlist');
+    const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/'; // Define the base URL
+    let currentSongIndex = 0;
+
+    // Function to initialize playlist from localStorage
+    function initializePlaylist() {
+        playlist.innerHTML = ''; // Clear existing playlist
+        const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
+
+        if (storedPlaylist) {
+            storedPlaylist.forEach((song, index) => {
+                const li = document.createElement('li');
+                li.textContent = song.title;
+                li.setAttribute('data-src', song.src);
+                li.setAttribute('data-comments', song.comments); // Add comments attribute
+                li.classList.add('song-item');
+                playlist.appendChild(li);
+            });
+
+            // Automatically play the first song if the playlist is not empty
+            if (storedPlaylist.length > 0) {
+                const firstSong = playlist.children[0];
+                audioPlayer.src = firstSong.getAttribute('data-src');
+                audioPlayer.play();
+            }
+        }
+    }
+
+    // Function to clear playlist
+    function clearPlaylist() {
+        localStorage.removeItem('playlist');
+        playlist.innerHTML = ''; // Clear the displayed playlist
+        audioPlayer.pause(); // Stop audio playback
+        audioPlayer.currentTime = 0; // Reset playback position
+        currentSongIndex = 0; // Reset current song index
+    }
+
+    // Function to share the playlist via email
+    function sharePlaylist() {
+        const songs = playlist.querySelectorAll('li');
+        if (songs.length === 0) {
+            alert('The playlist is empty.');
+            return;
+        }
+
+        let songList = '';
+        songs.forEach(song => {
+            const title = song.textContent;
+            const relativePath = song.getAttribute('data-src');
+            const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
+            const comments = song.getAttribute('data-comments');
+            songList += `${title}: ${fullUrl}\n\nComments: ${comments}\n\n`; // Add comments after each song
+        });
+
+        const subject = encodeURIComponent("Playlist from Pat's Music");
+        const body = encodeURIComponent(
+            'Here is my playlist:\n\n' + 
+            songList + 
+            '\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
+        );
+        const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+
+        window.location.href = mailtoLink;
+    }
+
+    // Event listener for clear playlist button
+    clearButton.addEventListener('click', function() {
+        clearPlaylist();
+    });
+
+    // Event listener for share playlist button
+    shareButton.addEventListener('click', function() {
+        sharePlaylist();
+    });
+
+    // Event listener for playing songs from playlist
+    playlist.addEventListener('click', function(event) {
+        if (event.target && event.target.matches('li.song-item')) {
+            const songSrc = event.target.getAttribute('data-src');
+            audioPlayer.src = songSrc;
+            audioPlayer.play();
+            currentSongIndex = Array.from(playlist.children).indexOf(event.target);
+        }
+    });
+
+    // Event listener for ended song
+    audioPlayer.addEventListener('ended', function() {
+        currentSongIndex++;
+        if (currentSongIndex < playlist.children.length) {
+            const nextSong = playlist.children[currentSongIndex];
+            const nextSongSrc = nextSong.getAttribute('data-src');
+            audioPlayer.src = nextSongSrc;
+            audioPlayer.play();
+        } else {
+            currentSongIndex = 0; // Reset to beginning of playlist
+        }
+    });
+
+    // Initialize playlist on page load
+    initializePlaylist();
+});
+</script>
 </body>
 </html>
