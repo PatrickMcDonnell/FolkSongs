@@ -136,7 +136,7 @@
                     });
 
                     const subject = encodeURIComponent("Playlist from Pat's Music");
-                    const body = encodeURIComponent('Here is my playlist:\n\n' + songList);
+                    const body = encodeURIComponent('Here is my playlist:\n\n' + songList + '\n\n<a href="https://patrickmcdonnell.github.io/FolkSongs/homepage.html">Pat's List</a>');
                     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
 
                     window.location.href = mailtoLink;
@@ -187,4 +187,3 @@
 </div>
 </body>
 </html>
-
