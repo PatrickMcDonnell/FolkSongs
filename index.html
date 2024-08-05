@@ -41,7 +41,7 @@
             position: relative;
         }
         .song-item:hover::after {
-            content: attr(data-comments);
+            content: attr(data-Comments);
             position: absolute;
             left: 0;
             top: 100%;
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const li = document.createElement('li');
                 li.textContent = song.title;
                 li.setAttribute('data-src', song.src);
-                li.setAttribute('data-comments', song.comments || ''); // Add comments attribute
+                li.setAttribute('data-Comments', song.Comments || ''); // Add comments attribute
                 li.classList.add('song-item');
                 playlist.appendChild(li);
             });
@@ -153,8 +153,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const title = song.textContent;
             const relativePath = song.getAttribute('data-src');
             const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
-            const comments = song.getAttribute('data-comments') || '';
-            songList += `${title}: ${fullUrl}\n\nComments: ${comments}\n\n`; // Add comments after each song
+            const comments = song.getAttribute('data-Comments') || '';
+            songList += `${title}: ${fullUrl}\n\nComments: ${Comments}\n\n`; // Add comments after each song
         });
 
         const subject = encodeURIComponent("Playlist from Pat's Music");
