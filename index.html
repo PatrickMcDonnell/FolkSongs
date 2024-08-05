@@ -135,9 +135,18 @@
                         songList += `${title}: ${fullUrl}\\n`;
                     });
 
-                    const subject = encodeURIComponent("Playlist from Pat's Music");
-                    const body = encodeURIComponent('Here is my playlist:\\n\\n' + songList + '\\n\\n<a href="https://patrickmcdonnell.github.io/FolkSongs/index.html">Pat\'s List</a>');
+
+ const subject = encodeURIComponent("Playlist from Pat's Music");
+                    const body = encodeURIComponent(
+                        'Here is my playlist:\n\n' + 
+                        songList + 
+                        '\n\n<a href="https://patrickmcdonnell.github.io/FolkSongs/index.html">Pat\'s List</a>\n\nYou can see other songs here: <a href="homepage.html">Homepage</a>'
+                    );
                     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+
+
+
+
 
                     window.location.href = mailtoLink;
                 }
