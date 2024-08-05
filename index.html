@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <title>Folksong Collection</title>
@@ -126,6 +125,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
 
         if (storedPlaylist) {
+            let commentsList = [];
+
             storedPlaylist.forEach((song, index) => {
                 const li = document.createElement('li');
                 li.textContent = song.title;
@@ -136,6 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Read comments from mp3 file and set data-comments attribute
                 readCommentsFromMp3(song.src, function(comments) {
                     li.setAttribute('data-comments', comments || 'No comments available');
+                    commentsList.push(comments);
                 });
             });
 
