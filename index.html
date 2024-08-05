@@ -28,6 +28,7 @@
             cursor: pointer;
             color: #000; /* Set text color to black */
             text-decoration: underline;
+            position: relative;
         }
         .clear-button, .share-button {
             margin-top: 10px;
@@ -36,9 +37,6 @@
             color: #fff; /* White text */
             border: none;
             cursor: pointer;
-        }
-        .song-item {
-            position: relative;
         }
         .song-item:hover::after {
             content: attr(data-comments);
@@ -125,8 +123,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
 
         if (storedPlaylist) {
-            let commentsList = [];
-
             storedPlaylist.forEach((song, index) => {
                 const li = document.createElement('li');
                 li.textContent = song.title;
@@ -137,7 +133,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Read comments from mp3 file and set data-comments attribute
                 readCommentsFromMp3(song.src, function(comments) {
                     li.setAttribute('data-comments', comments || 'No comments available');
-                    commentsList.push(comments);
                 });
             });
 
@@ -229,4 +224,3 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
-
