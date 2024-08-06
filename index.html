@@ -151,7 +151,7 @@
                         const relativePath = song.getAttribute('data-src');
                         const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
                         const comments = song.getAttribute('data-comments');
-                        songList += `${title}: ${fullUrl}\n${comments ? '\n' + comments : ''}\n`;
+                        songList += `${title}: ${fullUrl}\n${comments ? '\n' + comments : ''}\n\n`;
                     });
 
                     const subject = encodeURIComponent("Playlist from Pat's Music");
@@ -210,3 +210,4 @@
 </div>
 </body>
 </html>
+
