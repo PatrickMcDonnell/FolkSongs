@@ -37,16 +37,6 @@
             border: none;
             cursor: pointer;
         }
-        .song-list li:hover::after {
-            content: attr(data-comments);
-            display: block;
-            position: absolute;
-            background-color: #f9f9f9;
-            border: 1px solid #ccc;
-            padding: 5px;
-            z-index: 1;
-            white-space: pre-wrap;
-        }
     </style>
 </head>
 <body>
@@ -107,7 +97,6 @@
                             const li = document.createElement('li');
                             li.textContent = song.title;
                             li.setAttribute('data-src', song.src);
-                            li.setAttribute('data-comments', song.comments || ''); // Add comments attribute
                             li.classList.add('song-item');
                             playlist.appendChild(li);
                         });
@@ -143,21 +132,16 @@
                         const title = song.textContent;
                         const relativePath = song.getAttribute('data-src');
                         const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
-                        const comments = song.getAttribute('data-comments');
-
                         songList += `${title}: ${fullUrl}\n`;
-                        if (comments) {
-                            songList += `\n${comments}\n`;
-                        }
                     });
 
-                    const subject = encodeURIComponent("Playlist from Pat's Music");
-                    const body = encodeURIComponent(
-                        'Here is my playlist:\n\n' + 
-                        songList + 
-                        '\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
-                    );
-                    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+const subject = encodeURIComponent("Playlist from Pat's Music");
+const body = encodeURIComponent(
+    'Here is my playlist:\n\n' + 
+    songList + 
+    '\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
+);
+const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
 
                     window.location.href = mailtoLink;
                 }
@@ -207,3 +191,4 @@
 </div>
 </body>
 </html>
+
