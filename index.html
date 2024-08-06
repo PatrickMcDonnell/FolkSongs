@@ -28,6 +28,7 @@
             cursor: pointer;
             color: #000; /* Set text color to black */
             text-decoration: underline;
+            position: relative;
         }
         .clear-button, .share-button {
             margin-top: 10px;
@@ -46,6 +47,8 @@
             padding: 5px;
             z-index: 1;
             white-space: pre-wrap;
+            top: 100%; /* Adjust this as needed */
+            left: 0;
         }
     </style>
 </head>
@@ -103,7 +106,7 @@
                     const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
 
                     if (storedPlaylist) {
-                        storedPlaylist.forEach((song, index) => {
+                        storedPlaylist.forEach((song) => {
                             const li = document.createElement('li');
                             li.textContent = song.title;
                             li.setAttribute('data-src', song.src);
