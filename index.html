@@ -32,9 +32,8 @@
             position: relative; /* Ensure hover box is positioned relative to this item */
             padding: 10px; /* Adjust padding if needed */
         }
-        .song-list li:hover::after {
-            content: attr(data-comments);
-            display: block;
+        .hover-box {
+            display: none;
             position: absolute;
             background-color: #f9f9f9;
             border: 1px solid #ccc;
@@ -43,8 +42,6 @@
             white-space: pre-wrap; /* Preserve whitespace and line breaks */
             max-width: 300px; /* Limit the width to avoid too wide boxes */
             overflow: auto; /* Add scrollbar if content is too long */
-            top: 100%; /* Position below the list item */
-            left: 0;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
             border-radius: 4px; /* Rounded corners for the hover box */
         }
@@ -94,6 +91,8 @@
         <button class="clear-button" id="clear-playlist">Clear Playlist</button>
         <button class="share-button" id="share-playlist">Share Playlist</button>
 
+        <div id="hoverBox" class="hover-box"></div>
+
         <script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -101,6 +100,7 @@
                 const playlist = document.getElementById('playlist');
                 const clearButton = document.getElementById('clear-playlist');
                 const shareButton = document.getElementById('share-playlist');
+                const hoverBox = document.getElementById('hoverBox');
                 const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/'; // Define the base URL
                 let currentSongIndex = 0;
 
@@ -182,6 +182,25 @@
                         audioPlayer.src = songSrc;
                         audioPlayer.play();
                         currentSongIndex = Array.from(playlist.children).indexOf(event.target);
+                    }
+                });
+
+                // Event listener for displaying comments in the hover box
+                playlist.addEventListener('mouseover', function(event) {
+                    if (event.target && event.target.matches('li.song-item')) {
+                        const comments = event.target.getAttribute('data-comments');
+                        if (comments) {
+                            hoverBox.textContent = comments;
+                            hoverBox.style.display = 'block';
+                            hoverBox.style.left = event.pageX + 'px';
+                            hoverBox.style.top = event.pageY + 'px';
+                        }
+                    }
+                });
+
+                playlist.addEventListener('mouseout', function(event) {
+                    if (event.target && event.target.matches('li.song-item')) {
+                        hoverBox.style.display = 'none';
                     }
                 });
 
