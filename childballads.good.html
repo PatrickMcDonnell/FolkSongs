@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blues</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set default text color to black */
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
+        }
+        .track-list li {
+            margin: 0;
+            line-height: 1.5; /* Set line height for single spacing */
+            cursor: pointer;
+            color: #000; /* Default text color */
+        }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
+        }
+        .finished-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
+        /* Add the following CSS for the footer */
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <h1><a href="#">Child Ballads</a></h1>
+        <!--
+        <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="">Tracks</a> &middot; <a href="">Comment</a></p>
+    </div>
+-->
+    <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+    <!--
+    <div id="contentwide">
+    -->
+        <h1>Select Tracks</h1>
+
+        <!-- Add the search input here -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+
+        <button class="finished-button" id="finished-selecting">Play</button>
+
+ <ul class="track-list">
+           
+<li data-src="Tracks/Anachie Gordon.mp3"data-title="Anachie Gordon">Anachie Gordon</li>
+<li data-src="Tracks/Barbara Allen.mp3"data-title="Barbara Allen">Barbara Allen</li>
+<li data-src="Tracks/Blow Away The Morning Dew.mp3"data-title="Blow Away The Morning Dew">Blow Away The Morning Dew</li>
+<li data-src="Tracks/Farewell To Nova Scotia.mp3"data-title="Farewell To Nova Scotia">Farewell To Nova Scotia</li>
+<li data-src="Tracks/Geordie.mp3"data-title="Geordie">Geordie</li>
+<li data-src="Tracks/Greensleeves.mp3"data-title="Greensleeves">Greensleeves</li>
+<li data-src="Tracks/Gypsy Davy.mp3"data-title="Gypsy Davy">Gypsy Davy</li>
+<li data-src="Tracks/Hind Horn.mp3"data-title="Hind Horn">Hind Horn</li>
+<li data-src="Tracks/Lady Margaret.mp3"data-title="Lady Margaret">Lady Margaret</li>
+<li data-src="Tracks/Riddles Wisely Expounded.mp3"data-title="Riddles Wisely Expounded">Riddles Wisely Expounded</li>
+<li data-src="Tracks/The Cruel Brother.mp3"data-title="The Cruel Brother">The Cruel Brother</li>
+<li data-src="Tracks/The Golden Vanity.mp3"data-title="The Golden Vanity">The Golden Vanity</li>
+
+            <!-- Add more tracks here as needed -->
+        </ul>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const trackListItems = document.querySelectorAll('.track-list li');
+                const finishedButton = document.getElementById('finished-selecting');
+                const searchInput = document.getElementById('searchInput');
+
+                finishedButton.addEventListener('click', function() {
+                    const selectedPlaylist = [];
+                    trackListItems.forEach(item => {
+                        if (item.classList.contains('selected')) {
+                            const songSrc = item.getAttribute('data-src');
+                            const songTitle = item.textContent;
+                            selectedPlaylist.push({ src: songSrc, title: songTitle });
+                        }
+                    });
+
+                    // Store selected playlist in localStorage
+                    localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+                    // Redirect back to index.html
+                    window.location.href = 'index.html';
+                });
+
+                trackListItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        item.classList.toggle('selected');
+                    });
+                });
+
+                // Add search functionality
+                searchInput.addEventListener('input', function() {
+                    const filter = searchInput.value.toLowerCase();
+                    trackListItems.forEach(function(item) {
+                        const title = item.getAttribute('data-title').toLowerCase();
+                        if (title.includes(filter)) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        </script>
+
+    <!--
+    </div>
+    -->
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="homepage.html">Homepage</a></p>
+    </div>
+</div>
+</body>
+</html>

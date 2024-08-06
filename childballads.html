@@ -29,6 +29,7 @@
             line-height: 1.5; /* Set line height for single spacing */
             cursor: pointer;
             color: #000; /* Default text color */
+            position: relative;
         }
         .track-list li.selected {
             color: blue; /* Selected text color */
@@ -40,6 +41,18 @@
             color: #fff; /* White text */
             border: none;
             cursor: pointer;
+        }
+        .track-list li:hover::after {
+            content: attr(data-comments);
+            display: block;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 5px;
+            z-index: 1;
+            white-space: pre-wrap;
+            top: 100%; /* Adjust this as needed */
+            left: 0;
         }
         /* Add the following CSS for the footer */
         #footer {
@@ -55,86 +68,75 @@
 <div id="wrap">
     <div id="header">
         <h1><a href="#">Child Ballads</a></h1>
-        <!--
-        <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="">Tracks</a> &middot; <a href="">Comment</a></p>
     </div>
--->
     <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
-    <!--
-    <div id="contentwide">
-    -->
-        <h1>Select Tracks</h1>
+    <h1>Select Tracks</h1>
 
-        <!-- Add the search input here -->
-        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+    <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
 
-        <button class="finished-button" id="finished-selecting">Play</button>
+    <button class="finished-button" id="finished-selecting">Play</button>
 
- <ul class="track-list">
-           
-<li data-src="Tracks/Anachie Gordon.mp3"data-title="Anachie Gordon">Anachie Gordon</li>
-<li data-src="Tracks/Barbara Allen.mp3"data-title="Barbara Allen">Barbara Allen</li>
-<li data-src="Tracks/Blow Away The Morning Dew.mp3"data-title="Blow Away The Morning Dew">Blow Away The Morning Dew</li>
-<li data-src="Tracks/Farewell To Nova Scotia.mp3"data-title="Farewell To Nova Scotia">Farewell To Nova Scotia</li>
-<li data-src="Tracks/Geordie.mp3"data-title="Geordie">Geordie</li>
-<li data-src="Tracks/Greensleeves.mp3"data-title="Greensleeves">Greensleeves</li>
-<li data-src="Tracks/Gypsy Davy.mp3"data-title="Gypsy Davy">Gypsy Davy</li>
-<li data-src="Tracks/Hind Horn.mp3"data-title="Hind Horn">Hind Horn</li>
-<li data-src="Tracks/Lady Margaret.mp3"data-title="Lady Margaret">Lady Margaret</li>
-<li data-src="Tracks/Riddles Wisely Expounded.mp3"data-title="Riddles Wisely Expounded">Riddles Wisely Expounded</li>
-<li data-src="Tracks/The Cruel Brother.mp3"data-title="The Cruel Brother">The Cruel Brother</li>
-<li data-src="Tracks/The Golden Vanity.mp3"data-title="The Golden Vanity">The Golden Vanity</li>
+    <ul class="track-list">
+        <li data-src="Tracks/Anachie Gordon.mp3" data-title="Anachie Gordon" data-comments="A traditional ballad about Anachie Gordon.">Anachie Gordon</li>
+        <li data-src="Tracks/Barbara Allen.mp3" data-title="Barbara Allen" data-comments="A classic ballad that tells the story of Barbara Allen.">Barbara Allen</li>
+        <li data-src="Tracks/Blow Away The Morning Dew.mp3" data-title="Blow Away The Morning Dew" data-comments="A beautiful folk song with poignant lyrics.">Blow Away The Morning Dew</li>
+        <li data-src="Tracks/Farewell To Nova Scotia.mp3" data-title="Farewell To Nova Scotia" data-comments="A farewell song from Nova Scotia, reflecting on departure and loss.">Farewell To Nova Scotia</li>
+        <li data-src="Tracks/Geordie.mp3" data-title="Geordie" data-comments="A folk ballad that recounts the tale of Geordie.">Geordie</li>
+        <li data-src="Tracks/Greensleeves.mp3" data-title="Greensleeves" data-comments="An old English folk song, often associated with the Tudor period.">Greensleeves</li>
+        <li data-src="Tracks/Gypsy Davy.mp3" data-title="Gypsy Davy" data-comments="A ballad about Gypsy Davy and his adventures.">Gypsy Davy</li>
+        <li data-src="Tracks/Hind Horn.mp3" data-title="Hind Horn" data-comments="A traditional English ballad about the character Hind Horn.">Hind Horn</li>
+        <li data-src="Tracks/Lady Margaret.mp3" data-title="Lady Margaret" data-comments="A ballad featuring the character of Lady Margaret.">Lady Margaret</li>
+        <li data-src="Tracks/Riddles Wisely Expounded.mp3" data-title="Riddles Wisely Expounded" data-comments="A song that involves solving riddles.">Riddles Wisely Expounded</li>
+        <li data-src="Tracks/The Cruel Brother.mp3" data-title="The Cruel Brother" data-comments="A story of betrayal and cruelty involving a brother.">The Cruel Brother</li>
+        <li data-src="Tracks/The Golden Vanity.mp3" data-title="The Golden Vanity" data-comments="A sea shanty that tells the story of a ship and its crew.">The Golden Vanity</li>
+        <!-- Add more tracks here as needed -->
+    </ul>
 
-            <!-- Add more tracks here as needed -->
-        </ul>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const trackListItems = document.querySelectorAll('.track-list li');
+            const finishedButton = document.getElementById('finished-selecting');
+            const searchInput = document.getElementById('searchInput');
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const trackListItems = document.querySelectorAll('.track-list li');
-                const finishedButton = document.getElementById('finished-selecting');
-                const searchInput = document.getElementById('searchInput');
-
-                finishedButton.addEventListener('click', function() {
-                    const selectedPlaylist = [];
-                    trackListItems.forEach(item => {
-                        if (item.classList.contains('selected')) {
-                            const songSrc = item.getAttribute('data-src');
-                            const songTitle = item.textContent;
-                            selectedPlaylist.push({ src: songSrc, title: songTitle });
-                        }
-                    });
-
-                    // Store selected playlist in localStorage
-                    localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
-
-                    // Redirect back to index.html
-                    window.location.href = 'index.html';
-                });
-
+            finishedButton.addEventListener('click', function() {
+                const selectedPlaylist = [];
                 trackListItems.forEach(item => {
-                    item.addEventListener('click', function() {
-                        item.classList.toggle('selected');
-                    });
+                    if (item.classList.contains('selected')) {
+                        const songSrc = item.getAttribute('data-src');
+                        const songTitle = item.getAttribute('data-title');
+                        const songComments = item.getAttribute('data-comments'); // Get comments
+                        selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+                    }
                 });
 
-                // Add search functionality
-                searchInput.addEventListener('input', function() {
-                    const filter = searchInput.value.toLowerCase();
-                    trackListItems.forEach(function(item) {
-                        const title = item.getAttribute('data-title').toLowerCase();
-                        if (title.includes(filter)) {
-                            item.style.display = '';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
+                // Store selected playlist in localStorage
+                localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+                // Redirect back to index.html
+                window.location.href = 'index.html';
+            });
+
+            trackListItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    item.classList.toggle('selected');
                 });
             });
-        </script>
 
-    <!--
-    </div>
-    -->
+            // Add search functionality
+            searchInput.addEventListener('input', function() {
+                const filter = searchInput.value.toLowerCase();
+                trackListItems.forEach(function(item) {
+                    const title = item.getAttribute('data-title').toLowerCase();
+                    if (title.includes(filter)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+
     <div id="footer">
         <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
             | <a href="homepage.html">Homepage</a></p>
