@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Child Ballads</title>
     <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
     <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
     <link rel="stylesheet" type="text/css" href="print.css" media="print" />
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,19 +18,28 @@
             padding: 20px;
             color: #000; /* Set text color to black */
         }
-        .song-list {
+        .track-list {
             list-style-type: none;
             padding: 0;
+	    display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */ 
         }
-        .song-list li {
+        .track-list li {
             margin: 5px 0;
+            line-height: 1.5; /* Set line height for single spacing */
             cursor: pointer;
             color: #000; /* Set text color to black */
             text-decoration: underline;
             position: relative; /* Ensure hover box is positioned relative to this item */
             padding: 10px; /* Adjust padding if needed */
-        }
-        .song-list li:hover::after {
+        
+         }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
+        
+         }
+        .track-list li:hover::after {
             content: attr(data-comments);
             display: block;
             position: absolute;
@@ -47,6 +55,22 @@
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
             border-radius: 4px; /* Rounded corners for the hover box */
         }
+ .finished-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
+        /* Add the following CSS for the footer */
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
@@ -54,8 +78,8 @@
     <div id="header">
         <h1><a href="#">Child Ballads</a></h1>
     </div>
-    <img id="frontphoto" src="img/1812TheaterHeader.jpg" width="760" height="190" alt="" />
-    <div id="leftside">
+    <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+<!--    <div id="leftside">
         <h2 class="hide">Menu:</h2>
         <ul class="avmenu">
             <li><a href="Tracks.html">All Tracks</a></li>
@@ -71,10 +95,15 @@
             <li><a href="shanties.html">Shanties</a></li>
         </ul>
     </div>
-    <div id="contentwide">
-        <h1>Song List</h1>
 
-        <ul class="song-list" id="playlist">
+    <div id="contentwide">
+-->     
+           <h1>Select Tracks</h1>
+             <!-- Add the search input here -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+
+        <button class="finished-button" id="finished-selecting">Play</button>
+        <ul class="track-list" id="playlist">
 <li data-src="Tracks/Anachie Gordon.mp3" data-title="Anachie Gordon" data-comments="Anachie Gordon is a traditional Scottish ballad, also known as Lord Saltoun and Auchanachie. It is not part of the Child Ballads, the collection compiled by Francis James Child in the 19th century. The ballad's origins are somewhat obscure, but it dates back to the 18th or early 19th century. The song tells the tragic story of a young woman, Jeannie, who is in love with Anachie Gordon. Despite her love for Anachie, she is forced to marry another man, Lord Saltoun. She dies of a broken heart shortly after, and Anachie arrives too late to save her. The setting is likely in Scotland, reflecting the themes of love, loss, and the harsh consequences of forced marriage.">Anachie Gordon</li>
 <li data-src="Tracks/Barbara Allen.mp3"data-title="Barbara Allen" data-comments="">Barbara Allen</li>
 <li data-src="Tracks/Blow Away The Morning Dew.mp3"data-title="Blow Away The Morning Dew" data-comments="">Blow Away The Morning Dew</li>
@@ -87,10 +116,10 @@
 <li data-src="Tracks/Riddles Wisely Expounded.mp3"data-title="Riddles Wisely Expounded" data-comments="">Riddles Wisely Expounded</li>
 <li data-src="Tracks/The Cruel Brother.mp3"data-title="The Cruel Brother" data-comments="">The Cruel Brother</li>
 <li data-src="Tracks/The Golden Vanity.mp3"data-title="The Golden Vanity" data-comments="">The Golden Vanity</li>
-            <!-- Add more songs here -->
+            <!-- Add more tracks here -->
         </ul>
 
-        <script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
+       
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const playlist = document.getElementById('playlist');
