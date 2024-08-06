@@ -7,61 +7,7 @@
     <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
     <link rel="stylesheet" type="text/css" href="print.css" media="print" />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url('');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            margin: 0;
-            padding: 20px;
-            color: #000; /* Set default text color to black */
-        }
-        .track-list {
-            list-style-type: none;
-            padding: 0;
-            display: grid; /* Use CSS Grid for layout */
-            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
-            gap: 10px; /* Gap between items */
-        }
-        .track-list li {
-            margin: 0;
-            line-height: 1.5; /* Set line height for single spacing */
-            cursor: pointer;
-            color: #000; /* Default text color */
-            position: relative;
-        }
-        .track-list li.selected {
-            color: blue; /* Selected text color */
-        }
-        .finished-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #808080; /* Grey background */
-            color: #fff; /* White text */
-            border: none;
-            cursor: pointer;
-        }
-        .track-list li:hover::after {
-            content: attr(data-comments);
-            display: block;
-            position: absolute;
-            background-color: #f9f9f9;
-            border: 1px solid #ccc;
-            padding: 5px;
-            z-index: 1;
-            white-space: pre-wrap;
-            top: 100%; /* Adjust this as needed */
-            left: 0;
-        }
-        /* Add the following CSS for the footer */
-        #footer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 10px;
-        }
+        /* Your existing styles here */
     </style>
 </head>
 <body>
@@ -77,43 +23,60 @@
     <button class="finished-button" id="finished-selecting">Play</button>
 
     <ul class="track-list">
-        <li data-src="Tracks/Anachie Gordon.mp3" data-title="Anachie Gordon" data-comments="A traditional ballad about Anachie Gordon.">Anachie Gordon</li>
-        <li data-src="Tracks/Barbara Allen.mp3" data-title="Barbara Allen" data-comments="A classic ballad that tells the story of Barbara Allen.">Barbara Allen</li>
-        <li data-src="Tracks/Blow Away The Morning Dew.mp3" data-title="Blow Away The Morning Dew" data-comments="A beautiful folk song with poignant lyrics.">Blow Away The Morning Dew</li>
-        <li data-src="Tracks/Farewell To Nova Scotia.mp3" data-title="Farewell To Nova Scotia" data-comments="A farewell song from Nova Scotia, reflecting on departure and loss.">Farewell To Nova Scotia</li>
-        <li data-src="Tracks/Geordie.mp3" data-title="Geordie" data-comments="A folk ballad that recounts the tale of Geordie.">Geordie</li>
-        <li data-src="Tracks/Greensleeves.mp3" data-title="Greensleeves" data-comments="An old English folk song, often associated with the Tudor period.">Greensleeves</li>
-        <li data-src="Tracks/Gypsy Davy.mp3" data-title="Gypsy Davy" data-comments="A ballad about Gypsy Davy and his adventures.">Gypsy Davy</li>
-        <li data-src="Tracks/Hind Horn.mp3" data-title="Hind Horn" data-comments="A traditional English ballad about the character Hind Horn.">Hind Horn</li>
-        <li data-src="Tracks/Lady Margaret.mp3" data-title="Lady Margaret" data-comments="A ballad featuring the character of Lady Margaret.">Lady Margaret</li>
-        <li data-src="Tracks/Riddles Wisely Expounded.mp3" data-title="Riddles Wisely Expounded" data-comments="A song that involves solving riddles.">Riddles Wisely Expounded</li>
-        <li data-src="Tracks/The Cruel Brother.mp3" data-title="The Cruel Brother" data-comments="A story of betrayal and cruelty involving a brother.">The Cruel Brother</li>
-        <li data-src="Tracks/The Golden Vanity.mp3" data-title="The Golden Vanity" data-comments="A sea shanty that tells the story of a ship and its crew.">The Golden Vanity</li>
-        <!-- Add more tracks here as needed -->
+        <li data-src="Tracks/Anachie Gordon.mp3" data-title="Anachie Gordon">Anachie Gordon</li>
+        <li data-src="Tracks/Barbara Allen.mp3" data-title="Barbara Allen">Barbara Allen</li>
+        <!-- Add more tracks as needed -->
     </ul>
 
+    <script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const trackListItems = document.querySelectorAll('.track-list li');
             const finishedButton = document.getElementById('finished-selecting');
             const searchInput = document.getElementById('searchInput');
 
+            function getCommentsFromMp3(src, callback) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', src, true);
+                xhr.responseType = 'arraybuffer';
+                xhr.onload = function() {
+                    const arrayBuffer = xhr.response;
+                    ID3.loadTag(arrayBuffer, function() {
+                        const tags = ID3.getAllTags(arrayBuffer);
+                        callback(tags ? tags.comment : '');
+                    }, { tags: ['comment'] });
+                };
+                xhr.send();
+            }
+
             finishedButton.addEventListener('click', function() {
                 const selectedPlaylist = [];
+                let remainingTracks = trackListItems.length;
+
                 trackListItems.forEach(item => {
                     if (item.classList.contains('selected')) {
                         const songSrc = item.getAttribute('data-src');
                         const songTitle = item.getAttribute('data-title');
-                        const songComments = item.getAttribute('data-comments'); // Get comments
-                        selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+                        getCommentsFromMp3(songSrc, function(comments) {
+                            selectedPlaylist.push({ src: songSrc, title: songTitle, comments: comments });
+                            remainingTracks--;
+                            if (remainingTracks === 0) {
+                                // Store selected playlist in localStorage
+                                localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+                                // Redirect back to index.html
+                                window.location.href = 'index.html';
+                            }
+                        });
+                    } else {
+                        remainingTracks--;
+                        if (remainingTracks === 0) {
+                            // Handle case when no tracks are selected
+                            localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+                            window.location.href = 'index.html';
+                        }
                     }
                 });
-
-                // Store selected playlist in localStorage
-                localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
-
-                // Redirect back to index.html
-                window.location.href = 'index.html';
             });
 
             trackListItems.forEach(item => {
