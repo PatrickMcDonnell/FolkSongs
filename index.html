@@ -32,9 +32,11 @@
             position: relative; /* Ensure hover box is positioned relative to this item */
             padding: 10px; /* Adjust padding if needed */
         }
-        .song-list li:hover::after {
-            content: attr(data-comments);
+        .song-list li:hover .hover-box {
             display: block;
+        }
+        .hover-box {
+            display: none;
             position: absolute;
             background-color: #f9f9f9;
             border: 1px solid #ccc;
@@ -116,6 +118,13 @@
                             li.setAttribute('data-src', song.src);
                             li.setAttribute('data-comments', song.comments || ''); // Add comments data attribute
                             li.classList.add('song-item');
+
+                            // Create hover box for comments
+                            const hoverBox = document.createElement('div');
+                            hoverBox.classList.add('hover-box');
+                            hoverBox.textContent = song.comments || 'No comments';
+                            li.appendChild(hoverBox);
+
                             playlist.appendChild(li);
                         });
 
@@ -210,3 +219,4 @@
 </div>
 </body>
 </html>
+
