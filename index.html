@@ -35,28 +35,31 @@
         .song-list li:hover .hover-box {
             display: block;
         }
-        .hover-box {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            border: 2px solid #ccc;
-            padding: 10px;
-            z-index: 1;
-            white-space: pre-wrap;
-            width: 250px; 
-            max-height: 80vh; /* Maximum height relative to viewport height */
-            overflow: auto; /* Add scrollbar if content exceeds max-height */
-            top: 0;
-            left: calc(100% + 10px); /* Add some space between the playlist and the hover box */
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
-        }
-        .playlist-item {
-            position: relative; /* Ensure the hover box is positioned relative to the item */
-        }
-        .playlist-item:hover .hover-box {
-            display: block; /* Show the hover box on hover */
-        }
+   .hover-box {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    padding: 10px;
+    z-index: 1;
+    white-space: pre-wrap;
+    width: 250px; 
+    max-height: 80vh; /* Maximum height relative to viewport height */
+    overflow: auto; /* Add scrollbar if content exceeds max-height */
+    top: 0;
+    left: calc(100% + 10px); /* Add some space between the playlist and the hover box */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.playlist-item {
+    position: relative; /* Ensure the hover box is positioned relative to the item */
+}
+
+.playlist-item:hover .hover-box {
+    display: block; /* Show the hover box on hover */
+}
+
         .clear-button, .share-button {
             margin-top: 10px;
             padding: 10px 20px;
@@ -129,7 +132,7 @@
                             // Create hover box for comments
                             const hoverBox = document.createElement('div');
                             hoverBox.classList.add('hover-box');
-                            hoverBox.textContent = song.comments || ''; // Set comments or empty if none
+                            hoverBox.textContent = song.comments || 'No comments';
                             li.appendChild(hoverBox);
 
                             playlist.appendChild(li);
@@ -167,7 +170,7 @@
                         const relativePath = song.getAttribute('data-src');
                         const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
                         const comments = song.getAttribute('data-comments');
-                        songList += `${title}: ${fullUrl}\n${comments ? comments + '\n' : ''}\n`;
+                        songList += `${title}: ${fullUrl}\n${comments ? '\n' + comments : ''}\n`;
                     });
 
                     const subject = encodeURIComponent("Playlist from Pat's Music");
@@ -225,5 +228,4 @@
     </div>
 </div>
 </body>
-</html>
 </html>
