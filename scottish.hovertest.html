@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scottish</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set default text color to black */
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
+        }
+        .track-list li {
+            position: relative; /* Ensure the hover box is positioned relative to the item */
+            margin: 0;
+            line-height: 1.5; /* Set line height for single spacing */
+            cursor: pointer;
+            color: #000; /* Default text color */
+        }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
+        }
+        .finished-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px; 
+            max-height: 80vh; /* Maximum height relative to viewport height */
+            overflow: auto; /* Add scrollbar if content exceeds max-height */
+            top: 0;
+            left: calc(100% + 10px); /* Add some space between the playlist and the hover box */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block; /* Show the hover box on hover */
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <h1><a href="#">Scottish</a></h1>
+        <!--
+        <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="">Tracks</a> &middot; <a href="">Comment</a></p>
+    </div>
+-->
+    <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+    <!--
+    <div id="contentwide">
+    -->
+        <h1>Select Tracks</h1>
+
+        <!-- Add the search input here -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+
+        <button class="finished-button" id="finished-selecting">Play</button>
+
+        <ul class="track-list">
+            <li data-src="Tracks/Anachie Gordon.mp3" data-title="Anachie Gordon" data-comments="Anachie Gordon is a traditional Scottish ballad, also known as Lord Saltoun and Auchanachie. The ballad's origins are somewhat obscure, but it dates back to the 18th or early 19th century. The song tells the tragic story of a young woman, Jeannie, who is in love with Anachie Gordon. Despite her love for Anachie, she is forced to marry another man, Lord Saltoun. She dies of a broken heart shortly after, and Anachie arrives too late to save her. The setting is likely in Scotland, reflecting the themes of love, loss, and the harsh consequences of forced marriage.">
+                Anachie Gordon
+                <div class="hover-box">Anachie Gordon is a traditional Scottish ballad, also known as Lord Saltoun and Auchanachie. The ballad's origins are somewhat obscure, but it dates back to the 18th or early 19th century. The song tells the tragic story of a young woman, Jeannie, who is in love with Anachie Gordon. Despite her love for Anachie, she is forced to marry another man, Lord Saltoun. She dies of a broken heart shortly after, and Anachie arrives too late to save her. The setting is likely in Scotland, reflecting the themes of love, loss, and the harsh consequences of forced marriage.</div>
+            </li>
+            <li data-src="Tracks/Auld Lang Syne.mp3" data-title="Auld Lang Syne" data-comments="Auld Lang Syne is a traditional Scottish song written by the poet Robert Burns in 1788. It is set to the tune of a traditional folk melody. The phrase auld lang syne translates to old long since or days gone by, and the song is a nostalgic reflection on friendship and the passage of time. It is famously sung to bid farewell to the old year and welcome the new one, particularly at the stroke of midnight on New Year's Eve. The song is also used at various other farewell occasions and is celebrated for its theme of cherishing old acquaintances and memories. Auld Lang Syne has become an integral part of New Year traditions around the world.">
+                Auld Lang Syne
+                <div class="hover-box">Auld Lang Syne is a traditional Scottish song written by the poet Robert Burns in 1788. It is set to the tune of a traditional folk melody. The phrase auld lang syne translates to old long since or days gone by, and the song is a nostalgic reflection on friendship and the passage of time. It is famously sung to bid farewell to the old year and welcome the new one, particularly at the stroke of midnight on New Year's Eve. The song is also used at various other farewell occasions and is celebrated for its theme of cherishing old acquaintances and memories. Auld Lang Syne has become an integral part of New Year traditions around the world.</div>
+            </li>
+            <li data-src="Tracks/Awa' wi' Your Witchcraft o' Beauty's Alarms.mp3" data-title="Awa' wi' Your Witchcraft o' Beauty's Alarms" data-comments="Awa' wi' Your Witchcraft o' Beauty's Alarms is a lesser-known Scottish song written by the renowned poet Robert Burns. The song is a humorous rejection of superficial beauty and charms in favor of a deeper, more genuine attraction. Burns, who lived from 1759 to 1796, wrote many such works that delve into human emotions and societal observations with his characteristic wit and insight. The song, like many of Burns' compositions, reflects themes of love, beauty, and sincerity, often using Scots dialect and traditional melodies. It is part of Burns' extensive body of work that continues to be celebrated in Scotland and around the world.">
+                Awa' wi' Your Witchcraft o' Beauty's Alarms
+                <div class="hover-box">Awa' wi' Your Witchcraft o' Beauty's Alarms is a lesser-known Scottish song written by the renowned poet Robert Burns. The song is a humorous rejection of superficial beauty and charms in favor of a deeper, more genuine attraction. Burns, who lived from 1759 to 1796, wrote many such works that delve into human emotions and societal observations with his characteristic wit and insight. The song, like many of Burns' compositions, reflects themes of love, beauty, and sincerity, often using Scots dialect and traditional melodies. It is part of Burns' extensive body of work that continues to be celebrated in Scotland and around the world.</div>
+            </li>
+            <li data-src="Tracks/Believe Me If All Those Endearing Young Charms.mp3" data-title="Believe Me If All Those Endearing Young Charms" data-comments="Believe Me If All Those Endearing Young Charms is a song written by the Irish composer Thomas Moore in 1808. It’s a sentimental piece reflecting on the enduring beauty of youth and love. Notable for its lyrical expression and melodic charm, it remains a classic in Irish music.">
+                Believe Me If All Those Endearing Young Charms
+                <div class="hover-box">Believe Me If All Those Endearing Young Charms is a song written by the Irish composer Thomas Moore in 1808. It’s a sentimental piece reflecting on the enduring beauty of youth and love. Notable for its lyrical expression and melodic charm, it remains a classic in Irish music.</div>
+            </li>
+            <li data-src="Tracks/Beware o' Bonnie Ann.mp3" data-title="Beware o' Bonnie Ann" data-comments="Beware o' Bonnie Ann is another charming song penned by Robert Burns. The song is a playful warning about the allure of a beautiful woman named Ann. Through witty lyrics and a catchy melody, Burns captures the light-hearted side of romance and the caution that often accompanies it.">
+                Beware o' Bonnie Ann
+                <div class="hover-box">Beware o' Bonnie Ann is another charming song penned by Robert Burns. The song is a playful warning about the allure of a beautiful woman named Ann. Through witty lyrics and a catchy melody, Burns captures the light-hearted side of romance and the caution that often accompanies it.</div>
+            </li>
+
+<li data-src="Tracks/Beware o' Bonnie Ann.mp3"data-title="Beware o' Bonnie Ann">Beware o' Bonnie Ann</li>
+<li data-src="Tracks/Both Sides the Tweed.mp3"data-title="Both Sides the Tweed">Both Sides the Tweed</li>
+<li data-src="Tracks/Caledonia.mp3"data-title="Caledonia" data-comments="Just trying plain text with no quotation marks.">Caledonia
+<div class="hover-box">Just trying plain text with no quotation marks.</div>
+</li>
+<li data-src="Tracks/Coming Through The Rye.mp3"data-title="Coming Through The Rye">Coming Through The Rye</li>
+<li data-src="Tracks/Drink To Me Only With Thine Eyes.mp3"data-title="Drink To Me Only With Thine Eyes">Drink To Me Only With Thine Eyes</li>
+<li data-src="Tracks/Go Lassie Go.mp3"data-title="Go Lassie Go">Go Lassie Go</li>
+<li data-src="Tracks/Green Grow the Rashes, O.mp3"data-title="Green Grow the Rashes, O">Green Grow the Rashes, O</li>
+<li data-src="Tracks/Loch Lomond.mp3"data-title="Loch Lomond">Loch Lomond</li>
+<li data-src="Tracks/Oak and Ash and Thorn.mp3"data-title="Oak and Ash and Thorn">Oak and Ash and Thorn</li>
+<li data-src="Tracks/Rantin Rovin Robin.mp3"data-title="Rantin Rovin Robin">Rantin Rovin Robin</li>
+<li data-src="Tracks/Rowan Tree.mp3"data-title="Rowan Tree">Rowan Tree</li>
+<li data-src="Tracks/Ship That Never Returned.mp3"data-title="Ship That Never Returned">Ship That Never Returned</li>
+<li data-src="Tracks/Skye Boat Song.mp3"data-title="Skye Boat Song">Skye Boat Song</li>
+<li data-src="Tracks/The Auld Triangle.mp3"data-title="The Auld Triangle">The Auld Triangle</li>
+<li data-src="Tracks/The Minstrel Boy.mp3"data-title="The Minstrel Boy">The Minstrel Boy</li>
+<li data-src="Tracks/The Scotsman.mp3"data-title="The Scotsman">The Scotsman</li>
+<li data-src="Tracks/The Winter It Is Past.mp3"data-title="The Winter It Is Past">The Winter It Is Past</li>
+
+        </ul>
+
+        <div id="footer">
+            <p>Families: <a href="index.html">Songs</a> &middot; <a href="comment.html">Comment</a> &middot; <a href="tracks.html">Tracks</a> &middot; <a href="about.html">About</a></p>
+        </div>
+    </div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const trackListItems = document.querySelectorAll('.track-list li');
+        const selectedTracks = JSON.parse(localStorage.getItem('selectedTracks')) || [];
+
+        // Mark previously selected tracks as selected
+        trackListItems.forEach(item => {
+            const title = item.dataset.title;
+            if (selectedTracks.includes(title)) {
+                item.classList.add('selected');
+            }
+        });
+
+        trackListItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const title = item.dataset.title;
+                if (item.classList.contains('selected')) {
+                    item.classList.remove('selected');
+                    const index = selectedTracks.indexOf(title);
+                    if (index !== -1) {
+                        selectedTracks.splice(index, 1);
+                    }
+                } else {
+                    item.classList.add('selected');
+                    selectedTracks.push(title);
+                }
+                localStorage.setItem('selectedTracks', JSON.stringify(selectedTracks));
+            });
+        });
+
+        document.getElementById('finished-selecting').addEventListener('click', function() {
+            // Add functionality for when the "Play" button is clicked
+            console.log('Selected tracks:', selectedTracks);
+            // You can redirect to another page or perform other actions here
+        });
+
+        // Add search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            trackListItems.forEach(item => {
+                const title = item.dataset.title.toLowerCase();
+                if (title.includes(searchTerm)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+</html>
