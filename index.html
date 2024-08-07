@@ -35,22 +35,23 @@
         .song-list li:hover .hover-box {
             display: block;
         }
-       .hover-box {
+   .hover-box {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     border: 2px solid #ccc;
-    padding: 10px; /* Increase padding for better readability */
+    padding: 10px;
     z-index: 1;
-    white-space: pre-wrap; /* Preserve whitespace and line breaks */
-    max-width: 800px; /* Limit the width to avoid too wide boxes */
-    overflow: auto; /* Add scrollbar if content is too long */
-    top: 0; /* Position at the top of the frame */
-    left: 100%; /* Position to the right of the playlist */
-    height: 95%; /* Cover most of the frame height */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
-    border-radius: 4px; /* Rounded corners for the hover box */
+    white-space: pre-wrap;
+    width: 600px; /* Fixed width */
+    height: 500px; /* Fixed height */
+    overflow: auto;
+    top: 0;
+    left: calc(100% + 10px); /* Add some space between the playlist and the hover box */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
 }
+
 .playlist-item {
     position: relative; /* Ensure the hover box is positioned relative to the item */
 }
