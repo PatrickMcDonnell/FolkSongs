@@ -141,45 +141,39 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const trackListItems = document.querySelectorAll('.track-list li');
-        const selectedTracks = JSON.parse(localStorage.getItem('selectedTracks')) || [];
+        const finishedButton = document.getElementById('finished-selecting');
+        const searchInput = document.getElementById('searchInput');
 
-        // Mark previously selected tracks as selected
-        trackListItems.forEach(item => {
-            const title = item.dataset.title;
-            if (selectedTracks.includes(title)) {
-                item.classList.add('selected');
-            }
+        finishedButton.addEventListener('click', function() {
+            const selectedPlaylist = [];
+            trackListItems.forEach(item => {
+                if (item.classList.contains('selected')) {
+                    const songSrc = item.getAttribute('data-src');
+                    const songTitle = item.getAttribute('data-title');
+                    const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
+                    selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+                }
+            });
+
+            // Store selected playlist in localStorage
+            localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+            // Redirect back to index.html
+            window.location.href = 'index.html';
         });
 
         trackListItems.forEach(item => {
             item.addEventListener('click', function() {
-                const title = item.dataset.title;
-                if (item.classList.contains('selected')) {
-                    item.classList.remove('selected');
-                    const index = selectedTracks.indexOf(title);
-                    if (index !== -1) {
-                        selectedTracks.splice(index, 1);
-                    }
-                } else {
-                    item.classList.add('selected');
-                    selectedTracks.push(title);
-                }
-                localStorage.setItem('selectedTracks', JSON.stringify(selectedTracks));
+                item.classList.toggle('selected');
             });
         });
 
-        document.getElementById('finished-selecting').addEventListener('click', function() {
-            // Add functionality for when the "Play" button is clicked
-            console.log('Selected tracks:', selectedTracks);
-            // You can redirect to another page or perform other actions here
-        });
-
         // Add search functionality
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            trackListItems.forEach(item => {
-                const title = item.dataset.title.toLowerCase();
-                if (title.includes(searchTerm)) {
+        searchInput.addEventListener('input', function() {
+            const filter = searchInput.value.toLowerCase();
+            trackListItems.forEach(function(item) {
+                const title = item.getAttribute('data-title').toLowerCase();
+                if (title.includes(filter)) {
                     item.style.display = '';
                 } else {
                     item.style.display = 'none';
