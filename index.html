@@ -168,13 +168,8 @@
                 const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
                 const comments = song.getAttribute('data-comments');
 
-                songList += `${title}: ${fullUrl}\n`;
-                if (comments) {
-                    songList += `${comments}\n`;
-                } else {
-                    songList += 'No comments\n';
-                }
-                songList += '\n'; // Add extra line break between songs
+                // Formatting: Title, comments (if any), and URL
+                songList += `${title}: ${comments ? '  ' + comments : ' No comments'}\n${fullUrl}\n\n`;
             });
 
             const subject = encodeURIComponent("Playlist from Pat's Music");
@@ -225,6 +220,7 @@
         initializePlaylist();
     });
 </script>
+
 
 
     </div>
