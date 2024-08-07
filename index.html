@@ -105,6 +105,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
 <script>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
         const audioPlayer = document.getElementById('audio-player');
         const playlist = document.getElementById('playlist');
@@ -168,8 +169,8 @@
                 const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
                 const comments = song.getAttribute('data-comments');
 
-                // Formatting: Title, comments (if any), and URL
-                songList += `${title}: ${comments ? '  ' + comments : ' No comments'}\n${fullUrl}\n\n`;
+                // Formatting: Title, colon, comments (if any), and URL
+                songList += `${title}${comments ? ':  ' + comments : ''}\n${fullUrl}\n\n`;
             });
 
             const subject = encodeURIComponent("Playlist from Pat's Music");
@@ -220,6 +221,7 @@
         initializePlaylist();
     });
 </script>
+
 
 
 
