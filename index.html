@@ -153,7 +153,7 @@
             currentSongIndex = 0; // Reset current song index
         }
 
-         // Function to share the playlist via email
+        // Function to share the playlist via email
         function sharePlaylist() {
             const songs = playlist.querySelectorAll('li');
             if (songs.length === 0) {
@@ -168,8 +168,8 @@
                 const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
                 const comments = song.getAttribute('data-comments');
 
-                // Formatting: Title, colon, comments (if any), and URL
-                songList += `${title}${comments ? ':  ' + comments : ''}\n${fullUrl}\n\n`;
+                // Formatting: Bold Title, colon, two spaces, comments (if any), and URL
+                songList += `<b>${title}</b>${comments ? ':  ' + comments : ''}\n${fullUrl}\n\n`;
             });
 
             const subject = encodeURIComponent("Playlist from Pat's Music");
@@ -220,6 +220,7 @@
         initializePlaylist();
     });
 </script>
+
 
 
 
