@@ -163,13 +163,17 @@
 
             let songList = '';
             songs.forEach(song => {
-                const title = song.textContent;
+                const title = song.textContent.trim();
                 const relativePath = song.getAttribute('data-src');
                 const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
-                const comments = song.getAttribute('data-comments');
+                const comments = song.getAttribute('data-comments').trim();
 
-                // Formatting: Bold Title, colon, two spaces, comments (if any), and URL
-                songList += `<b>${title}</b>${comments ? ':  ' + comments : ''}\n${fullUrl}\n\n`;
+                // Formatting: Title, colon, two spaces, comments (if any), and URL
+                if (comments) {
+                    songList += `${title}:  ${comments}\n${fullUrl}\n\n`;
+                } else {
+                    songList += `${title}\n${fullUrl}\n\n`;
+                }
             });
 
             const subject = encodeURIComponent("Playlist from Pat's Music");
@@ -220,6 +224,8 @@
         initializePlaylist();
     });
 </script>
+
+
 
 
 
