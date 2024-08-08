@@ -153,7 +153,6 @@
             currentSongIndex = 0; // Reset current song index
         }
 
-// Function to share the playlist via email
 function sharePlaylist() {
     const songs = playlist.querySelectorAll('li');
     if (songs.length === 0) {
@@ -163,7 +162,8 @@ function sharePlaylist() {
 
     let songList = '';
     songs.forEach(song => {
-        const title = song.getAttribute('data-title').trim();
+        // Extract the title separately to avoid grabbing comments
+        const title = song.firstChild.nodeValue.trim();  // Grabs only the title text, assuming it's the first child node
         const relativePath = song.getAttribute('data-src');
         const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
         const comments = song.getAttribute('data-comments').trim();
@@ -182,18 +182,11 @@ function sharePlaylist() {
         songList + 
         '\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
     );
-
-    // Check if the body length exceeds the limit for mailto links
-    if (body.length > 2000) {
-        alert('The playlist content is too long to be shared via email. Please shorten the comments or reduce the number of songs.');
-        return;
-    }
-
     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
 
-    // Open the mailto link
     window.location.href = mailtoLink;
 }
+
 
         // Event listener for clear playlist button
         clearButton.addEventListener('click', function() {
