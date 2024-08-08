@@ -153,7 +153,8 @@
             currentSongIndex = 0; // Reset current song index
         }
 
-      function sharePlaylist() {
+// Function to share the playlist via email
+function sharePlaylist() {
     const songs = playlist.querySelectorAll('li');
     if (songs.length === 0) {
         alert('The playlist is empty.');
@@ -162,8 +163,7 @@
 
     let songList = '';
     songs.forEach(song => {
-        // Extract the title separately to avoid grabbing comments
-        const title = song.firstChild.nodeValue.trim();  // Grabs only the title text, assuming it's the first child node
+        const title = song.getAttribute('data-title').trim();
         const relativePath = song.getAttribute('data-src');
         const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
         const comments = song.getAttribute('data-comments').trim();
@@ -184,8 +184,12 @@
     );
     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
 
-    window.location.href = mailtoLink;
+    // Use a timeout to handle long text properly
+    setTimeout(() => {
+        window.location.href = mailtoLink;
+    }, 0);
 }
+
 
         // Event listener for clear playlist button
         clearButton.addEventListener('click', function() {
