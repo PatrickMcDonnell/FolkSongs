@@ -187,18 +187,6 @@
     window.location.href = mailtoLink;
 }
 
-
-            const subject = encodeURIComponent("Playlist from Pat's Music");
-            const body = encodeURIComponent(
-                'Here is my playlist:\n\n' + 
-                songList + 
-                '\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
-            );
-            const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
-
-            window.location.href = mailtoLink;
-        }
-
         // Event listener for clear playlist button
         clearButton.addEventListener('click', function() {
             clearPlaylist();
