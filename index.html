@@ -153,28 +153,40 @@
             currentSongIndex = 0; // Reset current song index
         }
 
-        // Function to share the playlist via email
-        function sharePlaylist() {
-            const songs = playlist.querySelectorAll('li');
-            if (songs.length === 0) {
-                alert('The playlist is empty.');
-                return;
-            }
+      function sharePlaylist() {
+    const songs = playlist.querySelectorAll('li');
+    if (songs.length === 0) {
+        alert('The playlist is empty.');
+        return;
+    }
 
-            let songList = '';
-            songs.forEach(song => {
-                const title = song.textContent.trim();
-                const relativePath = song.getAttribute('data-src');
-                const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
-                const comments = song.getAttribute('data-comments').trim();
+    let songList = '';
+    songs.forEach(song => {
+        // Extract the title separately to avoid grabbing comments
+        const title = song.firstChild.nodeValue.trim();  // Grabs only the title text, assuming it's the first child node
+        const relativePath = song.getAttribute('data-src');
+        const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
+        const comments = song.getAttribute('data-comments').trim();
 
-           // Formatting: Title, colon, two spaces, comments (if any), and URL
-                if (comments) {
-                    songList += `${title}:  ${comments}\n${fullUrl}\n\n`;
-                } else {
-                    songList += `${title}\n${fullUrl}\n\n`;
-                }
-            });
+        // Formatting: Title, colon, two spaces, comments (if any), and URL
+        if (comments) {
+            songList += `${title}:  ${comments}\n${fullUrl}\n\n`;
+        } else {
+            songList += `${title}\n${fullUrl}\n\n`;
+        }
+    });
+
+    const subject = encodeURIComponent("Playlist from Pat's Music");
+    const body = encodeURIComponent(
+        'Here is my playlist:\n\n' + 
+        songList + 
+        '\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
+    );
+    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+
+    window.location.href = mailtoLink;
+}
+
 
             const subject = encodeURIComponent("Playlist from Pat's Music");
             const body = encodeURIComponent(
