@@ -25,6 +25,7 @@
             gap: 10px; /* Gap between items */
         }
         .track-list li {
+            position: relative; /* Ensure the hover box is positioned relative to the item */
             margin: 0;
             line-height: 1.5; /* Set line height for single spacing */
             cursor: pointer;
@@ -33,11 +34,20 @@
         .track-list li.selected {
             color: blue; /* Selected text color */
         }
-
-<!--new hover box code -->
-
-  .song-list li:hover .hover-box {
-            display: block;
+        .finished-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
         }
         .hover-box {
             display: none;
@@ -55,28 +65,8 @@
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 4px;
         }
-        .playlist-item {
-            position: relative; /* Ensure the hover box is positioned relative to the item */
-        }
-        .playlist-item:hover .hover-box {
+        .track-list li:hover .hover-box {
             display: block; /* Show the hover box on hover */
-
-<! end new hover box code-->
-        .finished-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #808080; /* Grey background */
-            color: #fff; /* White text */
-            border: none;
-            cursor: pointer;
-        }
-        /* Add the following CSS for the footer */
-        #footer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 10px;
         }
     </style>
 </head>
