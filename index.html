@@ -182,14 +182,18 @@ function sharePlaylist() {
         songList + 
         '\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
     );
+
+    // Check if the body length exceeds the limit for mailto links
+    if (body.length > 2000) {
+        alert('The playlist content is too long to be shared via email. Please shorten the comments or reduce the number of songs.');
+        return;
+    }
+
     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
 
-    // Use a timeout to handle long text properly
-    setTimeout(() => {
-        window.location.href = mailtoLink;
-    }, 0);
+    // Open the mailto link
+    window.location.href = mailtoLink;
 }
-
 
         // Event listener for clear playlist button
         clearButton.addEventListener('click', function() {
