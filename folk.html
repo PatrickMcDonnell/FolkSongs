@@ -135,57 +135,56 @@
 <li data-src="Tracks/Wise Men.mp3" data-title="Wise Men">Wise Men</li>
 
 
+
             <!-- Add more tracks here as needed -->
         </ul>
 
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const trackListItems = document.querySelectorAll('.track-list li');
-                const finishedButton = document.getElementById('finished-selecting');
-                const searchInput = document.getElementById('searchInput');
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const trackListItems = document.querySelectorAll('.track-list li');
+        const finishedButton = document.getElementById('finished-selecting');
+        const searchInput = document.getElementById('searchInput');
 
-                finishedButton.addEventListener('click', function() {
-                    const selectedPlaylist = [];
-                    trackListItems.forEach(item => {
-                        if (item.classList.contains('selected')) {
-                            const songSrc = item.getAttribute('data-src');
-                            const songTitle = item.textContent;
-                            selectedPlaylist.push({ src: songSrc, title: songTitle });
-                        }
-                    });
-
-                    // Store selected playlist in localStorage
-                    localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
-
-                    // Redirect back to index.html
-                    window.location.href = 'index.html';
-                });
-
-                trackListItems.forEach(item => {
-                    item.addEventListener('click', function() {
-                        item.classList.toggle('selected');
-                    });
-                });
-
-                // Add search functionality
-                searchInput.addEventListener('input', function() {
-                    const filter = searchInput.value.toLowerCase();
-                    trackListItems.forEach(function(item) {
-                        const title = item.getAttribute('data-title').toLowerCase();
-                        if (title.includes(filter)) {
-                            item.style.display = '';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-                });
+        finishedButton.addEventListener('click', function() {
+            const selectedPlaylist = [];
+            trackListItems.forEach(item => {
+                if (item.classList.contains('selected')) {
+                    const songSrc = item.getAttribute('data-src');
+                    const songTitle = item.getAttribute('data-title');
+                    const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
+                    selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+                }
             });
-        </script>
 
-    <!--
-    </div>
-    -->
+            // Store selected playlist in localStorage
+            localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+            // Redirect back to index.html
+            window.location.href = 'index.html';
+        });
+
+        trackListItems.forEach(item => {
+            item.addEventListener('click', function() {
+                item.classList.toggle('selected');
+            });
+        });
+
+        // Add search functionality
+        searchInput.addEventListener('input', function() {
+            const filter = searchInput.value.toLowerCase();
+            trackListItems.forEach(function(item) {
+                const title = item.getAttribute('data-title').toLowerCase();
+                if (title.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
     <div id="footer">
         <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
             | <a href="homepage.html">Homepage</a></p>
