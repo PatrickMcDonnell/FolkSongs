@@ -86,15 +86,14 @@
 
 
 <ul class="track-list">           
-    <li data-src="Tracks/Anachie Gordon.mp3" data-title="Anachie Gordon" data-comments="Anachie Gordon is a traditional Scottish ballad.">Anachie Gordon<div class="hover-box">Anachie Gordon is a traditional Scottish ballad, also known as Lord Saltoun and Auchanachie.</div></li>
-    <li data-src="Tracks/Auld Lang Syne.mp3" data-title="Auld Lang Syne" data-comments="Auld Lang Syne is a traditional Scottish song written by the poet Robert Burns in 1788.">Auld Lang Syne</li>
-    <li data-src="Tracks/Awa' wi' Your Witchcraft o' Beauty's Alarms.mp3" data-title="Awa' wi' Your Witchcraft o' Beauty's Alarms" data-comments="Awa' wi' Your Witchcraft o' Beauty's Alarms is a lesser-known Scottish song written by the renowned poet Robert Burns.">Awa' wi' Your Witchcraft o' Beauty's Alarms</li>
-    <li data-src="Tracks/Believe Me If All Those Endearing Young Charms.mp3" data-title="Believe Me If All Those Endearing Young Charms" data-comments="Believe Me If All Those Endearing Young Charms is a song written by the Irish composer Thomas Moore in 1808.">Believe Me If All Those Endearing Young Charms</li>
-    <li data-src="Tracks/Beware o' Bonnie Ann.mp3" data-title="Beware o' Bonnie Ann">Beware o' Bonnie Ann</li>
-    <li data-src="Tracks/Both Sides the Tweed.mp3" data-title="Both Sides the Tweed">Both Sides the Tweed</li>
+<li data-src="Tracks/Anachie Gordon.mp3" data-title="Anachie Gordon" data-comments="Anachie Gordon is a traditional Scottish ballad.">Anachie Gordon<div class="hover-box">Anachie Gordon is a traditional Scottish ballad, also known as Lord Saltoun and Auchanachie.</div></li>
+<li data-src="Tracks/Auld Lang Syne.mp3" data-title="Auld Lang Syne" data-comments="Auld Lang Syne is a traditional Scottish song written by the poet Robert Burns in 1788.">Auld Lang Syne</li>
+<li data-src="Tracks/Awa' wi' Your Witchcraft o' Beauty's Alarms.mp3" data-title="Awa' wi' Your Witchcraft o' Beauty's Alarms" data-comments="Awa' wi' Your Witchcraft o' Beauty's Alarms is a lesser-known Scottish song written by the renowned poet Robert Burns.">Awa' wi' Your Witchcraft o' Beauty's Alarms</li>
+<li data-src="Tracks/Believe Me If All Those Endearing Young Charms.mp3" data-title="Believe Me If All Those Endearing Young Charms" data-comments="Believe Me If All Those Endearing Young Charms is a song written by the Irish composer Thomas Moore in 1808.">Believe Me If All Those Endearing Young Charms</li>
+<li data-src="Tracks/Beware o' Bonnie Ann.mp3" data-title="Beware o' Bonnie Ann">Beware o' Bonnie Ann</li>
+<li data-src="Tracks/Both Sides the Tweed.mp3" data-title="Both Sides the Tweed">Both Sides the Tweed</li>
 <li data-src="Tracks/Caledonia.mp3"data-title="Caledonia" data-comments="Just trying plain text with no quotation marks.">Caledonia
-<div class="hover-box">Just trying plain text with no quotation marks.</div>
-</li>
+<div class="hover-box">Just trying plain text with no quotation marks.</div></li>
 <li data-src="Tracks/Coming Through The Rye.mp3" data-title="Coming Through The Rye">Coming Through The Rye</li>
 <li data-src="Tracks/Drink To Me Only With Thine Eyes.mp3" data-title="Drink To Me Only With Thine Eyes">Drink To Me Only With Thine Eyes</li>
 <li data-src="Tracks/Go Lassie Go.mp3" data-title="Go Lassie Go">Go Lassie Go</li>
@@ -113,51 +112,6 @@
 
             <!-- Add more tracks here as needed -->
         </ul>
-
- <!--       <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const trackListItems = document.querySelectorAll('.track-list li');
-                const finishedButton = document.getElementById('finished-selecting');
-                const searchInput = document.getElementById('searchInput');
-
-                finishedButton.addEventListener('click', function() {
-                    const selectedPlaylist = [];
-                    trackListItems.forEach(item => {
-                        if (item.classList.contains('selected')) {
-                            const songSrc = item.getAttribute('data-src');
-                            const songTitle = item.textContent;
-                            selectedPlaylist.push({ src: songSrc, title: songTitle });
-                        }
-                    });
-
-                    // Store selected playlist in localStorage
-                    localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
-
-                    // Redirect back to index.html
-                    window.location.href = 'index.html';
-                });
-
-                trackListItems.forEach(item => {
-                    item.addEventListener('click', function() {
-                        item.classList.toggle('selected');
-                    });
-                });
-
-                // Add search functionality
-                searchInput.addEventListener('input', function() {
-                    const filter = searchInput.value.toLowerCase();
-                    trackListItems.forEach(function(item) {
-                        const title = item.getAttribute('data-title').toLowerCase();
-                        if (title.includes(filter)) {
-                            item.style.display = '';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-                });
-            });
-        </script>
--->
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -204,9 +158,6 @@
     });
 </script>
 
-    <!--
-    </div>
-    -->
     <div id="footer">
         <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
             | <a href="homepage.html">Homepage</a></p>
