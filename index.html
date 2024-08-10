@@ -162,33 +162,30 @@ function sharePlaylist() {
 
     let songList = '';
     songs.forEach(song => {
-        const title = song.firstChild.nodeValue.trim();
+        // Extract the title separately to avoid grabbing comments
+        const title = song.firstChild.nodeValue.trim();  // Grabs only the title text, assuming it's the first child node
         const relativePath = song.getAttribute('data-src');
         const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
         const comments = song.getAttribute('data-comments').trim();
 
+        // Formatting: Title, colon, two spaces, comments (if any), and URL
         if (comments) {
-            songList += `<p style="margin-left: 20px;"><strong>${title}:</strong> ${comments}<br>${fullUrl}</p>`;
+            songList += `${title}:  ${comments}\n${fullUrl}\n\n`;
         } else {
-            songList += `<p style="margin-left: 20px;"><strong>${title}</strong><br>${fullUrl}</p>`;
+            songList += `${title}\n${fullUrl}\n\n`;
         }
     });
 
     const subject = encodeURIComponent("Playlist from Pat's Music");
     const body = encodeURIComponent(
-        `<div style="font-family: Calibri, sans-serif; font-size: 12pt;">
-            <p>Here is my playlist:</p>
-            ${songList}
-            <p>You can see other songs here: 
-            <a href="https://patrickmcdonnell.github.io/FolkSongs/homepage.html">https://patrickmcdonnell.github.io/FolkSongs/homepage.html</a></p>
-        </div>`
+        'Here is my playlist:\n\n' + 
+        songList + 
+        '\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
     );
-
     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
 
     window.location.href = mailtoLink;
 }
-
 
 
         // Event listener for clear playlist button
