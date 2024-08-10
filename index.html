@@ -162,16 +162,17 @@ function sharePlaylist() {
 
     let songList = '';
     songs.forEach(song => {
-        const title = song.firstChild.nodeValue.trim();
+        // Extract the title separately to avoid grabbing comments
+        const title = song.firstChild.nodeValue.trim();  // Grabs only the title text, assuming it's the first child node
         const relativePath = song.getAttribute('data-src');
         const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
         const comments = song.getAttribute('data-comments').trim();
 
-        // Use asterisks for bold and spaces for indentation
+        // Formatting: Title, colon, two spaces, comments (if any), and URL
         if (comments) {
-            songList += `    *${title}*: ${comments}\n    ${fullUrl}\n\n`;
+            songList += `${title}:  ${comments}\n${fullUrl}\n\n`;
         } else {
-            songList += `    *${title}*\n    ${fullUrl}\n\n`;
+            songList += `${title}\n${fullUrl}\n\n`;
         }
     });
 
@@ -185,7 +186,6 @@ function sharePlaylist() {
 
     window.location.href = mailtoLink;
 }
-
 
 
         // Event listener for clear playlist button
