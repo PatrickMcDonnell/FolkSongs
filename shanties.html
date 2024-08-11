@@ -25,6 +25,7 @@
             gap: 10px; /* Gap between items */
         }
         .track-list li {
+            position: relative; /* Ensure the hover box is positioned relative to the item */
             margin: 0;
             line-height: 1.5; /* Set line height for single spacing */
             cursor: pointer;
@@ -41,7 +42,6 @@
             border: none;
             cursor: pointer;
         }
-        /* Add the following CSS for the footer */
         #footer {
             display: flex;
             justify-content: center;
@@ -49,20 +49,35 @@
             text-align: center;
             padding: 10px;
         }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px; 
+            max-height: 80vh; /* Maximum height relative to viewport height */
+            overflow: auto; /* Add scrollbar if content exceeds max-height */
+            top: 0;
+            left: calc(100% + 10px); /* Add some space between the playlist and the hover box */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block; /* Show the hover box on hover */
+        }
     </style>
 </head>
+
 <body>
 <div id="wrap">
     <div id="header">
         <h1><a href="#">Shanties</a></h1>
-        <!--
-        <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="">Tracks</a> &middot; <a href="">Comment</a></p>
-    </div>
--->
+
     <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
-    <!--
-    <div id="contentwide">
-    -->
+
         <h1>Select Tracks</h1>
 
         <!-- Add the search input here -->
@@ -70,74 +85,72 @@
 
         <button class="finished-button" id="finished-selecting">Play</button>
 
-
-        <ul class="track-list">
+<ul class="track-list">
            
-<li data-src="Tracks/All For Me Grog.mp3"data-title="All For Me Grog" data-comments="All For Me Grog is a traditional folk song of English and Irish origin, often associated with sailors and drinking culture. Its origins are unclear, but it likely dates back to the 19th century. The song narrates the lament of a sailor who has squandered his health, wealth, and relationships due to his fondness for grog (a mixture of water and rum). The sailor recounts how his clothes, boots, and other possessions have all been "pawned" to sustain his drinking habit. The song is often performed in a lively, rollicking style and remains popular in folk music circles, especially in pubs and maritime festivals.">All For Me Grog</li>
-<li data-src="Tracks/Barretts Privateers.mp3"data-title="Barretts Privateers">Barretts Privateers</li>
-<li data-src="Tracks/Blow The Man Down.mp3"data-title="Blow The Man Down">Blow The Man Down</li>
-<li data-src="Tracks/Bones In The Ocean.mp3"data-title="Bones In The Ocean">Bones In The Ocean</li>
-<li data-src="Tracks/Dead Horse.mp3"data-title="Dead Horse">Dead Horse</li>
-<li data-src="Tracks/Highland Laddie.mp3"data-title="Highland Laddie">Highland Laddie</li>
-<li data-src="Tracks/Leave Her, Johnny, Leave Her.mp3"data-title="Leave Her, Johnny, Leave Her">Leave Her, Johnny, Leave Her</li>
-<li data-src="Tracks/Northwest Passage.mp3"data-title="Northwest Passage">Northwest Passage</li>
-<li data-src="Tracks/Old Maui.mp3"data-title="Old Maui">Old Maui</li>
-<li data-src="Tracks/Randy Dandy Oh.mp3"data-title="Randy Dandy Oh">Randy Dandy Oh</li>
-<li data-src="Tracks/Spanish Ladies.mp3"data-title="Spanish Ladies">Spanish Ladies</li>
-<li data-src="Tracks/The Idiot.mp3"data-title="The Idiot">The Idiot</li>
-<li data-src="Tracks/The Worst Old Ship.mp3"data-title="The Worst Old Ship">The Worst Old Ship</li>
-<li data-src="Tracks/Wellerman.mp3"data-title="Wellerman">Wellerman</li>
+<li data-src="Tracks/All For Me Grog.mp3" data-title="All For Me Grog" data-comments="Traditional sea shanty, first known in the 19th century. A lively folk song about sailors spending their money on alcohol and tobacco.">All For Me Grog<div class="hover-box">Traditional sea shanty, first known in the 19th century. A lively folk song about sailors spending their money on alcohol and tobacco.</div></li>
+<li data-src="Tracks/Barretts Privateers.mp3" data-title="Barretts Privateers" data-comments="Composed by Stan Rogers, 1976. A modern sea shanty about a privateer’s disastrous voyage.">Barretts Privateers<div class="hover-box">Composed by Stan Rogers, 1976. A modern sea shanty about a privateer’s disastrous voyage.</div></li>
+<li data-src="Tracks/Blow The Man Down.mp3" data-title="Blow The Man Down" data-comments="Traditional sea shanty, first known in the 19th century. A spirited sea shanty about life aboard a ship and various maritime adventures.">Blow The Man Down<div class="hover-box">Traditional sea shanty, first known in the 19th century. A spirited sea shanty about life aboard a ship and various maritime adventures.</div></li>
+<li data-src="Tracks/Bones In The Ocean.mp3" data-title="Bones In The Ocean" data-comments="Written by David Coffin, 2013. A contemporary sea shanty about loss and remembrance at sea.">Bones In The Ocean<div class="hover-box">Written by David Coffin, 2013. A contemporary sea shanty about loss and remembrance at sea.</div></li>
+<li data-src="Tracks/Dead Horse.mp3" data-title="Dead Horse" data-comments="Traditional American song, first known in the 19th century. A humorous and lively song about a sailor’s encounter with a dead horse.">Dead Horse<div class="hover-box">Traditional American song, first known in the 19th century. A humorous and lively song about a sailor’s encounter with a dead horse.</div></li>
+<li data-src="Tracks/Highland Laddie.mp3" data-title="Highland Laddie" data-comments="Traditional Scottish folk song, first known in the 18th century. Child Ballad 47. A song about a Highland lad and his adventures.">Highland Laddie<div class="hover-box">Traditional Scottish folk song, first known in the 18th century. Child Ballad 47. A song about a Highland lad and his adventures.</div></li>
+<li data-src="Tracks/Leave Her, Johnny, Leave Her.mp3" data-title="Leave Her, Johnny, Leave Her" data-comments="Traditional sea shanty, first known in the 19th century. A song about the end of a ship's voyage and the farewell to a beloved ship.">Leave Her, Johnny, Leave Her<div class="hover-box">Traditional sea shanty, first known in the 19th century. A song about the end of a ship's voyage and the farewell to a beloved ship.</div></li>
+<li data-src="Tracks/Northwest Passage.mp3" data-title="Northwest Passage" data-comments="Written by Stan Rogers, 1981. A folk song about the search for a sea route through the Arctic and the challenges faced by explorers.">Northwest Passage<div class="hover-box">Written by Stan Rogers, 1981. A folk song about the search for a sea route through the Arctic and the challenges faced by explorers.</div></li>
+<li data-src="Tracks/Old Maui.mp3" data-title="Old Maui" data-comments="Traditional sea shanty, first known in the 19th century. A song about the experiences and longing of sailors who have been away from Maui.">Old Maui<div class="hover-box">Traditional sea shanty, first known in the 19th century. A song about the experiences and longing of sailors who have been away from Maui.</div></li>
+<li data-src="Tracks/Randy Dandy Oh.mp3" data-title="Randy Dandy Oh" data-comments="Traditional sea shanty, first known in the 19th century. A song about the life and work of sailors, with a lively and rhythmic tune.">Randy Dandy Oh<div class="hover-box">Traditional sea shanty, first known in the 19th century. A song about the life and work of sailors, with a lively and rhythmic tune.</div></li>
+<li data-src="Tracks/Spanish Ladies.mp3" data-title="Spanish Ladies" data-comments="Traditional British sea shanty, first known in the 19th century. A song about the Spanish coast and the experiences of sailors traveling home.">Spanish Ladies<div class="hover-box">Traditional British sea shanty, first known in the 19th century. A song about the Spanish coast and the experiences of sailors traveling home.</div></li>
+<li data-src="Tracks/The Idiot.mp3" data-title="The Idiot" data-comments=”Written by Stan Rogers, first released in 1981 on his album Northwest Passage. Stan Rogers was a Canadian folk musician known for his powerful voice and songwriting, often reflecting Canadian life and history.">The Idiot<div class="hover-box">Written by Stan Rogers, first released in 1981 on his album Northwest Passage. Stan Rogers was a Canadian folk musician known for his powerful voice and songwriting, often reflecting Canadian life and history.</div></li>
+<li data-src="Tracks/The Worst Old Ship.mp3" data-title="The Worst Old Ship" data-comments="Traditional sea shanty, first known in the 19th century. A song about the worst ship to sail and the hardships faced by its crew.">The Worst Old Ship<div class="hover-box">Traditional sea shanty, first known in the 19th century. A song about the worst ship to sail and the hardships faced by its crew.</div></li>
+<li data-src="Tracks/Wellerman.mp3" data-title="Wellerman" data-comments="Traditional New Zealand sea shanty, first known in the 19th century. A song about whalers and the arrival of the supply ship Wellerman.">Wellerman<div class="hover-box">Traditional New Zealand sea shanty, first known in the 19th century. A song about whalers and the arrival of the supply ship Wellerman.</div></li>
 
             <!-- Add more tracks here as needed -->
         </ul>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const trackListItems = document.querySelectorAll('.track-list li');
-                const finishedButton = document.getElementById('finished-selecting');
-                const searchInput = document.getElementById('searchInput');
 
-                finishedButton.addEventListener('click', function() {
-                    const selectedPlaylist = [];
-                    trackListItems.forEach(item => {
-                        if (item.classList.contains('selected')) {
-                            const songSrc = item.getAttribute('data-src');
-                            const songTitle = item.textContent;
-                            selectedPlaylist.push({ src: songSrc, title: songTitle });
-                        }
-                    });
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const trackListItems = document.querySelectorAll('.track-list li');
+        const finishedButton = document.getElementById('finished-selecting');
+        const searchInput = document.getElementById('searchInput');
 
-                    // Store selected playlist in localStorage
-                    localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
-
-                    // Redirect back to index.html
-                    window.location.href = 'index.html';
-                });
-
-                trackListItems.forEach(item => {
-                    item.addEventListener('click', function() {
-                        item.classList.toggle('selected');
-                    });
-                });
-
-                // Add search functionality
-                searchInput.addEventListener('input', function() {
-                    const filter = searchInput.value.toLowerCase();
-                    trackListItems.forEach(function(item) {
-                        const title = item.getAttribute('data-title').toLowerCase();
-                        if (title.includes(filter)) {
-                            item.style.display = '';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-                });
+        finishedButton.addEventListener('click', function() {
+            const selectedPlaylist = [];
+            trackListItems.forEach(item => {
+                if (item.classList.contains('selected')) {
+                    const songSrc = item.getAttribute('data-src');
+                    const songTitle = item.getAttribute('data-title');
+                    const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
+                    selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+                }
             });
-        </script>
 
-    <!--
-    </div>
-    -->
+            // Store selected playlist in localStorage
+            localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+            // Redirect back to index.html
+            window.location.href = 'index.html';
+        });
+
+        trackListItems.forEach(item => {
+            item.addEventListener('click', function() {
+                item.classList.toggle('selected');
+            });
+        });
+
+        // Add search functionality
+        searchInput.addEventListener('input', function() {
+            const filter = searchInput.value.toLowerCase();
+            trackListItems.forEach(function(item) {
+                const title = item.getAttribute('data-title').toLowerCase();
+                if (title.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
     <div id="footer">
         <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
             | <a href="homepage.html">Homepage</a></p>

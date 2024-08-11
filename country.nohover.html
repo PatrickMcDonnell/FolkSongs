@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set default text color to black */
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
+        }
+        .track-list li {
+            margin: 0;
+            line-height: 1.5; /* Set line height for single spacing */
+            cursor: pointer;
+            color: #000; /* Default text color */
+        }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
+        }
+        .finished-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
+        /* Add the following CSS for the footer */
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px; 
+            max-height: 80vh; /* Maximum height relative to viewport height */
+            overflow: auto; /* Add scrollbar if content exceeds max-height */
+            top: 0;
+            left: calc(100% + 10px); /* Add some space between the playlist and the hover box */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block; /* Show the hover box on hover */
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <h1><a href="#">Country</a></h1>
+
+    <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+    <!--
+    <div id="contentwide">
+    -->
+        <h1>Select Tracks</h1>
+
+        <!-- Add the search input here -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+
+        <button class="finished-button" id="finished-selecting">Play</button>
+
+ <ul class="track-list">
+           
+
+<li data-src="Tracks/Battle Of New Orleans.mp3" data-title="Battle Of New Orleans">Battle Of New Orleans</li>
+<li data-src="Tracks/Cod Liver Oil.mp3" data-title="Cod Liver Oil">Cod Liver Oil</li>
+<li data-src="Tracks/Don't Forget Your Shovel.mp3" data-title="Don't Forget Your Shovel">Don't Forget Your Shovel</li>
+<li data-src="Tracks/Down in the Valley.mp3" data-title="Down in the Valley">Down in the Valley</li>
+<li data-src="Tracks/Foggy Foggy Dew.mp3" data-title="Foggy Foggy Dew">Foggy Foggy Dew</li>
+<li data-src="Tracks/Garden Song.mp3" data-title="Garden Song">Garden Song</li>
+<li data-src="Tracks/Halleluja I'm a Bum.mp3" data-title="Halleluja I'm a Bum">Halleluja I'm a Bum</li>
+<li data-src="Tracks/Hard Times Come Again No More.mp3" data-title="Hard Times Come Again No More">Hard Times Come Again No More</li>
+<li data-src="Tracks/I Dream Of Jeannie.mp3" data-title="I Dream Of Jeannie">I Dream Of Jeannie</li>
+<li data-src="Tracks/I Know Where I Am Going.mp3" data-title="I Know Where I Am Going">I Know Where I Am Going</li>
+<li data-src="Tracks/Indian Nation.mp3" data-title="Indian Nation">Indian Nation</li>
+<li data-src="Tracks/Is This Land Your Land_.mp3" data-title="Is This Land Your Land">Is This Land Your Land</li>
+<li data-src="Tracks/Jesse James.mp3" data-title="Jesse James" data-comments="Traditional American folk song, first known in the 19th century. Child Ballad 10. A song about the infamous outlaw Jesse James and his exploits.">Jesse James<div class="hover-box">Traditional American folk song, first known in the 19th century. Child Ballad 10. A song about the infamous outlaw Jesse James and his exploits.</div></li>
+<li data-src="Tracks/John Hardy.mp3" data-title="John Hardy" data-comments="Traditional American folk song, first known in the 19th century. Child Ballad 109. A ballad about the outlaw John Hardy and his criminal activities.">John Hardy<div class="hover-box">Traditional American folk song, first known in the 19th century. Child Ballad 109. A ballad about the outlaw John Hardy and his criminal activities.</div></li>
+<li data-src="Tracks/Kansas Boys.mp3" data-title="Kansas Boys">Kansas Boys</li>
+<li data-src="Tracks/Man Of Constant Sorrow.mp3" data-title="Man Of Constant Sorrow">Man Of Constant Sorrow</li>
+<li data-src="Tracks/Mountain Dew.mp3" data-title="Mountain Dew">Mountain Dew</li>
+<li data-src="Tracks/Oklahoma Hills.mp3" data-title="Oklahoma Hills">Oklahoma Hills</li>
+<li data-src="Tracks/Pack Up Your Sorrows.mp3" data-title="Pack Up Your Sorrows">Pack Up Your Sorrows</li>
+<li data-src="Tracks/Plastic Jesus.mp3" data-title="Plastic Jesus">Plastic Jesus</li>
+<li data-src="Tracks/Red River Valley.mp3" data-title="Red River Valley">Red River Valley</li>
+<li data-src="Tracks/Roll in my sweet baby's arms.mp3" data-title="Roll in my sweet baby's arms">Roll in my sweet baby's arms</li>
+<li data-src="Tracks/Roll, Columbia, Roll.mp3" data-title="Roll, Columbia, Roll">Roll, Columbia, Roll</li>
+<li data-src="Tracks/Running Bear.mp3" data-title="Running Bear">Running Bear</li>
+<li data-src="Tracks/Rye Whiskey.mp3" data-title="Rye Whiskey">Rye Whiskey</li>
+<li data-src="Tracks/Shenandoah.mp3" data-title="Shenandoah">Shenandoah</li>
+<li data-src="Tracks/Silvie.mp3" data-title="Silvie">Silvie</li>
+<li data-src="Tracks/The Cruel War Is Raging.mp3" data-title="The Cruel War Is Raging">The Cruel War Is Raging</li>
+<li data-src="Tracks/The River.mp3" data-title="The River">The River</li>
+<li data-src="Tracks/What Have They Done To The Rain.mp3" data-title="What Have They Done To The Rain">What Have They Done To The Rain</li>
+<li data-src="Tracks/Whiskey, Whiskey.mp3" data-title="Whiskey, Whiskey">Whiskey, Whiskey</li>
+<li data-src="Tracks/Wild Rover.mp3" data-title="Wild Rover">Wild Rover</li>
+
+            <!-- Add more tracks here as needed -->
+        </ul>
+
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const trackListItems = document.querySelectorAll('.track-list li');
+                const finishedButton = document.getElementById('finished-selecting');
+                const searchInput = document.getElementById('searchInput');
+
+                finishedButton.addEventListener('click', function() {
+                    const selectedPlaylist = [];
+                    trackListItems.forEach(item => {
+                        if (item.classList.contains('selected')) {
+                            const songSrc = item.getAttribute('data-src');
+                            const songTitle = item.textContent;
+                            selectedPlaylist.push({ src: songSrc, title: songTitle });
+                        }
+                    });
+
+                    // Store selected playlist in localStorage
+                    localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+                    // Redirect back to index.html
+                    window.location.href = 'index.html';
+                });
+
+                trackListItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        item.classList.toggle('selected');
+                    });
+                });
+
+                // Add search functionality
+                searchInput.addEventListener('input', function() {
+                    const filter = searchInput.value.toLowerCase();
+                    trackListItems.forEach(function(item) {
+                        const title = item.getAttribute('data-title').toLowerCase();
+                        if (title.includes(filter)) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        </script>
+
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="homepage.html">Homepage</a></p>
+    </div>
+</div>
+</body>
+</html>

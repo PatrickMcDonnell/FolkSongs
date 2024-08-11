@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blues</title>
+    <title>Irish</title>
     <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
     <link rel="stylesheet" type="text/css" href="print.css" media="print" />
     <style>
@@ -24,8 +24,7 @@
             grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
             gap: 10px; /* Gap between items */
         }
-          .track-list li {
-            position: relative; /* Ensure the hover box is positioned relative to the item */
+        .track-list li {
             margin: 0;
             line-height: 1.5; /* Set line height for single spacing */
             cursor: pointer;
@@ -42,6 +41,7 @@
             border: none;
             cursor: pointer;
         }
+        /* Add the following CSS for the footer */
         #footer {
             display: flex;
             justify-content: center;
@@ -49,31 +49,12 @@
             text-align: center;
             padding: 10px;
         }
-        .hover-box {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            border: 2px solid #ccc;
-            padding: 10px;
-            z-index: 1;
-            white-space: pre-wrap;
-            width: 250px; 
-            max-height: 80vh; /* Maximum height relative to viewport height */
-            overflow: auto; /* Add scrollbar if content exceeds max-height */
-            top: 0;
-            left: calc(100% + 10px); /* Add some space between the playlist and the hover box */
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
-        }
-        .track-list li:hover .hover-box {
-            display: block; /* Show the hover box on hover */
-        }
     </style>
 </head>
 <body>
 <div id="wrap">
     <div id="header">
-        <h1><a href="#">Blues</a></h1>
+        <h1><a href="#">Irish</a></h1>
         <!--
         <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="">Tracks</a> &middot; <a href="">Comment</a></p>
     </div>
@@ -89,22 +70,46 @@
 
         <button class="finished-button" id="finished-selecting">Play</button>
 
- <ul class="track-list">
-<li data-src="Tracks/Ain't Nobody's Dirty Business.mp3"data-title="Ain't Nobody's Dirty Business" data-comments="Comment for Ain't Nobody's Dirty Business">Ain't Nobody's Dirty Business</li>
-<li data-src="Tracks/Brown's Ferry Blues.mp3"data-title="Brown's Ferry Blues">Brown's Ferry Blues</li>
-<li data-src="Tracks/Cocaine Bill and Morphine Sue.mp3"data-title="Cocaine Bill and Morphine Sue">Cocaine Bill and Morphine Sue</li>
-<li data-src="Tracks/Cocaine Blues.mp3"data-title="Cocaine Blues">Cocaine Blues</li>
-<li data-src="Tracks/Corinna.mp3"data-title="Corinna">Corinna</li>
-<li data-src="Tracks/I'm Going Down The Road Feeling Bad.mp3"data-title="I'm Going Down The Road Feeling Bad">I'm Going Down The Road Feeling Bad</li>
-<li data-src="Tracks/Pallet on Your Floor.mp3"data-title="Pallet on Your Floor">Pallet on Your Floor</li>
-<li data-src="Tracks/Oh, Babe It Ain't No Lie.mp3"data-title="Oh, Babe It Ain't No Lie">Oh, Babe It Ain't No Lie</li>
-<li data-src="Tracks/Saint James Infirmary.mp3"data-title="Saint James Infirmary">Saint James Infirmary</li>
-<li data-src="Tracks/Salty Dog.mp3"data-title="Salty Dog">Salty Dog</li>
-<li data-src="Tracks/Step It Up And Go.mp3"data-title="Step It Up And Go">Step It Up And Go</li>
-<li data-src="Tracks/Take Your Fingers Off It.mp3"data-title="Take Your Fingers Off It">Take Your Fingers Off It</li>           
+
+        <ul class="track-list">
+
+           <li data-src="Tracks/The Bard of Armagh.mp3"data-title="The Bard of Armagh" data-comments="Traditional Irish folk song, first known in the 19th century. Child Ballad 240. A song about the life and struggles of the bard of Armagh.">The Bard of Armagh<div class="hover-box">Traditional Irish folk song, first known in the 19th century. Child Ballad 240. A song about the life and struggles of the bard of Armagh.</div></li>
+
+            <li data-src="Tracks/Black Velvet Band.mp3" data-title="Black Velvet Band">Black Velvet Band</li>
+            <li data-src="Tracks/Bold Fenian Men.mp3" data-title="Bold Fenian Men">Bold Fenian Men</li>
+            <li data-src="Tracks/Danny Boy.mp3" data-title="Danny Boy">Danny Boy</li>
+            <li data-src="Tracks/Do You Want Your Old Lobby Washed Down.mp3" data-title="Do You Want Your Old Lobby Washed Down">Do You Want Your Old Lobby Washed Down</li>
+            <li data-src="Tracks/Erin Go Braugh.mp3" data-title="Erin Go Braugh">Erin Go Braugh</li>
+            <li data-src="Tracks/Fiddler's Green.mp3" data-title="Fiddler's Green">Fiddler's Green</li>
+            <li data-src="Tracks/Foggy Dew.mp3" data-title="Foggy Dew">Foggy Dew</li>
+            <li data-src="Tracks/Galway Bay.mp3" data-title="Galway Bay">Galway Bay</li>
+            <li data-src="Tracks/Grace.mp3" data-title="Grace">Grace</li>
+            <li data-src="Tracks/Irish Rover.mp3" data-title="Irish Rover">Irish Rover</li>
+            <li data-src="Tracks/Kelly The Boy From Killane.mp3" data-title="Kelly The Boy From Killane">Kelly The Boy From Killane</li>
+            <li data-src="Tracks/Kimmage.mp3" data-title="Kimmage">Kimmage</li>
+            <li data-src="Tracks/Leaving of Liverpool.mp3" data-title="Leaving of Liverpool">Leaving of Liverpool</li>
+            <li data-src="Tracks/Lowlands of Holland.mp3" data-title="Lowlands of Holland">Lowlands of Holland</li>
+            <li data-src="Tracks/Molly Malone.mp3" data-title="Molly Malone">Molly Malone</li>
+            <li data-src="Tracks/Mountains of Mourne.mp3" data-title="Mountains of Mourne">Mountains of Mourne</li>
+            <li data-src="Tracks/No Irish Need Apply.mp3" data-title="No Irish Need Apply">No Irish Need Apply</li>
+            <li data-src="Tracks/Only Our Rivers Run Free.mp3" data-title="Only Our Rivers Run Free">Only Our Rivers Run Free</li>
+            <li data-src="Tracks/Parting Glass.mp3" data-title="Parting Glass">Parting Glass</li>
+            <li data-src="Tracks/Patriot Game.mp3" data-title="Patriot Game">Patriot Game</li>
+            <li data-src="Tracks/Red is the Rose.mp3" data-title="Red is the Rose">Red is the Rose</li>
+            <li data-src="Tracks/Song For Ireland.mp3" data-title="Song For Ireland">Song For Ireland</li>
+            <li data-src="Tracks/Spancil Hill.mp3" data-title="Spancil Hill">Spancil Hill</li>
+            <li data-src="Tracks/Star of the County Down.mp3" data-title="Star of the County Down">Star of the County Down</li>
+            <li data-src="Tracks/Streets of London.mp3" data-title="Streets of London">Streets of London</li>
+            <li data-src="Tracks/The Band Played Waltzing Matilda.mp3" data-title="The Band Played Waltzing Matilda">The Band Played Waltzing Matilda</li>
+            <li data-src="Tracks/The Bard of Armagh.mp3" data-title="The Bard of Armagh">The Bard of Armagh</li>
+            <li data-src="Tracks/Wearing of the Green.mp3" data-title="Wearing of the Green">Wearing of the Green</li>
+            <li data-src="Tracks/Whistling Gypsy Rover.mp3" data-title="Whistling Gypsy Rover">Whistling Gypsy Rover</li>
+            <li data-src="Tracks/Wild Colonial Boy.mp3" data-title="Wild Colonial Boy">Wild Colonial Boy</li>
+        </ul>
 
             <!-- Add more tracks here as needed -->
         </ul>
+
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {

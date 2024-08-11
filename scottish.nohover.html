@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scottish</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set default text color to black */
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
+        }
+        .track-list li {
+            margin: 0;
+            line-height: 1.5; /* Set line height for single spacing */
+            cursor: pointer;
+            color: #000; /* Default text color */
+        }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
+        }
+        .finished-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
+        /* Add the following CSS for the footer */
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px; 
+            max-height: 80vh; /* Maximum height relative to viewport height */
+            overflow: auto; /* Add scrollbar if content exceeds max-height */
+            top: 0;
+            left: calc(100% + 10px); /* Add some space between the playlist and the hover box */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block; /* Show the hover box on hover */
+        }
+        </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <h1><a href="#">Scottish</a></h1>
+
+    <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+
+        <h1>Select Tracks</h1>
+
+        <!-- Add the search input here -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+
+        <button class="finished-button" id="finished-selecting">Play</button>
+
+
+<ul class="track-list">           
+<li data-src="Tracks/Anachie Gordon.mp3" data-title="Anachie Gordon" data-comments="Anachie Gordon is a traditional Scottish ballad.">Anachie Gordon<div class="hover-box">Anachie Gordon is a traditional Scottish ballad, also known as Lord Saltoun and Auchanachie.</div></li>
+<li data-src="Tracks/Auld Lang Syne.mp3" data-title="Auld Lang Syne" data-comments="Auld Lang Syne is a traditional Scottish song written by the poet Robert Burns in 1788.">Auld Lang Syne</li>
+<li data-src="Tracks/Awa' wi' Your Witchcraft o' Beauty's Alarms.mp3" data-title="Awa' wi' Your Witchcraft o' Beauty's Alarms" data-comments="Awa' wi' Your Witchcraft o' Beauty's Alarms is a lesser-known Scottish song written by the renowned poet Robert Burns.">Awa' wi' Your Witchcraft o' Beauty's Alarms</li>
+<li data-src="Tracks/Believe Me If All Those Endearing Young Charms.mp3" data-title="Believe Me If All Those Endearing Young Charms" data-comments="Believe Me If All Those Endearing Young Charms is a song written by the Irish composer Thomas Moore in 1808.">Believe Me If All Those Endearing Young Charms</li>
+<li data-src="Tracks/Beware o' Bonnie Ann.mp3" data-title="Beware o' Bonnie Ann">Beware o' Bonnie Ann</li>
+<li data-src="Tracks/Both Sides the Tweed.mp3" data-title="Both Sides the Tweed">Both Sides the Tweed</li>
+<li data-src="Tracks/Caledonia.mp3"data-title="Caledonia" data-comments="Just trying plain text with no quotation marks.">Caledonia
+<div class="hover-box">Just trying plain text with no quotation marks.</div></li>
+<li data-src="Tracks/Coming Through The Rye.mp3" data-title="Coming Through The Rye">Coming Through The Rye</li>
+<li data-src="Tracks/Drink To Me Only With Thine Eyes.mp3" data-title="Drink To Me Only With Thine Eyes">Drink To Me Only With Thine Eyes</li>
+<li data-src="Tracks/Go Lassie Go.mp3" data-title="Go Lassie Go">Go Lassie Go</li>
+<li data-src="Tracks/Green Grow the Rashes, O.mp3" data-title="Green Grow the Rashes, O">Green Grow the Rashes, O</li>
+<li data-src="Tracks/Highland Laddie.mp3" data-title="Highland Laddie" data-comments="Traditional Scottish folk song, first known in the 18th century. A song about a Highland lad and his adventures.">Highland Laddie<div class="hover-box">Traditional Scottish folk song, first known in the 18th century. A song about a Highland lad and his adventures.</div></li>
+<li data-src="Tracks/Loch Lomond.mp3" data-title="Loch Lomond" data-comments="Traditional Scottish folk song, first known in the 18th century. Child Ballad 239. A song about the beauty of Loch Lomond and the emotions of parting.">Loch Lomond<div class="hover-box">Traditional Scottish folk song, first known in the 18th century. Child Ballad 239. A song about the beauty of Loch Lomond and the emotions of parting.</div></li>
+<li data-src="Tracks/Oak and Ash and Thorn.mp3" data-title="Oak and Ash and Thorn">Oak and Ash and Thorn</li>
+<li data-src="Tracks/Rantin Rovin Robin.mp3" data-title="Rantin Rovin Robin">Rantin Rovin Robin</li>
+<li data-src="Tracks/Rowan Tree.mp3" data-title="Rowan Tree">Rowan Tree</li>
+<li data-src="Tracks/Ship That Never Returned.mp3" data-title="Ship That Never Returned">Ship That Never Returned</li>
+<li data-src="Tracks/Skye Boat Song.mp3" data-title="Skye Boat Song">Skye Boat Song</li>
+<li data-src="Tracks/The Auld Triangle.mp3" data-title="The Auld Triangle">The Auld Triangle</li>
+<li data-src="Tracks/The Minstrel Boy.mp3" data-title="The Minstrel Boy">The Minstrel Boy</li>
+<li data-src="Tracks/The Scotsman.mp3" data-title="The Scotsman">The Scotsman</li>
+<li data-src="Tracks/The Winter It Is Past.mp3" data-title="The Winter It Is Past">The Winter It Is Past</li>
+
+            <!-- Add more tracks here as needed -->
+        </ul>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const trackListItems = document.querySelectorAll('.track-list li');
+        const finishedButton = document.getElementById('finished-selecting');
+        const searchInput = document.getElementById('searchInput');
+
+        finishedButton.addEventListener('click', function() {
+            const selectedPlaylist = [];
+            trackListItems.forEach(item => {
+                if (item.classList.contains('selected')) {
+                    const songSrc = item.getAttribute('data-src');
+                    const songTitle = item.getAttribute('data-title');
+                    const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
+                    selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+                }
+            });
+
+            // Store selected playlist in localStorage
+            localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+            // Redirect back to index.html
+            window.location.href = 'index.html';
+        });
+
+        trackListItems.forEach(item => {
+            item.addEventListener('click', function() {
+                item.classList.toggle('selected');
+            });
+        });
+
+        // Add search functionality
+        searchInput.addEventListener('input', function() {
+            const filter = searchInput.value.toLowerCase();
+            trackListItems.forEach(function(item) {
+                const title = item.getAttribute('data-title').toLowerCase();
+                if (title.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="homepage.html">Homepage</a></p>
+    </div>
+</div>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Children's Songs</title>
+    <title>Childrens' Songs</title>
     <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
     <link rel="stylesheet" type="text/css" href="print.css" media="print" />
     <style>
@@ -25,6 +25,7 @@
             gap: 10px; /* Gap between items */
         }
         .track-list li {
+            position: relative; /* Ensure the hover box is positioned relative to the item */
             margin: 0;
             line-height: 1.5; /* Set line height for single spacing */
             cursor: pointer;
@@ -41,7 +42,6 @@
             border: none;
             cursor: pointer;
         }
-        /* Add the following CSS for the footer */
         #footer {
             display: flex;
             justify-content: center;
@@ -49,20 +49,34 @@
             text-align: center;
             padding: 10px;
         }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px; 
+            max-height: 80vh; /* Maximum height relative to viewport height */
+            overflow: auto; /* Add scrollbar if content exceeds max-height */
+            top: 0;
+            left: calc(100% + 10px); /* Add some space between the playlist and the hover box */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block; /* Show the hover box on hover */
+        }
     </style>
 </head>
 <body>
 <div id="wrap">
     <div id="header">
-        <h1><a href="#">Children Songs</a></h1>
-        <!--
-        <p>Families: <a href="#">Songs</a> &middot; <a href="">About</a> &middot; <a href="">Tracks</a> &middot; <a href="">Comment</a></p>
-    </div>
--->
+        <h1><a href="#">Children's Songs</a></h1>
+
     <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
-    <!--
-    <div id="contentwide">
-    -->
+
         <h1>Select Tracks</h1>
 
         <!-- Add the search input here -->
@@ -70,85 +84,85 @@
 
         <button class="finished-button" id="finished-selecting">Play</button>
 
-  <ul class="track-list">
-<li data-src="Tracks/Baa Baa Black Sheep.mp3"data-title="Baa Baa Black 
-Sheep">Baa Baa Black Sheep</li>
-<li data-src="Tracks/Baby Bumble Bee.mp3"data-title="Baby Bumble Bee">Baby Bumble Bee</li>           
-<li data-src="Tracks/Buffalo Boy.mp3"data-title="Buffalo Boy">Buffalo Boy</li>
-<li data-src="Tracks/Five Little Speckled Frogs.mp3"data-title="Five Little Speckled Frogs">Five Little Speckled Frogs</li>
-<li data-src="Tracks/Froggie Went A-Courtin'.mp3"data-title="Froggie Went A-Courtin'">Froggie Went A-Courtin'</li>
-<li data-src="Tracks/Georgie Porgie.mp3"data-title="Georgie Porgie">Georgie Porgie</li>
-<li data-src="Tracks/Go Tell Aunt Rhody.mp3"data-title="Go Tell Aunt Rhody">Go Tell Aunt Rhody</li>
-<li data-src="Tracks/Hickory Dickory Dock.mp3"data-title="Hickory Dickory Dock">Hickory Dickory Dock</li>
-<li data-src="Tracks/Hush Little Baby.mp3"data-title="Hush Little Baby">Hush Little Baby</li>
-<li data-src="Tracks/I Wish I Was A Mole In The Ground.mp3"data-title="I Wish I Was A Mole In The Ground">I Wish I Was A Mole In The Ground</li>
-<li data-src="Tracks/London Bridge.mp3"data-title="London Bridge">London Bridge</li>
-<li data-src="Tracks/Old King Cole.mp3"data-title="Old King Cole">Old King Cole</li>
-<li data-src="Tracks/Old McDonald.mp3"data-title="Old McDonald">Old McDonald</li>
-<li data-src="Tracks/Paw Paw Patch.mp3"data-title="Paw Paw Patch">Paw Paw Patch</li>
-<li data-src="Tracks/Oo-de-Lally.mp3"data-title="Oo-de-Lally">Oo-de-Lally</li>
-<li data-src="Tracks/Polly Wally Doodle.mp3"data-title="Polly Wally Doodle">Polly Wally Doodle</li>
-<li data-src="Tracks/Pop Goes The Weasel.mp3"data-title="Pop Goes The Weasel">Pop Goes The Weasel</li>
-<li data-src="Tracks/Riddle Song.mp3"data-title="Riddle Song">Riddle Song</li>
-<li data-src="Tracks/She'll Be Coming Round the Mountain.mp3"data-title="She'll Be Coming Round the Mountain">She'll Be Coming Round the Mountain</li>
-<li data-src="Tracks/The Farmer In The Dell.mp3"data-title="The Farmer In The Dell">The Farmer In The Dell</li>
-<li data-src="Tracks/This Old Man.mp3"data-title="This Old Man">This Old Man</li>
-<li data-src="Tracks/Three Blind Mice.mp3"data-title="Three Blind Mice">Three Blind Mice</li>
-<li data-src="Tracks/Twinkle Twinkle Little Star.mp3"data-title="Twinkle Twinkle Little Star">Twinkle Twinkle Little Star</li>
+<ul class="track-list">
+           
+
+<li data-src="Tracks/Baa Baa Black Sheep.mp3" data-title="Baa Baa Black Sheep" data-comments="Traditional English nursery rhyme, first known in 1731. A simple and catchy nursery rhyme about a black sheep giving wool.">Baa Baa Black Sheep<div class="hover-box">Traditional English nursery rhyme, first known in 1731. A simple and catchy nursery rhyme about a black sheep giving wool.</div></li>
+<li data-src="Tracks/Baby Bumble Bee.mp3" data-title="Baby Bumble Bee" data-comments="Traditional American children's song, first known in the early 20th century. A playful and humorous song about bringing home a baby bumblebee.">Baby Bumble Bee<div class="hover-box">Traditional American children's song, first known in the early 20th century. A playful and humorous song about bringing home a baby bumblebee.</div></li>
+<li data-src="Tracks/Five Little Speckled Frogs.mp3" data-title="Five Little Speckled Frogs" data-comments="Traditional children’s song, first known in the 20th century. A playful song about five frogs sitting on a log, known for its educational and entertaining lyrics.">Five Little Speckled Frogs<div class="hover-box">Traditional children’s song, first known in the 20th century. A playful song about five frogs sitting on a log, known for its educational and entertaining lyrics.</div></li>
+<li data-src="Tracks/Froggie Went A-Courtin'.mp3" data-title="Froggie Went A-Courtin'" data-comments="Traditional American folk song, first known in the 16th century. A humorous and whimsical song about a frog who goes courting and has various adventures.">Froggie Went A-Courtin'<div class="hover-box">Traditional American folk song, first known in the 16th century. A humorous and whimsical song about a frog who goes courting and has various adventures.</div></li>
+<li data-src="Tracks/Georgie Porgie.mp3" data-title="Georgie Porgie" data-comments="Traditional nursery rhyme, first known in the 19th century. A playful rhyme about Georgie Porgie and his interactions with the girls.">Georgie Porgie<div class="hover-box">Traditional nursery rhyme, first known in the 19th century. A playful rhyme about Georgie Porgie and his interactions with the girls.</div></li>
+<li data-src="Tracks/Go Tell Aunt Rhody.mp3" data-title="Go Tell Aunt Rhody" data-comments="Traditional American folk song, first known in the 19th century. A song about a woman’s passing and the message to tell Aunt Rhody.">Go Tell Aunt Rhody<div class="hover-box">Traditional American folk song, first known in the 19th century. A song about a woman’s passing and the message to tell Aunt Rhody.</div></li>
+<li data-src="Tracks/Hickory Dickory Dock.mp3" data-title="Hickory Dickory Dock" data-comments="Traditional English nursery rhyme, first known in the 18th century. A playful rhyme about a mouse running up and down a clock.">Hickory Dickory Dock<div class="hover-box">Traditional English nursery rhyme, first known in the 18th century. A playful rhyme about a mouse running up and down a clock.</div></li>
+<li data-src="Tracks/Hush Little Baby.mp3" data-title="Hush Little Baby" data-comments="Traditional American lullaby, first known in the early 20th century. A soothing song reassuring a child with promises of gifts and comforts.">Hush Little Baby<div class="hover-box">Traditional American lullaby, first known in the early 20th century. A soothing song reassuring a child with promises of gifts and comforts.</div></li>
+<li data-src="Tracks/I Wish I Was A Mole In The Ground.mp3" data-title="I Wish I Was A Mole In The Ground" data-comments="Written by Bob Dylan, 1962. A folk song reflecting on feelings of being out of place and longing for escape.">I Wish I Was A Mole In The Ground<div class="hover-box">Written by Bob Dylan, 1962. A folk song reflecting on feelings of being out of place and longing for escape.</div></li>
+<li data-src="Tracks/London Bridge.mp3" data-title="London Bridge" data-comments="Traditional English nursery rhyme, first known in the 17th century. A rhyme about the historic London Bridge, often accompanied by a children's game.">London Bridge<div class="hover-box">Traditional English nursery rhyme, first known in the 17th century. A rhyme about the historic London Bridge, often accompanied by a children's game.</div></li>
+<li data-src="Tracks/Old King Cole.mp3" data-title="Old King Cole" data-comments="Traditional English nursery rhyme, first known in the 18th century. A rhyme about King Cole and his enjoyment of music and merriment.">Old King Cole<div class="hover-box">Traditional English nursery rhyme, first known in the 18th century. A rhyme about King Cole and his enjoyment of music and merriment.</div></li>
+<li data-src="Tracks/Old McDonald.mp3" data-title="Old McDonald" data-comments="Traditional children’s song, first known in the 20th century. A playful song about a farmer with various animals on his farm.">Old McDonald<div class="hover-box">Traditional children’s song, first known in the 20th century. A playful song about a farmer with various animals on his farm.</div></li>
+<li data-src="Tracks/Oo-de-Lally.mp3" data-title="Oo-de-Lally" data-comments="Written by Roger Miller, 1973. A fun and whimsical song from Disney’s Robin Hood,featuring the character of Robin Hood in a playful light.">Oo-de-Lally<div class="hover-box">Written by Roger Miller, 1973. A fun and whimsical song from Disney’s Robin Hood,featuring the character of Robin Hood in a playful light.</div></li>
+<li data-src="Tracks/Oscar Mayer Weiner.mp3" data-title="Oscar Mayer Weiner" data-comments="Written by Richard D. O'Brien, 1963. A jingle for Oscar Mayer hot dogs, known for its catchy and memorable tune.">Oscar Mayer Weiner<div class="hover-box">Written by Richard D. O'Brien, 1963. A jingle for Oscar Mayer hot dogs, known for its catchy and memorable tune.</div></li>
+<li data-src="Tracks/Paw Paw Patch.mp3" data-title="Paw Paw Patch" data-comments="Traditional American folk song, first known in the 19th century. A song about the pawpaw fruit and its place in rural life.">Paw Paw Patch<div class="hover-box">Traditional American folk song, first known in the 19th century. A song about the pawpaw fruit and its place in rural life.</div></li>
+<li data-src="Tracks/Polly Wally Doodle.mp3" data-title="Polly Wally Doodle" data-comments="Traditional American folk song, first known in the 19th century. A playful song about Polly and her various adventures.">Polly Wally Doodle<div class="hover-box">Traditional American folk song, first known in the 19th century. A playful song about Polly and her various adventures.</div></li>
+<li data-src="Tracks/Pop Goes The Weasel.mp3" data-title="Pop Goes The Weasel" data-comments="Traditional English nursery rhyme, first known in the 19th century. A rhyme with playful lyrics and a catchy tune, often accompanied by a game.">Pop Goes The Weasel<div class="hover-box">Traditional English nursery rhyme, first known in the 19th century. A rhyme with playful lyrics and a catchy tune, often accompanied by a game.</div></li>
+<li data-src="Tracks/Riddle Song.mp3" data-title="Riddle Song" data-comments="Traditional American folk song, first known in the 19th century. A song with a series of riddles and answers, often used for educational purposes.">Riddle Song<div class="hover-box">Traditional American folk song, first known in the 19th century. A song with a series of riddles and answers, often used for educational purposes.</div></li>
+<li data-src="Tracks/She'll Be Coming Round the Mountain.mp3" data-title="She'll Be Coming Round the Mountain" data-comments="Traditional American folk song, first known in the 19th century. A cheerful song about a visit from a loved one, often sung in a call-and-response style.">She'll Be Coming Round the Mountain<div class="hover-box">Traditional American folk song, first known in the 19th century. A cheerful song about a visit from a loved one, often sung in a call-and-response style.</div></li>
+<li data-src="Tracks/The Farmer In The Dell.mp3" data-title="The Farmer In The Dell" data-comments="Traditional nursery rhyme, first known in the 19th century. A rhyme about a farmer and the characters who join him in the dell.">The Farmer In The Dell<div class="hover-box">Traditional nursery rhyme, first known in the 19th century. A rhyme about a farmer and the characters who join him in the dell.</div></li>
+<li data-src="Tracks/This Old Man.mp3" data-title="This Old Man" data-comments="Traditional nursery rhyme, first known in the 19th century. A playful song about an old man and his various activities.">This Old Man<div class="hover-box">Traditional nursery rhyme, first known in the 19th century. A playful song about an old man and his various activities.</div></li>
+<li data-src="Tracks/Three Blind Mice.mp3" data-title="Three Blind Mice" data-comments="Traditional English nursery rhyme, first known in the 16th century. A rhyme about three blind mice and their misadventures.">Three Blind Mice<div class="hover-box">data-comments=Traditional English nursery rhyme, first known in the 16th century. A rhyme about three blind mice and their misadventures.</div></li>
+<li data-src="Tracks/Twinkle Twinkle Little Star.mp3" data-title="Twinkle Twinkle Little Star" data-comments="Traditional nursery rhyme, first known in the 19th century. A lullaby about the wonder and beauty of a twinkling star.">Twinkle Twinkle Little Star<div class="hover-box">Traditional nursery rhyme, first known in the 19th century. A lullaby about the wonder and beauty of a twinkling star.</div></li>
+<li data-src="Tracks/Yankee Doodle.mp3" data-title="Yankee Doodle" data-comments="Traditional American song, first known in the 18th century. A patriotic song celebrating American independence and spirit.">Yankee Doodle<div class="hover-box">Traditional American song, first known in the 18th century. A patriotic song celebrating American independence and spirit.</div></li>
 
 
-<li data-src="Tracks/Yankee Doodle.mp3"data-title="Yankee Doodle">Yankee Doodle</li>
 
             <!-- Add more tracks here as needed -->
         </ul>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const trackListItems = document.querySelectorAll('.track-list li');
-                const finishedButton = document.getElementById('finished-selecting');
-                const searchInput = document.getElementById('searchInput');
 
-                finishedButton.addEventListener('click', function() {
-                    const selectedPlaylist = [];
-                    trackListItems.forEach(item => {
-                        if (item.classList.contains('selected')) {
-                            const songSrc = item.getAttribute('data-src');
-                            const songTitle = item.textContent;
-                            selectedPlaylist.push({ src: songSrc, title: songTitle });
-                        }
-                    });
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const trackListItems = document.querySelectorAll('.track-list li');
+        const finishedButton = document.getElementById('finished-selecting');
+        const searchInput = document.getElementById('searchInput');
 
-                    // Store selected playlist in localStorage
-                    localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
-
-                    // Redirect back to index.html
-                    window.location.href = 'index.html';
-                });
-
-                trackListItems.forEach(item => {
-                    item.addEventListener('click', function() {
-                        item.classList.toggle('selected');
-                    });
-                });
-
-                // Add search functionality
-                searchInput.addEventListener('input', function() {
-                    const filter = searchInput.value.toLowerCase();
-                    trackListItems.forEach(function(item) {
-                        const title = item.getAttribute('data-title').toLowerCase();
-                        if (title.includes(filter)) {
-                            item.style.display = '';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-                });
+        finishedButton.addEventListener('click', function() {
+            const selectedPlaylist = [];
+            trackListItems.forEach(item => {
+                if (item.classList.contains('selected')) {
+                    const songSrc = item.getAttribute('data-src');
+                    const songTitle = item.getAttribute('data-title');
+                    const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
+                    selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+                }
             });
-        </script>
 
-    <!--
-    </div>
-    -->
+            // Store selected playlist in localStorage
+            localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+            // Redirect back to index.html
+            window.location.href = 'index.html';
+        });
+
+        trackListItems.forEach(item => {
+            item.addEventListener('click', function() {
+                item.classList.toggle('selected');
+            });
+        });
+
+        // Add search functionality
+        searchInput.addEventListener('input', function() {
+            const filter = searchInput.value.toLowerCase();
+            trackListItems.forEach(function(item) {
+                const title = item.getAttribute('data-title').toLowerCase();
+                if (title.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
     <div id="footer">
         <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
             | <a href="homepage.html">Homepage</a></p>
