@@ -9,36 +9,32 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
             margin: 0;
             padding: 20px;
-            color: #000; /* Set default text color to black */
+            color: #000;
         }
         .track-list {
             list-style-type: none;
             padding: 0;
-            display: grid; /* Use CSS Grid for layout */
-            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
-            gap: 10px; /* Gap between items */
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
         }
         .track-list li {
-            position: relative; /* Ensure the hover box is positioned relative to the item */
+            position: relative;
             margin: 0;
-            line-height: 1.5; /* Set line height for single spacing */
+            line-height: 1.5;
             cursor: pointer;
-            color: #000; /* Default text color */
+            color: #000;
         }
         .track-list li.selected {
-            color: blue; /* Selected text color */
+            color: blue;
         }
         .finished-button {
             margin-top: 20px;
             padding: 10px 20px;
-            background-color: #808080; /* Grey background */
-            color: #fff; /* White text */
+            background-color: #808080;
+            color: #fff;
             border: none;
             cursor: pointer;
         }
@@ -50,28 +46,23 @@
             padding: 10px;
         }
         .hover-box {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    border: 2px solid #ccc;
-    padding: 10px;
-    z-index: 1;
-    white-space: pre-wrap;
-    width: 250px;
-    max-height: 80vh; /* Maximum height relative to viewport height */
-    overflow: auto; /* Add scrollbar if content exceeds max-height */
-    top: 0;
-    left: calc(100% + 10px); /* Add some space between the playlist and the hover box */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    transition: top 0.2s ease; /* Smooth transition for top positioning */
-}
-
-.hover-box.above {
-    top: auto;
-    bottom: 100%; /* Position the hover box above the list item */
-}
-
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px;
+            max-height: 80vh;
+            overflow: auto;
+            left: calc(100% + 10px);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -189,17 +180,17 @@
     });
 
 
-    document.querySelectorAll('.track-list li').forEach(item => {
-        item.addEventListener('mouseenter', function() {
+    document.querySelectorAll('.track-list li').forEach(function(track) {
+        track.addEventListener('mouseover', function() {
             const hoverBox = this.querySelector('.hover-box');
-            const boxRect = hoverBox.getBoundingClientRect();
-            const itemRect = this.getBoundingClientRect();
+            const rect = hoverBox.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
 
-            // Check if the hover box overflows the viewport height
-            if (boxRect.bottom > window.innerHeight) {
-                hoverBox.classList.add('above'); // Position above the item
+            // Check if hover box would go below the viewport
+            if (rect.bottom > viewportHeight) {
+                hoverBox.style.top = `-${rect.height}px`;
             } else {
-                hoverBox.classList.remove('above'); // Default position below the item
+                hoverBox.style.top = '0';
             }
         });
     });
