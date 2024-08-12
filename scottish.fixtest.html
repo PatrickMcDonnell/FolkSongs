@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scottish</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set default text color to black */
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
+        }
+        .track-list li {
+            position: relative; /* Ensure the hover box is positioned relative to the item */
+            margin: 0;
+            line-height: 1.5; /* Set line height for single spacing */
+            cursor: pointer;
+            color: #000; /* Default text color */
+        }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
+        }
+        .finished-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px; 
+            max-height: 80vh; /* Maximum height relative to viewport height */
+            overflow: auto; /* Add scrollbar if content exceeds max-height */
+            top: 0;
+            left: calc(100% + 10px); /* Add some space between the playlist and the hover box */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block; /* Show the hover box on hover */
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <h1><a href="#">Scottish</a></h1>
+
+    <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+
+        <h1>Select Tracks</h1>
+
+        <!-- Add the search input here -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+
+        <button class="finished-button" id="finished-selecting">Play</button>
+
+<ul class="track-list">
+           
+<li data-src="Tracks/Anachie Gordon.mp3" data-title="Anachie Gordon" data-comments="Traditional Scottish ballad, first known in the 19th century. Child Ballad 239. A tragic love story about a young woman who dies of a broken heart waiting for her love, Anachie Gordon.">Anachie Gordon<div class="hover-box">Traditional Scottish ballad, first known in the 19th century. Child Ballad 239. A tragic love story about a young woman who dies of a broken heart waiting for her love, Anachie Gordon.</div></li>
+<li data-src="Tracks/Auld Lang Syne.mp3" data-title="Auld Lang Syne" data-comments="Written by Robert Burns, 1788. A Scottish poem set to music, traditionally sung to bid farewell to the old year at the stroke of midnight on New Year's Eve.">Auld Lang Syne <div class="hover-box">Written by Robert Burns, 1788. A Scottish poem set to music, traditionally sung to bid farewell to the old year at the stroke of midnight on New Year's Eve.</div></li>
+<li data-src="Tracks/Awa' wi' Your Witchcraft o' Beauty's Alarms.mp3" data-title="Awa' wi' Your Witchcraft o' Beauty's Alarms" data-comments="A traditional Scottish folk song. A song about rejecting superficial beauty in favor of deeper, more meaningful qualities.">Awa' wi' Your Witchcraft o' Beauty's Alarms<div class="hover-box">A traditional Scottish folk song. A song about rejecting superficial beauty in favor of deeper, more meaningful qualities.</div></li>
+<li data-src="Tracks/Believe Me If All Those Endearing Young Charms.mp3" data-title="Believe Me If All Those Endearing Young Charms" data-comments="Written by Thomas Moore, early 19th century. A romantic Irish folk song about the enduring nature of true love.">Believe Me If All Those Endearing Young Charms<div class="hover-box">Written by Thomas Moore, early 19th century. A romantic Irish folk song about the enduring nature of true love.</div></li>
+<li data-src="Tracks/Beware o' Bonnie Ann.mp3" data-title="Beware o' Bonnie Ann" data-comments="Traditional Scottish song. A cautionary song about the charms and dangers of a woman named Bonnie Ann.">Beware o' Bonnie Ann<div class="hover-box">Traditional Scottish song. A cautionary song about the charms and dangers of a woman named Bonnie Ann.</div></li>
+<li data-src="Tracks/Both Sides the Tweed.mp3" data-title="Both Sides the Tweed" data-comments="Written by Dick Gaughan, 1981. A song promoting Scottish independence and unity, known for its strong political message and melodic tune.">Both Sides the Tweed<div class="hover-box">Written by Dick Gaughan, 1981. A song promoting Scottish independence and unity, known for its strong political message and melodic tune.</div></li>
+<li data-src="Tracks/Caledonia.mp3" data-title="Caledonia" data-comments="Written by Dougie MacLean, 1977. A modern Scottish folk song expressing love and longing for Scotland.">Caledonia<div class="hover-box">Written by Dougie MacLean, 1977. A modern Scottish folk song expressing love and longing for Scotland.</div></li>
+<li data-src="Tracks/Coming Through The Rye.mp3" data-title="Coming Through The Rye" data-comments="Traditional Scottish song, first known in the late 18th century. A song about a young woman’s romantic encounters, based on a poem by Robert Burns.">Coming Through The Rye<div class="hover-box">Traditional Scottish song, first known in the late 18th century. A song about a young woman’s romantic encounters, based on a poem by Robert Burns.</div></li>
+<li data-src="Tracks/Drink To Me Only With Thine Eyes.mp3" data-title="Drink To Me Only With Thine Eyes" data-comments="Written by Ben Jonson, 1616. A classic English song with lyrics celebrating simple pleasures and the beauty of friendship, set to a gentle melody.">Drink To Me Only With Thine Eyes<div class="hover-box">Written by Ben Jonson, 1616. A classic English song with lyrics celebrating simple pleasures and the beauty of friendship, set to a gentle melody.</div></li>
+<li data-src="Tracks/Go Lassie Go.mp3" data-title="Go Lassie Go" data-comments="Traditional Scottish folk song, first known in the 19th century. A song about a young girl leaving her home and the emotional farewell of her family.">Go Lassie Go<div class="hover-box">Traditional Scottish folk song, first known in the 19th century. A song about a young girl leaving her home and the emotional farewell of her family.</div></li>
+<li data-src="Tracks/Green Grow the Rashes, O.mp3" data-title="Green Grow the Rashes, O" data-comments="Written by Robert Burns, 1785. Child Ballad 250. A Scottish song celebrating the virtues of simple, rustic life over material wealth.">Green Grow the Rashes, O<div class="hover-box">Written by Robert Burns, 1785. Child Ballad 250. A Scottish song celebrating the virtues of simple, rustic life over material wealth.</div></li>
+<li data-src="Tracks/Highland Laddie.mp3" data-title="Highland Laddie" data-comments="Traditional Scottish folk song, first known in the 18th century. Child Ballad 47. A song about a Highland lad and his adventures.">Highland Laddie<div class="hover-box">Traditional Scottish folk song, first known in the 18th century. Child Ballad 47. A song about a Highland lad and his adventures.</div></li>
+<li data-src="Tracks/Loch Lomond.mp3" data-title="Loch Lomond" data-comments="Traditional Scottish folk song, first known in the 18th century.  A song about the beauty of Loch Lomond and the emotions of parting.">Loch Lomond<div class="hover-box">Traditional Scottish folk song, first known in the 18th century. A song about the beauty of Loch Lomond and the emotions of parting.</div></li>
+<li data-src="Tracks/Oak and Ash and Thorn.mp3" data-title="Oak and Ash and Thorn" data-comments="Written by Rudyard Kipling, 1912. A poem set to music, celebrating the natural beauty and folklore of the English countryside.">Oak and Ash and Thorn<div class="hover-box">Written by Rudyard Kipling, 1912. A poem set to music, celebrating the natural beauty and folklore of the English countryside.</div></li>
+<li data-src="Tracks/Rantin Rovin Robin.mp3" data-title="Rantin Rovin Robin" data-comments="Traditional Scottish folk song by Robert Burns, first known in the 18th century. Not about Robin Hood but about Robert Burns himself, his character and various escapades.">Rantin Rovin Robin<div class="hover-box">Traditional Scottish folk song by Robert Burns, first known in the 18th century. Not about Robin Hood but about Robert Burns himself, his character and various escapades.</div></li>
+<li data-src="Tracks/Rowan Tree.mp3" data-title="Rowan Tree" data-comments="Written by Robert Burns, 1788. A Scottish song reflecting on the beauty of the rowan tree and its symbolism in Scottish folklore.">Rowan Tree<div class="hover-box">Written by Robert Burns, 1788. A Scottish song reflecting on the beauty of the rowan tree and its symbolism in Scottish folklore.</div></li>
+<li data-src="Tracks/Ship That Never Returned.mp3" data-title="Ship That Never Returned" data-comments="Traditional American folk song, first known in the 19th century. A song about a ship that sets out but never returns, reflecting on loss and uncertainty.">Ship That Never Returned<div class="hover-box">Traditional American folk song, first known in the 19th century. A song about a ship that sets out but never returns, reflecting on loss and uncertainty.</div></li>
+<li data-src="Tracks/Skye Boat Song.mp3" data-title="Skye Boat Song" data-comments="Traditional Scottish folk song, first known in the 19th century. A song about Bonnie Prince Charlie’s escape to Skye after the Jacobite rising.">Skye Boat Song<div class="hover-box">Traditional Scottish folk song, first known in the 19th century. A song about Bonnie Prince Charlie’s escape to Skye after the Jacobite rising.</div></li>
+<li data-src="Tracks/The Auld Triangle.mp3" data-title="The Auld Triangle" data-comments="Written by Brendan Behan, 1954. A song about the harsh life in a Dublin prison and the longing for freedom.">The Auld Triangle<div class="hover-box">Written by Brendan Behan, 1954. A song about the harsh life in a Dublin prison and the longing for freedom.</div></li>
+<li data-src="Tracks/The Minstrel Boy.mp3" data-title="The Minstrel Boy" data-comments="Written in 1807 by Thomas Moore, the poet not the saint. A patriotic song about a minstrel’s courage and the sacrifices of the Irish rebels.">The Minstrel Boy<div class="hover-box">Written in 1807 by Thomas Moore, the poet not the saint. A patriotic song about a minstrel’s courage and the sacrifices of the Irish rebels.</div></li>
+<li data-src="Tracks/The River.mp3" data-title="The River" data-comments="Written by Bruce Springsteen, 1980. A song reflecting on youth and the struggles of adulthood, known for its introspective lyrics.">The River<div class="hover-box">Written by Bruce Springsteen, 1980. A song reflecting on youth and the struggles of adulthood, known for its introspective lyrics.</div></li>
+<li data-src="Tracks/The Scotsman.mp3" data-title="The Scotsman" data-comments="Traditional Scottish folk song, first known in the 20th century. A humorous song about a Scotsman’s experience in a foreign land.">The Scotsman<div class="hover-box">Traditional Scottish folk song, first known in the 20th century. A humorous song about a Scotsman’s experience in a foreign land.</div></li>
+<li data-src="Tracks/The Winter It Is Past.mp3" data-title="The Winter It Is Past" data-comments="Traditional English folk song, first known in the 19th century. A song celebrating the end of winter and the arrival of spring.">The Winter It Is Past<div class="hover-box">Traditional English folk song, first known in the 19th century. A song celebrating the end of winter and the arrival of spring.</div></li>
+
+
+
+            <!-- Add more tracks here as needed -->
+        </ul>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const trackListItems = document.querySelectorAll('.track-list li');
+        const finishedButton = document.getElementById('finished-selecting');
+        const searchInput = document.getElementById('searchInput');
+
+        finishedButton.addEventListener('click', function() {
+            const selectedPlaylist = [];
+            trackListItems.forEach(item => {
+                if (item.classList.contains('selected')) {
+                    const songSrc = item.getAttribute('data-src');
+                    const songTitle = item.getAttribute('data-title');
+                    const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
+                    selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+                }
+            });
+
+            // Store selected playlist in localStorage
+            localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+            // Redirect back to index.html
+            window.location.href = 'index.html';
+        });
+
+        trackListItems.forEach(item => {
+            item.addEventListener('click', function() {
+                item.classList.toggle('selected');
+            });
+        });
+
+        // Add search functionality
+        searchInput.addEventListener('input', function() {
+            const filter = searchInput.value.toLowerCase();
+            trackListItems.forEach(function(item) {
+                const title = item.getAttribute('data-title').toLowerCase();
+                if (title.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="homepage.html">Homepage</a></p>
+    </div>
+</div>
+</body>
+</html>

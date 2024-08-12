@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irish</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set default text color to black */
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
+        }
+        .track-list li {
+            position: relative; /* Ensure the hover box is positioned relative to the item */
+            margin: 0;
+            line-height: 1.5; /* Set line height for single spacing */
+            cursor: pointer;
+            color: #000; /* Default text color */
+        }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
+        }
+        .finished-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px; 
+            max-height: 80vh; /* Maximum height relative to viewport height */
+            overflow: auto; /* Add scrollbar if content exceeds max-height */
+            top: 0;
+            left: calc(100% + 10px); /* Add some space between the playlist and the hover box */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block; /* Show the hover box on hover */
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <h1><a href="#">All Tracks</a></h1>
+
+    <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+
+        <h1>Irish</h1>
+
+        <!-- Add the search input here -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+
+        <button class="finished-button" id="finished-selecting">Play</button>
+
+<ul class="track-list">
+           
+<li data-src="Tracks/Bard of Armagh.mp3" data-title="Bard of Armagh" data-comments="Traditional Irish song, first known in the 19th century. A nostalgic song celebrating the life of a bard from Armagh.">Bard of Armagh<div class="hover-box">Traditional Irish song, first known in the 19th century. A nostalgic song celebrating the life of a bard from Armagh.</div></li>
+<li data-src="Tracks/Barretts Privateers.mp3" data-title="Barretts Privateers" data-comments="Composed by Stan Rogers, 1976. A modern sea shanty about a privateer’s disastrous voyage.">Barretts Privateers<div class="hover-box">Composed by Stan Rogers, 1976. A modern sea shanty about a privateer’s disastrous voyage.</div></li>
+<li data-src="Tracks/Black Velvet Band.mp3" data-title="Black Velvet Band" data-comments="Traditional Irish folk song, first known in the 19th century. A narrative song about a man who is deceived by a woman and sent to Australia.">Black Velvet Band<div class="hover-box">Traditional Irish folk song, first known in the 19th century. A narrative song about a man who is deceived by a woman and sent to Australia.</div></li>
+<li data-src="Tracks/Bold Fenian Men.mp3" data-title="Bold Fenian Men" data-comments=Written by Michael Scanlan, 1864. An Irish folk song celebrating the Fenian Brotherhood and their fight for Irish independence.">Bold Fenian Men<div class="hover-box">Written by Michael Scanlan, 1864. An Irish folk song celebrating the Fenian Brotherhood and their fight for Irish independence.</div></li>
+<li data-src="Tracks/Danny Boy.mp3" data-title="Danny Boy" data-comments="Written by Frederic Weatherly, 1913. A poignant and emotional song set to the melody of the Irish tune Londonderry Air, often associated with Irish heritage and mourning.">Danny Boy<div class="hover-box">Written by Frederic Weatherly, 1913. A poignant and emotional song set to the melody of the Irish tune Londonderry Air, often associated with Irish heritage and mourning.</div></li>
+<li data-src="Tracks/Danny's Song.mp3" data-title="Danny's Song" data-comments="Written by Kenny Loggins, 1971. A popular folk song about love, family, and the joy of life, known for its heartfelt lyrics and gentle melody.">Danny's Song<div class="hover-box">Written by Kenny Loggins, 1971. A popular folk song about love, family, and the joy of life, known for its heartfelt lyrics and gentle melody.</div></li>
+<li data-src="Tracks/Do You Want Your Old Lobby Washed Down.mp3" data-title="Do You Want Your Old Lobby Washed Down" data-comments="Traditional American sea shanty, first known in the 19th century. A song about the hard work and camaraderie of sailors, often used to coordinate tasks.">Do You Want Your Old Lobby Washed Down<div class="hover-box">Traditional American sea shanty, first known in the 19th century. A song about the hard work and camaraderie of sailors, often used to coordinate tasks.</div></li>
+<li data-src="Tracks/Erin Go Braugh.mp3" data-title="Erin Go Braugh" data-comments="Traditional Irish song, first known in the 19th century. A patriotic song expressing pride in Irish heritage and culture.">Erin Go Braugh<div class="hover-box">Traditional Irish song, first known in the 19th century. A patriotic song expressing pride in Irish heritage and culture.</div></li>
+<li data-src="Tracks/Fiddler's Green.mp3" data-title="Fiddler's Green" data-comments="Traditional sea shanty, first known in the 19th century. A song about a mythical paradise for sailors, representing a peaceful afterlife.">Fiddler's Green<div class="hover-box">Traditional sea shanty, first known in the 19th century. A song about a mythical paradise for sailors, representing a peaceful afterlife.</div></li>
+<li data-src="Tracks/Foggy Dew.mp3" data-title="Foggy Dew" data-comments="Traditional Irish folk song, first known in the 20th century. A song reflecting on the 1916 Easter Rising and its impact on Ireland.">Foggy Dew<div class="hover-box">Traditional Irish folk song, first known in the 20th century. A song reflecting on the 1916 Easter Rising and its impact on Ireland.</div></li>
+<li data-src="Tracks/Galway Bay.mp3" data-title="Galway Bay" data-comments="Written by Arthur Colahan, 1939. A sentimental Irish song about the beauty of Galway Bay and the longing for one's homeland.">Galway Bay<div class="hover-box">Written by Arthur Colahan, 1939. A sentimental Irish song about the beauty of Galway Bay and the longing for one's homeland.</div></li>
+<li data-src="Tracks/Grace.mp3" data-title="Grace" data-comments="Written by Frank O'Meara, 1894. A song reflecting on the life and legacy of Grace Gifford Plunkett, known for its emotional and poignant lyrics.">Grace<div class="hover-box">Written by Frank O'Meara, 1894. A song reflecting on the life and legacy of Grace Gifford Plunkett, known for its emotional and poignant lyrics.</div></li>
+<li data-src="Tracks/Irish Rover.mp3" data-title="Irish Rover" data-comments="Traditional Irish folk song, first known in the 19th century. A song about a ship called the Irish Rover and the adventures and misfortunes of its crew.">Irish Rover<div class="hover-box">Traditional Irish folk song, first known in the 19th century. A song about a ship called the Irish Rover and the adventures and misfortunes of its crew.</div></li>
+<li data-src="Tracks/Kelly The Boy From Killane.mp3" data-title="Kelly The Boy From Killane" data-comments="Traditional Irish folk song, first known in the 19th century. A song about Kelly, a young Irish rebel who fought in the 1798 Rebellion.">Kelly The Boy From Killane<div class="hover-box">Traditional Irish folk song, first known in the 19th century. A song about Kelly, a young Irish rebel who fought in the 1798 Rebellion.</div></li>
+<li data-src="Tracks/Kimmage.mp3" data-title="Kimmage" data-comments="Traditional Irish folk song, first known in the 20th century. A song about the small Irish village of Kimmage and its history.">Kimmage<div class="hover-box">Traditional Irish folk song, first known in the 20th century. A song about the small Irish village of Kimmage and its history.</div></li>
+<li data-src="Tracks/Leaving of Liverpool.mp3" data-title="Leaving of Liverpool" data-comments="Traditional English folk song, first known in the 19th century. A song about departing Liverpool and the emotions associated with leaving home.">Leaving of Liverpool<div class="hover-box">Traditional English folk song, first known in the 19th century. A song about departing Liverpool and the emotions associated with leaving home.</div></li>
+<li data-src="Tracks/Lowlands of Holland.mp3" data-title="Lowlands of Holland" data-comments="Traditional sea shanty, first known in the 19th century. A song about the struggles of sailors and their work on the lowlands.">Lowlands of Holland<div class="hover-box">Traditional sea shanty, first known in the 19th century. A song about the struggles of sailors and their work on the lowlands.</div></li>
+<li data-src="Tracks/Molly Malone.mp3" data-title="Molly Malone" data-comments="Traditional Irish folk song, first known in the 19th century. A song about Molly Malone, a fishmonger who is celebrated in Dublin folklore.">Molly Malone<div class="hover-box">Traditional Irish folk song, first known in the 19th century. A song about Molly Malone, a fishmonger who is celebrated in Dublin folklore.</div></li>
+<li data-src="Tracks/Mountains of Mourne.mp3" data-title="Mountains of Mourne" data-comments="Written by Percy French, 1896. A song about the beauty of the Mourne Mountains in Ireland and the longing for home.">Mountains of Mourne<div class="hover-box">Written by Percy French, 1896. A song about the beauty of the Mourne Mountains in Ireland and the longing for home.</div></li>
+<li data-src="Tracks/No Irish Need Apply.mp3" data-title="No Irish Need Apply" data-comments="Traditional American folk song, first known in the 19th century. A song reflecting the discrimination faced by Irish immigrants in America.">No Irish Need Apply<div class="hover-box">Traditional American folk song, first known in the 19th century. A song reflecting the discrimination faced by Irish immigrants in America.</div></li>
+<li data-src="Tracks/Only Our Rivers Run Free.mp3" data-title="Only Our Rivers Run Free" data-comments="Only Our Rivers Run Free" is an Irish folk song written by Michael McConnell in 1965. McConnell was a native of Northern Ireland and a member of the Irish Republican movement. The song was penned during a time of political unrest and civil rights struggles in Northern Ireland, predating the Troubles, which would escalate later in the 1960s.">Only Our Rivers Run Free<div class="hover-box">Only Our Rivers Run Free" is an Irish folk song written by Michael McConnell in 1965. McConnell was a native of Northern Ireland and a member of the Irish Republican movement. The song was penned during a time of political unrest and civil rights struggles in Northern Ireland, predating the Troubles, which would escalate later in the 1960s.</div></li>
+<li data-src="Tracks/Parting Glass.mp3" data-title="Parting Glass" data-comments="Traditional Irish folk song, first known in the 17th century. A farewell song often sung at the end of gatherings or before leaving home.">Parting Glass<div class="hover-box">Traditional Irish folk song, first known in the 17th century. A farewell song often sung at the end of gatherings or before leaving home.</div></li>
+<li data-src="Tracks/Patriot Game.mp3" data-title="Patriot Game" data-comments="Written by Dominic Behan, 1957. A song about Irish nationalism and the struggle for independence, reflecting on historical events.">Patriot Game<div class="hover-box">Written by Dominic Behan, 1957. A song about Irish nationalism and the struggle for independence, reflecting on historical events.</div></li>
+<li data-src="Tracks/Red is the Rose.mp3" data-title="Red is the Rose" data-comments="Traditional Irish folk song, first known in the 20th century. A romantic song to the tune of Loch Lomond about love and longing, often performed in Irish folk style.">Red is the Rose<div class="hover-box">Traditional Irish folk song, first known in the 20th century. A romantic song to the tune of Loch Lomond about love and longing, often performed in Irish folk style.</div></li>
+<li data-src="Tracks/Song For Ireland.mp3" data-title="Song For Ireland" data-comments="Written by Phil Coulter, 1985. A contemporary song celebrating the beauty and spirit of Ireland, known for its evocative lyrics and melody.">Song For Ireland<div class="hover-box">Written by Phil Coulter, 1985. A contemporary song celebrating the beauty and spirit of Ireland, known for its evocative lyrics and melody.</div></li>
+<li data-src="Tracks/Spancil Hill.mp3" data-title="Spancil Hill" data-comments="Traditional Irish folk song, first known in the 19th century. A song about returning to one’s hometown of Spancil Hill and reflecting on past memories.">Spancil Hill<div class="hover-box">Traditional Irish folk song, first known in the 19th century. A song about returning to one’s hometown of Spancil Hill and reflecting on past memories.</div></li>
+<li data-src="Tracks/Star of the County Down.mp3" data-title="Star of the County Down" data-comments"Traditional Irish folk song, first known in the 19th century. A song about a beautiful woman from County Down and the narrator’s admiration for her.">Star of the County Down<div class="hover-box">Traditional Irish folk song, first known in the 19th century. A song about a beautiful woman from County Down and the narrator’s admiration for her.</div></li>
+<li data-src="Tracks/Streets of London.mp3" data-title="Streets of London" data-comments="Written by Ralph McTell, 1969. A folk song reflecting on the lives of the homeless and the forgotten in London, known for its poignant lyrics.">Streets of London<div class="hover-box">Written by Ralph McTell, 1969. A folk song reflecting on the lives of the homeless and the forgotten in London, known for its poignant lyrics.</div></li>
+<li data-src="Tracks/The Band Played Waltzing Matilda.mp3" data-title="The Band Played Waltzing Matilda" data-comments="Written by Eric Bogle, 1971. A poignant song about the impact of war on soldiers and the ANZAC experience in Gallipoli.">The Band Played Waltzing Matilda<div class="hover-box">Written by Eric Bogle, 1971. A poignant song about the impact of war on soldiers and the ANZAC experience in Gallipoli.</div></li>
+<li data-src="Tracks/The Bard of Armagh.mp3" data-title="The Bard of Armagh" data-comments="Traditional Irish folk song, first known in the 19th century. Child Ballad 240. A song about the life and struggles of the bard of Armagh.">The Bard of Armagh<div class="hover-box">Traditional Irish folk song, first known in the 19th century. Child Ballad 240. A song about the life and struggles of the bard of Armagh.</div></li>
+<li data-src="Tracks/Wearing of the Green.mp3" data-title="Wearing of the Green" data-comments="Traditional Irish folk song, first known in the 19th century. A song about Irish patriotism and the symbolic meaning of wearing green.">Wearing of the Green<div class="hover-box">Traditional Irish folk song, first known in the 19th century. A song about Irish patriotism and the symbolic meaning of wearing green.</div></li>
+<li data-src="Tracks/Wellerman.mp3" data-title="Wellerman" data-comments="Traditional New Zealand sea shanty, first known in the 19th century. A song about whalers and the arrival of the supply ship Wellerman.">Wellerman<div class="hover-box">Traditional New Zealand sea shanty, first known in the 19th century. A song about whalers and the arrival of the supply ship Wellerman.</div></li>
+<li data-src="Tracks/What Have They Done To The Rain.mp3" data-title="What Have They Done To The Rain" data-comments="Written by Malvina Reynolds in 1962.  A protest against nuclear testing, particularly the fallout from such tests that caused radioactive rain. It became popular during the 1960s folk revival and was notably covered by artists like Joan Baez and The Searchers.">What Have They Done To The Rain<div class="hover-box">Written by Malvina Reynolds in 1962.  A protest against nuclear testing, particularly the fallout from such tests that caused radioactive rain. It became popular during the 1960s folk revival and was notably covered by artists like Joan Baez and The Searchers.</div></li>
+<li data-src="Tracks/Whistling Gypsy Rover.mp3" data-title="Whistling Gypsy Rover" data-comments="Also known as 'The Gypsy Rover,' this song was written by Irish songwriter Leo Maguire in 1951. It tells the story of a noblewoman who falls in love with a gypsy and runs away with him. The song has become a staple of the Irish and folk music repertoire.">Whistling Gypsy Rover<div class="hover-box">Also known as 'The Gypsy Rover,' this song was written by Irish songwriter Leo Maguire in 1951. It tells the story of a noblewoman who falls in love with a gypsy and runs away with him. The song has become a staple of the Irish and folk music repertoire.</div></li>
+<li data-src="Tracks/Wild Colonial Boy.mp3" data-title="Wild Colonial Boy" data-comments="Traditional (Anonymous), Mid-19th century. The story of a young outlaw in Australia who rebels against British colonial authorities. It's based on the real-life story of several bushrangers but has taken on a legendary status in folk tradition.">Wild Colonial Boy<div class="hover-box">Traditional (Anonymous), Mid-19th century. The story of a young outlaw in Australia who rebels against British colonial authorities. It's based on the real-life story of several bushrangers but has taken on a legendary status in folk tradition.</div></li>
+
+            <!-- Add more tracks here as needed -->
+        </ul>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const trackListItems = document.querySelectorAll('.track-list li');
+        const finishedButton = document.getElementById('finished-selecting');
+        const searchInput = document.getElementById('searchInput');
+
+        finishedButton.addEventListener('click', function() {
+            const selectedPlaylist = [];
+            trackListItems.forEach(item => {
+                if (item.classList.contains('selected')) {
+                    const songSrc = item.getAttribute('data-src');
+                    const songTitle = item.getAttribute('data-title');
+                    const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
+                    selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+                }
+            });
+
+            // Store selected playlist in localStorage
+            localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+            // Redirect back to index.html
+            window.location.href = 'index.html';
+        });
+
+        trackListItems.forEach(item => {
+            item.addEventListener('click', function() {
+                item.classList.toggle('selected');
+            });
+        });
+
+        // Add search functionality
+        searchInput.addEventListener('input', function() {
+            const filter = searchInput.value.toLowerCase();
+            trackListItems.forEach(function(item) {
+                const title = item.getAttribute('data-title').toLowerCase();
+                if (title.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="homepage.html">Homepage</a></p>
+    </div>
+</div>
+</body>
+</html>
