@@ -49,7 +49,6 @@
             left: calc(100% + 10px);
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 4px;
-            transition: top 0.3s ease-in-out;
         }
         .clear-button, .share-button {
             margin-top: 10px;
@@ -206,15 +205,18 @@
                 initializePlaylist();
             });
 
-            document.querySelectorAll('.track-list li').forEach(function(track) {
+            document.querySelectorAll('.song-list li').forEach(function(track) {
                 track.addEventListener('mouseover', function() {
                     const hoverBox = this.querySelector('.hover-box');
                     const rect = hoverBox.getBoundingClientRect();
                     const viewportHeight = window.innerHeight;
 
+                    // Check if hover box would go below the viewport
                     if (rect.bottom > viewportHeight) {
+                        // Position hover box above the playlist item
                         hoverBox.style.top = `-${rect.height}px`;
                     } else {
+                        // Position hover box below the playlist item
                         hoverBox.style.top = '0';
                     }
                 });
@@ -227,4 +229,3 @@
 </div>
 </body>
 </html>
-
