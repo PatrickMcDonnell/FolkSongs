@@ -15,30 +15,30 @@
             background-position: center;
             margin: 0;
             padding: 20px;
-            color: #000; /* Set default text color to black */
+            color: #000;
         }
         .track-list {
             list-style-type: none;
             padding: 0;
-            display: grid; /* Use CSS Grid for layout */
-            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
-            gap: 10px; /* Gap between items */
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
         }
         .track-list li {
-            position: relative; /* Ensure the hover box is positioned relative to the item */
+            position: relative;
             margin: 0;
-            line-height: 1.5; /* Set line height for single spacing */
+            line-height: 1.5;
             cursor: pointer;
-            color: #000; /* Default text color */
+            color: #000;
         }
         .track-list li.selected {
-            color: blue; /* Selected text color */
+            color: blue;
         }
         .finished-button {
             margin-top: 20px;
             padding: 10px 20px;
-            background-color: #808080; /* Grey background */
-            color: #fff; /* White text */
+            background-color: #808080;
+            color: #fff;
             border: none;
             cursor: pointer;
         }
@@ -57,16 +57,15 @@
             padding: 10px;
             z-index: 1;
             white-space: pre-wrap;
-            width: 250px; 
-            max-height: 80vh; /* Maximum height relative to viewport height */
-            overflow: auto; /* Add scrollbar if content exceeds max-height */
-            top: 0;
-            left: calc(100% + 10px); /* Add some space between the playlist and the hover box */
+            width: 250px;
+            max-height: 80vh;
+            overflow: auto;
+            left: calc(100% + 10px);
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 4px;
         }
         .track-list li:hover .hover-box {
-            display: block; /* Show the hover box on hover */
+            display: block;
         }
     </style>
 </head>
@@ -126,7 +125,7 @@
 <li data-src="Tracks/Slumber My Darling.mp3" data-title="Slumber My Darling"  data-comments="Slumber My Darling is another beautiful song by Stephen Foster, published 1862. It was originally written as a lullaby, and its first performances were probably in domestic or informal settings rather than on stage.">Slumber My Darling<div class="hover-box">Slumber My Darling is another beautiful song by Stephen Foster, published 1862. It was originally written as a lullaby, and its first performances were 
 <li data-src="Tracks/Sweet Betsy From Pike.mp3" data-title="Sweet Betsy From Pike" data-comments"Traditional American folk song, first known in the 19th century. A humorous song about a pioneer woman’s journey to California.">Sweet Betsy From Pike<div class="hover-box">Traditional American folk song, first known in the 19th century. A humorous song about a pioneer woman’s journey to California.</div></li>
 <li data-src="Tracks/The River.mp3" data-title="The River" data-comments="Written by Bruce Springsteen, 1980. A song reflecting on youth and the struggles of adulthood, known for its introspective lyrics.">The River<div class="hover-box">Written by Bruce Springsteen, 1980. A song reflecting on youth and the struggles of adulthood, known for its introspective lyrics.</div></li>
-<li data-src="Tracks/The Johnson Boys.mp3" data-title="The Johnson Boys" data-comments="Traditional sea shanty, first known in the 19th century. A song about the exploits of the Johnson boys and their adventures at sea.">The Johnson Boys<div class="hover-box">Traditional sea shanty, first known in the 19th century. A song about the exploits of the Johnson boys and their adventures at sea.</div></li>
+<li data-src="Tracks/The Johnson Boys.mp3" data-title="The Johnson Boys" data-comments="The Johnson Boys is a traditional Appalachian folk song, with origins in the 19th century. It’s not attributed to a specific writer. The song humorously describes the Johnson Boys, a group of charming but not particularly wealthy young men, who are popular with the local women despite their flaws.">The Johnson Boys<div class="hover-box">The Johnson Boys is a traditional Appalachian folk song, with origins in the 19th century. It’s not attributed to a specific writer. The song humorously describes the Johnson Boys, a group of charming but not particularly wealthy young men, who are popular with the local women despite their flaws.</div></li>
 <li data-src="Tracks/The River.mp3" data-title="The River" data-comments="Written by Bruce Springsteen, 1980. A song reflecting on youth and the struggles of adulthood, known for its introspective lyrics.">The River<div class="hover-box">Written by Bruce Springsteen, 1980. A song reflecting on youth and the struggles of adulthood, known for its introspective lyrics.</div></li>
 <li data-src="Tracks/Three Jolly Coachmen.mp3" data-title="Three Jolly Coachmen" data-comments="Traditional English folk song, first known in the 19th century. A song about three coachmen and their various exploits.">Three Jolly Coachmen<div class="hover-box">Traditional English folk song, first known in the 19th century. A song about three coachmen and their various exploits.</div></li>
 <li data-src="Tracks/Turkey In The Straw.mp3" data-title="Turkey In The Straw" data-comments="Traditional American folk song, first known in the 19th century. A lively tune often performed at barn dances and folk gatherings.">Turkey In The Straw<div class="hover-box">Traditional American folk song, first known in the 19th century. A lively tune often performed at barn dances and folk gatherings.</div></li>
@@ -183,14 +182,23 @@
             });
         });
     });
+
+
+    document.querySelectorAll('.track-list li').forEach(function(track) {
+        track.addEventListener('mouseover', function() {
+            const hoverBox = this.querySelector('.hover-box');
+            const rect = hoverBox.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Check if hover box would go below the viewport
+            if (rect.bottom > viewportHeight) {
+                hoverBox.style.top = `-${rect.height}px`;
+            } else {
+                hoverBox.style.top = '0';
+            }
+        });
+    });
 </script>
-
-
-
-
-
-
-
 
     <div id="footer">
         <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 

@@ -49,7 +49,7 @@
             text-align: center;
             padding: 10px;
         }
-        .hover-box {
+       .hover-box {
             display: none;
             position: absolute;
             background-color: #f9f9f9;
@@ -57,16 +57,15 @@
             padding: 10px;
             z-index: 1;
             white-space: pre-wrap;
-            width: 250px; 
-            max-height: 80vh; /* Maximum height relative to viewport height */
-            overflow: auto; /* Add scrollbar if content exceeds max-height */
-            top: 0;
-            left: calc(100% + 10px); /* Add some space between the playlist and the hover box */
+            width: 250px;
+            max-height: 80vh;
+            overflow: auto;
+            left: calc(100% + 10px);
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 4px;
         }
         .track-list li:hover .hover-box {
-            display: block; /* Show the hover box on hover */
+            display: block;
         }
     </style>
 </head>
@@ -149,6 +148,21 @@
             });
         });
     });
+
+document.querySelectorAll('.track-list li').forEach(function(track) {
+        track.addEventListener('mouseover', function() {
+            const hoverBox = this.querySelector('.hover-box');
+            const rect = hoverBox.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Check if hover box would go below the viewport
+            if (rect.bottom > viewportHeight) {
+                hoverBox.style.top = `-${rect.height}px`;
+            } else {
+                hoverBox.style.top = '0';
+            }
+            });
+        });
 </script>
 
     <div id="footer">
