@@ -205,23 +205,30 @@
                 initializePlaylist();
             });
 
-            document.querySelectorAll('.song-list li').forEach(function(track) {
-                track.addEventListener('mouseover', function() {
-                    const hoverBox = this.querySelector('.hover-box');
-                    const rect = hoverBox.getBoundingClientRect();
-                    const playlistRect = this.closest('.song-list').getBoundingClientRect();
-                    const viewportHeight = window.innerHeight;
+  document.querySelectorAll('.song-list li').forEach(function(track) {
+    track.addEventListener('mouseover', function() {
+        const hoverBox = this.querySelector('.hover-box');
+        hoverBox.style.display = 'block';
 
-                    // Check if hover box would go beyond the bottom of the viewport
-                    if (rect.bottom > viewportHeight || rect.bottom > playlistRect.bottom) {
-                        // Position hover box at the top of the playlist
-                        hoverBox.style.top = `-${rect.height + this.offsetTop}px`;
-                    } else {
-                        // Position hover box below the playlist item
-                        hoverBox.style.top = '0';
-                    }
-                });
-            });
+        const rect = hoverBox.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+
+        // Calculate potential overflow and adjust position
+        if (rect.bottom > viewportHeight) {
+            hoverBox.style.top = `-${rect.height + 10}px`; // Move above the playlist item
+            hoverBox.style.left = '0'; // Align it to the left of the playlist item
+        } else {
+            hoverBox.style.top = '0'; // Default to below the item
+            hoverBox.style.left = 'calc(100% + 10px)'; // Default right position
+        }
+    });
+
+    track.addEventListener('mouseout', function() {
+        const hoverBox = this.querySelector('.hover-box');
+        hoverBox.style.display = 'none';
+    });
+});
+
         </script>
     </div>
     <div id="footer">
