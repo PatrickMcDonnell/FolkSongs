@@ -17,20 +17,20 @@
             background-position: center;
             margin: 0;
             padding: 20px;
-            color: #000; /* Set text color to black */
+            color: #000;
         }
         .song-list {
             list-style-type: none;
             padding: 0;
-            position: relative; /* Ensure positioning for hover effect */
+            position: relative;
         }
         .song-list li {
             margin: 5px 0;
             cursor: pointer;
-            color: #000; /* Set text color to black */
+            color: #000;
             text-decoration: underline;
-            position: relative; /* Ensure hover box is positioned relative to this item */
-            padding: 10px; /* Adjust padding if needed */
+            position: relative;
+            padding: 10px;
         }
         .song-list li:hover .hover-box {
             display: block;
@@ -44,24 +44,21 @@
             z-index: 1;
             white-space: pre-wrap;
             width: 250px; 
-            max-height: 80vh; /* Maximum height relative to viewport height */
-            overflow: auto; /* Add scrollbar if content exceeds max-height */
-            top: 0;
-            left: calc(100% + 10px); /* Add some space between the playlist and the hover box */
+            max-height: 80vh;
+            overflow: auto;
+            left: calc(100% + 10px);
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 4px;
+            transform: translateY(-100%); /* Moves the hover box above the title */
         }
         .playlist-item {
-            position: relative; /* Ensure the hover box is positioned relative to the item */
-        }
-        .playlist-item:hover .hover-box {
-            display: block; /* Show the hover box on hover */
+            position: relative;
         }
         .clear-button, .share-button {
             margin-top: 10px;
             padding: 10px 20px;
-            background-color: #808080; /* Grey background */
-            color: #fff; /* White text */
+            background-color: #808080;
+            color: #fff;
             border: none;
             cursor: pointer;
         }
@@ -110,12 +107,11 @@
         const playlist = document.getElementById('playlist');
         const clearButton = document.getElementById('clear-playlist');
         const shareButton = document.getElementById('share-playlist');
-        const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/'; // Define the base URL
+        const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
         let currentSongIndex = 0;
 
-        // Function to initialize playlist from localStorage
         function initializePlaylist() {
-            playlist.innerHTML = ''; // Clear existing playlist
+            playlist.innerHTML = '';
             const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
 
             if (storedPlaylist) {
@@ -123,19 +119,17 @@
                     const li = document.createElement('li');
                     li.textContent = song.title;
                     li.setAttribute('data-src', song.src);
-                    li.setAttribute('data-comments', song.comments || ''); // Add comments data attribute
+                    li.setAttribute('data-comments', song.comments || '');
                     li.classList.add('song-item');
 
-                    // Create hover box for comments
                     const hoverBox = document.createElement('div');
                     hoverBox.classList.add('hover-box');
-                    hoverBox.textContent = song.comments || ''; // Set comments or empty if none
+                    hoverBox.textContent = song.comments || '';
                     li.appendChild(hoverBox);
 
                     playlist.appendChild(li);
                 });
 
-                // Automatically play the first song if the playlist is not empty
                 if (storedPlaylist.length > 0) {
                     const firstSong = playlist.children[0];
                     audioPlayer.src = firstSong.getAttribute('data-src');
@@ -144,62 +138,45 @@
             }
         }
 
-        // Function to clear playlist
         function clearPlaylist() {
             localStorage.removeItem('playlist');
-            playlist.innerHTML = ''; // Clear the displayed playlist
-            audioPlayer.pause(); // Stop audio playback
-            audioPlayer.currentTime = 0; // Reset playback position
-            currentSongIndex = 0; // Reset current song index
+            playlist.innerHTML = '';
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+            currentSongIndex = 0;
         }
 
-function sharePlaylist() {
-    const songs = playlist.querySelectorAll('li');
-    if (songs.length === 0) {
-        alert('The playlist is empty.');
-        return;
-    }
+        function sharePlaylist() {
+            const songs = playlist.querySelectorAll('li');
+            if (songs.length === 0) {
+                alert('The playlist is empty.');
+                return;
+            }
 
-    let songList = '';
-    songs.forEach(song => {
-        // Extract the title separately to avoid grabbing comments
-        const title = song.firstChild.nodeValue.trim();  // Grabs only the title text, assuming it's the first child node
-        const relativePath = song.getAttribute('data-src');
-        const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
-        const comments = song.getAttribute('data-comments').trim();
+            let songList = '';
+            songs.forEach(song => {
+                const title = song.firstChild.nodeValue.trim();
+                const relativePath = song.getAttribute('data-src');
+                const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
+                const comments = song.getAttribute('data-comments').trim();
 
-        // Formatting: Title, colon, two spaces, comments (if any), and URL
-        if (comments) {
-            songList += `${title}:  ${comments}\n${fullUrl}\n\n`;
-        } else {
-            songList += `${title}\n${fullUrl}\n\n`;
+                if (comments) {
+                    songList += `${title}:  ${comments}\n${fullUrl}\n\n`;
+                } else {
+                    songList += `${title}\n${fullUrl}\n\n`;
+                }
+            });
+
+            const subject = encodeURIComponent("Playlist from Pat's Music");
+            const body = encodeURIComponent(
+                songList + 
+                '\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
+            );
+            const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+
+            window.location.href = mailtoLink;
         }
-    });
 
-    const subject = encodeURIComponent("Playlist from Pat's Music");
-    const body = encodeURIComponent(
-<!--        'Here is my playlist:\n\n' + 
--->
-        songList + 
-        '\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
-    );
-    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
-
-    window.location.href = mailtoLink;
-}
-
-
-        // Event listener for clear playlist button
-        clearButton.addEventListener('click', function() {
-            clearPlaylist();
-        });
-
-        // Event listener for share playlist button
-        shareButton.addEventListener('click', function() {
-            sharePlaylist();
-        });
-
-        // Event listener for playing songs from playlist
         playlist.addEventListener('click', function(event) {
             if (event.target && event.target.matches('li.song-item')) {
                 const songSrc = event.target.getAttribute('data-src');
@@ -209,7 +186,6 @@ function sharePlaylist() {
             }
         });
 
-        // Event listener for ended song
         audioPlayer.addEventListener('ended', function() {
             currentSongIndex++;
             if (currentSongIndex < playlist.children.length) {
@@ -219,22 +195,16 @@ function sharePlaylist() {
                 audioPlayer.play();
             } else {
                 currentSongIndex = 0;
-                audioPlayer.pause(); // Pause playback at the end of the playlist
-                audioPlayer.currentTime = 0; // Reset playback position
             }
         });
 
-        // Initialize playlist on page load
         initializePlaylist();
     });
-
 </script>
-
-
     </div>
-</div>
-<div id="footer">
-    <p>Copyright &copy; 2023 Pat's Music.</p>
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
+    </div>
 </div>
 </body>
 </html>
