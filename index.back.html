@@ -218,23 +218,18 @@ function sharePlaylist() {
                 audioPlayer.src = nextSongSrc;
                 audioPlayer.play();
             } else {
-                currentSongIndex = 0;
-                audioPlayer.pause(); // Pause playback at the end of the playlist
-                audioPlayer.currentTime = 0; // Reset playback position
+                currentSongIndex = 0; // Reset to beginning of playlist
             }
         });
 
         // Initialize playlist on page load
         initializePlaylist();
     });
-
 </script>
-
-
     </div>
-</div>
-<div id="footer">
-    <p>Copyright &copy; 2023 Pat's Music.</p>
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
+    </div>
 </div>
 </body>
 </html>
