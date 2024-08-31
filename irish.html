@@ -34,14 +34,24 @@
         .track-list li.selected {
             color: blue; /* Selected text color */
         }
-        .finished-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #808080; /* Grey background */
-            color: #fff; /* White text */
-            border: none;
-            cursor: pointer;
-        }
+
+.styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
+      .styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
+
         #footer {
             display: flex;
             justify-content: center;
@@ -49,7 +59,7 @@
             text-align: center;
             padding: 10px;
         }
-       .hover-box {
+        .hover-box {
             display: none;
             position: absolute;
             background-color: #f9f9f9;
@@ -73,17 +83,18 @@
 <div id="wrap">
     <div id="header">
         <h1><a href="#">All Tracks</a></h1>
-
-    <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
-
+        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
         <h1>Irish</h1>
-
-        <!-- Add the search input here -->
+        <!-- Search input -->
         <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
 
-        <button class="finished-button" id="finished-selecting">Play</button>
+<!-- Select All Button -->
+<button id="selectAllButton" class="styled-button">Select All</button>
 
-<ul class="track-list">
+<!-- Play Button -->
+<button class="styled-button" id="finished-selecting">Play</button>
+
+        <ul class="track-list">
            
 <li data-src="Tracks/Bard of Armagh.mp3" data-title="Bard of Armagh" data-comments="Traditional Irish song, first known in the 19th century. A nostalgic song celebrating the life of a bard from Armagh.">Bard of Armagh<div class="hover-box">Traditional Irish song, first known in the 19th century. A nostalgic song celebrating the life of a bard from Armagh.</div></li>
 <li data-src="Tracks/Black Velvet Band.mp3" data-title="Black Velvet Band" data-comments="Traditional Irish folk song, first known in the 19th century. A narrative song about a man who is deceived by a woman and sent to Australia.">Black Velvet Band<div class="hover-box">Traditional Irish folk song, first known in the 19th century. A narrative song about a man who is deceived by a woman and sent to Australia.</div></li>
@@ -119,56 +130,60 @@
 <li data-src="Tracks/What Have They Done To The Rain.mp3" data-title="What Have They Done To The Rain" data-comments="Written by Malvina Reynolds in 1962.  A protest against nuclear testing, particularly the fallout from such tests that caused radioactive rain. It became popular during the 1960s folk revival and was notably covered by artists like Joan Baez and The Searchers.">What Have They Done To The Rain<div class="hover-box">Written by Malvina Reynolds in 1962.  A protest against nuclear testing, particularly the fallout from such tests that caused radioactive rain. It became popular during the 1960s folk revival and was notably covered by artists like Joan Baez and The Searchers.</div></li>
 <li data-src="Tracks/Whistling Gypsy Rover.mp3" data-title="Whistling Gypsy Rover" data-comments="Also known as 'The Gypsy Rover,' this song was written by Irish songwriter Leo Maguire in 1951. It tells the story of a noblewoman who falls in love with a gypsy and runs away with him. The song has become a staple of the Irish and folk music repertoire.">Whistling Gypsy Rover<div class="hover-box">Also known as 'The Gypsy Rover,' this song was written by Irish songwriter Leo Maguire in 1951. It tells the story of a noblewoman who falls in love with a gypsy and runs away with him. The song has become a staple of the Irish and folk music repertoire.</div></li>
 <li data-src="Tracks/Wild Colonial Boy.mp3" data-title="Wild Colonial Boy" data-comments="Traditional (Anonymous), Mid-19th century. The story of a young outlaw in Australia who rebels against British colonial authorities. It's based on the real-life story of several bushrangers but has taken on a legendary status in folk tradition.">Wild Colonial Boy<div class="hover-box">Traditional (Anonymous), Mid-19th century. The story of a young outlaw in Australia who rebels against British colonial authorities. It's based on the real-life story of several bushrangers but has taken on a legendary status in folk tradition.</div></li>
-
             <!-- Add more tracks here as needed -->
         </ul>
-
+   
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function() {
+    // Select All functionality
+    document.getElementById("selectAllButton").addEventListener("click", function() {
         const trackListItems = document.querySelectorAll('.track-list li');
-        const finishedButton = document.getElementById('finished-selecting');
-        const searchInput = document.getElementById('searchInput');
+        trackListItems.forEach(item => item.classList.add('selected'));
+    });
 
-        finishedButton.addEventListener('click', function() {
-            const selectedPlaylist = [];
-            trackListItems.forEach(item => {
-                if (item.classList.contains('selected')) {
-                    const songSrc = item.getAttribute('data-src');
-                    const songTitle = item.getAttribute('data-title');
-                    const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
-                    selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
-                }
-            });
+    const trackListItems = document.querySelectorAll('.track-list li');
+    const finishedButton = document.getElementById('finished-selecting');
+    const searchInput = document.getElementById('searchInput');
 
-            // Store selected playlist in localStorage
-            localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
-
-            // Redirect back to index.html
-            window.location.href = 'index.html';
-        });
-
+    finishedButton.addEventListener('click', function() {
+        const selectedPlaylist = [];
         trackListItems.forEach(item => {
-            item.addEventListener('click', function() {
-                item.classList.toggle('selected');
-            });
+            if (item.classList.contains('selected')) {
+                const songSrc = item.getAttribute('data-src');
+                const songTitle = item.getAttribute('data-title');
+                const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
+                selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+            }
         });
 
-        // Add search functionality
-        searchInput.addEventListener('input', function() {
-            const filter = searchInput.value.toLowerCase();
-            trackListItems.forEach(function(item) {
-                const title = item.getAttribute('data-title').toLowerCase();
-                if (title.includes(filter)) {
-                    item.style.display = '';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+        // Store selected playlist in localStorage
+        localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+        // Redirect back to index.html
+        window.location.href = 'index.html';
+    });
+
+    trackListItems.forEach(item => {
+        item.addEventListener('click', function() {
+            item.classList.toggle('selected');
         });
     });
 
-document.querySelectorAll('.track-list li').forEach(function(track) {
+    // Add search functionality
+    searchInput.addEventListener('input', function() {
+        const filter = searchInput.value.toLowerCase();
+        trackListItems.forEach(function(item) {
+            const title = item.getAttribute('data-title').toLowerCase();
+            if (title.includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+});
+    document.querySelectorAll('.track-list li').forEach(function(track) {
         track.addEventListener('mouseover', function() {
             const hoverBox = this.querySelector('.hover-box');
             const rect = hoverBox.getBoundingClientRect();
@@ -180,8 +195,9 @@ document.querySelectorAll('.track-list li').forEach(function(track) {
             } else {
                 hoverBox.style.top = '0';
             }
-            });
         });
+    });
+
 </script>
 
     <div id="footer">
