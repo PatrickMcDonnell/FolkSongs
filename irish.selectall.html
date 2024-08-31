@@ -16,12 +16,6 @@
             margin: 0;
             padding: 20px;
             color: #000; /* Set default text color to black */
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh; /* Make sure body is at least as tall as the viewport */
-        }
-        #wrap {
-            flex: 1; /* Allow the wrap to grow and take up space */
         }
         .track-list {
             list-style-type: none;
@@ -40,21 +34,30 @@
         .track-list li.selected {
             color: blue; /* Selected text color */
         }
-        .styled-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #808080; /* Grey background */
-            color: #fff; /* White text */
-            border: none;
-            cursor: pointer;
-        }
+
+.styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
+      .styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
+
         #footer {
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 10px;
-            margin-top: auto; /* Push footer to the bottom */
         }
         .hover-box {
             display: none;
@@ -84,10 +87,13 @@
         <h1>Irish</h1>
         <!-- Search input -->
         <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
-        <!-- Select All Button -->
-        <button id="selectAllButton" class="styled-button">Select All</button>
-        <!-- Play Button -->
-        <button class="styled-button" id="finished-selecting">Play</button>
+
+<!-- Select All Button -->
+<button id="selectAllButton" class="styled-button">Select All</button>
+
+<!-- Play Button -->
+<button class="styled-button" id="finished-selecting">Play</button>
+
         <!-- Track List -->
         <ul class="track-list">
             <li data-src="Tracks/Bard of Armagh.mp3" data-title="Bard of Armagh" data-comments="Traditional Irish song, first known in the 19th century. A nostalgic song celebrating the life of a bard from Armagh.">Bard of Armagh<div class="hover-box">Traditional Irish song, first known in the 19th century. A nostalgic song celebrating the life of a bard from Armagh.</div></li>
@@ -95,7 +101,7 @@
             <li data-src="Tracks/Bold Fenian Men.mp3" data-title="Bold Fenian Men" data-comments="Written by Michael Scanlan, 1864. An Irish folk song celebrating the Fenian Brotherhood and their fight for Irish independence.">Bold Fenian Men<div class="hover-box">Written by Michael Scanlan, 1864. An Irish folk song celebrating the Fenian Brotherhood and their fight for Irish independence.</div></li>
             <!-- Add more tracks here as needed -->
         </ul>
-    </div>
+   
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -145,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
-
+});
     document.querySelectorAll('.track-list li').forEach(function(track) {
         track.addEventListener('mouseover', function() {
             const hoverBox = this.querySelector('.hover-box');
@@ -160,11 +166,11 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
-});
+
 </script>
 
     <div id="footer">
-        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot;
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
             | <a href="homepage.html">Homepage</a></p>
     </div>
 </div>
