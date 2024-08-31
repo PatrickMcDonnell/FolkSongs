@@ -34,24 +34,14 @@
         .track-list li.selected {
             color: blue; /* Selected text color */
         }
-
-.styled-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #808080; /* Grey background */
-    color: #fff; /* White text */
-    border: none;
-    cursor: pointer;
-}
-      .styled-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #808080; /* Grey background */
-    color: #fff; /* White text */
-    border: none;
-    cursor: pointer;
-}
-
+        .finished-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
         #footer {
             display: flex;
             justify-content: center;
@@ -59,7 +49,7 @@
             text-align: center;
             padding: 10px;
         }
-        .hover-box {
+         .hover-box {
             display: none;
             position: absolute;
             background-color: #f9f9f9;
@@ -83,20 +73,19 @@
 <div id="wrap">
     <div id="header">
         <h1><a href="#">Christmas</a></h1>
-        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+
+    <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+
         <h1>Select Tracks</h1>
-        <!-- Search input -->
+
+        <!-- Add the search input here -->
         <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
 
-<!-- Select All Button -->
-<button id="selectAllButton" class="styled-button">Select All</button>
+        <button class="finished-button" id="finished-selecting">Play</button>
 
-<!-- Play Button -->
-<button class="styled-button" id="finished-selecting">Play</button>
+<ul class="track-list">
 
-        <ul class="track-list">
-           
-<<li data-src="Tracks/Adeste Fideles.mp3" data-title="Adeste Fideles" data-comments="The origins of 'Adeste Fideles' are somewhat disputed. The most commonly accepted attribution is to John Francis Wade, an 18th-century English hymnist. He is believed to have written both the music and Latin lyrics around 1744. Originally written in Latin, the hymn was later translated into English as 'O Come, All Ye Faithful'by Frederick Oakeley in 1841.">Adeste Fideles<div class="hover-box">The origins of 'Adeste Fideles' are somewhat disputed. The most commonly accepted attribution is to John Francis Wade, an 18th-century English hymnist. He is believed to have written both the music and Latin lyrics around 1744. Originally written in Latin, the hymn was later translated into English as 'O Come, All Ye Faithful'by Frederick Oakeley in 1841.</div></li>        
+<li data-src="Tracks/Adeste Fideles.mp3" data-title="Adeste Fideles" data-comments="The origins of 'Adeste Fideles' are somewhat disputed. The most commonly accepted attribution is to John Francis Wade, an 18th-century English hymnist. He is believed to have written both the music and Latin lyrics around 1744. Originally written in Latin, the hymn was later translated into English as 'O Come, All Ye Faithful'by Frederick Oakeley in 1841.">Adeste Fideles<div class="hover-box">The origins of 'Adeste Fideles' are somewhat disputed. The most commonly accepted attribution is to John Francis Wade, an 18th-century English hymnist. He is believed to have written both the music and Latin lyrics around 1744. Originally written in Latin, the hymn was later translated into English as 'O Come, All Ye Faithful'by Frederick Oakeley in 1841.</div></li>        
 <li data-src="Tracks/Angels We Have Heard On High.mp3" data-title="Angels We Have Heard On High" data-comments="A traditional Christmas carol with French origins. The song's lyrics are a translation of a French carol titled 'Les Anges dans nos campagnes,' which dates back to the 18th century, though the exact date of its composition is unknown. The English version of the carol was translated in 1862 by James Chadwick, a Roman Catholic bishop.">Angels We Have Heard On High<div class="hover-box">A traditional Christmas carol with French origins. The song's lyrics are a translation of a French carol titled 'Les Anges dans nos campagnes,' which dates back to the 18th century, though the exact date of its composition is unknown. The English version of the carol was translated in 1862 by James Chadwick, a Roman Catholic bishop.</div></li> 
 <li data-src="Tracks/Away In A Manger.mp3" data-title="Away In A Manger" data-comments="Away in a Manger is a popular Christmas carol often attributed to Martin Luther, the 16th-century German reformer, though this claim is widely disputed. The carol's lyrics first appeared in a Lutheran Sunday School book in the United States in 1885. The melody most commonly associated with the carol in the United States was composed by James R. Murray, while in the United Kingdom, the tune Cradle Song by William J. Kirkpatrick is more frequently used. The lyrics describe the nativity scene, focusing on the baby Jesus in a manger, making it a staple in Christmas traditions worldwide.">Away In A Manger<div class="hover-box">Away in a Manger is a popular Christmas carol often attributed to Martin Luther, the 16th-century German reformer, though this claim is widely disputed. The carol's lyrics first appeared in a Lutheran Sunday School book in the United States in 1885. The melody most commonly associated with the carol in the United States was composed by James R. Murray, while in the United Kingdom, the tune Cradle Song by William J. Kirkpatrick is more frequently used. The lyrics describe the nativity scene, focusing on the baby Jesus in a manger, making it a staple in Christmas traditions worldwide.</div></li>  
 <li data-src="Tracks/Deck The Halls.mp3" data-title="Deck The Halls" data-comments="Deck the Halls is a traditional Christmas carol with origins that trace back to 16th-century Wales. The melody is based on the Welsh folk tune 'Nos Galan,' which was originally a New Year's Eve carol. The English lyrics that we sing today were written by Scottish musician Thomas Oliphant in 1862.">Deck The Halls<div class="hover-box">Deck the Halls is a traditional Christmas carol with origins that trace back to 16th-century Wales. The melody is based on the Welsh folk tune 'Nos Galan,' which was originally a New Year's Eve carol. The English lyrics that we sing today were written by Scottish musician Thomas Oliphant in 1862.</div></li>
@@ -109,58 +98,53 @@
 
             <!-- Add more tracks here as needed -->
         </ul>
-   
+
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Select All functionality
-    document.getElementById("selectAllButton").addEventListener("click", function() {
+    document.addEventListener('DOMContentLoaded', function() {
         const trackListItems = document.querySelectorAll('.track-list li');
-        trackListItems.forEach(item => item.classList.add('selected'));
-    });
+        const finishedButton = document.getElementById('finished-selecting');
+        const searchInput = document.getElementById('searchInput');
 
-    const trackListItems = document.querySelectorAll('.track-list li');
-    const finishedButton = document.getElementById('finished-selecting');
-    const searchInput = document.getElementById('searchInput');
+        finishedButton.addEventListener('click', function() {
+            const selectedPlaylist = [];
+            trackListItems.forEach(item => {
+                if (item.classList.contains('selected')) {
+                    const songSrc = item.getAttribute('data-src');
+                    const songTitle = item.getAttribute('data-title');
+                    const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
+                    selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+                }
+            });
 
-    finishedButton.addEventListener('click', function() {
-        const selectedPlaylist = [];
+            // Store selected playlist in localStorage
+            localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+            // Redirect back to index.html
+            window.location.href = 'index.html';
+        });
+
         trackListItems.forEach(item => {
-            if (item.classList.contains('selected')) {
-                const songSrc = item.getAttribute('data-src');
-                const songTitle = item.getAttribute('data-title');
-                const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
-                selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
-            }
+            item.addEventListener('click', function() {
+                item.classList.toggle('selected');
+            });
         });
 
-        // Store selected playlist in localStorage
-        localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
-
-        // Redirect back to index.html
-        window.location.href = 'index.html';
-    });
-
-    trackListItems.forEach(item => {
-        item.addEventListener('click', function() {
-            item.classList.toggle('selected');
+        // Add search functionality
+        searchInput.addEventListener('input', function() {
+            const filter = searchInput.value.toLowerCase();
+            trackListItems.forEach(function(item) {
+                const title = item.getAttribute('data-title').toLowerCase();
+                if (title.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         });
     });
 
-    // Add search functionality
-    searchInput.addEventListener('input', function() {
-        const filter = searchInput.value.toLowerCase();
-        trackListItems.forEach(function(item) {
-            const title = item.getAttribute('data-title').toLowerCase();
-            if (title.includes(filter)) {
-                item.style.display = '';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-    });
-});
-    document.querySelectorAll('.track-list li').forEach(function(track) {
+document.querySelectorAll('.track-list li').forEach(function(track) {
         track.addEventListener('mouseover', function() {
             const hoverBox = this.querySelector('.hover-box');
             const rect = hoverBox.getBoundingClientRect();
@@ -172,9 +156,8 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 hoverBox.style.top = '0';
             }
+            });
         });
-    });
-
 </script>
 
     <div id="footer">

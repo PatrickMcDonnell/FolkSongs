@@ -15,33 +15,43 @@
             background-position: center;
             margin: 0;
             padding: 20px;
-            color: #000;
+            color: #000; /* Set default text color to black */
         }
         .track-list {
             list-style-type: none;
             padding: 0;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
         }
         .track-list li {
-            position: relative;
+            position: relative; /* Ensure the hover box is positioned relative to the item */
             margin: 0;
-            line-height: 1.5;
+            line-height: 1.5; /* Set line height for single spacing */
             cursor: pointer;
-            color: #000;
+            color: #000; /* Default text color */
         }
         .track-list li.selected {
-            color: blue;
+            color: blue; /* Selected text color */
         }
-        .finished-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #808080;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
+
+.styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
+      .styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
+
         #footer {
             display: flex;
             justify-content: center;
@@ -73,20 +83,19 @@
 <div id="wrap">
     <div id="header">
         <h1><a href="#">All Tracks</a></h1>
-
-    <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
-
-
-        <h1>Select Tracks</h1>
-
-        <!-- Add the search input here -->
+        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+        <h1>Irish</h1>
+        <!-- Search input -->
         <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
 
-        <button class="finished-button" id="finished-selecting">Play</button>
+<!-- Select All Button -->
+<button id="selectAllButton" class="styled-button">Select All</button>
 
-<ul class="track-list">
+<!-- Play Button -->
+<button class="styled-button" id="finished-selecting">Play</button>
 
-
+        <ul class="track-list">
+           
 <li data-src="Tracks/Adeste Fideles.mp3" data-title="Adeste Fideles" data-comments="The origins of 'Adeste Fideles' are somewhat disputed. The most commonly accepted attribution is to John Francis Wade, an 18th-century English hymnist. He is believed to have written both the music and Latin lyrics around 1744. Originally written in Latin, the hymn was later translated into English as 'O Come, All Ye Faithful'by Frederick Oakeley in 1841.">Adeste Fideles<div class="hover-box">The origins of 'Adeste Fideles' are somewhat disputed. The most commonly accepted attribution is to John Francis Wade, an 18th-century English hymnist. He is believed to have written both the music and Latin lyrics around 1744. Originally written in Latin, the hymn was later translated into English as 'O Come, All Ye Faithful'by Frederick Oakeley in 1841.</div></li>              
 <li data-src="Tracks/A Drink for My Father.mp3" data-title="A Drink for My Father" data-comments="Composed by Donal Lunny, an influential Irish musician, composer, and producer. He is known for his work with several prominent Irish bands, including Planxty, The Bothy Band, and Moving Hearts. The song first gained recognition in the early 1980s.">A Drnk for My Father<div class="hover-box">Composed by Donal Lunny, an influential Irish musician, composer, and producer. He is known for his work with several prominent Irish bands, including Planxty, The Bothy Band, and Moving Hearts. The song first gained recognition in the early 1980s.</div></li>
 <li data-src="Tracks/Ain't Nobody's Dirty Business.mp3" data-title="Ain't Nobody's Dirty Business" data-comments="First recorded in 1928 by Mississippi John Hurt. A traditional blues song about life's hardships and the resilience to overcome them.">Ain't Nobody's Dirty Business <div class="hover-box">First recorded in 1928 by Mississippi John Hurt. A traditional blues song about life's hardships and the resilience to overcome them.</div></li>
@@ -315,56 +324,60 @@
 <li data-src="Tracks/Yankee Doodle.mp3" data-title="Yankee Doodle" data-comments="Traditional American song, first known in the 18th century. A patriotic song celebrating American independence and spirit.">Yankee Doodle<div class="hover-box">Traditional American song, first known in the 18th century. A patriotic song celebrating American independence and spirit.</div></li>
 <li data-src="Tracks/You Are My Sunshine.mp3" data-title="You Are My Sunshine" data-comments="Credited to Jimmie Davis and Charles Mitchell, the song was first recorded in 1939 by The Pine Ridge Boys. Jimmie Davis popularized it in 1940. The song became a timeless American classic, covered by numerous artists and adopted as an official state song of Louisiana in 1977.">You Are My Sunshinie<div class="hover-box">Credited to Jimmie Davis and Charles Mitchell, the song was first recorded in 1939 by The Pine Ridge Boys. Jimmie Davis popularized it in 1940. The song became a timeless American classic, covered by numerous artists and adopted as an official state song of Louisiana in 1977.</div></li>
 
-
             <!-- Add more tracks here as needed -->
         </ul>
-
+   
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function() {
+    // Select All functionality
+    document.getElementById("selectAllButton").addEventListener("click", function() {
         const trackListItems = document.querySelectorAll('.track-list li');
-        const finishedButton = document.getElementById('finished-selecting');
-        const searchInput = document.getElementById('searchInput');
+        trackListItems.forEach(item => item.classList.add('selected'));
+    });
 
-        finishedButton.addEventListener('click', function() {
-            const selectedPlaylist = [];
-            trackListItems.forEach(item => {
-                if (item.classList.contains('selected')) {
-                    const songSrc = item.getAttribute('data-src');
-                    const songTitle = item.getAttribute('data-title');
-                    const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
-                    selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
-                }
-            });
+    const trackListItems = document.querySelectorAll('.track-list li');
+    const finishedButton = document.getElementById('finished-selecting');
+    const searchInput = document.getElementById('searchInput');
 
-            // Store selected playlist in localStorage
-            localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
-
-            // Redirect back to index.html
-            window.location.href = 'index.html';
-        });
-
+    finishedButton.addEventListener('click', function() {
+        const selectedPlaylist = [];
         trackListItems.forEach(item => {
-            item.addEventListener('click', function() {
-                item.classList.toggle('selected');
-            });
+            if (item.classList.contains('selected')) {
+                const songSrc = item.getAttribute('data-src');
+                const songTitle = item.getAttribute('data-title');
+                const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
+                selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+            }
         });
 
-        // Add search functionality
-        searchInput.addEventListener('input', function() {
-            const filter = searchInput.value.toLowerCase();
-            trackListItems.forEach(function(item) {
-                const title = item.getAttribute('data-title').toLowerCase();
-                if (title.includes(filter)) {
-                    item.style.display = '';
-                } else {
-                    item.style.display = 'none';
-                }
-           });
+        // Store selected playlist in localStorage
+        localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+        // Redirect back to index.html
+        window.location.href = 'index.html';
+    });
+
+    trackListItems.forEach(item => {
+        item.addEventListener('click', function() {
+            item.classList.toggle('selected');
         });
     });
 
-document.querySelectorAll('.track-list li').forEach(function(track) {
+    // Add search functionality
+    searchInput.addEventListener('input', function() {
+        const filter = searchInput.value.toLowerCase();
+        trackListItems.forEach(function(item) {
+            const title = item.getAttribute('data-title').toLowerCase();
+            if (title.includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+});
+    document.querySelectorAll('.track-list li').forEach(function(track) {
         track.addEventListener('mouseover', function() {
             const hoverBox = this.querySelector('.hover-box');
             const rect = hoverBox.getBoundingClientRect();
@@ -376,8 +389,9 @@ document.querySelectorAll('.track-list li').forEach(function(track) {
             } else {
                 hoverBox.style.top = '0';
             }
-            });
         });
+    });
+
 </script>
 
     <div id="footer">
