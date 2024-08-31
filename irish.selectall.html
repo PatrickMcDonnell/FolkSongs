@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irish</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set default text color to black */
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
+        }
+        .track-list li {
+            position: relative; /* Ensure the hover box is positioned relative to the item */
+            margin: 0;
+            line-height: 1.5; /* Set line height for single spacing */
+            cursor: pointer;
+            color: #000; /* Default text color */
+        }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
+        }
+        .finished-button, .select-all-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px;
+            max-height: 80vh;
+            overflow: auto;
+            left: calc(100% + 10px);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <h1><a href="#">All Tracks</a></h1>
+
+        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+
+        <h1>Irish</h1>
+
+        <!-- Add the search input here -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+
+        <!-- New Select All button -->
+        <button class="select-all-button" id="select-all">Select All</button>
+        <button class="finished-button" id="finished-selecting">Play</button>
+
+        <ul class="track-list">
+            <li data-src="Tracks/Bard of Armagh.mp3" data-title="Bard of Armagh" data-comments="Traditional Irish song, first known in the 19th century. A nostalgic song celebrating the life of a bard from Armagh.">Bard of Armagh<div class="hover-box">Traditional Irish song, first known in the 19th century. A nostalgic song celebrating the life of a bard from Armagh.</div></li>
+            <li data-src="Tracks/Black Velvet Band.mp3" data-title="Black Velvet Band" data-comments="Traditional Irish folk song, first known in the 19th century. A narrative song about a man who is deceived by a woman and sent to Australia.">Black Velvet Band<div class="hover-box">Traditional Irish folk song, first known in the 19th century. A narrative song about a man who is deceived by a woman and sent to Australia.</div></li>
+            <li data-src="Tracks/Bold Fenian Men.mp3" data-title="Bold Fenian Men" data-comments="Written by Michael Scanlan, 1864. An Irish folk song celebrating the Fenian Brotherhood and their fight for Irish independence.">Bold Fenian Men<div class="hover-box">Written by Michael Scanlan, 1864. An Irish folk song celebrating the Fenian Brotherhood and their fight for Irish independence.</div></li>
+            <li data-src="Tracks/Danny Boy.mp3" data-title="Danny Boy" data-comments="Written by Frederic Weatherly, 1913. A poignant and emotional song set to the melody of the Irish tune Londonderry Air, often associated with Irish heritage and mourning.">Danny Boy<div class="hover-box">Written by Frederic Weatherly, 1913. A poignant and emotional song set to the melody of the Irish tune Londonderry Air, often associated with Irish heritage and mourning.</div></li>
+            <li data-src="Tracks/Danny's Song.mp3" data-title="Danny's Song" data-comments="Written by Kenny Loggins, 1971. A popular folk song about love, family, and the joy of life, known for its heartfelt lyrics and gentle melody.">Danny's Song<div class="hover-box">Written by Kenny Loggins, 1971. A popular folk song about love, family, and the joy of life, known for its heartfelt lyrics and gentle melody.</div></li>
+            <li data-src="Tracks/Do You Want Your Old Lobby Washed Down.mp3" data-title="Do You Want Your Old Lobby Washed Down" data-comments="Traditional American sea shanty, first known in the 19th century. A song about the hard work and camaraderie of sailors, often used to coordinate tasks.">Do You Want Your Old Lobby Washed Down<div class="hover-box">Traditional American sea shanty, first known in the 19th century. A song about the hard work and camaraderie of sailors, often used to coordinate tasks.</div></li>
+            <li data-src="Tracks/Erin Go Braugh.mp3" data-title="Erin Go Braugh" data-comments="Traditional Irish song, first known in the 19th century. A patriotic song expressing pride in Irish heritage and culture.">Erin Go Braugh<div class="hover-box">Traditional Irish song, first known in the 19th century. A patriotic song expressing pride in Irish heritage and culture.</div></li>
+            <li data-src="Tracks/Fiddler's Green.mp3" data-title="Fiddler's Green" data-comments="Traditional sea shanty, first known in the 19th century. A song about a mythical paradise for sailors, representing a peaceful afterlife.">Fiddler's Green<div class="hover-box">Traditional sea shanty, first known in the 19th century. A song about a mythical paradise for sailors, representing a peaceful afterlife.</div></li>
+            <li data-src="Tracks/Foggy Dew.mp3" data-title="Foggy Dew" data-comments="Traditional Irish folk song, first known in the 20th century. A song reflecting on the 1916 Easter Rising and its impact on Ireland.">Foggy Dew<div class="hover-box">Traditional Irish folk song, first known in the 20th century. A song reflecting on the 1916 Easter Rising and its impact on Ireland.</div></li>
+            <li data-src="Tracks/Galway Bay.mp3" data-title="Galway Bay" data-comments="Written by Arthur Colahan, 1939. A sentimental Irish song about the beauty of Galway Bay and the longing for one's homeland.">Galway Bay<div class="hover-box">Written by Arthur Colahan, 1939. A sentimental Irish song about the beauty of Galway Bay and the longing for one's homeland.</div></li>
+            <!-- Additional songs go here -->
+        </ul>
+
+        <div id="footer">
+            <!-- Footer content -->
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('select-all').addEventListener('click', function() {
+        const trackListItems = document.querySelectorAll('.track-list li');
+        trackListItems.forEach(item => {
+            item.classList.add('selected');
+        });
+    });
+
+    document.getElementById('finished-selecting').addEventListener('click', function() {
+        // Implement play functionality for selected songs
+        const selectedTracks = document.querySelectorAll('.track-list li.selected');
+        if (selectedTracks.length > 0) {
+            selectedTracks.forEach(track => {
+                // Code to play the track, e.g., add to audio player
+                console.log('Playing:', track.dataset.title);
+            });
+        }
+    });
+
+    // Add click event to each song to toggle selection
+    document.querySelectorAll('.track-list li').forEach(item => {
+        item.addEventListener('click', function() {
+            this.classList.toggle('selected');
+        });
+    });
+
+    // Filter function for search input
+    document.getElementById('searchInput').addEventListener('input', function() {
+        const filter = this.value.toLowerCase();
+        const trackListItems = document.querySelectorAll('.track-list li');
+        trackListItems.forEach(item => {
+            const title = item.dataset.title.toLowerCase();
+            if (title.includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+</script>
+</body>
+</html>
+
+
+            // Store selected playlist in localStorage
+            localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+            // Redirect back to index.html
+            window.location.href = 'index.html';
+        });
+
+        trackListItems.forEach(item => {
+            item.addEventListener('click', function() {
+                item.classList.toggle('selected');
+            });
+        });
+
+        // Add search functionality
+        searchInput.addEventListener('input', function() {
+            const filter = searchInput.value.toLowerCase();
+            trackListItems.forEach(function(item) {
+                const title = item.getAttribute('data-title').toLowerCase();
+                if (title.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+
+document.querySelectorAll('.track-list li').forEach(function(track) {
+        track.addEventListener('mouseover', function() {
+            const hoverBox = this.querySelector('.hover-box');
+            const rect = hoverBox.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Check if hover box would go below the viewport
+            if (rect.bottom > viewportHeight) {
+                hoverBox.style.top = `-${rect.height}px`;
+            } else {
+                hoverBox.style.top = '0';
+            }
+            });
+        });
+</script>
+
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="homepage.html">Homepage</a></p>
+    </div>
+</div>
+</body>
+</html>
