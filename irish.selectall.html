@@ -128,6 +128,14 @@
 
 
 <script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Select All functionality
+    document.getElementById("selectAllButton").addEventListener("click", function() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => checkbox.checked = true);
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
         const trackListItems = document.querySelectorAll('.track-list li');
         const finishedButton = document.getElementById('finished-selecting');
@@ -186,12 +194,6 @@ document.querySelectorAll('.track-list li').forEach(function(track) {
             });
         });
 
-document.addEventListener("DOMContentLoaded", function() {
-    // Select All functionality
-    document.getElementById("selectAllButton").addEventListener("click", function() {
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(checkbox => checkbox.checked = true);
-    });
 
 </script>
 
