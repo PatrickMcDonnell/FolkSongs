@@ -78,6 +78,28 @@
             display: block;
         }
     </style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const trackListItems = document.querySelectorAll('.track-list li');
+    const searchInput = document.getElementById('searchInput');
+
+    // Add search functionality for title and author
+    searchInput.addEventListener('input', function() {
+        const filter = searchInput.value.toLowerCase();
+        trackListItems.forEach(function(item) {
+            const title = item.getAttribute('data-title').toLowerCase();
+            const author = item.getAttribute('data-author').toLowerCase(); // Get author attribute
+            if (title.includes(filter) || author.includes(filter)) { // Check both title and author
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
+
 </head>
 <body>
 
@@ -364,74 +386,6 @@
             <!-- Add more tracks here as needed -->
         </ul>
    
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Select All functionality
-    document.getElementById("selectAllButton").addEventListener("click", function() {
-        const trackListItems = document.querySelectorAll('.track-list li');
-        trackListItems.forEach(item => item.classList.add('selected'));
-    });
-
-    const trackListItems = document.querySelectorAll('.track-list li');
-    const finishedButton = document.getElementById('finished-selecting');
-    const searchInput = document.getElementById('searchInput');
-
-    finishedButton.addEventListener('click', function() {
-        const selectedPlaylist = [];
-        trackListItems.forEach(item => {
-            if (item.classList.contains('selected')) {
-                const songSrc = item.getAttribute('data-src');
-                const songTitle = item.getAttribute('data-title');
-                const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
-                selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
-            }
-        });
-
-        // Store selected playlist in localStorage
-        localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
-
-        // Redirect back to index.html
-        window.location.href = 'index.html';
-    });
-
-    trackListItems.forEach(item => {
-        item.addEventListener('click', function() {
-            item.classList.toggle('selected');
-        });
-    });
-
-    // Add search functionality for title and author
-    searchInput.addEventListener('input', function() {
-        const filter = searchInput.value.toLowerCase();
-        trackListItems.forEach(function(item) {
-            const title = item.getAttribute('data-title').toLowerCase();
-            const author = item.getAttribute('data-author').toLowerCase(); // Get author attribute
-            if (title.includes(filter) || author.includes(filter)) { // Check both title and author
-                item.style.display = '';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-    });
-});
-
-document.querySelectorAll('.track-list li').forEach(function(track) {
-    track.addEventListener('mouseover', function() {
-        const hoverBox = this.querySelector('.hover-box');
-        const rect = hoverBox.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-
-        // Check if hover box would go below the viewport
-        if (rect.bottom > viewportHeight) {
-            hoverBox.style.top = `-${rect.height}px`;
-        } else {
-            hoverBox.style.top = '0';
-        }
-    });
-});
-</script>
-
 
     <div id="footer">
         <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
