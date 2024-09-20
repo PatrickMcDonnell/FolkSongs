@@ -81,23 +81,26 @@
 <body>
 
 <div id="wrap">
+
     <div id="header">
+
         <h1><a href="#">All Tracks</a></h1>
+ 
         <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+
         <h1>Select Tracks</h1>
 
         <!-- Search input -->
-  <!--      <div id="controls">  -->
             <input type="text" id="searchInput" placeholder="Search for a song by title or author..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
             
-            <!-- Select All Button -->
+        <!-- Select All Button -->
             <button id="selectAllButton" class="styled-button">Select All</button>
             
-            <!-- Play Button -->
+        <!-- Play Button -->
             <button class="styled-button" id="finished-selecting">Play</button>
- <!--       </div>   -->
 
         <ul class="track-list">
+
             <li data-src="Tracks/Blowing In The Wind.mp3" data-title="Blowing In The Wind" data-author="Bob Dylan" data-comments="Written by Bob Dylan, 1962. A protest song questioning social justice and human rights, known for its powerful lyrics and simple melody.">Blowing In The Wind<div class="hover-box">Written by Bob Dylan, 1962. A protest song questioning social justice and human rights, known for its powerful lyrics and simple melody.</div></li>
 
             <li data-src="Tracks/Don't Think Twice.mp3" data-title="Don't Think Twice" data-author="Bob Dylan" data-comments="Written by Bob Dylan, 1963. A reflective folk song dealing with the end of a relationship, known for its introspective lyrics and simple, acoustic arrangement.">Don't Think Twice<div class="hover-box">Written by Bob Dylan, 1963. A reflective folk song dealing with the end of a relationship, known for its introspective lyrics and simple, acoustic arrangement.</div></li>
@@ -107,11 +110,13 @@
             <li data-src="Tracks/My Back Pages.mp3" data-title="My Back Pages" data-author="Bob Dylan" data-comments="Written by Bob Dylan, 1964. A reflective folk song about growing older and looking back on one's past with a sense of irony and wisdom.">My Back Pages<div class="hover-box">Written by Bob Dylan, 1964. A reflective folk song about growing older and looking back on one's past with a sense of irony and wisdom.</div></li>
 
             <li data-src="Tracks/My Bonnie Lies Over the Ocean.mp3" data-title="My Bonnie Lies Over the Ocean" data-comments="Traditional Scottish folk song, first known in the 19th century. A song about longing and separation, often sung in a nostalgic context.">My Bonnie Lies Over the Ocean<div class="hover-box">Traditional Scottish folk song, first known in the 19th century. A song about longing and separation, often sung in a nostalgic context.</div></li>
-        </ul>
-<!--    </div>  -->
 
+<!-- Add more tracks here as needed -->
+
+        </ul>
     
 <script>
+
 document.addEventListener("DOMContentLoaded", function() {
     const trackListItems = document.querySelectorAll('.track-list li');
     const searchInput = document.getElementById('searchInput');
@@ -179,6 +184,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
 </script>
 
  <div id="footer">
