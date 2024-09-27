@@ -44,4 +44,132 @@
     <div id="header">
         <h1><a href="#">Folksong Collection</a></h1>
     </div>
-    <img id="front
+    <img id="frontphoto" src="img/1812TheaterHeader.jpg" width="760" height="190" alt="" />
+    <div id="leftside">
+        <ul class="avmenu">
+            <li><a href="Tracks.html">All Tracks</a></li>
+            <!-- Other playlist links -->
+        </ul>
+    </div>
+
+    <div id="contentwide">
+        <h1>Audio Player</h1>
+        <audio id="audio-player" controls>Your browser does not support the audio element.</audio>
+        <ul class="song-list" id="playlist"></ul>
+
+        <button class="clear-button" id="clear-playlist">Clear Playlist</button>
+        <button class="share-button" id="share-playlist">Share Playlist</button>
+
+        <script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const audioPlayer = document.getElementById('audio-player');
+                const playlist = document.getElementById('playlist');
+                const clearButton = document.getElementById('clear-playlist');
+                const shareButton = document.getElementById('share-playlist');
+                const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
+                let currentSongIndex = 0;
+
+                // Parse the playlist from URL if provided
+                function initializePlaylistFromURL() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const songsParam = urlParams.get('songs');
+
+                    if (songsParam) {
+                        const songPaths = songsParam.split(',');
+                        songPaths.forEach(path => {
+                            const li = document.createElement('li');
+                            li.textContent = decodeURIComponent(path.split('/').pop());  // Show the MP3 file name
+                            li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
+                            playlist.appendChild(li);
+                        });
+
+                        if (songPaths.length > 0) {
+                            audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
+                            audioPlayer.play();
+                        }
+                    }
+                }
+
+                function initializePlaylist() {
+                    playlist.innerHTML = '';
+                    const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
+
+                    if (storedPlaylist) {
+                        storedPlaylist.forEach((song) => {
+                            const li = document.createElement('li');
+                            li.textContent = song.title;  // File name only
+                            li.setAttribute('data-src', song.src);
+                            playlist.appendChild(li);
+                        });
+
+                        if (storedPlaylist.length > 0) {
+                            const firstSong = playlist.children[0];
+                            audioPlayer.src = firstSong.getAttribute('data-src');
+                            audioPlayer.play();
+                        }
+                    }
+                }
+
+                function clearPlaylist() {
+                    localStorage.removeItem('playlist');
+                    playlist.innerHTML = '';
+                    audioPlayer.pause();
+                    audioPlayer.currentTime = 0;
+                    currentSongIndex = 0;
+                }
+
+                function sharePlaylist() {
+                    const songs = playlist.querySelectorAll('li');
+                    if (songs.length === 0) {
+                        alert('The playlist is empty.');
+                        return;
+                    }
+
+                    const songPaths = Array.from(songs).map(song => encodeURIComponent(song.getAttribute('data-src').replace(baseUrl, '')));
+                    const songsQuery = songPaths.join(',');
+
+                    const url = `${window.location.origin}${window.location.pathname}?songs=${songsQuery}`;
+                    const subject = encodeURIComponent("Playlist from Pat's Music");
+                    const body = encodeURIComponent(`Check out this playlist:\n\n${url}\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html`);
+
+                    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+                    window.location.href = mailtoLink;
+                }
+
+                playlist.addEventListener('click', function(event) {
+                    if (event.target && event.target.matches('li')) {
+                        const songSrc = event.target.getAttribute('data-src');
+                        audioPlayer.src = songSrc;
+                        audioPlayer.play();
+                        currentSongIndex = Array.from(playlist.children).indexOf(event.target);
+                    }
+                });
+
+                audioPlayer.addEventListener('ended', function() {
+                    currentSongIndex++;
+                    if (currentSongIndex < playlist.children.length) {
+                        const nextSong = playlist.children[currentSongIndex];
+                        const nextSongSrc = nextSong.getAttribute('data-src');
+                        audioPlayer.src = nextSongSrc;
+                        audioPlayer.play();
+                    } else {
+                        currentSongIndex = 0;
+                    }
+                });
+
+                clearButton.addEventListener('click', clearPlaylist);
+                shareButton.addEventListener('click', sharePlaylist);
+
+                initializePlaylistFromURL();  // Attempt to load playlist from URL
+                initializePlaylist();         // Load stored playlist if present
+            });
+        </script>
+    </div>
+
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
+    </div>
+</div>
+</body>
+</html>
