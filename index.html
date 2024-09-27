@@ -154,23 +154,32 @@
                     currentSongIndex = 0;
                 }
 
-                function sharePlaylist() {
+  function sharePlaylist() {
     const songs = playlist.querySelectorAll('li');
     if (songs.length === 0) {
         alert('The playlist is empty.');
         return;
     }
 
-    const songPaths = Array.from(songs).map(song => encodeURIComponent(song.getAttribute('data-src').replace(baseUrl, '')));
-    const songsQuery = songPaths.join(',');
+    let songUrls = [];
+    songs.forEach(song => {
+        const relativePath = song.getAttribute('data-src');
+        const fullUrl = baseUrl + relativePath.split('/').map(encodeURIComponent).join('/');
+        songUrls.push(relativePath);
+    });
 
-    const url = `${window.location.origin}${window.location.pathname}?songs=${songsQuery}`;
+    const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${encodeURIComponent(songUrls.join(','))}`;
+    const aliasLink = `<a href="${playlistUrl}">Click here to open the playlist</a>`;
+    
     const subject = encodeURIComponent("Playlist from Pat's Music");
+    const body = encodeURIComponent(
+        `${aliasLink}\n\n\nSee more songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n`
+    );
 
-    const mailtoLink = `mailto:?subject=${subject}&body=${encodeURIComponent("Check out this playlist:\n\n")}Click here to open the playlist: ${url}\n\n${encodeURIComponent("You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html")}`;
-
+    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
     window.location.href = mailtoLink;
 }
+
 
 
                 playlist.addEventListener('click', function(event) {
