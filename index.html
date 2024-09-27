@@ -155,23 +155,23 @@
                 }
 
                 function sharePlaylist() {
-                    const songs = playlist.querySelectorAll('li');
-                    if (songs.length === 0) {
-                        alert('The playlist is empty.');
-                        return;
-                    }
+    const songs = playlist.querySelectorAll('li');
+    if (songs.length === 0) {
+        alert('The playlist is empty.');
+        return;
+    }
 
-                    const songPaths = Array.from(songs).map(song => encodeURIComponent(song.getAttribute('data-src').replace(baseUrl, '')));
-                    const songsQuery = songPaths.join(',');
+    const songPaths = Array.from(songs).map(song => encodeURIComponent(song.getAttribute('data-src').replace(baseUrl, '')));
+    const songsQuery = songPaths.join(',');
 
-                    const url = `${window.location.origin}${window.location.pathname}?songs=${songsQuery}`;
-                    const subject = encodeURIComponent("Playlist from Pat's Music");
-                    const body = encodeURIComponent(`Check out this playlist:\n\n${url}\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html`);
+    const url = `${window.location.origin}${window.location.pathname}?songs=${songsQuery}`;
+    const subject = encodeURIComponent("Playlist from Pat's Music");
 
-                   const mailtoLink = `mailto:?subject=${subject}&body=${encodeURIComponent("Check out this playlist:\n\n")}Click here to open the playlist: ${url}\n\n${encodeURIComponent("You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html")}`;
+    const mailtoLink = `mailto:?subject=${subject}&body=${encodeURIComponent("Check out this playlist:\n\n")}Click here to open the playlist: ${url}\n\n${encodeURIComponent("You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html")}`;
 
-                    window.location.href = mailtoLink;
-                }
+    window.location.href = mailtoLink;
+}
+
 
                 playlist.addEventListener('click', function(event) {
                     if (event.target && event.target.matches('li')) {
