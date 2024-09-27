@@ -169,16 +169,17 @@ function sharePlaylist() {
     const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(',')}`;
     const subject = encodeURIComponent("Playlist from Pat's Music");
 
-    // Construct the email body with a clickable link
+    // Construct the email body with a plain text link
     const body = encodeURIComponent(
-        `Click here to open the playlist: <a href="${playlistUrl}"></a>\n\n` +
-        '\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
+        `Click here to open the playlist: ${playlistUrl}\n\n` +
+        'You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
     );
 
     // Use the 'mailto' link to open the user's email client
     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
     window.location.href = mailtoLink;
 }
+
 
 
 
