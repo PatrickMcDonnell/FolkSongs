@@ -161,11 +161,18 @@ function sharePlaylist() {
         return;
     }
 
-    const songPaths = Array.from(songs).map(song => {
+    // Create an array to hold the selected song paths
+    const songPaths = [];
+    
+    // Loop through each selected song and get the data-src attribute
+    songs.forEach(song => {
         const relativePath = song.getAttribute('data-src');
-        return relativePath.split('/').map(encodeURIComponent).join('/');
+        if (relativePath) {
+            songPaths.push(encodeURIComponent(relativePath));
+        }
     });
 
+    // Create the playlist URL with all selected songs
     const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(',')}`;
     const subject = encodeURIComponent("Playlist from Pat's Music");
 
@@ -179,6 +186,7 @@ function sharePlaylist() {
     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
     window.location.href = mailtoLink;
 }
+
 
 
 
