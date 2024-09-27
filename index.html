@@ -168,16 +168,17 @@ function sharePlaylist() {
 
     const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(',')}`;
     const subject = encodeURIComponent("Playlist from Pat's Music");
-    
-    // Only display the alias 'Click here to open the playlist' with the hyperlink
+
+    // Replace the long URL with the alias 'Click here to open the playlist'
     const body = encodeURIComponent(
-        `Click here to open the playlist: ${playlistUrl}\n\n` +
+        `Click here to open the playlist: <a href="${playlistUrl}">Click here to open the playlist</a>\n\n` +
         '\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
     );
-    
+
     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
     window.location.href = mailtoLink;
 }
+
 
 
 
