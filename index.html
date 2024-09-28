@@ -114,7 +114,7 @@
                 // Clear existing playlist first
                 playlist.innerHTML = '';  // Clear the previous playlist
 
-                const songPaths = songsParam.split(',');
+                const songPaths = songsParam.split(';');  // Changed delimiter to semi-colon
                 songPaths.forEach(path => {
                     const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
                     const title = filename.replace(/\.mp3$/, ''); // Remove the .mp3 extension for display
@@ -187,12 +187,13 @@
             songs.forEach(song => {
                 const relativePath = song.getAttribute('data-src');
                 if (relativePath) {
-                    songPaths.push(encodeURIComponent(relativePath));
+                    // Properly encode the relative path, and replace comma with safe character
+                    songPaths.push(encodeURIComponent(relativePath).replace(/,/g, '%2C'));
                 }
             });
 
-            // Create the playlist URL with all selected songs
-            const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(',')}&_t=${Date.now()}`;  // Add a timestamp to ensure uniqueness
+            // Create the playlist URL with all selected songs, using semi-colon as the separator to avoid conflicts with commas in filenames
+            const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(';')}&_t=${Date.now()}`;  // Add a timestamp to ensure uniqueness
             const subject = encodeURIComponent("Playlist from Pat's Music");
 
             // Construct the email body with a plain text link
@@ -234,6 +235,7 @@
 
     });
 </script>
+
 
 </div>
 
