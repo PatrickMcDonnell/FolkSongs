@@ -172,20 +172,21 @@ function sharePlaylist() {
         }
     });
 
-    // Create the playlist URL with all selected songs
-    const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(',')}&_t=${Date.now()}`;  // Add a timestamp to ensure uniqueness
+    // Create the playlist URL with all selected songs and a timestamp for uniqueness
+    const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(',')}&_t=${Date.now()}`;
     const subject = encodeURIComponent("Playlist from Pat's Music");
 
-    // Construct the email body with a plain text link
+    // Construct the email body with HTML link alias (formatted as HTML)
     const body = encodeURIComponent(
-        `Click here to open the playlist:\n${playlistUrl}\n\n` + 
-        'You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
+        `Click here to open the playlist: <a href="${playlistUrl}">Click here for playlist</a><br><br>` +
+        'You can see other songs here: <a href="https://patrickmcdonnell.github.io/FolkSongs/homepage.html">See more songs</a><br><br>'
     );
 
     // Use the 'mailto' link to open the user's email client
     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
     window.location.href = mailtoLink;
 }
+
 
 
 
