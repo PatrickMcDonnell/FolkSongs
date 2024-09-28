@@ -173,12 +173,12 @@ function sharePlaylist() {
     });
 
     // Create the playlist URL with all selected songs
-    const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(',')}`;
+    const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(',')}&_t=${Date.now()}`;  // Add a timestamp to ensure uniqueness
     const subject = encodeURIComponent("Playlist from Pat's Music");
 
     // Construct the email body with a plain text link
     const body = encodeURIComponent(
-        `Click here to open the playlist:\n${playlistUrl}\n\n` + // Added newline here
+        `Click here to open the playlist:\n${playlistUrl}\n\n` + 
         'You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
     );
 
@@ -186,6 +186,7 @@ function sharePlaylist() {
     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
     window.location.href = mailtoLink;
 }
+
 
 
 
