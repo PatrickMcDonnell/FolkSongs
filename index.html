@@ -104,6 +104,13 @@
                 const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
                 let currentSongIndex = 0;
 
+                // Function to fetch the description based on the song path
+                function getDescriptionFromPlaylist(songPath) {
+                    // Implement your logic to extract the description from the respective playlist HTML file
+                    // Returning a placeholder for demonstration
+                    return "Description for " + songPath; // Placeholder description
+                }
+
                 // Parse the playlist from URL if provided
                 function initializePlaylistFromURL() {
                     const urlParams = new URLSearchParams(window.location.search);
@@ -112,21 +119,22 @@
                     if (songsParam) {
                         playlist.innerHTML = '';  // Clear the previous playlist
 
-                        const songPaths = songsParam.split(';');
+                        const songPaths = songsParam.split(';');  // Changed delimiter to semi-colon
                         songPaths.forEach(path => {
-                            const filename = decodeURIComponent(path.split('/').pop());
-                            const title = filename.replace(/\.mp3$/, '');
+                            const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
+                            const title = filename.replace(/\.mp3$/, ''); // Remove the .mp3 extension for display
 
                             const li = document.createElement('li');
-                            li.textContent = title;
+                            li.textContent = title;  // Show the title instead of the MP3 file name
                             li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
-
-                            // Create hover box for each song
+                            
+                            // Extract the description logic here
+                            const description = getDescriptionFromPlaylist(path); // Assume this function returns the description for the song
                             const hoverBox = document.createElement('div');
                             hoverBox.classList.add('hover-box');
-                            hoverBox.textContent = `Description for ${title}`;  // Placeholder description
-                            li.appendChild(hoverBox);
-
+                            hoverBox.textContent = description; // Set the hover box text
+                            li.appendChild(hoverBox); // Append the hover box to the list item
+                            
                             playlist.appendChild(li);
                         });
 
@@ -137,6 +145,7 @@
                     }
                 }
 
+                // Function to initialize the playlist from localStorage
                 function initializePlaylist() {
                     playlist.innerHTML = '';
                     const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
@@ -164,6 +173,7 @@
                     }
                 }
 
+                // Function to clear the playlist
                 function clearPlaylist() {
                     localStorage.removeItem('playlist');
                     playlist.innerHTML = '';
@@ -172,55 +182,32 @@
                     currentSongIndex = 0;
                 }
 
-                // Initialize playlist from URL if provided
-               function initializePlaylistFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const songsParam = urlParams.get('songs');
+                // Function to share the playlist via email
+                function sharePlaylist() {
+                    const songs = playlist.querySelectorAll('li');
+                    if (songs.length === 0) {
+                        alert('The playlist is empty.');
+                        return;
+                    }
 
-    if (songsParam) {
-        // Clear existing playlist first
-        playlist.innerHTML = '';  // Clear the previous playlist
+                    const songPaths = [];
+                    songs.forEach(song => {
+                        const relativePath = song.getAttribute('data-src');
+                        if (relativePath) {
+                            songPaths.push(encodeURIComponent(relativePath).replace(/,/g, '%2C'));
+                        }
+                    });
 
-        const songPaths = songsParam.split(';');  // Changed delimiter to semi-colon
-        songPaths.forEach(path => {
-            const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
-            const title = filename.replace(/\.mp3$/, ''); // Remove the .mp3 extension for display
-
-            const li = document.createElement('li');
-            li.textContent = title;  // Show the title instead of the MP3 file name
-            li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
-            
-            // Extract the description logic here
-            const description = getDescriptionFromPlaylist(path); // Assume this function returns the description for the song
-            const hoverBox = document.createElement('div');
-            hoverBox.classList.add('hover-box');
-            hoverBox.textContent = description; // Set the hover box text
-            li.appendChild(hoverBox); // Append the hover box to the list item
-            
-            playlist.appendChild(li);
-        });
-
-        if (songPaths.length > 0) {
-            audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
-            audioPlayer.play();
-        }
-    }
-}
-
-// Function to fetch the description based on the song path
-function getDescriptionFromPlaylist(songPath) {
-    // Implement your logic to extract the description from the respective playlist HTML file
-    // For example, you might use an AJAX request or fetch function here to get the HTML and parse it
-    // Returning a placeholder for demonstration
-    return "Description for " + songPath; // Placeholder description
-}
-
+                    const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(';')}&_t=${Date.now()}`; 
+                    const subject = encodeURIComponent("Playlist from Pat's Music");
+                    const body = encodeURIComponent(
+                        `Click here to open the playlist:\n${playlistUrl}\n\n` + 
+                        'You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
+                    );
 
                     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
                     window.location.href = mailtoLink;
                 }
-
-                shareButton.addEventListener('click', sharePlaylist);
 
                 // Event listener for clicking on playlist items to play them
                 playlist.addEventListener('click', function(event) {
@@ -244,10 +231,21 @@ function getDescriptionFromPlaylist(songPath) {
                         currentSongIndex = 0;
                     }
                 });
+
+                // Initialize playlist from URL or local storage
+                initializePlaylistFromURL();
+                initializePlaylist();
+
+                // Clear playlist button functionality
+                clearButton.addEventListener('click', clearPlaylist);
+
+                // Share playlist button functionality
+                shareButton.addEventListener('click', sharePlaylist);
             });
         </script>
     </div>
 </div>
 </body>
 </html>
+
 
