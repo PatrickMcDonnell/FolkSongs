@@ -193,17 +193,17 @@
             });
 
             // Create the playlist URL with all selected songs, using semi-colon as the separator to avoid conflicts with commas in filenames
-            const playlistUrl = https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(';')}&_t=${Date.now()};  // Add a timestamp to ensure uniqueness
+            const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(';')}&_t=${Date.now()}`;  // Add a timestamp to ensure uniqueness
             const subject = encodeURIComponent("Playlist from Pat's Music");
 
             // Construct the email body with a plain text link
             const body = encodeURIComponent(
-                Click here to open the playlist:\n${playlistUrl}\n\n + 
+                `Click here to open the playlist:\n${playlistUrl}\n\n` + 
                 'You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
             );
 
             // Use the 'mailto' link to open the user's email client
-            const mailtoLink = mailto:?subject=${subject}&body=${body};
+            const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
             window.location.href = mailtoLink;
         }
 
