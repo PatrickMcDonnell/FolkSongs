@@ -137,6 +137,25 @@
             const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
             let currentSongIndex = 0;
 
+            // Function to fetch and display hover description
+            function addHoverDescription(li, path) {
+                // Fetch ID3 metadata using the path provided
+                ID3.loadTags(path, function() {
+                    const tags = ID3.getAllTags(path);
+
+                    // Use the 'comments' tag for the description, or a default message
+                    const description = tags.comments ? tags.comments.text : `No description available for ${li.textContent}`;
+
+                    // Create and display hover box with description
+                    const hoverBox = document.createElement('div');
+                    hoverBox.classList.add('hover-box');
+                    hoverBox.textContent = description;
+                    li.appendChild(hoverBox);
+                }, {
+                    dataReader: ID3.FileAPIReader(path)
+                });
+            }
+
             // Parse the playlist from URL if provided
             function initializePlaylistFromURL() {
                 const urlParams = new URLSearchParams(window.location.search);
@@ -145,7 +164,7 @@
                 if (songsParam) {
                     playlist.innerHTML = '';  // Clear the previous playlist
 
-                    const songPaths = songsParam.split(';');  // Changed delimiter to semi-colon
+                    const songPaths = songsParam.split(';');
                     songPaths.forEach(path => {
                         const filename = decodeURIComponent(path.split('/').pop());
                         const title = filename.replace(/\.mp3$/, '');
@@ -153,14 +172,10 @@
                         const li = document.createElement('li');
                         li.textContent = title;
                         li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
-
-                        // Create a hover-box for song description
-                        const hoverBox = document.createElement('div');
-                        hoverBox.classList.add('hover-box');
-                        hoverBox.textContent = `Description for ${title}`;  // Add your description logic here
-                        li.appendChild(hoverBox);
-
                         playlist.appendChild(li);
+
+                        // Add hover description from ID3 metadata
+                        addHoverDescription(li, baseUrl + decodeURIComponent(path));
                     });
 
                     if (songPaths.length > 0) {
@@ -180,13 +195,10 @@
                         li.textContent = song.title;
                         li.setAttribute('data-src', song.src);
 
-                        // Create hover-box for description
-                        const hoverBox = document.createElement('div');
-                        hoverBox.classList.add('hover-box');
-                        hoverBox.textContent = `Description for ${song.title}`;
-                        li.appendChild(hoverBox);
-
                         playlist.appendChild(li);
+
+                        // Add hover description from ID3 metadata
+                        addHoverDescription(li, song.src);
                     });
 
                     if (storedPlaylist.length > 0) {
@@ -271,6 +283,7 @@
         });
     </script>
 </div>
+
 
 
     <div id="footer">
