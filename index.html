@@ -62,21 +62,6 @@
             border: none;
             cursor: pointer;
         }
-        /* Style for the left-side playlist */
-        .avmenu {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        .avmenu li {
-            margin-bottom: 10px;
-        }
-        .avmenu li a {
-            text-decoration: none;
-            color: #000;
-        }
-        .avmenu li a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
@@ -105,27 +90,44 @@
 <div id="contentwide">
     <h1>Audio Player</h1>
     <audio id="audio-player" controls>Your browser does not support the audio element.</audio>
-    <ul class="song-list" id="playlist">
-        <!-- Example song list with hover feature -->
-        <li data-src="song1.mp3">
-            Song 1
-            <div class="hover-box">Description for Song 1.</div>
-        </li>
-        <li data-src="song2.mp3">
-            Song 2
-            <div class="hover-box">Description for Song 2.</div>
-        </li>
-        <li data-src="song3.mp3">
-            Song 3
-            <div class="hover-box">Description for Song 3.</div>
-        </li>
-        <!-- Add more songs as needed -->
-    </ul>
+    <ul class="song-list" id="playlist"></ul>
 
     <button class="clear-button" id="clear-playlist">Clear Playlist</button>
     <button class="share-button" id="share-playlist">Share Playlist</button>
 
     <script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
+
+    <style>
+        .song-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .song-list li {
+            margin: 5px 0;
+            cursor: pointer;
+            color: #000;
+            position: relative;
+            padding: 10px;
+        }
+        .song-list li:hover .hover-box {
+            display: block;
+        }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px;
+            top: -50px;
+            left: calc(100% + 10px);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+    </style>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const audioPlayer = document.getElementById('audio-player');
@@ -141,17 +143,23 @@
                 const songsParam = urlParams.get('songs');
 
                 if (songsParam) {
-                    // Clear existing playlist first
                     playlist.innerHTML = '';  // Clear the previous playlist
 
                     const songPaths = songsParam.split(';');  // Changed delimiter to semi-colon
                     songPaths.forEach(path => {
-                        const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
-                        const title = filename.replace(/\.mp3$/, ''); // Remove the .mp3 extension for display
+                        const filename = decodeURIComponent(path.split('/').pop());
+                        const title = filename.replace(/\.mp3$/, '');
 
                         const li = document.createElement('li');
-                        li.textContent = title;  // Show the title instead of the MP3 file name
+                        li.textContent = title;
                         li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
+
+                        // Create a hover-box for song description
+                        const hoverBox = document.createElement('div');
+                        hoverBox.classList.add('hover-box');
+                        hoverBox.textContent = `Description for ${title}`;  // Add your description logic here
+                        li.appendChild(hoverBox);
+
                         playlist.appendChild(li);
                     });
 
@@ -163,15 +171,21 @@
             }
 
             function initializePlaylist() {
-                // Clear the playlist before reinitializing
                 playlist.innerHTML = '';
                 const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
 
                 if (storedPlaylist) {
                     storedPlaylist.forEach((song) => {
                         const li = document.createElement('li');
-                        li.textContent = song.title;  // Display the title
+                        li.textContent = song.title;
                         li.setAttribute('data-src', song.src);
+
+                        // Create hover-box for description
+                        const hoverBox = document.createElement('div');
+                        hoverBox.classList.add('hover-box');
+                        hoverBox.textContent = `Description for ${song.title}`;
+                        li.appendChild(hoverBox);
+
                         playlist.appendChild(li);
                     });
 
@@ -191,10 +205,10 @@
                 currentSongIndex = 0;
             }
 
-            // Initialize playlist from URL if songs are provided
+            // Initialize playlist from URL
             initializePlaylistFromURL();
 
-            // Initialize playlist from localStorage if no songs from URL
+            // Initialize playlist from localStorage if URL doesn't provide a playlist
             if (!playlist.children.length) {
                 initializePlaylist();
             }
@@ -202,7 +216,7 @@
             // Event listeners for buttons
             clearButton.addEventListener('click', clearPlaylist);
 
-            // Function to share the playlist via email
+            // Share playlist functionality
             function sharePlaylist() {
                 const songs = playlist.querySelectorAll('li');
                 if (songs.length === 0) {
@@ -210,37 +224,28 @@
                     return;
                 }
 
-                // Create an array to hold the selected song paths
                 const songPaths = [];
-
-                // Loop through each selected song and get the data-src attribute
                 songs.forEach(song => {
                     const relativePath = song.getAttribute('data-src');
                     if (relativePath) {
-                        // Properly encode the relative path, and replace comma with safe character
                         songPaths.push(encodeURIComponent(relativePath).replace(/,/g, '%2C'));
                     }
                 });
 
-                // Create the playlist URL with all selected songs, using semi-colon as the separator to avoid conflicts with commas in filenames
-                const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(';')}&_t=${Date.now()}`;  // Add a timestamp to ensure uniqueness
+                const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(';')}&_t=${Date.now()}`;
                 const subject = encodeURIComponent("Playlist from Pat's Music");
 
-                // Construct the email body with a plain text link
                 const body = encodeURIComponent(
-                    `Click here to open the playlist:\n${playlistUrl}\n\n` + 
-                    'You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
+                    `Click here to open the playlist:\n${playlistUrl}\n\nYou can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n`
                 );
 
-                // Use the 'mailto' link to open the user's email client
                 const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
                 window.location.href = mailtoLink;
             }
 
-            // Event listeners for the share button
             shareButton.addEventListener('click', sharePlaylist);
 
-            // Event listener for clicking on playlist items to play them
+            // Play selected song
             playlist.addEventListener('click', function(event) {
                 if (event.target && event.target.matches('li')) {
                     const songSrc = event.target.getAttribute('data-src');
@@ -250,7 +255,7 @@
                 }
             });
 
-            // Automatically play the next song when the current song ends
+            // Automatically play the next song
             audioPlayer.addEventListener('ended', function() {
                 currentSongIndex++;
                 if (currentSongIndex < playlist.children.length) {
@@ -265,9 +270,9 @@
 
         });
     </script>
-
-
 </div>
+
+
 
     <div id="footer">
         <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
