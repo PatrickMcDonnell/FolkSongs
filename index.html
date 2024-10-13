@@ -161,37 +161,36 @@
                     currentSongIndex = 0;
                 }
 
-                function sharePlaylist() {
-                    const songs = playlist.querySelectorAll('li');
-                    if (songs.length === 0) {
-                        alert('The playlist is empty.');
-                        return;
-                    }
+function sharePlaylist() {
+    const songs = playlist.querySelectorAll('li');
+    if (songs.length === 0) {
+        alert('The playlist is empty.');
+        return;
+    }
 
-                    const playlistArray = Array.from(songs).map(song => {
-                        return {
-                            title: song.firstChild.nodeValue.trim(),
-                            src: song.getAttribute('data-src'),
-                            comments: song.getAttribute('data-comments') || ''
-                        };
-                    });
+    const playlistArray = Array.from(songs).map(song => {
+        return {
+            src: song.getAttribute('data-src')  // Only include the MP3 file link
+        };
+    });
 
-                    const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray));
+    const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray));
 
-                    // Generate the URL with the playlist data
-                    const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/index.html';
-                    const playlistUrl = `${baseUrl}?playlist=${playlistJSON}`;
+    // Generate the URL with the playlist data
+    const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/index.html';
+    const playlistUrl = `${baseUrl}?playlist=${playlistJSON}`;
 
-                    // Construct the email
-                    const subject = encodeURIComponent("Playlist from Pat's Music");
-                    const body = encodeURIComponent(
-                        `Here's a playlist I made for you. Click the link to listen: ${playlistUrl}`
-                    );
-                    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+    // Construct the email with only the MP3 links
+    const subject = encodeURIComponent("Playlist from Pat's Music");
+    const body = encodeURIComponent(
+        `Here's a playlist I made for you. Click the link to listen: ${playlistUrl}`
+    );
+    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
 
-                    // Open the email client
-                    window.location.href = mailtoLink;
-                }
+    // Open the email client
+    window.location.href = mailtoLink;
+}
+
 
                 playlist.addEventListener('click', function(event) {
                     if (event.target && event.target.matches('li.song-item')) {
