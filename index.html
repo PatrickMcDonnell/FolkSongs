@@ -88,7 +88,6 @@
     </div>
 
     <div id="contentwide">
-       
         <h1>Audio Player</h1>
 
         <audio id="audio-player" controls>
@@ -122,7 +121,7 @@
 
                     let storedPlaylist;
                     if (playlistParam) {
-                        // Parse the playlist from the URL
+                        // Parse the playlist from the URL (which now includes both titles and links)
                         storedPlaylist = JSON.parse(decodeURIComponent(playlistParam));
                     } else {
                         // Fallback to the playlist in localStorage
@@ -132,14 +131,14 @@
                     if (storedPlaylist) {
                         storedPlaylist.forEach((song) => {
                             const li = document.createElement('li');
-                            li.textContent = song.title;
-                            li.setAttribute('data-src', song.src);
+                            li.textContent = song.title;  // Set the song title
+                            li.setAttribute('data-src', song.src);  // Set the MP3 file link
                             li.setAttribute('data-comments', song.comments || '');
                             li.classList.add('song-item');
 
                             const hoverBox = document.createElement('div');
                             hoverBox.classList.add('hover-box');
-                            hoverBox.textContent = song.comments || '';
+                            hoverBox.textContent = song.comments || '';  // Set hover text if available
                             li.appendChild(hoverBox);
 
                             playlist.appendChild(li);
@@ -161,36 +160,36 @@
                     currentSongIndex = 0;
                 }
 
-function sharePlaylist() {
-    const songs = playlist.querySelectorAll('li');
-    if (songs.length === 0) {
-        alert('The playlist is empty.');
-        return;
-    }
+                function sharePlaylist() {
+                    const songs = playlist.querySelectorAll('li');
+                    if (songs.length === 0) {
+                        alert('The playlist is empty.');
+                        return;
+                    }
 
-    const playlistArray = Array.from(songs).map(song => {
-        return {
-            src: song.getAttribute('data-src')  // Only include the MP3 file link
-        };
-    });
+                    const playlistArray = Array.from(songs).map(song => {
+                        return {
+                            title: song.textContent.trim(),  // Include the title of the song
+                            src: song.getAttribute('data-src')  // Include the MP3 file link
+                        };
+                    });
 
-    const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray));
+                    const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray));
 
-    // Generate the URL with the playlist data
-    const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/index.html';
-    const playlistUrl = `${baseUrl}?playlist=${playlistJSON}`;
+                    // Generate the URL with the playlist data (including both titles and links)
+                    const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/index.html';
+                    const playlistUrl = `${baseUrl}?playlist=${playlistJSON}`;
 
-    // Construct the email with only the MP3 links
-    const subject = encodeURIComponent("Playlist from Pat's Music");
-    const body = encodeURIComponent(
-        `Here's a playlist I made for you. Click the link to listen: ${playlistUrl}`
-    );
-    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+                    // Construct the email with the updated playlist URL
+                    const subject = encodeURIComponent("Playlist from Pat's Music");
+                    const body = encodeURIComponent(
+                        `Here's a playlist I made for you. Click the link to listen: ${playlistUrl}`
+                    );
+                    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
 
-    // Open the email client
-    window.location.href = mailtoLink;
-}
-
+                    // Open the email client
+                    window.location.href = mailtoLink;
+                }
 
                 playlist.addEventListener('click', function(event) {
                     if (event.target && event.target.matches('li.song-item')) {
