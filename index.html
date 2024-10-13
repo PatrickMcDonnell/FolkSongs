@@ -161,45 +161,52 @@
                     currentSongIndex = 0;
                 }
 
-                function sharePlaylist() {
-                    const songs = playlist.querySelectorAll('li');
-                    if (songs.length === 0) {
-                        alert('The playlist is empty.');
-                        return;
-                    }
+                // Function to share the playlist via email
+        function sharePlaylist() {
+            const songs = playlist.querySelectorAll('li');
+            if (songs.length === 0) {
+                alert('The playlist is empty.');
+                return;
+            }
 
-                    const playlistArray = Array.from(songs).map(song => {
-                        return {
-                            title: song.firstChild.nodeValue.trim(),
-                            src: song.getAttribute('data-src'),
-                            comments: song.getAttribute('data-comments') || ''
-                        };
-                    });
+            // Create an array to hold the selected song paths
+            const songPaths = [];
 
-                    const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray));
-
-                    // Generate the URL with the playlist data
-                    const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/index.html';
-                    const playlistUrl = `${baseUrl}?playlist=${playlistJSON}`;
-
-                    // Construct the email
-                    const subject = encodeURIComponent("Playlist from Pat's Music");
-                    const body = encodeURIComponent(
-                        `Here's a playlist I made for you. Click the link to listen: ${playlistUrl}`
-                    );
-                    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
-
-                    // Open the email client
-                    window.location.href = mailtoLink;
+            // Loop through each selected song and get the data-src attribute
+            songs.forEach(song => {
+                const relativePath = song.getAttribute('data-src');
+                if (relativePath) {
+                    // Properly encode the relative path, and replace comma with safe character
+                    songPaths.push(encodeURIComponent(relativePath).replace(/,/g, '%2C'));
                 }
+            });
 
-                playlist.addEventListener('click', function(event) {
-                    if (event.target && event.target.matches('li.song-item')) {
-                        const songSrc = event.target.getAttribute('data-src');
-                        audioPlayer.src = songSrc;
-                        audioPlayer.play();
-                        currentSongIndex = Array.from(playlist.children).indexOf(event.target);
-                    }
+            // Create the playlist URL with all selected songs, using semi-colon as the separator to avoid conflicts with commas in filenames
+            const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(';')}&_t=${Date.now()}`;  // Add a timestamp to ensure uniqueness
+            const subject = encodeURIComponent("Playlist from Pat's Music");
+
+            // Construct the email body with a plain text link
+            const body = encodeURIComponent(
+                `Click here to open the playlist:\n${playlistUrl}\n\n` + 
+<!--                'You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n' -->
+            );
+
+            // Use the 'mailto' link to open the user's email client
+            const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
+        }
+
+        // Event listeners for the share button
+        shareButton.addEventListener('click', sharePlaylist);
+
+        // Event listener for clicking on playlist items to play them
+        playlist.addEventListener('click', function(event) {
+            if (event.target && event.target.matches('li')) {
+                const songSrc = event.target.getAttribute('data-src');
+                audioPlayer.src = songSrc;
+                audioPlayer.play();
+                currentSongIndex = Array.from(playlist.children).indexOf(event.target);
+            }
                 });
 
                 audioPlayer.addEventListener('ended', function() {
