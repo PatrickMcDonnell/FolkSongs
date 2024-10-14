@@ -167,14 +167,12 @@
                     const playlistArray = Array.from(songs).map(song => {
                         return {
                             title: song.getAttribute('data-title'),
-                            src: song.getAttribute('data-src')
+                            src: song.getAttribute('data-src'),
+                            comments: song.querySelector('.hover-box').textContent
                         };
                     });
 
-                    const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray.map(song => ({
-                        title: song.title,
-                        src: song.src
-                    }))));
+                    const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray));
                     const playlistUrl = `${baseUrl}?playlist=${playlistJSON}`;
                     const subject = encodeURIComponent("Playlist from Pat's Music");
                     const body = encodeURIComponent(
