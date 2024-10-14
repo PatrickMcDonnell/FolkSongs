@@ -169,8 +169,8 @@
 
                     const playlistArray = Array.from(songs).map(song => {
                         return {
-                            title: song.textContent.trim(),  // Include the title of the song
-                            src: song.getAttribute('data-src')  // Include the MP3 file link
+                            title: song.textContent.trim(),  // Only include the title of the song
+                            src: song.getAttribute('data-src')  // Only include the MP3 file link, exclude comments
                         };
                     });
 
@@ -225,3 +225,4 @@
 </div>
 </body>
 </html>
+
