@@ -129,7 +129,7 @@
                             li.textContent = song.title;
                             li.setAttribute('data-src', song.src);
 
-                            // Create the hover box, but it's only for display in the player, not for sharing
+                            // Create the hover box, but only include comments for display
                             const hoverBox = document.createElement('div');
                             hoverBox.classList.add('hover-box');
                             hoverBox.textContent = song.comments || ''; // Display comments only in the hover box
@@ -161,15 +161,15 @@
                         return;
                     }
 
+                    // Only include titles and sources for sharing
                     const playlistArray = Array.from(songs).map(song => {
                         return {
                             title: song.textContent.trim(),
-                            src: song.getAttribute('data-src') // Only include the song title and source, no comments
+                            src: song.getAttribute('data-src') // Only include the song title and source
                         };
                     });
 
                     const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray));
-
                     const playlistUrl = `${baseUrl}?playlist=${playlistJSON}`;
                     const subject = encodeURIComponent("Playlist from Pat's Music");
                     const body = encodeURIComponent(
