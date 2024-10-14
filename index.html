@@ -121,16 +121,10 @@
                             li.textContent = title;  // Display the song title
                             li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
 
-                            // Add a hover box dynamically for each song description
-                            const hoverBox = document.createElement('div');
-                            hoverBox.className = 'hover-box';
-                            hoverBox.textContent = "Loading description...";  // Placeholder
+                            // Fetch the comments (description) from the playlist HTML files
+                            fetchDescriptionForSong(path, li);
 
-                            li.appendChild(hoverBox);
                             playlist.appendChild(li);
-
-                            // Fetch the comments (description) from the data-comments attribute
-                            fetchDescriptionForSong(path, li, hoverBox);
                         });
 
                         if (songPaths.length > 0) {
@@ -141,7 +135,12 @@
                 }
 
                 // Function to fetch the title and description for a song from its associated playlist file
-                function fetchDescriptionForSong(path, li, hoverBox) {
+                function fetchDescriptionForSong(path, li) {
+                    const hoverBox = document.createElement('div');
+                    hoverBox.className = 'hover-box';
+                    hoverBox.textContent = "Loading description...";  // Placeholder
+                    li.appendChild(hoverBox);
+
                     const playlistUrl = path.replace(/\/[^\/]+\.mp3$/, '/playlist.html');  // Replace MP3 path with the associated playlist file
 
                     fetch(playlistUrl)
@@ -178,4 +177,5 @@
 </div>
 </body>
 </html>
+
 
