@@ -71,7 +71,6 @@
     </div>
     <img id="frontphoto" src="img/1812TheaterHeader.jpg" width="760" height="190" alt="" />
     <div id="leftside">
-        <h2 class="hide">Menu:</h2>
         <ul class="avmenu">
             <li><a href="Tracks.html">All Tracks</a></li>
             <li><a href="blues.html">Blues</a></li>
@@ -100,7 +99,6 @@
 
         <button class="clear-button" id="clear-playlist">Clear Playlist</button>
         <button class="share-button" id="share-playlist">Share Playlist</button>
-        <p></p><p>Note: Sharing playlists is limited to a few songs at a time and does not work when more than 2,000 characters are sent to the email.</p>
 
         <script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
         <script>
@@ -115,30 +113,27 @@
                 function initializePlaylist() {
                     playlist.innerHTML = '';
 
-                    // Check if there's a playlist in the URL
                     const urlParams = new URLSearchParams(window.location.search);
                     const playlistParam = urlParams.get('playlist');
 
                     let storedPlaylist;
                     if (playlistParam) {
-                        // Parse the playlist from the URL (which now includes both titles and links)
                         storedPlaylist = JSON.parse(decodeURIComponent(playlistParam));
                     } else {
-                        // Fallback to the playlist in localStorage
                         storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
                     }
 
                     if (storedPlaylist) {
                         storedPlaylist.forEach((song) => {
                             const li = document.createElement('li');
-                            li.textContent = song.title;  // Set the song title
-                            li.setAttribute('data-src', song.src);  // Set the MP3 file link
+                            li.textContent = song.title;
+                            li.setAttribute('data-src', song.src);
                             li.setAttribute('data-comments', song.comments || '');
                             li.classList.add('song-item');
 
                             const hoverBox = document.createElement('div');
                             hoverBox.classList.add('hover-box');
-                            hoverBox.textContent = song.comments || '';  // Set hover text if available
+                            hoverBox.textContent = song.comments || '';
                             li.appendChild(hoverBox);
 
                             playlist.appendChild(li);
@@ -169,25 +164,20 @@
 
                     const playlistArray = Array.from(songs).map(song => {
                         return {
-                            title: song.textContent.trim(),  // Only include the title of the song
+                            title: song.textContent.trim(),
                             src: song.getAttribute('data-src')  // Only include the MP3 file link, exclude comments
                         };
                     });
 
                     const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray));
 
-                    // Generate the URL with the playlist data (including only titles and links, excluding comments)
-                    const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/index.html';
                     const playlistUrl = `${baseUrl}?playlist=${playlistJSON}`;
-
-                    // Construct the email with the updated playlist URL
                     const subject = encodeURIComponent("Playlist from Pat's Music");
                     const body = encodeURIComponent(
                         `Here's a playlist I made for you. Click the link to listen: ${playlistUrl}`
                     );
                     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
 
-                    // Open the email client
                     window.location.href = mailtoLink;
                 }
 
