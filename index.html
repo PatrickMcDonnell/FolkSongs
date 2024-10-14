@@ -128,12 +128,11 @@
                             const li = document.createElement('li');
                             li.textContent = song.title;
                             li.setAttribute('data-src', song.src);
-                            li.setAttribute('data-comments', song.comments || '');
-                            li.classList.add('song-item');
 
+                            // Create the hover box, but it's only for display in the player, not for sharing
                             const hoverBox = document.createElement('div');
                             hoverBox.classList.add('hover-box');
-                            hoverBox.textContent = song.comments || '';
+                            hoverBox.textContent = song.comments || ''; // Display comments only in the hover box
                             li.appendChild(hoverBox);
 
                             playlist.appendChild(li);
@@ -165,7 +164,7 @@
                     const playlistArray = Array.from(songs).map(song => {
                         return {
                             title: song.textContent.trim(),
-                            src: song.getAttribute('data-src')  // Only include the MP3 file link, exclude comments
+                            src: song.getAttribute('data-src') // Only include the song title and source, no comments
                         };
                     });
 
@@ -182,7 +181,7 @@
                 }
 
                 playlist.addEventListener('click', function(event) {
-                    if (event.target && event.target.matches('li.song-item')) {
+                    if (event.target && event.target.matches('li')) {
                         const songSrc = event.target.getAttribute('data-src');
                         audioPlayer.src = songSrc;
                         audioPlayer.play();
@@ -215,4 +214,3 @@
 </div>
 </body>
 </html>
-
