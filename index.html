@@ -126,10 +126,13 @@
                     if (storedPlaylist) {
                         storedPlaylist.forEach((song) => {
                             const li = document.createElement('li');
-                            li.textContent = song.title;
+                            li.setAttribute('data-title', song.title);
                             li.setAttribute('data-src', song.src);
 
-                            // Create the hover box, but only include comments for display
+                            // Add the song title as text
+                            li.textContent = song.title;
+
+                            // Create the hover box with comments
                             const hoverBox = document.createElement('div');
                             hoverBox.classList.add('hover-box');
                             hoverBox.textContent = song.comments || ''; // Display comments only in the hover box
@@ -161,14 +164,17 @@
                         return;
                     }
 
-                 const playlistArray = Array.from(songs).map(song => {
-    return {
-        title: song.getAttribute('data-title'),  // This grabs only the song title from the 'data-title' attribute
-        src: song.getAttribute('data-src')       // This grabs the song source as before
-    };
-});
+                    const playlistArray = Array.from(songs).map(song => {
+                        return {
+                            title: song.getAttribute('data-title'),
+                            src: song.getAttribute('data-src')
+                        };
+                    });
 
-                    const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray));
+                    const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray.map(song => ({
+                        title: song.title,
+                        src: song.src
+                    }))));
                     const playlistUrl = `${baseUrl}?playlist=${playlistJSON}`;
                     const subject = encodeURIComponent("Playlist from Pat's Music");
                     const body = encodeURIComponent(
@@ -213,3 +219,4 @@
 </div>
 </body>
 </html>
+
