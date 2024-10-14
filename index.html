@@ -128,11 +128,11 @@
                             const li = document.createElement('li');
                             li.textContent = song.title;
                             li.setAttribute('data-src', song.src);
-
-                            // Create the hover box with comments
+                            
+                            // Create the hover box for comments only
                             const hoverBox = document.createElement('div');
                             hoverBox.classList.add('hover-box');
-                            hoverBox.textContent = song.comments || ''; // Display comments in hover box only
+                            hoverBox.textContent = song.comments || ''; // Display comments only in the hover box
                             li.appendChild(hoverBox);
 
                             playlist.appendChild(li);
@@ -165,14 +165,19 @@
                     const playlistArray = Array.from(songs).map(song => {
                         return {
                             title: song.textContent.trim(),
-                            src: song.getAttribute('data-src') // Only include title and source
+                            src: song.getAttribute('data-src') // Only include the song title and source
                         };
                     });
 
-                    const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray));
+                    const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray.map(song => ({
+                        title: song.title,
+                        src: song.src
+                    }))));
                     const playlistUrl = `${baseUrl}?playlist=${playlistJSON}`;
                     const subject = encodeURIComponent("Playlist from Pat's Music");
-                    const body = encodeURIComponent(`Here's a playlist I made for you. Click the link to listen: ${playlistUrl}`);
+                    const body = encodeURIComponent(
+                        `Here's a playlist I made for you. Click the link to listen: ${playlistUrl}`
+                    );
                     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
 
                     window.location.href = mailtoLink;
