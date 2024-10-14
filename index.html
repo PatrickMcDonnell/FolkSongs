@@ -169,7 +169,10 @@
                         };
                     });
 
-                    const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray));
+                    const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray.map(song => ({
+                        title: song.title,
+                        src: song.src
+                    }))));
                     const playlistUrl = `${baseUrl}?playlist=${playlistJSON}`;
                     const subject = encodeURIComponent("Playlist from Pat's Music");
                     const body = encodeURIComponent(
@@ -214,3 +217,4 @@
 </div>
 </body>
 </html>
+
