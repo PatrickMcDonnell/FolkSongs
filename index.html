@@ -161,11 +161,12 @@
                         return;
                     }
 
-                    // Only include titles and sources for sharing, excluding comments
-                    const playlistArray = Array.from(songs).map(song => ({
-                        title: song.textContent.split('\n')[0].trim(), // Get the title only
-                        src: song.getAttribute('data-src') // Only include the song title and source
-                    }));
+                 const playlistArray = Array.from(songs).map(song => {
+    return {
+        title: song.getAttribute('data-title'),  // This grabs only the song title from the 'data-title' attribute
+        src: song.getAttribute('data-src')       // This grabs the song source as before
+    };
+});
 
                     const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray));
                     const playlistUrl = `${baseUrl}?playlist=${playlistJSON}`;
