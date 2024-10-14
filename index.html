@@ -83,20 +83,14 @@
             <li><a href="gospel.html">Gospel</a></li>
             <li><a href="scottish.html">Scottish</a></li>
             <li><a href="shanties.html">Shanties</a></li>
+            <!-- Other playlist links -->
         </ul>
     </div>
 
     <div id="contentwide">
         <h1>Audio Player</h1>
         <audio id="audio-player" controls>Your browser does not support the audio element.</audio>
-        <ul class="song-list" id="playlist">
-            <li data-src="track1.mp3">Song Title 1
-                <div class="hover-box">This is the description for Song Title 1.</div>
-            </li>
-            <li data-src="track2.mp3">Song Title 2
-                <div class="hover-box">This is the description for Song Title 2.</div>
-            </li>
-        </ul>
+        <ul class="song-list" id="playlist"></ul>
 
         <button class="clear-button" id="clear-playlist">Clear Playlist</button>
         <button class="share-button" id="share-playlist">Share Playlist</button>
@@ -106,32 +100,74 @@
             document.addEventListener('DOMContentLoaded', function() {
                 const audioPlayer = document.getElementById('audio-player');
                 const playlist = document.getElementById('playlist');
-                const clearButton = document.getElementById('clear-playlist');
-                const shareButton = document.getElementById('share-playlist');
+                const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
+                let currentSongIndex = 0;
 
-                // Add hover functionality
-                document.querySelectorAll('.song-list li').forEach(function(track) {
-                    track.addEventListener('mouseover', function() {
-                        const hoverBox = this.querySelector('.hover-box');
-                        const rect = hoverBox.getBoundingClientRect();
-                        const viewportHeight = window.innerHeight;
+                // Function to initialize the playlist from URL
+                function initializePlaylistFromURL() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const songsParam = urlParams.get('songs');
 
-                        // Check if hover box would go below the viewport
-                        if (rect.bottom > viewportHeight) {
-                            hoverBox.style.top = `-${rect.height}px`;
-                        } else {
-                            hoverBox.style.top = '0';
+                    if (songsParam) {
+                        playlist.innerHTML = '';  // Clear previous playlist
+
+                        const songPaths = songsParam.split(';');
+                        songPaths.forEach(path => {
+                            const filename = decodeURIComponent(path.split('/').pop()); // Get filename
+                            const title = filename.replace(/\.mp3$/, ''); // Title from filename
+
+                            // Create a new list item for each song
+                            const li = document.createElement('li');
+                            li.textContent = title;  // Display the song title
+                            li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
+
+                            // Add a hover box dynamically for each song description
+                            const hoverBox = document.createElement('div');
+                            hoverBox.className = 'hover-box';
+                            hoverBox.textContent = "Loading description...";  // Placeholder
+
+                            li.appendChild(hoverBox);
+                            playlist.appendChild(li);
+
+                            // Fetch the comments (description) from the data-comments attribute
+                            fetchDescriptionForSong(path, li, hoverBox);
+                        });
+
+                        if (songPaths.length > 0) {
+                            audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
+                            audioPlayer.play();
                         }
-                    });
-                });
+                    }
+                }
 
-                // Clear playlist logic
-                clearButton.addEventListener('click', function() {
-                    playlist.innerHTML = '';
-                    audioPlayer.src = '';
-                });
+                // Function to fetch the title and description for a song from its associated playlist file
+                function fetchDescriptionForSong(path, li, hoverBox) {
+                    const playlistUrl = path.replace(/\/[^\/]+\.mp3$/, '/playlist.html');  // Replace MP3 path with the associated playlist file
 
-                // Other playlist functionalities (load, share) would go here
+                    fetch(playlistUrl)
+                        .then(response => response.text())
+                        .then(html => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            const songEntry = doc.querySelector(`li[data-src$="${path.split('/').pop()}"]`);
+
+                            if (songEntry) {
+                                const title = songEntry.getAttribute('data-title');
+                                const comments = songEntry.getAttribute('data-comments');
+
+                                li.textContent = title;  // Set the song title
+                                hoverBox.textContent = comments || 'No description available.';  // Set hover box description
+                            } else {
+                                hoverBox.textContent = 'Description not found.';
+                            }
+                        })
+                        .catch(() => {
+                            hoverBox.textContent = 'Error fetching description.';
+                        });
+                }
+
+                // Initialize playlist from URL if songs are provided
+                initializePlaylistFromURL();
             });
         </script>
     </div>
@@ -142,3 +178,4 @@
 </div>
 </body>
 </html>
+
