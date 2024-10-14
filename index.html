@@ -176,7 +176,7 @@
 
                     const playlistJSON = encodeURIComponent(JSON.stringify(playlistArray));
 
-                    // Generate the URL with the playlist data (including both titles and links)
+                    // Generate the URL with the playlist data (including only titles and links, excluding comments)
                     const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/index.html';
                     const playlistUrl = `${baseUrl}?playlist=${playlistJSON}`;
 
