@@ -122,11 +122,11 @@
                         const li = document.createElement('li');
                         li.textContent = title;  // Show the title instead of the MP3 file name
                         li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
-                        
+
                         // Attach the hover box for comments
                         const hoverBox = document.createElement('div');
                         hoverBox.classList.add('hover-box');
-                        hoverBox.textContent = "No song detail available.";  // Default hover text
+                        hoverBox.textContent = "Song details not available.";  // Default hover text
                         li.appendChild(hoverBox);
 
                         playlist.appendChild(li);
@@ -153,7 +153,7 @@
                         // Attach the hover box for comments
                         const hoverBox = document.createElement('div');
                         hoverBox.classList.add('hover-box');
-                        hoverBox.textContent = song.comments || "No song detail available.";  // Use comments if available
+                        hoverBox.textContent = song.comments || "Song details not available.";  // Use comments if available
                         li.appendChild(hoverBox);
 
                         playlist.appendChild(li);
@@ -211,52 +211,8 @@
                 const subject = encodeURIComponent("Playlist from Pat's Music");
 
                 // Construct the email body with a plain text link
-                const body = encodeURIComponent(
-                    `Click here to open the playlist:\n${playlistUrl}\n\n` + 
-                    'You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
-                );
+               
 
-                // Use the 'mailto' link to open the user's email client
-                const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
-                window.location.href = mailtoLink;
-            }
-
-            // Event listeners for the share button
-            shareButton.addEventListener('click', sharePlaylist);
-
-            // Event listener for clicking on playlist items to play them
-            playlist.addEventListener('click', function(event) {
-                if (event.target && event.target.matches('li')) {
-                    const songSrc = event.target.getAttribute('data-src');
-                    audioPlayer.src = songSrc;
-                    audioPlayer.play();
-                    currentSongIndex = Array.from(playlist.children).indexOf(event.target);
-                }
-            });
-
-            // Automatically play the next song when the current song ends
-            audioPlayer.addEventListener('ended', function() {
-                currentSongIndex++;
-                if (currentSongIndex < playlist.children.length) {
-                    const nextSong = playlist.children[currentSongIndex];
-                    const nextSongSrc = nextSong.getAttribute('data-src');
-                    audioPlayer.src = nextSongSrc;
-                    audioPlayer.play();
-                } else {
-                    currentSongIndex = 0;
-                }
-            });
-
-        });
-    </script>
-</div>
-
-<div id="footer">
-    <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
-</div>
-</div>
-</body>
-</html>
 
 
 
