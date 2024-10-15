@@ -211,25 +211,27 @@
 
                 // Function to share the playlist via email
                 function sharePlaylist() {
-                    const songs = playlist.querySelectorAll('li');
-                    if (songs.length === 0) {
-                        alert('The playlist is empty.');
-                        return;
-                    }
+    const songs = playlist.querySelectorAll('li');
+    if (songs.length === 0) {
+        alert('The playlist is empty.');
+        return;
+    }
 
-                    // Create an array to hold the selected song paths
-                    const songPaths = [];
+    // Create an array to hold the song paths formatted as HTML links
+    const songLinks = [];
 
-                    // Loop through each selected song and get the data-src attribute
-                    songs.forEach(song => {
-                        const relativePath = song.getAttribute('data-src');
-                        songPaths.push(relativePath);
-                    });
+    // Loop through each selected song and create a link
+    songs.forEach(song => {
+        const relativePath = song.getAttribute('data-src');
+        const title = song.textContent;  // Get the title for display
+        songLinks.push(`<a href="${relativePath}">${title}</a>`); // Create a clickable link
+    });
 
-                    // Create a mailto link to share the playlist
-                    const mailtoLink = `mailto:?subject=Check out my playlist!&body=Listen to my playlist: ${songPaths.join('\n')}`;
-                    window.location.href = mailtoLink;
-                }
+    // Create a mailto link to share the playlist with HTML links
+    const mailtoLink = `mailto:?subject=Check out my playlist!&body=Listen to my playlist:\n${songLinks.join('\n')}`;
+    window.location.href = mailtoLink;
+}
+
 
                 shareButton.addEventListener('click', sharePlaylist);
 
