@@ -95,7 +95,6 @@
         <button class="clear-button" id="clear-playlist">Clear Playlist</button>
         <button class="share-button" id="share-playlist">Share Playlist</button>
 
-        <script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const audioPlayer = document.getElementById('audio-player');
@@ -143,6 +142,7 @@
                             hoverBox.classList.add('hover-box');
                             hoverBox.textContent = "Loading comments...";  // Placeholder while fetching comments
 
+                            // Fetch and display comments for the song
                             getCommentsForSong(baseUrl + decodeURIComponent(path)).then(commentText => {
                                 hoverBox.textContent = commentText;  // Update hover box with the actual comments
                             });
@@ -223,11 +223,9 @@
                         }
                     });
 
-                    // Create the playlist URL with all selected songs
+                    // Create a URL for the playlist
                     const playlistUrl = `${baseUrl}index.html?songs=${encodeURIComponent(songPaths.join(';'))}`;
-
-                    // Generate email content without comments
-                    const emailBody = `Check out this playlist: ${playlistUrl}`;
+                    const emailBody = `Check out my playlist: ${playlistUrl}`;
                     const mailtoLink = `mailto:?subject=Check out my playlist&body=${encodeURIComponent(emailBody)}`;
                     window.open(mailtoLink);
                 }
@@ -243,3 +241,4 @@
 </div>
 </body>
 </html>
+
