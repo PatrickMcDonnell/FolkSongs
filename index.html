@@ -87,153 +87,160 @@
         </ul>
     </div>
 
-<div id="contentwide">
-    <h1>Audio Player</h1>
-    <audio id="audio-player" controls>Your browser does not support the audio element.</audio>
-    <ul class="song-list" id="playlist"></ul>
+    <div id="contentwide">
+        <h1>Audio Player</h1>
+        <audio id="audio-player" controls>Your browser does not support the audio element.</audio>
+        <ul class="song-list" id="playlist"></ul>
 
-    <button class="clear-button" id="clear-playlist">Clear Playlist</button>
-    <button class="share-button" id="share-playlist">Share Playlist</button>
+        <button class="clear-button" id="clear-playlist">Clear Playlist</button>
+        <button class="share-button" id="share-playlist">Share Playlist</button>
 
-    <script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const audioPlayer = document.getElementById('audio-player');
-            const playlist = document.getElementById('playlist');
-            const clearButton = document.getElementById('clear-playlist');
-            const shareButton = document.getElementById('share-playlist');
-            const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
-            let currentSongIndex = 0;
+        <script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const audioPlayer = document.getElementById('audio-player');
+                const playlist = document.getElementById('playlist');
+                const clearButton = document.getElementById('clear-playlist');
+                const shareButton = document.getElementById('share-playlist');
+                const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
+                let currentSongIndex = 0;
 
-            // Function to retrieve song comments directly from the playlist HTML
-            function getCommentsForSong(title) {
-                const songElement = document.querySelector(`li[data-title="${title}"]`);
-                return songElement ? songElement.getAttribute('data-comments') : "Song details not available.";
-            }
+                // Function to retrieve song comments directly from the playlist HTML
+                function getCommentsForSong(title) {
+                    const songElement = document.querySelector(`li[data-title="${title}"]`);
+                    return songElement ? songElement.getAttribute('data-comments') : null;
+                }
 
-            // Initialize playlist from URL
-            function initializePlaylistFromURL() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const songsParam = urlParams.get('songs');
+                // Parse the playlist from URL if provided
+                function initializePlaylistFromURL() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const songsParam = urlParams.get('songs');
 
-                if (songsParam) {
-                    playlist.innerHTML = '';  // Clear the previous playlist
+                    if (songsParam) {
+                        playlist.innerHTML = '';  // Clear the previous playlist
 
-                    const songPaths = songsParam.split(';');
-                    songPaths.forEach(path => {
-                        const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
-                        const title = filename.replace(/\.mp3$/, ''); // Remove the .mp3 extension for display
+                        const songPaths = songsParam.split(';');  // Changed delimiter to semi-colon
+                        songPaths.forEach(path => {
+                            const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
+                            const title = filename.replace(/\.mp3$/, ''); // Remove the .mp3 extension for display
 
-                        const li = document.createElement('li');
-                        li.textContent = title;
-                        li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
+                            const li = document.createElement('li');
+                            li.textContent = title;  // Show the title instead of the MP3 file name
+                            li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
+                            li.setAttribute('data-title', title); // Set the data-title attribute for comment retrieval
 
-                        // Get hover box comments directly from the playlist HTML
-                        const comments = getCommentsForSong(title);
-                        const hoverBox = document.createElement('div');
-                        hoverBox.classList.add('hover-box');
-                        hoverBox.textContent = comments;
-                        li.appendChild(hoverBox);
+                            // Attach the hover box for comments
+                            const hoverBox = document.createElement('div');
+                            hoverBox.classList.add('hover-box');
+                            hoverBox.textContent = getCommentsForSong(title) || "Song details not available.";  // Use comments if available
+                            li.appendChild(hoverBox);
 
-                        playlist.appendChild(li);
-                    });
+                            playlist.appendChild(li);
+                        });
 
-                    if (songPaths.length > 0) {
-                        audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
-                        audioPlayer.play();
+                        if (songPaths.length > 0) {
+                            audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
+                            audioPlayer.play();
+                        }
                     }
                 }
-            }
 
-            // Initialize playlist from local storage
-            function initializePlaylist() {
-                playlist.innerHTML = '';
-                const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
+                function initializePlaylist() {
+                    playlist.innerHTML = '';
+                    const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
 
-                if (storedPlaylist) {
-                    storedPlaylist.forEach((song) => {
-                        const li = document.createElement('li');
-                        li.textContent = song.title;
-                        li.setAttribute('data-src', song.src);
+                    if (storedPlaylist) {
+                        storedPlaylist.forEach((song) => {
+                            const li = document.createElement('li');
+                            li.textContent = song.title;  // Display the title
+                            li.setAttribute('data-src', song.src);
 
-                        const hoverBox = document.createElement('div');
-                        hoverBox.classList.add('hover-box');
-                        hoverBox.textContent = song.comments || "Song details not available.";
-                        li.appendChild(hoverBox);
+                            // Attach the hover box for comments
+                            const hoverBox = document.createElement('div');
+                            hoverBox.classList.add('hover-box');
+                            hoverBox.textContent = song.comments || "Song details not available.";  // Use comments if available
+                            li.appendChild(hoverBox);
 
-                        playlist.appendChild(li);
-                    });
+                            playlist.appendChild(li);
+                        });
 
-                    if (storedPlaylist.length > 0) {
-                        const firstSong = playlist.children[0];
-                        audioPlayer.src = firstSong.getAttribute('data-src');
-                        audioPlayer.play();
+                        if (storedPlaylist.length > 0) {
+                            const firstSong = playlist.children[0];
+                            audioPlayer.src = firstSong.getAttribute('data-src');
+                            audioPlayer.play();
+                        }
                     }
                 }
-            }
 
-            // Clear the playlist
-            function clearPlaylist() {
-                localStorage.removeItem('playlist');
-                playlist.innerHTML = '';
-                audioPlayer.pause();
-                audioPlayer.currentTime = 0;
-                currentSongIndex = 0;
-            }
-
-            // Initialize playlist from URL if songs are provided
-            initializePlaylistFromURL();
-
-            // Initialize playlist from local storage if no songs from URL
-            if (!playlist.children.length) {
-                initializePlaylist();
-            }
-
-            // Event listeners for buttons
-            clearButton.addEventListener('click', clearPlaylist);
-
-            // Function to share the playlist via email
-            function sharePlaylist() {
-                const songs = playlist.querySelectorAll('li');
-                if (songs.length === 0) {
-                    alert('The playlist is empty.');
-                    return;
+                function clearPlaylist() {
+                    localStorage.removeItem('playlist');
+                    playlist.innerHTML = '';
+                    audioPlayer.pause();
+                    audioPlayer.currentTime = 0;
+                    currentSongIndex = 0;
                 }
 
-                const songPaths = [];
-                songs.forEach(song => {
-                    const relativePath = song.getAttribute('data-src');
-                    if (relativePath) {
-                        songPaths.push(encodeURIComponent(relativePath).replace(/,/g, '%2C'));
+                // Initialize playlist from URL if songs are provided
+                initializePlaylistFromURL();
+
+                // Initialize playlist from localStorage if no songs from URL
+                if (!playlist.children.length) {
+                    initializePlaylist();
+                }
+
+                // Event listeners for buttons
+                clearButton.addEventListener('click', clearPlaylist);
+
+                // Function to share the playlist via email
+                function sharePlaylist() {
+                    const songs = playlist.querySelectorAll('li');
+                    if (songs.length === 0) {
+                        alert('The playlist is empty.');
+                        return;
+                    }
+
+                    // Create an array to hold the selected song paths
+                    const songPaths = [];
+
+                    // Loop through each selected song and get the data-src attribute
+                    songs.forEach(song => {
+                        const relativePath = song.getAttribute('data-src');
+                        if (relativePath) {
+                            songPaths.push(encodeURIComponent(relativePath).replace(/,/g, '%2C'));
+                        }
+                    });
+
+                    // Create the playlist URL with all selected songs, using semi-colon as the separator
+                    const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(';')}&_t=${Date.now()}`;
+                    const subject = encodeURIComponent("Playlist from Pat's Music");
+
+                    // Construct the email body with a plain text link
+                    const body = encodeURIComponent(
+                        `Click here to open the playlist:\n${playlistUrl}\n\n` + 
+                        'You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
+                    );
+
+                    // Use mailto link to open the default email client
+                    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+                }
+
+                shareButton.addEventListener('click', sharePlaylist);
+
+                // Add click event to play selected song
+                playlist.addEventListener('click', function(event) {
+                    if (event.target.tagName === 'LI') {
+                        currentSongIndex = Array.from(playlist.children).indexOf(event.target);
+                        audioPlayer.src = event.target.getAttribute('data-src');
+                        audioPlayer.play();
                     }
                 });
-
-                const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(';')}&_t=${Date.now()}`;
-                const subject = encodeURIComponent("Playlist from Pat's Music");
-
-                const body = encodeURIComponent(
-                    `Click here to open the playlist:\n${playlistUrl}\n\n` + 
-                    'You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
-                );
-
-                const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
-                window.location.href = mailtoLink;
-            }
-
-            shareButton.addEventListener('click', sharePlaylist);
-
-            // Event listener for clicking on playlist items to play them
-            playlist.addEventListener('click', function(event) {
-                if (event.target && event.target.matches('li')) {
-                    const songSrc = event.target.getAttribute('data-src');
-                    if (songSrc) {
-                        audioPlayer.src = songSrc;
-                        audioPlayer.play();
-                    }
-                }
             });
-        });
-    </script>
+        </script>
+    </div>
+
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
+    </div>
 </div>
 </body>
 </html>
