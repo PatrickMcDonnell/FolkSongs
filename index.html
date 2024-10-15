@@ -151,8 +151,9 @@
                             playlist.appendChild(li);
                         });
 
+                        // Ensure that the first song in the playlist plays
                         if (songPaths.length > 0) {
-                            audioPlayer.src = fullPath; // Set the audio player's source
+                            audioPlayer.src = songPaths[0]; // Use the first song path directly
                             audioPlayer.play();
                         }
                     }
@@ -217,13 +218,10 @@
 
                     // Loop through each selected song and get the data-src attribute
                     songs.forEach(song => {
-                        const relativePath = song.getAttribute('data-src');
-                        if (relativePath) {
-                            songPaths.push(relativePath);
-                        }
+                        const relativePath = song.getAttribute('data-src').replace(baseUrl, '');
+                        songPaths.push(relativePath);
                     });
 
-                    // Create a URL for the playlist
                     const playlistUrl = `${baseUrl}index.html?songs=${encodeURIComponent(songPaths.join(';'))}`;
                     const emailBody = `Check out my playlist: ${playlistUrl}`;
                     const mailtoLink = `mailto:?subject=Check out my playlist&body=${encodeURIComponent(emailBody)}`;
@@ -241,4 +239,5 @@
 </div>
 </body>
 </html>
+
 
