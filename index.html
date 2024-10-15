@@ -83,6 +83,7 @@
             <li><a href="gospel.html">Gospel</a></li>
             <li><a href="scottish.html">Scottish</a></li>
             <li><a href="shanties.html">Shanties</a></li>
+            <!-- Other playlist links -->
         </ul>
     </div>
 
@@ -95,142 +96,144 @@
     <button class="share-button" id="share-playlist">Share Playlist</button>
 
     <script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const audioPlayer = document.getElementById('audio-player');
-        const playlist = document.getElementById('playlist');
-        const clearButton = document.getElementById('clear-playlist');
-        const shareButton = document.getElementById('share-playlist');
-        const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
-        let currentSongIndex = 0;
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audio-player');
+            const playlist = document.getElementById('playlist');
+            const clearButton = document.getElementById('clear-playlist');
+            const shareButton = document.getElementById('share-playlist');
+            const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
+            let currentSongIndex = 0;
 
-        // Parse the playlist from URL if provided
-        function initializePlaylistFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const songsParam = urlParams.get('songs');
+            // Function to retrieve song comments directly from the playlist HTML
+            function getCommentsForSong(title) {
+                const songElement = document.querySelector(`li[data-title="${title}"]`);
+                return songElement ? songElement.getAttribute('data-comments') : "Song details not available.";
+            }
 
-            if (songsParam) {
-                // Clear existing playlist first
-                playlist.innerHTML = '';  // Clear the previous playlist
+            // Initialize playlist from URL
+            function initializePlaylistFromURL() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const songsParam = urlParams.get('songs');
 
-                const songPaths = songsParam.split(';');  // Split song paths by semicolon
-                songPaths.forEach(path => {
-                    const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
-                    const title = filename.replace(/\.mp3$/, ''); // Remove the .mp3 extension for display
+                if (songsParam) {
+                    playlist.innerHTML = '';  // Clear the previous playlist
 
-                    const li = document.createElement('li');
-                    li.textContent = title;  // Show the title instead of the MP3 file name
-                    li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
+                    const songPaths = songsParam.split(';');
+                    songPaths.forEach(path => {
+                        const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
+                        const title = filename.replace(/\.mp3$/, ''); // Remove the .mp3 extension for display
 
-                    // Attach the hover box for comments
-                    const hoverBox = document.createElement('div');
-                    hoverBox.classList.add('hover-box');
+                        const li = document.createElement('li');
+                        li.textContent = title;
+                        li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
 
-                    // Retrieve comments from the data-comments attribute in the playlist HTML files
-                    hoverBox.textContent = getCommentsForSong(title) || "Song details not available.";  // Set comments
-                    li.appendChild(hoverBox);
+                        // Get hover box comments directly from the playlist HTML
+                        const comments = getCommentsForSong(title);
+                        const hoverBox = document.createElement('div');
+                        hoverBox.classList.add('hover-box');
+                        hoverBox.textContent = comments;
+                        li.appendChild(hoverBox);
 
-                    playlist.appendChild(li);
-                });
+                        playlist.appendChild(li);
+                    });
 
-                if (songPaths.length > 0) {
-                    audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
-                    audioPlayer.play();
+                    if (songPaths.length > 0) {
+                        audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
+                        audioPlayer.play();
+                    }
                 }
             }
-        }
 
-        // Function to retrieve song comments directly from the playlist HTML
-        function getCommentsForSong(title) {
-            const songElement = document.querySelector(`li[data-title="${title}"]`);
-            return songElement ? songElement.getAttribute('data-comments') : null;
-        }
+            // Initialize playlist from local storage
+            function initializePlaylist() {
+                playlist.innerHTML = '';
+                const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
 
-        function initializePlaylist() {
-            playlist.innerHTML = '';
-            const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
+                if (storedPlaylist) {
+                    storedPlaylist.forEach((song) => {
+                        const li = document.createElement('li');
+                        li.textContent = song.title;
+                        li.setAttribute('data-src', song.src);
 
-            if (storedPlaylist) {
-                storedPlaylist.forEach((song) => {
-                    const li = document.createElement('li');
-                    li.textContent = song.title;
-                    li.setAttribute('data-src', song.src);
+                        const hoverBox = document.createElement('div');
+                        hoverBox.classList.add('hover-box');
+                        hoverBox.textContent = song.comments || "Song details not available.";
+                        li.appendChild(hoverBox);
 
-                    const hoverBox = document.createElement('div');
-                    hoverBox.classList.add('hover-box');
-                    hoverBox.textContent = song.comments || "Song details not available.";
-                    li.appendChild(hoverBox);
+                        playlist.appendChild(li);
+                    });
 
-                    playlist.appendChild(li);
-                });
-
-                if (storedPlaylist.length > 0) {
-                    const firstSong = playlist.children[0];
-                    audioPlayer.src = firstSong.getAttribute('data-src');
-                    audioPlayer.play();
+                    if (storedPlaylist.length > 0) {
+                        const firstSong = playlist.children[0];
+                        audioPlayer.src = firstSong.getAttribute('data-src');
+                        audioPlayer.play();
+                    }
                 }
             }
-        }
 
-        function clearPlaylist() {
-            localStorage.removeItem('playlist');
-            playlist.innerHTML = '';
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0;
-            currentSongIndex = 0;
-        }
-
-        initializePlaylistFromURL();
-
-        if (!playlist.children.length) {
-            initializePlaylist();
-        }
-
-        clearButton.addEventListener('click', clearPlaylist);
-
-        function sharePlaylist() {
-            const songs = playlist.querySelectorAll('li');
-            if (songs.length === 0) {
-                alert('The playlist is empty.');
-                return;
+            // Clear the playlist
+            function clearPlaylist() {
+                localStorage.removeItem('playlist');
+                playlist.innerHTML = '';
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+                currentSongIndex = 0;
             }
 
-            const songPaths = [];
+            // Initialize playlist from URL if songs are provided
+            initializePlaylistFromURL();
 
-            songs.forEach(song => {
-                const relativePath = song.getAttribute('data-src');
-                if (relativePath) {
-                    songPaths.push(encodeURIComponent(relativePath).replace(/,/g, '%2C'));
+            // Initialize playlist from local storage if no songs from URL
+            if (!playlist.children.length) {
+                initializePlaylist();
+            }
+
+            // Event listeners for buttons
+            clearButton.addEventListener('click', clearPlaylist);
+
+            // Function to share the playlist via email
+            function sharePlaylist() {
+                const songs = playlist.querySelectorAll('li');
+                if (songs.length === 0) {
+                    alert('The playlist is empty.');
+                    return;
+                }
+
+                const songPaths = [];
+                songs.forEach(song => {
+                    const relativePath = song.getAttribute('data-src');
+                    if (relativePath) {
+                        songPaths.push(encodeURIComponent(relativePath).replace(/,/g, '%2C'));
+                    }
+                });
+
+                const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(';')}&_t=${Date.now()}`;
+                const subject = encodeURIComponent("Playlist from Pat's Music");
+
+                const body = encodeURIComponent(
+                    `Click here to open the playlist:\n${playlistUrl}\n\n` + 
+                    'You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
+                );
+
+                const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+                window.location.href = mailtoLink;
+            }
+
+            shareButton.addEventListener('click', sharePlaylist);
+
+            // Event listener for clicking on playlist items to play them
+            playlist.addEventListener('click', function(event) {
+                if (event.target && event.target.matches('li')) {
+                    const songSrc = event.target.getAttribute('data-src');
+                    if (songSrc) {
+                        audioPlayer.src = songSrc;
+                        audioPlayer.play();
+                    }
                 }
             });
-
-            const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(';')}&_t=${Date.now()}`;
-            const subject = encodeURIComponent("Playlist from Pat's Music");
-
-            const body = encodeURIComponent(
-                `Click here to open the playlist:\n${playlistUrl}\n\n` +
-                'You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
-            );
-
-            window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
-        }
-
-        shareButton.addEventListener('click', sharePlaylist);
-
-        playlist.addEventListener('click', function(event) {
-            if (event.target && event.target.matches('li')) {
-                const song = event.target;
-                audioPlayer.src = song.getAttribute('data-src');
-                audioPlayer.play();
-            }
         });
-    });
-</script>
-</div>
-
-    <div id="footer">
-        <p>&copy; FolkSong Collection 2024</p>
-    </div>
+    </script>
 </div>
 </body>
 </html>
