@@ -105,14 +105,14 @@
                 let currentSongIndex = 0;
 
                 // Function to retrieve comments directly from the Tracks.html
-                function getCommentsForSong(filename) {
+                function getCommentsForSong(title) {
                     return fetch('Tracks.html')
                         .then(response => response.text())
                         .then(data => {
                             const parser = new DOMParser();
                             const doc = parser.parseFromString(data, 'text/html');
-                            const songElement = Array.from(doc.querySelectorAll('li[data-src]')).find(li => li.getAttribute('data-src') === filename);
-                            return songElement ? songElement.getAttribute('data-comments') : "Song details not available.";
+                            const songElement = Array.from(doc.querySelectorAll('li[data-title]')).find(li => li.getAttribute('data-title') === title);
+                            return songElement ? songElement.querySelector('.hover-box').textContent : "Song details not available.";
                         })
                         .catch(error => {
                             console.error('Error fetching song comments:', error);
@@ -143,7 +143,7 @@
                             hoverBox.textContent = "Loading comments...";  // Placeholder while fetching comments
 
                             // Fetch and display comments for the song
-                            getCommentsForSong(fullPath).then(commentText => {
+                            getCommentsForSong(filename).then(commentText => {
                                 hoverBox.textContent = commentText;  // Update hover box with the actual comments
                             });
 
@@ -224,20 +224,27 @@
 
                     const playlistUrl = `${baseUrl}index.html?songs=${encodeURIComponent(songPaths.join(';'))}`;
                     const emailBody = `Check out my playlist: ${playlistUrl}`;
-                    const mailtoLink = `mailto:?subject=Check out my playlist&body=${encodeURIComponent(emailBody)}`;
-                    window.open(mailtoLink);
+                    window.location.href = `mailto:?subject=My Playlist&body=${emailBody}`;
                 }
 
                 shareButton.addEventListener('click', sharePlaylist);
+
+                // Event listener for song selection
+                playlist.addEventListener('click', function (e) {
+                    if (e.target.tagName === 'LI') {
+                        const selectedSong = e.target;
+                        audioPlayer.src = selectedSong.getAttribute('data-src');
+                        audioPlayer.play();
+                    }
+                });
+
             });
         </script>
     </div>
+</div>
 
-    <div id="footer">
-        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
-    </div>
+<div id="footer">
+    <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
 </div>
 </body>
 </html>
-
-
