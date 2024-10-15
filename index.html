@@ -112,7 +112,6 @@
                             const parser = new DOMParser();
                             const doc = parser.parseFromString(data, 'text/html');
                             const songElement = Array.from(doc.querySelectorAll('li[data-src]')).find(li => li.getAttribute('data-src') === filename);
-                            // Now retrieving from the hover box directly
                             return songElement ? songElement.querySelector('.hover-box').textContent : "Song details not available.";
                         })
                         .catch(error => {
@@ -131,11 +130,11 @@
 
                         const songPaths = songsParam.split(';');
                         songPaths.forEach(path => {
-                            const fullPath = baseUrl + decodeURIComponent(path); // Construct full path
                             const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
+                            const fullPath = baseUrl + decodeURIComponent(path); // Construct full path
 
                             const li = document.createElement('li');
-                            li.textContent = filename;  // Show the full filename
+                            li.textContent = filename.replace(/\.mp3$/, '');  // Show the title instead of the MP3 file name
                             li.setAttribute('data-src', fullPath);
 
                             // Attach the hover box for comments
@@ -214,35 +213,32 @@
                         return;
                     }
 
-                    // Create an array to hold the selected song paths
-                    const songLinks = Array.from(songs).map(li => {
-                        const title = li.textContent.trim();
-                        return `${title}: ${li.getAttribute('data-src')}`;
+                    // Create an array to hold the selected song paths (without comments)
+                    const songPaths = [];
+
+                    // Loop through each selected song and get the data-src attribute
+                    songs.forEach(song => {
+                        const relativePath = song.getAttribute('data-src').replace(baseUrl, '');
+                        songPaths.push(relativePath);
                     });
 
-                    const emailBody = `Check out my playlist!\n\n${songLinks.join('\n')}`;
-                    const mailtoLink = `mailto:?subject=My Playlist&body=${encodeURIComponent(emailBody)}`;
-                    window.location.href = mailtoLink;
+                    // Construct the full URL for sharing
+                    const playlistUrl = `${baseUrl}index.html?songs=${encodeURIComponent(songPaths.join(';'))}`;
+                    const emailBody = `Check out my playlist here: ${playlistUrl}`;
+                    const mailtoLink = `mailto:?subject=Check out my playlist&body=${encodeURIComponent(emailBody)}`;
+
+                    // Open mail client with the pre-filled email
+                    window.open(mailtoLink);
                 }
 
                 shareButton.addEventListener('click', sharePlaylist);
-
-                // Play the next song in the playlist when one ends
-                audioPlayer.addEventListener('ended', function() {
-                    currentSongIndex++;
-                    if (currentSongIndex < playlist.children.length) {
-                        const nextSong = playlist.children[currentSongIndex];
-                        audioPlayer.src = nextSong.getAttribute('data-src');
-                        audioPlayer.play();
-                    }
-                });
             });
         </script>
     </div>
-</div>
 
-<div id="footer">
-    <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
+    </div>
 </div>
 </body>
 </html>
