@@ -105,13 +105,14 @@
                 let currentSongIndex = 0;
 
                 // Function to retrieve comments directly from the Tracks.html
-                function getCommentsForSong(title) {
+                function getCommentsForSong(filename) {
                     return fetch('Tracks.html')
                         .then(response => response.text())
                         .then(data => {
                             const parser = new DOMParser();
                             const doc = parser.parseFromString(data, 'text/html');
-                            const songElement = Array.from(doc.querySelectorAll('li[data-title]')).find(li => li.getAttribute('data-title') === title);
+                            const songElement = Array.from(doc.querySelectorAll('li[data-src]')).find(li => li.getAttribute('data-src') === filename);
+                            // Now retrieving from the hover box directly
                             return songElement ? songElement.querySelector('.hover-box').textContent : "Song details not available.";
                         })
                         .catch(error => {
@@ -130,11 +131,11 @@
 
                         const songPaths = songsParam.split(';');
                         songPaths.forEach(path => {
-                            const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
                             const fullPath = baseUrl + decodeURIComponent(path); // Construct full path
+                            const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
 
                             const li = document.createElement('li');
-                            li.textContent = filename.replace(/\.mp3$/, '');  // Show the title instead of the MP3 file name
+                            li.textContent = filename;  // Show the full filename
                             li.setAttribute('data-src', fullPath);
 
                             // Attach the hover box for comments
@@ -143,7 +144,7 @@
                             hoverBox.textContent = "Loading comments...";  // Placeholder while fetching comments
 
                             // Fetch and display comments for the song
-                            getCommentsForSong(filename).then(commentText => {
+                            getCommentsForSong(fullPath).then(commentText => {
                                 hoverBox.textContent = commentText;  // Update hover box with the actual comments
                             });
 
@@ -214,30 +215,27 @@
                     }
 
                     // Create an array to hold the selected song paths
-                    const songPaths = [];
-
-                    // Loop through each selected song and get the data-src attribute
-                    songs.forEach(song => {
-                        const relativePath = song.getAttribute('data-src').replace(baseUrl, '');
-                        songPaths.push(relativePath);
+                    const songLinks = Array.from(songs).map(li => {
+                        const title = li.textContent.trim();
+                        return `${title}: ${li.getAttribute('data-src')}`;
                     });
 
-                    const playlistUrl = `${baseUrl}index.html?songs=${encodeURIComponent(songPaths.join(';'))}`;
-                    const emailBody = `Check out my playlist: ${playlistUrl}`;
-                    window.location.href = `mailto:?subject=My Playlist&body=${emailBody}`;
+                    const emailBody = `Check out my playlist!\n\n${songLinks.join('\n')}`;
+                    const mailtoLink = `mailto:?subject=My Playlist&body=${encodeURIComponent(emailBody)}`;
+                    window.location.href = mailtoLink;
                 }
 
                 shareButton.addEventListener('click', sharePlaylist);
 
-                // Event listener for song selection
-                playlist.addEventListener('click', function (e) {
-                    if (e.target.tagName === 'LI') {
-                        const selectedSong = e.target;
-                        audioPlayer.src = selectedSong.getAttribute('data-src');
+                // Play the next song in the playlist when one ends
+                audioPlayer.addEventListener('ended', function() {
+                    currentSongIndex++;
+                    if (currentSongIndex < playlist.children.length) {
+                        const nextSong = playlist.children[currentSongIndex];
+                        audioPlayer.src = nextSong.getAttribute('data-src');
                         audioPlayer.play();
                     }
                 });
-
             });
         </script>
     </div>
