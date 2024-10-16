@@ -113,73 +113,38 @@
                 // Add more song title-comment pairs here
             };
 
-           // Fetch and parse the playlist HTML file to dynamically create songComments
-function loadSongCommentsFromHTML() {
-    fetch('https://patrickmcdonnell.github.io/FolkSongs/Tracks.html')
-        .then(response => response.text())
-        .then(htmlText => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlText, 'text/html');
+            // Parse the playlist from URL if provided
+            function initializePlaylistFromURL() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const songsParam = urlParams.get('songs');
 
-            // Initialize the songComments object
-            const songComments = {};
+                if (songsParam) {
+                    playlist.innerHTML = '';  // Clear the previous playlist
 
-            // Find all <li> elements
-            const songElements = doc.querySelectorAll('li');
+                    const songPaths = songsParam.split(';');  // Changed delimiter to semi-colon
+                    songPaths.forEach(path => {
+                        const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
+                        const title = filename.replace(/\.mp3$/, ''); // Remove the .mp3 extension for display
 
-            songElements.forEach(li => {
-                const title = li.getAttribute('data-title'); // Assuming title is in data-title attribute
-                const hoverBox = li.querySelector('.hover-box'); // Find the hover box
+                        const li = document.createElement('li');
+                        li.textContent = title;  // Show the title instead of the MP3 file name
+                        li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
 
-                if (title && hoverBox) {
-                    songComments[title] = hoverBox.textContent.trim(); // Add title and hover box content to the object
+                        // Fetch the hover box details from the mapping
+                        const hoverBox = document.createElement('div');
+                        hoverBox.classList.add('hover-box');
+                        hoverBox.textContent = songComments[title] || "Song details not available.";  // Use mapping or default message
+
+                        li.appendChild(hoverBox);
+                        playlist.appendChild(li);
+                    });
+
+                    if (songPaths.length > 0) {
+                        audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
+                        audioPlayer.play();
+                    }
                 }
-            });
-
-            // Now songComments is populated, call the function to initialize the playlist
-            initializePlaylistFromURL(songComments);
-        })
-        .catch(error => {
-            console.error('Error fetching or parsing the HTML file:', error);
-        });
-}
-
-// Modified initializePlaylistFromURL function to use the dynamically loaded songComments
-function initializePlaylistFromURL(songComments) {
-    const urlParams = new URLSearchParams(window.location.search);
-    const songsParam = urlParams.get('songs');
-
-    if (songsParam) {
-        playlist.innerHTML = '';  // Clear the previous playlist
-
-        const songPaths = songsParam.split(';');  // Changed delimiter to semi-colon
-        songPaths.forEach(path => {
-            const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
-            const title = filename.replace(/\.mp3$/, ''); // Remove the .mp3 extension for display
-
-            const li = document.createElement('li');
-            li.textContent = title;  // Show the title instead of the MP3 file name
-            li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
-
-            // Fetch the hover box details from the songComments object
-            const hoverBox = document.createElement('div');
-            hoverBox.classList.add('hover-box');
-            hoverBox.textContent = songComments[title] || "Song details not available.";  // Use mapping or default message
-
-            li.appendChild(hoverBox);
-            playlist.appendChild(li);
-        });
-
-        if (songPaths.length > 0) {
-            audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
-            audioPlayer.play();
-        }
-    }
-}
-
-// Call this function on page load to populate songComments dynamically
-loadSongCommentsFromHTML();
-
+            }
 
             function initializePlaylist() {
                 // Clear the playlist before reinitializing
