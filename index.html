@@ -144,7 +144,6 @@ function loadSongCommentsFromHTML() {
         });
 }
 
-// Modified initializePlaylistFromURL function to use the dynamically loaded songComments
 function initializePlaylistFromURL(songComments) {
     const urlParams = new URLSearchParams(window.location.search);
     const songsParam = urlParams.get('songs');
@@ -155,10 +154,10 @@ function initializePlaylistFromURL(songComments) {
         const songPaths = songsParam.split(';');  // Changed delimiter to semi-colon
         songPaths.forEach(path => {
             const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
-            const title = filename.replace(/\.mp3$/, ''); // Remove the .mp3 extension for display
+            const title = filename.replace(/\.mp3$/, '').replace(/%20/g, ' '); // Remove .mp3 and replace encoded spaces
 
             const li = document.createElement('li');
-            li.textContent = title;  // Show the title instead of the MP3 file name
+            li.textContent = title;  // Show the full title (with spaces) instead of the MP3 file name
             li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
 
             // Fetch the hover box details from the songComments object
@@ -176,6 +175,7 @@ function initializePlaylistFromURL(songComments) {
         }
     }
 }
+
 
 // Call this function on page load to populate songComments dynamically
 loadSongCommentsFromHTML();
