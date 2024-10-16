@@ -146,6 +146,34 @@
                 }
             }
 
+            function initializePlaylist() {
+                // Clear the playlist before reinitializing
+                playlist.innerHTML = '';
+                const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
+
+                if (storedPlaylist) {
+                    storedPlaylist.forEach((song) => {
+                        const li = document.createElement('li');
+                        li.textContent = song.title;  // Display the title
+                        li.setAttribute('data-src', song.src);
+
+                        // Attach the hover box for comments
+                        const hoverBox = document.createElement('div');
+                        hoverBox.classList.add('hover-box');
+                        hoverBox.textContent = song.comments || "Song details not available.";  // Use comments if available
+                        li.appendChild(hoverBox);
+
+                        playlist.appendChild(li);
+                    });
+
+                    if (storedPlaylist.length > 0) {
+                        const firstSong = playlist.children[0];
+                        audioPlayer.src = firstSong.getAttribute('data-src');
+                        audioPlayer.play();
+                    }
+                }
+            }
+
             function clearPlaylist() {
                 localStorage.removeItem('playlist');
                 playlist.innerHTML = '';
@@ -153,6 +181,17 @@
                 audioPlayer.currentTime = 0;
                 currentSongIndex = 0;
             }
+
+            // Initialize playlist from URL if songs are provided
+            initializePlaylistFromURL();
+
+            // Initialize playlist from localStorage if no songs from URL
+            if (!playlist.children.length) {
+                initializePlaylist();
+            }
+
+            // Event listeners for buttons
+            clearButton.addEventListener('click', clearPlaylist);
 
             // Function to share the playlist via email
             function sharePlaylist() {
@@ -165,11 +204,12 @@
                 // Create an array to hold the selected song paths
                 const songPaths = [];
 
-                // Loop through each song and get the data-src attribute
+                // Loop through each selected song and get the data-src attribute
                 songs.forEach(song => {
                     const relativePath = song.getAttribute('data-src');
                     if (relativePath) {
-                        songPaths.push(encodeURIComponent(relativePath));  // Properly encode the relative path
+                        // Properly encode the relative path, and replace comma with safe character
+                        songPaths.push(encodeURIComponent(relativePath).replace(/,/g, '%2C'));
                     }
                 });
 
@@ -177,25 +217,16 @@
                 const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(';')}&_t=${Date.now()}`;  // Adding timestamp to bypass cache
 
                 // Open the email client with the playlist link
-                const subject = encodeURIComponent("Folk Song Playlist");
-                const body = encodeURIComponent(`Check out this folk song playlist: ${playlistUrl}`);
-                window.open(`mailto:?subject=${subject}&body=${body}`);
+                window.open(`mailto:?subject=Folk Song Playlist&body=Check out this folk song playlist: ${playlistUrl}`);
             }
 
-            // Event listeners for buttons
-            clearButton.addEventListener('click', clearPlaylist);
             shareButton.addEventListener('click', sharePlaylist);
-
-            // Initialize playlist from URL if songs are provided
-            initializePlaylistFromURL();
         });
     </script>
-</div>
-</div>
+
     <div id="footer">
         <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
     </div>
 </div>
 </body>
 </html>
-
