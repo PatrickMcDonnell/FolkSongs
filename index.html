@@ -105,16 +105,23 @@
         const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
         let currentSongIndex = 0;
 
+        // Function to populate the hover box with comments
+        function populateHoverBox(li, title) {
+            const hoverBox = li.querySelector('.hover-box');
+            const comments = localStorage.getItem(title) || "Song details not available.";
+            hoverBox.textContent = comments;
+        }
+
         // Parse the playlist from URL if provided
         function initializePlaylistFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
             const songsParam = urlParams.get('songs');
 
             if (songsParam) {
-                // Clear existing playlist first to avoid duplication
-                playlist.innerHTML = ''; 
+                // Clear existing playlist first
+                playlist.innerHTML = '';  // Clear the previous playlist
 
-                const songPaths = songsParam.split(';');
+                const songPaths = songsParam.split(';');  // Changed delimiter to semi-colon
                 songPaths.forEach(path => {
                     const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
                     const title = filename.replace(/\.mp3$/, ''); // Remove the .mp3 extension for display
@@ -126,8 +133,10 @@
                     // Attach the hover box for comments
                     const hoverBox = document.createElement('div');
                     hoverBox.classList.add('hover-box');
-                    hoverBox.textContent = "Song details not available.";  // Default hover text (can modify later)
                     li.appendChild(hoverBox);
+                    
+                    // Populate the hover box with comments
+                    populateHoverBox(li, title);
 
                     playlist.appendChild(li);
                 });
@@ -202,8 +211,7 @@
                 const relativePath = song.getAttribute('data-src');
                 if (relativePath) {
                     // Properly encode the relative path, and replace comma with safe character
-                    const path = relativePath.replace(baseUrl, '');
-                    songPaths.push(encodeURIComponent(path).replace(/,/g, '%2C'));
+                    songPaths.push(encodeURIComponent(relativePath).replace(/,/g, '%2C'));
                 }
             });
 
@@ -213,24 +221,25 @@
 
             // Construct the email body with a plain text link
             const body = encodeURIComponent(
-                `Click here to open the playlist:\n${playlistUrl}\n\n` + 
-                'You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
+                `Click here to listen to the playlist: ${playlistUrl}`
             );
-
-            // Use the 'mailto' link to send an email with the playlist
             window.location.href = `mailto:?subject=${subject}&body=${body}`;
         }
 
         shareButton.addEventListener('click', sharePlaylist);
+
+        // Ensure hover box works correctly when hovering over songs
+        playlist.addEventListener('mouseover', (event) => {
+            const li = event.target.closest('li');
+            if (li) {
+                populateHoverBox(li, li.textContent.trim()); // Ensure hover box updates on hover
+            }
+        });
     });
 </script>
 </div>
 </div>
-
-<div id="footer">
-    <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
-</div>
+<div id="footer"><p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p></div>
 </body>
 </html>
-
 
