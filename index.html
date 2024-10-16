@@ -103,12 +103,9 @@
                 const clearButton = document.getElementById('clear-playlist');
                 const shareButton = document.getElementById('share-playlist');
                 const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
-                let currentSongIndex = 0;
-
-                // Initialize the songComments object
                 const songComments = {};
 
-                // Fetch and parse the playlist HTML file to dynamically create songComments
+                // Load comments from Tracks.html
                 function loadSongCommentsFromHTML() {
                     fetch('https://patrickmcdonnell.github.io/FolkSongs/Tracks.html')
                         .then(response => response.text())
@@ -116,19 +113,18 @@
                             const parser = new DOMParser();
                             const doc = parser.parseFromString(htmlText, 'text/html');
 
-                            // Find all <li> elements
                             const songElements = doc.querySelectorAll('li');
 
                             songElements.forEach(li => {
-                                const title = li.getAttribute('data-title'); // Assuming title is in data-title attribute
-                                const hoverBox = li.querySelector('.hover-box'); // Find the hover box
+                                const title = li.getAttribute('data-title');
+                                const hoverBox = li.querySelector('.hover-box');
 
                                 if (title && hoverBox) {
-                                    songComments[title] = hoverBox.textContent.trim(); // Add title and hover box content to the object
+                                    songComments[title] = hoverBox.textContent.trim();
                                 }
                             });
 
-                            // Now songComments is populated, call the function to initialize the playlist
+                            // Call function to initialize playlist from URL
                             initializePlaylistFromURL();
                         })
                         .catch(error => {
@@ -136,27 +132,26 @@
                         });
                 }
 
+                // Initialize playlist from URL parameters
                 function initializePlaylistFromURL() {
                     const urlParams = new URLSearchParams(window.location.search);
                     const songsParam = urlParams.get('songs');
 
                     if (songsParam) {
                         playlist.innerHTML = '';  // Clear the previous playlist
-
-                        const songPaths = songsParam.split(';');  // Changed delimiter to semi-colon
+                        const songPaths = songsParam.split(';');
                         songPaths.forEach(path => {
-                            const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
-                            const title = filename.replace(/\.mp3$/, '').replace(/%20/g, ' '); // Remove .mp3 and replace encoded spaces
+                            const filename = decodeURIComponent(path.split('/').pop());
+                            const title = filename.replace(/\.mp3$/, '').replace(/%20/g, ' ');
 
                             const li = document.createElement('li');
-                            li.textContent = title;  // Show the full title (with spaces) instead of the MP3 file name
+                            li.textContent = title;
                             li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
 
-                            // Fetch the hover box details from the songComments object
+                            // Create hover box with comments
                             const hoverBox = document.createElement('div');
                             hoverBox.classList.add('hover-box');
-                            hoverBox.textContent = songComments[title] || "Song details not available.";  // Use mapping or default message
-
+                            hoverBox.textContent = songComments[title] || "Song details not available.";
                             li.appendChild(hoverBox);
                             playlist.appendChild(li);
                         });
@@ -168,59 +163,21 @@
                     }
                 }
 
-                function initializePlaylist() {
-                    // Clear the playlist before reinitializing
-                    playlist.innerHTML = '';
-                    const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
-
-                    if (storedPlaylist) {
-                        storedPlaylist.forEach((song) => {
-                            const li = document.createElement('li');
-                            li.textContent = song.title;  // Display the title
-                            li.setAttribute('data-src', song.src);
-
-                            // Attach the hover box for comments
-                            const hoverBox = document.createElement('div');
-                            hoverBox.classList.add('hover-box');
-                            hoverBox.textContent = song.comments || "Song details not available.";  // Use comments if available
-                            li.appendChild(hoverBox);
-
-                            playlist.appendChild(li);
-                        });
-
-                        if (storedPlaylist.length > 0) {
-                            const firstSong = playlist.children[0];
-                            audioPlayer.src = firstSong.getAttribute('data-src');
-                            audioPlayer.play();
-                        }
-                    }
-                }
-
+                // Clear the playlist
                 function clearPlaylist() {
                     localStorage.removeItem('playlist');
                     playlist.innerHTML = '';
                     audioPlayer.pause();
                     audioPlayer.currentTime = 0;
-                    currentSongIndex = 0;
                 }
 
-                // Call this function on page load to populate songComments dynamically
-                loadSongCommentsFromHTML();
-
-                // Event listeners for buttons
-                clearButton.addEventListener('click', clearPlaylist);
-
-                // Function to create the email URL
+                // Create email URL for sharing
                 function createEmailURL(songsArray) {
-                    const encodedSongs = songsArray.map(song => encodeURIComponent(song)); // Encode each song title
-                    const songsParam = encodedSongs.join(';');  // Join the songs with semi-colon
-
-                    // Return the full playlist URL
-                    const emailURL = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songsParam}`;
-                    return emailURL;
+                    const encodedSongs = songsArray.map(song => encodeURIComponent(song));
+                    return `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${encodedSongs.join(';')}`;
                 }
 
-                // Function to share the playlist via email
+                // Share playlist via email
                 shareButton.addEventListener('click', function() {
                     const songTitles = Array.from(playlist.children).map(li => li.textContent.trim());
                     const emailBody = `Check out my playlist: ${songTitles.join(', ')}`;
@@ -228,7 +185,7 @@
                     window.location.href = emailLink;
                 });
 
-                // Play selected song when clicked
+                // Play selected song
                 playlist.addEventListener('click', function(event) {
                     if (event.target.tagName === 'LI') {
                         const selectedLi = event.target;
@@ -237,12 +194,15 @@
                         audioPlayer.play();
                     }
                 });
+
+                // Event listener for clear button
+                clearButton.addEventListener('click', clearPlaylist);
+
+                // Initialize song comments on page load
+                loadSongCommentsFromHTML();
             });
         </script>
     </div> <!-- end of contentwide -->
 </div> <!-- end of wrap -->
 <div id="footer">
-    <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
-</div>
-</body>
-</html>
+    <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <
