@@ -208,8 +208,8 @@
                 songs.forEach(song => {
                     const relativePath = song.getAttribute('data-src');
                     if (relativePath) {
-                        // Properly encode the relative path, and replace comma with safe character
-                        songPaths.push(encodeURIComponent(relativePath).replace(/,/g, '%2C'));
+                        // Properly encode the relative path, ensuring spaces are encoded as %20
+                        songPaths.push(encodeURIComponent(relativePath));
                     }
                 });
 
@@ -223,10 +223,11 @@
             shareButton.addEventListener('click', sharePlaylist);
         });
     </script>
+</div>
 
-    <div id="footer">
-        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
-    </div>
+<div id="footer">
+    <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
 </div>
 </body>
 </html>
+
