@@ -228,18 +228,25 @@
 
                 // Remove the trailing semicolon
                 songPaths = songPaths.slice(0, -1);
-
-                const url = `${baseUrl}index.html?songs=${songPaths}`;
-                prompt('Copy this URL to share:', url);
+                
+                const emailSubject = 'Check out my Folk Song Playlist!';
+                const emailBody = 'Here is the link to my Folk Song Playlist:\n\n' +
+                    `${window.location.href.split('?')[0]}?songs=${songPaths}`;
+                
+                window.location.href = `mailto:?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
             }
 
             shareButton.addEventListener('click', sharePlaylist);
         });
     </script>
 </div>
+
+
+
 <div id="footer">
     <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
 </div>
 </body>
 </html>
+
 
