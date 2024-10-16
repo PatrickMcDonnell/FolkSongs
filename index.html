@@ -87,128 +87,179 @@
         </ul>
     </div>
 
-    <div id="contentwide">
-        <h1>Audio Player</h1>
-        <audio id="audio-player" controls>Your browser does not support the audio element.</audio>
-        <ul class="song-list" id="playlist"></ul>
+<div id="contentwide">
+    <h1>Audio Player</h1>
+    <audio id="audio-player" controls>Your browser does not support the audio element.</audio>
+    <ul class="song-list" id="playlist"></ul>
 
-        <button class="clear-button" id="clear-playlist">Clear Playlist</button>
-        <button class="share-button" id="share-playlist">Share Playlist</button>
+    <button class="clear-button" id="clear-playlist">Clear Playlist</button>
+    <button class="share-button" id="share-playlist">Share Playlist</button>
 
-        <script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const audioPlayer = document.getElementById('audio-player');
-                const playlist = document.getElementById('playlist');
-                const clearButton = document.getElementById('clear-playlist');
-                const shareButton = document.getElementById('share-playlist');
-                const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
-                let currentSongIndex = 0;
+<script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const audioPlayer = document.getElementById('audio-player');
+        const playlist = document.getElementById('playlist');
+        const clearButton = document.getElementById('clear-playlist');
+        const shareButton = document.getElementById('share-playlist');
+        const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
+        let currentSongIndex = 0;
 
-                const songComments = {};
+        // Initialize song comments
+        let songComments = {};
 
-                function loadSongCommentsFromHTML() {
-                    fetch('https://patrickmcdonnell.github.io/FolkSongs/Tracks.html')
-                        .then(response => response.text())
-                        .then(htmlText => {
-                            const parser = new DOMParser();
-                            const doc = parser.parseFromString(htmlText, 'text/html');
+        // Fetch and parse the playlist HTML file to dynamically create songComments
+        function loadSongCommentsFromHTML() {
+            fetch('https://patrickmcdonnell.github.io/FolkSongs/Tracks.html')
+                .then(response => response.text())
+                .then(htmlText => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlText, 'text/html');
 
-                            const songElements = doc.querySelectorAll('li');
-                            songElements.forEach(li => {
-                                const title = li.getAttribute('data-title');
-                                const hoverBox = li.querySelector('.hover-box');
+                    // Find all <li> elements
+                    const songElements = doc.querySelectorAll('li');
 
-                                if (title && hoverBox) {
-                                    songComments[title] = hoverBox.textContent.trim();
-                                }
-                            });
+                    songElements.forEach(li => {
+                        const title = li.getAttribute('data-title');
+                        const hoverBox = li.querySelector('.hover-box');
 
-                            initializePlaylistFromURL();
-                        })
-                        .catch(error => {
-                            console.error('Error fetching or parsing the HTML file:', error);
-                        });
-                }
-
-                function initializePlaylistFromURL() {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const songsParam = urlParams.get('songs');
-
-                    if (songsParam) {
-                        playlist.innerHTML = '';
-
-                        const songPaths = songsParam.split(';');
-                        songPaths.forEach(path => {
-                            const filename = decodeURIComponent(path.split('/').pop());
-                            const title = filename.replace(/\.mp3$/, '').replace(/%20/g, ' ');
-
-                            const li = document.createElement('li');
-                            li.textContent = title;
-                            li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
-
-                            const hoverBox = document.createElement('div');
-                            hoverBox.classList.add('hover-box');
-                            hoverBox.textContent = songComments[title] || "Song details not available.";
-
-                            li.appendChild(hoverBox);
-                            playlist.appendChild(li);
-                        });
-
-                        if (songPaths.length > 0) {
-                            audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
-                            audioPlayer.play();
-                        }
-                    }
-                }
-
-                function clearPlaylist() {
-                    localStorage.removeItem('playlist');
-                    playlist.innerHTML = '';
-                    audioPlayer.pause();
-                    audioPlayer.currentTime = 0;
-                    currentSongIndex = 0;
-                }
-
-                loadSongCommentsFromHTML();
-
-                clearButton.addEventListener('click', clearPlaylist);
-
-                function createEmailURL(songsArray) {
-                    const encodedSongs = songsArray.map(song => encodeURIComponent(song)); 
-                    const songsParam = encodedSongs.join(';');  
-
-                    return `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songsParam}`;
-                }
-
-                function sharePlaylist() {
-                    const songs = playlist.querySelectorAll('li');
-                    if (songs.length === 0) {
-                        alert('The playlist is empty.');
-                        return;
-                    }
-
-                    const songPaths = [];
-                    songs.forEach(song => {
-                        const relativePath = song.getAttribute('data-src');
-                        if (relativePath) {
-                            songPaths.push(encodeURIComponent(relativePath));
+                        if (title && hoverBox) {
+                            songComments[title] = hoverBox.textContent.trim();
                         }
                     });
 
-                    const playlistUrl = createEmailURL(songPaths);
-                    window.open(`mailto:?subject=Folk Song Playlist&body=Check out this folk song playlist: ${playlistUrl}`);
+                    // Now songComments is populated, call the function to initialize the playlist
+                    initializePlaylistFromURL();
+                })
+                .catch(error => {
+                    console.error('Error fetching or parsing the HTML file:', error);
+                });
+        }
+
+        function initializePlaylistFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const songsParam = urlParams.get('songs');
+
+            if (songsParam) {
+                playlist.innerHTML = '';  // Clear the previous playlist
+
+                const songPaths = songsParam.split(';');
+                songPaths.forEach(path => {
+                    const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
+                    const title = filename.replace(/\.mp3$/, '').replace(/%20/g, ' '); // Remove .mp3 and replace encoded spaces
+
+                    const li = document.createElement('li');
+                    li.textContent = title;  // Show the full title (with spaces)
+                    li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
+
+                    // Fetch the hover box details from the songComments object
+                    const hoverBox = document.createElement('div');
+                    hoverBox.classList.add('hover-box');
+                    hoverBox.textContent = songComments[title] || "Song details not available.";
+
+                    li.appendChild(hoverBox);
+                    playlist.appendChild(li);
+                });
+
+                if (songPaths.length > 0) {
+                    audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
+                    audioPlayer.play();
                 }
+            }
+        }
 
-                shareButton.addEventListener('click', sharePlaylist);
-            });
-        </script>
+        function initializePlaylist() {
+            // Clear the playlist before reinitializing
+            playlist.innerHTML = '';
+            const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
 
+            if (storedPlaylist) {
+                storedPlaylist.forEach((song) => {
+                    const li = document.createElement('li');
+                    li.textContent = song.title;  // Display the title
+                    li.setAttribute('data-src', song.src);
 
-        <div id="footer">
-            <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
-        </div>
-    </div>
+                    // Attach the hover box for comments
+                    const hoverBox = document.createElement('div');
+                    hoverBox.classList.add('hover-box');
+                    hoverBox.textContent = song.comments || "Song details not available.";  // Use comments if available
+                    li.appendChild(hoverBox);
+
+                    playlist.appendChild(li);
+                });
+
+                if (storedPlaylist.length > 0) {
+                    const firstSong = playlist.children[0];
+                    audioPlayer.src = firstSong.getAttribute('data-src');
+                    audioPlayer.play();
+                }
+            }
+        }
+
+        function clearPlaylist() {
+            localStorage.removeItem('playlist');
+            playlist.innerHTML = '';
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+            currentSongIndex = 0;
+        }
+
+        // Call this function on page load to populate songComments dynamically
+        loadSongCommentsFromHTML();
+
+        // Initialize playlist from localStorage if no songs from URL
+        initializePlaylist();
+
+        // Event listeners for buttons
+        clearButton.addEventListener('click', clearPlaylist);
+
+        // Function to create the email URL
+        function createEmailURL(songsArray) {
+            const encodedSongs = songsArray.map(song => encodeURIComponent(song)); // Encode each song title
+            const songsParam = encodedSongs.join(';');  // Join the songs with semi-colon
+
+            // Return the full playlist URL
+            const emailURL = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songsParam}`;
+            return emailURL;
+        }
+
+        // Function to share the playlist via email
+        function sharePlaylist() {
+            const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
+            if (storedPlaylist && storedPlaylist.length > 0) {
+                const songsArray = storedPlaylist.map(song => song.src);
+                const emailURL = createEmailURL(songsArray);
+                window.open(`mailto:?subject=My Folk Song Playlist&body=Check out this playlist! ${emailURL}`);
+            } else {
+                alert('No songs in the playlist to share.');
+            }
+        }
+
+        shareButton.addEventListener('click', sharePlaylist);
+
+        // Handle song selection from the playlist
+        playlist.addEventListener('click', function(event) {
+            if (event.target.tagName === 'LI') {
+                const selectedSong = event.target;
+                audioPlayer.src = selectedSong.getAttribute('data-src');
+                audioPlayer.play();
+                currentSongIndex = Array.from(playlist.children).indexOf(selectedSong);
+            }
+        });
+
+        audioPlayer.addEventListener('ended', function() {
+            currentSongIndex = (currentSongIndex + 1) % playlist.children.length; // Loop back to the start
+            const nextSong = playlist.children[currentSongIndex];
+            if (nextSong) {
+                audioPlayer.src = nextSong.getAttribute('data-src');
+                audioPlayer.play();
+            }
+        });
+    });
+</script>
+
+<div id="footer">
+    <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
 </div>
 </body>
 </html>
