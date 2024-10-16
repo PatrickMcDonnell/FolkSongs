@@ -7,8 +7,10 @@
     <meta name="keywords" content="folk songs, ballads, traditional music, folk music, Child Ballads, Irish folk, Scottish, Children's Songs, Christmas, American folk, lyrics, song collection, Patrick McDonnell, Kansas City folk singer">
     <meta name="robots" content="index, follow">
     <title>Folk Song Collection - Traditional Music and Ballads</title>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
     <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
     <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -93,6 +95,7 @@
         <button class="clear-button" id="clear-playlist">Clear Playlist</button>
         <button class="share-button" id="share-playlist">Share Playlist</button>
 
+        <script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const audioPlayer = document.getElementById('audio-player');
@@ -100,9 +103,9 @@
                 const clearButton = document.getElementById('clear-playlist');
                 const shareButton = document.getElementById('share-playlist');
                 const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
-                const songComments = {};
+                let currentSongIndex = 0;
 
-                // Load comments from Tracks.html
+                // Fetch and parse the playlist HTML file to dynamically create songComments
                 function loadSongCommentsFromHTML() {
                     fetch('https://patrickmcdonnell.github.io/FolkSongs/Tracks.html')
                         .then(response => response.text())
@@ -110,106 +113,121 @@
                             const parser = new DOMParser();
                             const doc = parser.parseFromString(htmlText, 'text/html');
 
+                            // Initialize the songComments object
+                            const songComments = {};
+
+                            // Find all <li> elements
                             const songElements = doc.querySelectorAll('li');
 
                             songElements.forEach(li => {
-                                const title = li.getAttribute('data-title');
-                                const hoverBox = li.querySelector('.hover-box');
+                                const title = li.getAttribute('data-title'); // Assuming title is in data-title attribute
+                                const hoverBox = li.querySelector('.hover-box'); // Find the hover box
 
                                 if (title && hoverBox) {
-                                    songComments[title] = hoverBox.textContent.trim();
+                                    songComments[title] = hoverBox.textContent.trim(); // Add title and hover box content to the object
                                 }
                             });
 
-                            // Call function to initialize playlist from URL
-                            initializePlaylistFromURL();
+                            // Now songComments is populated, call the function to initialize the playlist
+                            initializePlaylistFromURL(songComments);
                         })
                         .catch(error => {
                             console.error('Error fetching or parsing the HTML file:', error);
                         });
                 }
 
-                // Initialize playlist from URL parameters
-                function initializePlaylistFromURL() {
+                function initializePlaylistFromURL(songComments) {
                     const urlParams = new URLSearchParams(window.location.search);
                     const songsParam = urlParams.get('songs');
 
                     if (songsParam) {
                         playlist.innerHTML = '';  // Clear the previous playlist
-                        const songPaths = songsParam.split(';');
 
+                        const songPaths = songsParam.split(';');  // Changed delimiter to semi-colon
                         songPaths.forEach(path => {
-                            const filename = decodeURIComponent(path.split('/').pop());
-                            const title = filename.replace(/\.mp3$/, '').replace(/%20/g, ' ');
-
-                            // Debug log
-                            console.log('Adding song to playlist:', title);
+                            const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
+                            const title = filename.replace(/\.mp3$/, '').replace(/%20/g, ' '); // Remove .mp3 and replace encoded spaces
 
                             const li = document.createElement('li');
-                            li.textContent = title;
+                            li.textContent = title;  // Show the full title (with spaces) instead of the MP3 file name
                             li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
 
-                            // Create hover box with comments
+                            // Fetch the hover box details from the songComments object
                             const hoverBox = document.createElement('div');
                             hoverBox.classList.add('hover-box');
-                            hoverBox.textContent = songComments[title] || "Song details not available.";
+                            hoverBox.textContent = songComments[title] || "Song details not available.";  // Use mapping or default message
+
                             li.appendChild(hoverBox);
                             playlist.appendChild(li);
                         });
 
-                        // Check if any songs were added to the playlist
                         if (songPaths.length > 0) {
                             audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
                             audioPlayer.play();
-                        } else {
-                            console.warn('No songs found in the provided URL parameter.');
                         }
-                    } else {
-                        console.warn('No songs parameter in the URL.');
                     }
                 }
 
-                // Clear the playlist
+                // Call this function on page load to populate songComments dynamically
+                loadSongCommentsFromHTML();
+
                 function clearPlaylist() {
                     localStorage.removeItem('playlist');
                     playlist.innerHTML = '';
                     audioPlayer.pause();
                     audioPlayer.currentTime = 0;
+                    currentSongIndex = 0;
                 }
 
-                // Create email URL for sharing
-                function createEmailURL(songsArray) {
-                    const encodedSongs = songsArray.map(song => encodeURIComponent(song));
-                    return `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${encodedSongs.join(';')}`;
-                }
+                // Initialize playlist from URL if songs are provided
+                initializePlaylistFromURL();
 
-                // Share playlist via email
-                shareButton.addEventListener('click', function() {
-                    const songTitles = Array.from(playlist.children).map(li => li.textContent.trim());
-                    const emailBody = `Check out my playlist: ${songTitles.join(', ')}`;
-                    const emailLink = `mailto:?subject=My Playlist&body=${encodeURIComponent(emailBody)}`;
-                    window.location.href = emailLink;
-                });
-
-                // Play selected song
-                playlist.addEventListener('click', function(event) {
-                    if (event.target.tagName === 'LI') {
-                        const selectedLi = event.target;
-                        const src = selectedLi.getAttribute('data-src');
-                        audioPlayer.src = src;
-                        audioPlayer.play();
-                    }
-                });
-
-                // Event listener for clear button
+                // Event listeners for buttons
                 clearButton.addEventListener('click', clearPlaylist);
 
-                // Initialize song comments on page load
-                loadSongCommentsFromHTML();
+                // Function to create the email URL
+                function createEmailURL(songsArray) {
+                    const encodedSongs = songsArray.map(song => encodeURIComponent(song)); // Encode each song title
+                    const songsParam = encodedSongs.join(';');  // Join the songs with semi-colon
+
+                    // Return the full playlist URL
+                    const emailURL = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songsParam}`;
+                    return emailURL;
+                }
+
+                // Function to share the playlist via email
+                function sharePlaylist() {
+                    const songs = playlist.querySelectorAll('li');
+                    if (songs.length === 0) {
+                        alert('The playlist is empty.');
+                        return;
+                    }
+
+                    // Create an array to hold the selected song paths
+                    const songPaths = [];
+
+                    // Loop through each selected song and get the data-src attribute
+                    songs.forEach(song => {
+                        const relativePath = song.getAttribute('data-src');
+                        if (relativePath) {
+                            songPaths.push(relativePath);
+                        }
+                    });
+
+                    // Create the playlist URL with all selected songs, using semi-colon as the separator
+                    const playlistUrl = createEmailURL(songPaths);
+
+                    // Open the email client with the created URL
+                    window.open(`mailto:?subject=My Folk Song Playlist&body=Check out my playlist: ${playlistUrl}`);
+                }
+
+                // Event listener for share button
+                shareButton.addEventListener('click', sharePlaylist);
             });
         </script>
-    </div> <!-- end of contentwide -->
-</div> <!-- end of wrap -->
+    </div>
+</div>
+
 <div id="footer">
     <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
 </div>
