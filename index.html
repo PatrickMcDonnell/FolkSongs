@@ -213,15 +213,19 @@
         // Event listeners for buttons
         clearButton.addEventListener('click', clearPlaylist);
 
-        // Function to create the email URL
-        function createEmailURL(songsArray) {
-            const encodedSongs = songsArray.map(song => encodeURIComponent(song)); // Encode each song title
-            const songsParam = encodedSongs.join(';');  // Join the songs with semi-colon
+       // Function to create the email URL
+function createEmailURL(songsArray) {
+    const encodedSongs = songsArray.map(song => {
+        const titleWithSpaces = song.split('/').pop().replace(/\.mp3$/, ''); // Extract title from the path
+        return encodeURIComponent(titleWithSpaces); // Encode the title
+    }); // Encode each song title
+    const songsParam = encodedSongs.join(';');  // Join the songs with a semi-colon
 
-            // Return the full playlist URL
-            const emailURL = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songsParam}`;
-            return emailURL;
-        }
+    // Return the full playlist URL
+    const emailURL = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songsParam}`;
+    return emailURL;
+}
+
 
         // Function to share the playlist via email
         function sharePlaylist() {
