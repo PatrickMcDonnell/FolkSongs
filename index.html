@@ -105,6 +105,31 @@
             const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
             let currentSongIndex = 0;
 
+            // Function to fetch song comments from the external playlist HTML file
+            function fetchSongComments(songPath) {
+                return fetch(baseUrl + 'Tracks.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        const songItems = doc.querySelectorAll('li');
+                        let songComments = '';
+
+                        songItems.forEach(item => {
+                            const src = item.getAttribute('data-src');
+                            if (src && src.endsWith(songPath)) {
+                                const hoverBox = item.querySelector('.hover-box');
+                                if (hoverBox) {
+                                    songComments = hoverBox.textContent;
+                                }
+                            }
+                        });
+
+                        return songComments || "Song details not available.";
+                    })
+                    .catch(() => "Song details not available.");
+            }
+
             // Parse the playlist from URL if provided
             function initializePlaylistFromURL() {
                 const urlParams = new URLSearchParams(window.location.search);
@@ -115,7 +140,7 @@
                     playlist.innerHTML = '';  // Clear the previous playlist
 
                     const songPaths = songsParam.split(';');  // Changed delimiter to semi-colon
-                    songPaths.forEach(path => {
+                    songPaths.forEach(async path => {
                         const filename = decodeURIComponent(path.split('/').pop()); // Get the filename with extension
                         const title = filename.replace(/\.mp3$/, ''); // Remove the .mp3 extension for display
 
@@ -123,10 +148,11 @@
                         li.textContent = title;  // Show the title instead of the MP3 file name
                         li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
                         
-                        // Attach the hover box for comments
+                        // Fetch and set hover box content
                         const hoverBox = document.createElement('div');
                         hoverBox.classList.add('hover-box');
-                        hoverBox.textContent = "Song details not available.";  // Default hover text (can modify later)
+                        const comments = await fetchSongComments(decodeURIComponent(path));
+                        hoverBox.textContent = comments;
                         li.appendChild(hoverBox);
 
                         playlist.appendChild(li);
@@ -190,39 +216,28 @@
             function sharePlaylist() {
                 const songs = playlist.querySelectorAll('li');
                 if (songs.length === 0) {
-                    alert('The playlist is empty.');
+                    alert('No songs in the playlist to share.');
                     return;
                 }
 
-                // Create an array to hold the selected song paths
-                const songPaths = [];
-
-                // Loop through each selected song and get the data-src attribute
+                let songPaths = '';
                 songs.forEach(song => {
-                    let relativePath = song.getAttribute('data-src');
-                    
-                    // Check if the path already contains the full URL and adjust it
-                    if (relativePath.startsWith(baseUrl)) {
-                        relativePath = relativePath.replace(baseUrl, '');  // Strip base URL to avoid duplication
-                    }
-                    
-                    if (relativePath) {
-                        // Properly encode the relative path, and replace comma with safe character
-                        songPaths.push(encodeURIComponent(relativePath).replace(/,/g, '%2C'));
-                    }
+                    const src = song.getAttribute('data-src').replace(baseUrl, '');  // Remove base URL
+                    songPaths += encodeURIComponent(src) + ';';  // Use semicolon as delimiter
                 });
 
-                // Create the playlist URL with all selected songs, using semi-colon as the separator to avoid conflicts with commas in filenames
-                const playlistUrl = `https://patrickmcdonnell.github.io/FolkSongs/index.html?songs=${songPaths.join(';')}&_t=${Date.now()}`;  // Add a timestamp to ensure uniqueness
-                const subject = encodeURIComponent("Playlist from Pat's Music");
+                // Remove the trailing semicolon
+                songPaths = songPaths.slice(0, -1);
 
-                // Construct the email body with a plain text link
+                const url = `${baseUrl}index.html?songs=${songPaths}&_t=${Date.now()}`;
+                const subject = 'Check out this playlist';
                 const body = encodeURIComponent(
-                    `Click here to open the playlist:\n${playlistUrl}\n\n` + 
-                    'You can see other songs here: https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
+                    'Here\'s a playlist for you to enjoy:\n\n' +
+                    url + '\n\n' +
+                    'Listen to all the tracks in this collection by visiting: ' +
+                    'https://patrickmcdonnell.github.io/FolkSongs/homepage.html\n\n'
                 );
 
-                // Use the 'mailto' link to open the user's email client
                 const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
                 window.location.href = mailtoLink;
             }
@@ -237,3 +252,4 @@
 </div>
 </body>
 </html>
+
