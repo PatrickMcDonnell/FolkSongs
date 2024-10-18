@@ -70,7 +70,6 @@
         <h1><a href="#">Folksong Collection</a></h1>
     </div>
     <img id="frontphoto" src="img/1812TheaterHeader.jpg" width="760" height="190" alt="" />
-    
     <div id="leftside">
         <ul class="avmenu">
             <li><a href="Tracks.html">All Tracks</a></li>
@@ -84,6 +83,7 @@
             <li><a href="gospel.html">Gospel</a></li>
             <li><a href="scottish.html">Scottish</a></li>
             <li><a href="shanties.html">Shanties</a></li>
+            <!-- Other playlist links -->
         </ul>
     </div>
 
@@ -129,19 +129,6 @@
                     })
                     .catch(() => "Song details not available.");
             }
-
-            // Function to play the next song
-            function playNextSong() {
-                currentSongIndex++;
-                if (currentSongIndex < playlist.children.length) {
-                    const nextSong = playlist.children[currentSongIndex];
-                    audioPlayer.src = nextSong.getAttribute('data-src');
-                    audioPlayer.play();
-                }
-            }
-
-            // Play next song when the current song ends
-            audioPlayer.addEventListener('ended', playNextSong);
 
             // Parse the playlist from URL if provided
             function initializePlaylistFromURL() {
@@ -233,15 +220,20 @@
                     return;
                 }
 
-                let playlistLinks = [];
+                let songPaths = '';
                 songs.forEach(song => {
-                    const songSrc = song.getAttribute('data-src').replace(baseUrl, '');
-                    playlistLinks.push(encodeURIComponent(songSrc));
+                    const src = song.getAttribute('data-src').replace(baseUrl, '');  // Remove base URL
+                    songPaths += encodeURIComponent(src) + ';';  // Use semicolon as delimiter
                 });
 
-                const emailBody = encodeURIComponent(`Check out this playlist: ${window.location.origin}${window.location.pathname}?songs=${playlistLinks.join(';')}`);
-                const emailSubject = encodeURIComponent('Listen to this Folk Songs Playlist');
-                window.location.href = `mailto:?subject=${emailSubject}&body=${emailBody}`;
+                // Remove the trailing semicolon
+                songPaths = songPaths.slice(0, -1);
+                
+                const emailSubject = 'Check out my Folk Song Playlist!';
+                const emailBody = 'Here is the link to my Folk Song Playlist:\n\n' +
+                    `${window.location.href.split('?')[0]}?songs=${songPaths}`;
+                
+                window.location.href = `mailto:?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
             }
 
             shareButton.addEventListener('click', sharePlaylist);
@@ -249,9 +241,12 @@
     </script>
 </div>
 
+
+
 <div id="footer">
     <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
 </div>
-
 </body>
 </html>
+
+
