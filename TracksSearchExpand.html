@@ -1,0 +1,180 @@
+<!DOCTYPE html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Tracks</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000;
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .track-list li {
+            position: relative;
+            margin: 0;
+            line-height: 1.5;
+            cursor: pointer;
+            color: #000;
+        }
+        .track-list li.selected {
+            color: blue;
+        }
+        .styled-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px;
+            max-height: 80vh;
+            overflow: auto;
+            left: calc(100% + 10px);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block;
+        }
+        #controls {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <h1><a href="#">All Tracks</a></h1>
+        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+        <h1>Select Tracks</h1>
+
+        <!-- Search input -->
+        <input type="text" id="searchInput" placeholder="Search for a song by title, author, date composed, century, or category..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+        
+        <!-- Select All Button -->
+        <button id="selectAllButton" class="styled-button">Select All</button>
+        
+        <!-- Play Button -->
+        <button class="styled-button" id="finished-selecting">Play</button>
+
+        <ul class="track-list">
+            <li data-src="Tracks/A Bicycle Built For Two.mp3" data-title="A Bicycle Built For Two" data-author="Harry Dacre" data-date-composed="1892" data-century="19th Century" data-category="Folk" data-comments="A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.">A Bicycle Built For Two<div class="hover-box">A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.</div></li>
+            <li data-src="Tracks/Adeste Fideles.mp3" data-title="Adeste Fideles" data-author="John Francis Wade" data-date-composed="1744" data-century="18th Century" data-category="Christmas" data-comments="The origins of 'Adeste Fideles' are somewhat disputed. The most commonly accepted attribution is to John Francis Wade, an 18th-century English hymnist, written around 1744 and later translated into English by Frederick Oakeley in 1841.">Adeste Fideles<div class="hover-box">The origins of 'Adeste Fideles' are somewhat disputed. The most commonly accepted attribution is to John Francis Wade, an 18th-century English hymnist, written around 1744 and later translated into English by Frederick Oakeley in 1841.</div></li>
+            <li data-src="Tracks/Amazing Grace.mp3" data-title="Amazing Grace" data-author="John Newton" data-date-composed="1772" data-century="18th Century" data-category="Hymn" data-comments="Composed by John Newton, 1772. A Christian hymn expressing redemption and forgiveness, known for its powerful and uplifting melody.">Amazing Grace<div class="hover-box">Composed by John Newton, 1772. A Christian hymn expressing redemption and forgiveness, known for its powerful and uplifting melody.</div></li>
+        </ul>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const trackListItems = document.querySelectorAll('.track-list li');
+        const searchInput = document.getElementById('searchInput');
+        const selectAllButton = document.getElementById("selectAllButton");
+        const finishedButton = document.getElementById('finished-selecting');
+
+        // Select All functionality
+        selectAllButton.addEventListener("click", function() {
+            trackListItems.forEach(item => item.classList.add('selected'));
+        });
+
+        // Finished selecting functionality (Play button)
+        finishedButton.addEventListener('click', function() {
+            const selectedPlaylist = [];
+            trackListItems.forEach(item => {
+                if (item.classList.contains('selected')) {
+                    const songSrc = item.getAttribute('data-src');
+                    const songTitle = item.getAttribute('data-title');
+                    const songComments = item.getAttribute('data-comments') || '';
+                    selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+                }
+            });
+
+            // Store selected playlist in localStorage
+            localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+            // Redirect back to index.html
+            window.location.href = 'index.html';
+        });
+
+        // Toggle selection of individual tracks
+        trackListItems.forEach(item => {
+            item.addEventListener('click', function() {
+                item.classList.toggle('selected');
+            });
+        });
+
+        // Search functionality by title, author, date composed, century, or category
+        searchInput.addEventListener('input', function() {
+            const filter = searchInput.value.toLowerCase();
+            trackListItems.forEach(function(item) {
+                const title = item.getAttribute('data-title').toLowerCase();
+                const author = item.getAttribute('data-author') ? item.getAttribute('data-author').toLowerCase() : '';
+                const dateComposed = item.getAttribute('data-date-composed') ? item.getAttribute('data-date-composed').toLowerCase() : '';
+                const century = item.getAttribute('data-century') ? item.getAttribute('data-century').toLowerCase() : '';
+                const category = item.getAttribute('data-category') ? item.getAttribute('data-category').toLowerCase() : '';
+                
+                if (title.includes(filter) || author.includes(filter) || dateComposed.includes(filter) || century.includes(filter) || category.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Hover box adjustment for overflow
+        document.querySelectorAll('.track-list li').forEach(function(track) {
+            track.addEventListener('mouseover', function() {
+                const hoverBox = this.querySelector('.hover-box');
+                const rect = hoverBox.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+
+                // Check if hover box would go below the viewport
+                if (rect.bottom > viewportHeight) {
+                    hoverBox.style.top = `-${rect.height}px`;
+                } else {
+                    hoverBox.style.top = '0';
+                }
+            });
+        });
+    });
+    </script>
+
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
+        | <a href="homepage.html">Homepage</a></p>
+    </div>
+</div>
+</body>
+</html>
+
