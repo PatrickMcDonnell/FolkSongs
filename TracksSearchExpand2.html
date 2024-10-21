@@ -89,8 +89,18 @@
             <!-- Select All Button -->
             <button id="selectAllButton" class="styled-button">Select All</button>
             
-            <!-- Genre Button -->
-            <button id="filterGenreButton" class="styled-button">Genre</button>
+         <!-- Genre Dropdown -->
+<select id="genreDropdown" class="styled-button" style="margin-top: 20px;">
+    <option value="">Select Genre</option>
+    <option value="Folk/Pop">Folk/Pop</option>
+    <option value="Hymn/Religious">Hymn/Religious</option>
+    <option value="Irish Folk">Irish Folk</option>
+    <option value="Waltz/Pop">Waltz/Pop</option>
+    <option value="Blues">Blues</option>
+    <option value="Sea Shanty/Folk">Sea Shanty/Folk</option>
+    <option value="Standard/Jazz">Standard/Jazz</option>
+    <option value="Pop">Pop</option>
+</select>
 
             <!-- Play Button -->
             <button class="styled-button" id="finished-selecting">Play</button>
@@ -764,19 +774,18 @@
         }
     });
 
-    // Handle Genre button
-    document.getElementById('filterGenreButton').addEventListener('click', function() {
-        const genre = prompt("Enter genre to filter by (e.g., 'Folk/Pop', 'Blues', etc.):");
-        if (genre) {
-            document.querySelectorAll('.track-list li').forEach(function(track) {
-                if (track.getAttribute('data-category') !== genre) {
-                    track.style.display = 'none';
-                } else {
-                    track.style.display = 'block';
-                }
-            });
+// Handle Genre Dropdown Selection
+document.getElementById('genreDropdown').addEventListener('change', function() {
+    const selectedGenre = this.value;
+    document.querySelectorAll('.track-list li').forEach(function(track) {
+        if (selectedGenre && track.getAttribute('data-category') !== selectedGenre) {
+            track.style.display = 'none';
+        } else {
+            track.style.display = 'block';
         }
     });
+});    
+
 
     // Search functionality
     document.getElementById('searchInput').addEventListener('input', function() {
