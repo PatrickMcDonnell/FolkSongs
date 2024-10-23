@@ -1,8 +1,5 @@
-<li data-src="Tracks/BigRockCandyMountain.mp3" data-title="Big Rock Candy Mountain" data-author="Harry McClintock" data-date-composed="1928" data-century="20th" data-category="Folk Song">Big Rock Candy Mountain<div class="hover-box">Written by Harry McClintock in 1928, this folk song describes a hobo's idea of paradise.</div></li>
 
 <li data-src="Tracks/BlackIsTheColor.mp3" data-title="Black Is The Color" data-author="Traditional" data-date-composed="Unknown" data-century="18th" data-category="Folk Song">Black Is The Color<div class="hover-box">Traditional Appalachian folk song of Scottish origin, expressing love and longing.</div></li>
-
-<li data-src="Tracks/BlueTailFly.mp3" data-title="Blue Tail Fly" data-author="Traditional" data-date-composed="Unknown" data-century="19th" data-category="Minstrel Song">Blue Tail Fly<div class="hover-box">Traditional minstrel song from the 19th century, often associated with slavery in the American South.</div></li>
 
 <li data-src="Tracks/BuryMeNotOnTheLonePrairie.mp3" data-title="Bury Me Not on the Lone Prairie" data-author="Traditional" data-date-composed="Unknown" data-century="19th" data-category="Cowboy Song">Bury Me Not on the Lone Prairie<div class="hover-box">Traditional American cowboy ballad reflecting the somber themes of death and the harsh life of the cowboy.</div></li>
 
