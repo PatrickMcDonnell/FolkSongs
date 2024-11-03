@@ -153,6 +153,7 @@ searchInput.addEventListener('input', function() {
         const author = item.getAttribute('data-author') ? item.getAttribute('data-author').toLowerCase() : '';
         const dateModified = item.getAttribute('data-date-modified') ? item.getAttribute('data-date-modified').toLowerCase() : '';
 
+        // Check if the filter matches any of the fields
         if (title.includes(filter) || author.includes(filter) || dateModified.includes(filter)) {
             item.style.display = '';
         } else {
@@ -160,6 +161,7 @@ searchInput.addEventListener('input', function() {
         }
     });
 });
+
 
     // Fetching Last-Modified dates for each MP3 file
     trackListItems.forEach(async (item) => {
