@@ -50,6 +50,7 @@
             align-items: center;
             text-align: center;
             padding: 10px;
+            margin-top: 20px; /* Ensure some spacing from the content above */
         }
         .hover-box {
             display: none;
@@ -107,98 +108,97 @@
             <li data-src="Tracks/Angels We Have Heard On High.mp3" data-title="Angels We Have Heard On High" data-author="James Chadwick">Angels We Have Heard On High<div class="hover-box">A traditional Christmas carol with French origins.</div></li>
             <!-- Add more tracks here as needed -->
         </ul>
-    
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const trackListItems = document.querySelectorAll('.track-list li');
-    const searchInput = document.getElementById('searchInput');
-    const selectAllButton = document.getElementById("selectAllButton");
-    const finishedButton = document.getElementById('finished-selecting');
-
-    // Select All functionality
-    selectAllButton.addEventListener("click", function() {
-        trackListItems.forEach(item => item.classList.add('selected'));
-    });
-
-    // Finished selecting functionality (Play button)
-    finishedButton.addEventListener('click', function() {
-        const selectedPlaylist = [];
-        trackListItems.forEach(item => {
-            if (item.classList.contains('selected')) {
-                const songSrc = item.getAttribute('data-src');
-                const songTitle = item.getAttribute('data-title');
-                selectedPlaylist.push({ src: songSrc, title: songTitle });
-            }
-        });
-
-        // Store selected playlist in localStorage
-        localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
-
-        // Redirect back to index.html
-        window.location.href = 'index.html';
-    });
-
-    // Toggle selection of individual tracks
-    trackListItems.forEach(item => {
-        item.addEventListener('click', function() {
-            item.classList.toggle('selected');
-        });
-    });
-
-// Search functionality by title, author, or date-modified
-searchInput.addEventListener('input', function() {
-    const filter = searchInput.value.toLowerCase();
-    trackListItems.forEach(function(item) {
-        const title = item.getAttribute('data-title').toLowerCase();
-        const author = item.getAttribute('data-author') ? item.getAttribute('data-author').toLowerCase() : '';
-        const dateModified = item.getAttribute('data-date-modified') ? item.getAttribute('data-date-modified').toLowerCase() : '';
-
-        // Check if the filter matches any of the fields
-        if (title.includes(filter) || author.includes(filter) || dateModified.includes(filter)) {
-            item.style.display = '';
-        } else {
-            item.style.display = 'none';
-        }
-    });
-});
-
-
-    // Fetching Last-Modified dates for each MP3 file
-    trackListItems.forEach(async (item) => {
-        const src = item.getAttribute('data-src');
-        console.log("Fetching last modified for:", src); // Debug log
-        try {
-            const response = await fetch(src, { method: 'HEAD' });
-            if (!response.ok) throw new Error('Network response was not ok'); // Check for response status
-            const lastModified = response.headers.get('Last-Modified');
-            console.log("Last-Modified date:", lastModified); // Debug log
-            if (lastModified) {
-                item.setAttribute('data-date-modified', lastModified); // Set the date-modified attribute
-            }
-        } catch (error) {
-            console.error("Error fetching Last-Modified date:", error); // Log error
-        }
-    });
-
-    // Hover box adjustment for overflow
-    document.querySelectorAll('.track-list li').forEach(function(track) {
-        track.addEventListener('mouseover', function() {
-            const hoverBox = this.querySelector('.hover-box');
-            const rect = hoverBox.getBoundingClientRect();
-            const isOutOfViewport = rect.bottom > window.innerHeight;
-
-            if (isOutOfViewport) {
-                hoverBox.style.top = 'auto';
-                hoverBox.style.bottom = '100%'; // Position above the list item
-            } else {
-                hoverBox.style.top = '100%'; // Position below the list item
-                hoverBox.style.bottom = 'auto';
-            }
-        });
-    });
-});
-</script>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const trackListItems = document.querySelectorAll('.track-list li');
+            const searchInput = document.getElementById('searchInput');
+            const selectAllButton = document.getElementById("selectAllButton");
+            const finishedButton = document.getElementById('finished-selecting');
+
+            // Select All functionality
+            selectAllButton.addEventListener("click", function() {
+                trackListItems.forEach(item => item.classList.add('selected'));
+            });
+
+            // Finished selecting functionality (Play button)
+            finishedButton.addEventListener('click', function() {
+                const selectedPlaylist = [];
+                trackListItems.forEach(item => {
+                    if (item.classList.contains('selected')) {
+                        const songSrc = item.getAttribute('data-src');
+                        const songTitle = item.getAttribute('data-title');
+                        selectedPlaylist.push({ src: songSrc, title: songTitle });
+                    }
+                });
+
+                // Store selected playlist in localStorage
+                localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+                // Redirect back to index.html
+                window.location.href = 'index.html';
+            });
+
+            // Toggle selection of individual tracks
+            trackListItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    item.classList.toggle('selected');
+                });
+            });
+
+            // Search functionality by title, author, or date-modified
+            searchInput.addEventListener('input', function() {
+                const filter = searchInput.value.toLowerCase();
+                trackListItems.forEach(function(item) {
+                    const title = item.getAttribute('data-title').toLowerCase();
+                    const author = item.getAttribute('data-author') ? item.getAttribute('data-author').toLowerCase() : '';
+                    const dateModified = item.getAttribute('data-date-modified') ? item.getAttribute('data-date-modified').toLowerCase() : '';
+
+                    // Check if the filter matches any of the fields
+                    if (title.includes(filter) || author.includes(filter) || dateModified.includes(filter)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+
+            // Fetching Last-Modified dates for each MP3 file
+            trackListItems.forEach(async (item) => {
+                const src = item.getAttribute('data-src');
+                console.log("Fetching last modified for:", src); // Debug log
+                try {
+                    const response = await fetch(src, { method: 'HEAD' });
+                    if (!response.ok) throw new Error('Network response was not ok'); // Check for response status
+                    const lastModified = response.headers.get('Last-Modified');
+                    console.log("Last-Modified date:", lastModified); // Debug log
+                    if (lastModified) {
+                        item.setAttribute('data-date-modified', lastModified); // Set the date-modified attribute
+                    }
+                } catch (error) {
+                    console.error("Error fetching Last-Modified date:", error); // Log error
+                }
+            });
+
+            // Hover box adjustment for overflow
+            document.querySelectorAll('.track-list li').forEach(function(track) {
+                track.addEventListener('mouseover', function() {
+                    const hoverBox = this.querySelector('.hover-box');
+                    const rect = hoverBox.getBoundingClientRect();
+                    const isOutOfViewport = rect.bottom > window.innerHeight;
+
+                    if (isOutOfViewport) {
+                        hoverBox.style.top = 'auto';
+                        hoverBox.style.bottom = '100%'; // Position above the list item
+                    } else {
+                        hoverBox.style.top = '100%'; // Position below the list item
+                        hoverBox.style.bottom = 'auto';
+                    }
+                });
+            });
+        });
+    </script>
     <div id="footer">
         <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
         | <a href="homepage.html">Homepage</a></p>
@@ -206,5 +206,6 @@ searchInput.addEventListener('input', function() {
 </div>
 </body>
 </html>
+
 
 
