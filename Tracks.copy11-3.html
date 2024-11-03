@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Tracks</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000;
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .track-list li {
+            position: relative;
+            margin: 0;
+            line-height: 1.5;
+            cursor: pointer;
+            color: #000;
+        }
+        .track-list li.selected {
+            color: blue;
+        }
+
+        .styled-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px;
+            max-height: 80vh;
+            overflow: auto;
+            left: calc(100% + 10px);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block;
+        }
+
+        #controls {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }  
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <h1><a href="#">All Tracks</a></h1>
+        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+
+        <h1>Select Tracks</h1>
+
+        <input type="text" id="searchInput" placeholder="Search by title, author, or date modified..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+        
+        <button id="selectAllButton" class="styled-button">Select All</button>
+        <button class="styled-button" id="finished-selecting">Play</button>
+
+        <ul class="track-list">
+            <!-- Example track items -->
+            <li data-src="Tracks/A Bicycle Built For Two.mp3" data-title="A Bicycle Built For Two" data-author="Harry Dacre" data-comments="A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre.">A Bicycle Built For Two<div class="hover-box">A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre.</div></li>
+            <li data-src="Tracks/Adeste Fideles.mp3" data-title="Adeste Fideles" data-author="John Francis Wade" data-comments="A traditional hymn, attributed to John Francis Wade in the 18th century.">Adeste Fideles<div class="hover-box">A traditional hymn, attributed to John Francis Wade in the 18th century.</div></li>
+            <!-- Add more tracks here as needed -->
+        </ul>
+
+<script>
+document.addEventListener("DOMContentLoaded", async function() {
+    const trackListItems = document.querySelectorAll('.track-list li');
+    const searchInput = document.getElementById('searchInput');
+    const selectAllButton = document.getElementById("selectAllButton");
+    const finishedButton = document.getElementById('finished-selecting');
+
+    // Function to add date-modified attribute
+    async function addDateModified() {
+        for (const item of trackListItems) {
+            const filePath = item.getAttribute('data-src');
+            try {
+                const response = await fetch(filePath, { method: 'HEAD' });
+                const modifiedDate = response.headers.get('Last-Modified');
+                if (modifiedDate) {
+                    const formattedDate = new Date(modifiedDate).toISOString().split('T')[0];
+                    item.setAttribute('data-date-modified', formattedDate);
+                }
+            } catch (error) {
+                console.error("Error fetching date modified:", error);
+            }
+        }
+    }
+
+    // Call the function to add date-modified attributes
+    await addDateModified();
+
+    // Select All functionality
+    selectAllButton.addEventListener("click", function() {
+        trackListItems.forEach(item => item.classList.add('selected'));
+    });
+
+    // Finished selecting functionality (Play button)
+    finishedButton.addEventListener('click', function() {
+        const selectedPlaylist = [];
+        trackListItems.forEach(item => {
+            if (item.classList.contains('selected')) {
+                selectedPlaylist.push({
+                    src: item.getAttribute('data-src'),
+                    title: item.getAttribute('data-title'),
+                    comments: item.getAttribute('data-comments') || ''
+                });
+            }
+        });
+
+        localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+        window.location.href = 'index.html';
+    });
+
+    // Toggle selection of individual tracks
+    trackListItems.forEach(item => {
+        item.addEventListener('click', function() {
+            item.classList.toggle('selected');
+        });
+    });
+
+    // Search by title, author, or date modified
+    searchInput.addEventListener('input', function() {
+        const filter = searchInput.value.toLowerCase();
+        trackListItems.forEach(item => {
+            const title = item.getAttribute('data-title').toLowerCase();
+            const author = item.getAttribute('data-author') ? item.getAttribute('data-author').toLowerCase() : '';
+            const dateModified = item.getAttribute('data-date-modified') || '';
+            if (title.includes(filter) || author.includes(filter) || dateModified.includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
+
+ <div id="footer">
+        <p>&copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
+    </div>
+</div>
+</body>
+</html>
