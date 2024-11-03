@@ -145,20 +145,22 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Search functionality by title or author
-    searchInput.addEventListener('input', function() {
-        const filter = searchInput.value.toLowerCase();
-        trackListItems.forEach(function(item) {
-            const title = item.getAttribute('data-title').toLowerCase();
-            const author = item.getAttribute('data-author') ? item.getAttribute('data-author').toLowerCase() : '';
-            if (title.includes(filter) || author.includes(filter)) {
-                item.style.display = '';
-            } else {
-                item.style.display = 'none';
-            }
-        });
+// Search functionality by title, author, or date-modified
+searchInput.addEventListener('input', function() {
+    const filter = searchInput.value.toLowerCase();
+    trackListItems.forEach(function(item) {
+        const title = item.getAttribute('data-title').toLowerCase();
+        const author = item.getAttribute('data-author') ? item.getAttribute('data-author').toLowerCase() : '';
+        const dateModified = item.getAttribute('data-date-modified') ? item.getAttribute('data-date-modified').toLowerCase() : '';
+
+        if (title.includes(filter) || author.includes(filter) || dateModified.includes(filter)) {
+            item.style.display = '';
+        } else {
+            item.style.display = 'none';
+        }
     });
-    
+});
+
     // Fetching Last-Modified dates for each MP3 file
     trackListItems.forEach(async (item) => {
         const src = item.getAttribute('data-src');
