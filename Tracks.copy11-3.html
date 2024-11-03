@@ -7,7 +7,75 @@
     <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
     <link rel="stylesheet" type="text/css" href="print.css" media="print" />
     <style>
-        /* Same styling as before */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set default text color to black */
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
+        }
+        .track-list li {
+            position: relative; /* Ensure the hover box is positioned relative to the item */
+            margin: 0;
+            line-height: 1.5; /* Set line height for single spacing */
+            cursor: pointer;
+            color: #000; /* Default text color */
+        }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
+        }
+
+        .styled-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
+
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px;
+            max-height: 80vh;
+            overflow: auto;
+            left: calc(100% + 10px);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block;
+        }
+
+        /* Ensuring buttons are placed properly */
+        #controls {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }  
     </style>
 </head>
 <body>
@@ -18,52 +86,34 @@
 
         <h1>Select Tracks</h1>
 
-        <input type="text" id="searchInput" placeholder="Search by title, author, or date modified..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+        <!-- Search input -->
+        <input type="text" id="searchInput" placeholder="Search for a song by title or author..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
         
+        <!-- Select All Button -->
         <button id="selectAllButton" class="styled-button">Select All</button>
+        
+        <!-- Play Button -->
         <button class="styled-button" id="finished-selecting">Play</button>
 
         <ul class="track-list">
-            <!-- Example track items -->
-            <li data-src="Tracks/A Bicycle Built For Two.mp3" data-title="A Bicycle Built For Two" data-author="Harry Dacre" data-comments="A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre.">A Bicycle Built For Two<div class="hover-box">A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre.</div></li>
-            <li data-src="Tracks/Adeste Fideles.mp3" data-title="Adeste Fideles" data-author="John Francis Wade" data-comments="A traditional hymn, attributed to John Francis Wade in the 18th century.">Adeste Fideles<div class="hover-box">A traditional hymn, attributed to John Francis Wade in the 18th century.</div></li>
+            <li data-src="Tracks/A Bicycle Built For Two.mp3" data-title="A Bicycle Built For Two" data-author="Harry Dacre">A Bicycle Built For Two<div class="hover-box">A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre.</div></li>
+            <li data-src="Tracks/Adeste Fideles.mp3" data-title="Adeste Fideles" data-author="John Francis Wade">Adeste Fideles<div class="hover-box">The origins of 'Adeste Fideles' are somewhat disputed. The most commonly accepted attribution is to John Francis Wade.</div></li>
+            <li data-src="Tracks/A Drink for My Father.mp3" data-title="A Drink for My Father" data-author="Donal Lunny">A Drink for My Father<div class="hover-box">Composed by Donal Lunny, an influential Irish musician, composer, and producer.</div></li>
+            <li data-src="Tracks/After The Ball.mp3" data-title="After The Ball" data-author="Charles K. Harris">After The Ball<div class="hover-box">After the Ball, written in 1891 by Charles K. Harris, is a popular waltz ballad.</div></li>
+            <li data-src="Tracks/Ain't Nobody's Dirty Business.mp3" data-title="Ain't Nobody's Dirty Business" data-author="Mississipi John Hurt">Ain't Nobody's Dirty Business<div class="hover-box">First recorded in 1928 by Mississippi John Hurt.</div></li>
+            <li data-src="Tracks/All For Me Grog.mp3" data-title="All For Me Grog">All For Me Grog<div class="hover-box">Traditional sea shanty, first known in the 19th century.</div></li>
+            <li data-src="Tracks/Amazing Grace.mp3" data-title="Amazing Grace" data-author="John Newton">Amazing Grace<div class="hover-box">Composed by John Newton, 1772.</div></li>
+            <li data-src="Tracks/Anachie Gordon.mp3" data-title="Anachie Gordon">Anachie Gordon<div class="hover-box">Traditional Scottish ballad, first known in the 19th century.</div></li>
+            <li data-src="Tracks/Angels We Have Heard On High.mp3" data-title="Angels We Have Heard On High" data-author="James Chadwick">Angels We Have Heard On High<div class="hover-box">A traditional Christmas carol with French origins.</div></li>
             <!-- Add more tracks here as needed -->
         </ul>
-
+    
 <script>
-document.addEventListener("DOMContentLoaded", async function() {
+document.addEventListener("DOMContentLoaded", function() {
     const trackListItems = document.querySelectorAll('.track-list li');
     const searchInput = document.getElementById('searchInput');
     const selectAllButton = document.getElementById("selectAllButton");
     const finishedButton = document.getElementById('finished-selecting');
-
-    // Function to add date-modified attribute with error handling
-    async function addDateModified() {
-        for (const item of trackListItems) {
-            const filePath = item.getAttribute('data-src');
-            try {
-                const response = await fetch(filePath, { method: 'HEAD' });
-                
-                // Check if the response is okay and includes the Last-Modified header
-                if (response.ok) {
-                    const modifiedDate = response.headers.get('Last-Modified');
-                    if (modifiedDate) {
-                        const formattedDate = new Date(modifiedDate).toISOString().split('T')[0];
-                        item.setAttribute('data-date-modified', formattedDate);
-                    } else {
-                        console.error(`No Last-Modified header for ${filePath}`);
-                    }
-                } else {
-                    console.error(`Failed to fetch ${filePath}:`, response.statusText);
-                }
-            } catch (error) {
-                console.error(`Error fetching date modified for ${filePath}:`, error);
-            }
-        }
-    }
-
-    // Call the function to add date-modified attributes
-    await addDateModified();
 
     // Select All functionality
     selectAllButton.addEventListener("click", function() {
@@ -75,15 +125,16 @@ document.addEventListener("DOMContentLoaded", async function() {
         const selectedPlaylist = [];
         trackListItems.forEach(item => {
             if (item.classList.contains('selected')) {
-                selectedPlaylist.push({
-                    src: item.getAttribute('data-src'),
-                    title: item.getAttribute('data-title'),
-                    comments: item.getAttribute('data-comments') || ''
-                });
+                const songSrc = item.getAttribute('data-src');
+                const songTitle = item.getAttribute('data-title');
+                selectedPlaylist.push({ src: songSrc, title: songTitle });
             }
         });
 
+        // Store selected playlist in localStorage
         localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+        // Redirect back to index.html
         window.location.href = 'index.html';
     });
 
@@ -94,27 +145,61 @@ document.addEventListener("DOMContentLoaded", async function() {
         });
     });
 
-    // Search by title, author, or date modified
+    // Search functionality by title or author
     searchInput.addEventListener('input', function() {
         const filter = searchInput.value.toLowerCase();
-        trackListItems.forEach(item => {
+        trackListItems.forEach(function(item) {
             const title = item.getAttribute('data-title').toLowerCase();
             const author = item.getAttribute('data-author') ? item.getAttribute('data-author').toLowerCase() : '';
-            const dateModified = item.getAttribute('data-date-modified') || '';
-            if (title.includes(filter) || author.includes(filter) || dateModified.includes(filter)) {
+            if (title.includes(filter) || author.includes(filter)) {
                 item.style.display = '';
             } else {
                 item.style.display = 'none';
             }
         });
     });
+    
+    // Fetching Last-Modified dates for each MP3 file
+    trackListItems.forEach(async (item) => {
+        const src = item.getAttribute('data-src');
+        console.log("Fetching last modified for:", src); // Debug log
+        try {
+            const response = await fetch(src, { method: 'HEAD' });
+            if (!response.ok) throw new Error('Network response was not ok'); // Check for response status
+            const lastModified = response.headers.get('Last-Modified');
+            console.log("Last-Modified date:", lastModified); // Debug log
+            if (lastModified) {
+                item.setAttribute('data-date-modified', lastModified); // Set the date-modified attribute
+            }
+        } catch (error) {
+            console.error("Error fetching Last-Modified date:", error); // Log error
+        }
+    });
+
+    // Hover box adjustment for overflow
+    document.querySelectorAll('.track-list li').forEach(function(track) {
+        track.addEventListener('mouseover', function() {
+            const hoverBox = this.querySelector('.hover-box');
+            const rect = hoverBox.getBoundingClientRect();
+            const isOutOfViewport = rect.bottom > window.innerHeight;
+
+            if (isOutOfViewport) {
+                hoverBox.style.top = 'auto';
+                hoverBox.style.bottom = '100%'; // Position above the list item
+            } else {
+                hoverBox.style.top = '100%'; // Position below the list item
+                hoverBox.style.bottom = 'auto';
+            }
+        });
+    });
 });
 </script>
-
- <div id="footer">
-        <p>&copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; | <a href="homepage.html">Homepage</a></p>
+    </div>
+    <div id="footer">
+        <p>&copy; 2024 Your Name. All Rights Reserved.</p>
     </div>
 </div>
 </body>
 </html>
+
 
