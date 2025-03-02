@@ -1090,17 +1090,6 @@
         }
     });
 
-// Handle Genre Dropdown Selection
-document.getElementById('genreDropdown').addEventListener('change', function() {
-    const selectedGenre = this.value;
-    document.querySelectorAll('.track-list li').forEach(function(track) {
-        if (selectedGenre && track.getAttribute('data-category') !== selectedGenre) {
-            track.style.display = 'none';
-        } else {
-            track.style.display = 'block';
-        }
-    });
-});    
 
 
     // Search functionality
