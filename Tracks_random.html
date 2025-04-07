@@ -715,7 +715,41 @@ document.addEventListener("DOMContentLoaded", function() {
         | <a href="homepage.html">Homepage</a></p>
     </div>
 </div>
+<script>
+  function getAllTrackCheckboxes() {
+    // Only selects checkboxes inside the <ul class="track-list">
+    return Array.from(document.querySelectorAll('.track-list input[type="checkbox"]'));
+  }
 
+  function clearAllSelections() {
+    getAllTrackCheckboxes().forEach(cb => cb.checked = false);
+  }
+
+  function selectRandomSongs(count) {
+    const checkboxes = getAllTrackCheckboxes();
+    clearAllSelections();
+    if (count > checkboxes.length) count = checkboxes.length;
+    const shuffled = checkboxes.sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, count);
+    selected.forEach(cb => cb.checked = true);
+  }
+
+  document.getElementById('selectRandomButton').addEventListener('click', () => {
+    const randomCount = 10; // default number of songs
+    selectRandomSongs(randomCount);
+  });
+
+  document.getElementById('selectNumberButton').addEventListener('click', () => {
+    const total = getAllTrackCheckboxes().length;
+    const input = prompt(`Enter the number of songs to select (1 to ${total}):`, "10");
+    const num = parseInt(input, 10);
+    if (!isNaN(num) && num > 0 && num <= total) {
+      selectRandomSongs(num);
+    } else {
+      alert("Please enter a valid number.");
+    }
+  });
+</script>
 </body>
 </html>
 

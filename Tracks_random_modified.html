@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>All Tracks</title>
-<link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
-<link href="print.css" media="print" rel="stylesheet" type="text/css"/>
-<style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Tracks</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
         body {
             font-family: Arial, sans-serif;
             background-image: url('');
@@ -81,20 +81,28 @@
 </head>
 <body>
 <div id="wrap">
-<div id="header">
-<h1><a href="#">All Tracks</a></h1>
-<img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
-<h1>Select Tracks</h1>
-<!-- Search input -->
-<input id="searchInput" placeholder="Search for a song by title or author..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
-<!-- Select All Button -->
-<button class="styled-button" id="selectAllButton">Select All</button>
-<!-- Select Random Button -->
+    <div id="header">
+        <h1><a href="#">All Tracks</a></h1>
+        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
 
-<!-- Select Nuumber Button -->
-<button class="styled-button" id="selectNumberButton">Select Random Songs</button>
-<!-- Play Button -->
-<button class="styled-button" id="finished-selecting">Play</button>
+        <h1>Select Tracks</h1>
+
+        <!-- Search input -->
+            <input type="text" id="searchInput" placeholder="Search for a song by title or author..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+            
+            <!-- Select All Button -->
+            <button id="selectAllButton" class="styled-button">Select All</button>
+
+	    <!-- Select Random Button -->
+            <button id="selectRandomButton" class="styled-button">Select Random Songs</button>
+
+	    <!-- Select Nuumber Button -->
+            <button id="selectNumberButton" class="styled-button">Select Number Of Songs</button>
+            
+            <!-- Play Button -->
+            <button class="styled-button" id="finished-selecting">Play</button>
+
+
         <ul class="track-list">
            
 <li data-src="Tracks/A Bicycle Built For Two.mp3" data-title="A Bicycle Built For Two" data-author="Harry Dacre" data-comments="A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.">A Bicycle Built For Two<div class="hover-box">A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.</div></li>
@@ -272,7 +280,7 @@
 <li data-src="Tracks/Grandfather's Clock.mp3" data-title="Grandfather's Clock" data-author="Henry Clay Work" data-comments="Written by Henry Clay Work, 1876. A song about a grandfather's clock that stops ticking when its owner dies, reflecting on the passage of time.">Grandfather's Clock<div class="hover-box">Written by Henry Clay Work, 1876. A song about a grandfather's clock that stops ticking when its owner dies, reflecting on the passage of time.</div></li>
 <li data-src="Tracks/Grandma Got Run Over By A Reindeer.mp3" data-title="Grandma Got Run Over By A Reindeer" data-author="Randy Brooks" data-date-composed="1977" data-century="20th" data-category="Christmas" data-comments="Grandma Got Run Over by a Reindeer is a humorous Christmas novelty song written by Randy Brooks in 1977. It was popularized by Elmo Shropshire and Patsy Trigg, known as Elmo & Patsy, in a 1979 recording. The song tells a comical tale of a grandmother meeting an unfortunate holiday mishap involving Santa’s sleigh.">Grandma Got Run Over By A Reindeer<div class="hover-box">Grandma Got Run Over by a Reindeer is a humorous Christmas novelty song written by Randy Brooks in 1977. It was popularized by Elmo Shropshire and Patsy Trigg, known as Elmo & Patsy, in a 1979 recording. The song tells a comical tale of a grandmother meeting an unfortunate holiday mishap involving Santa’s sleigh.</div></li>
 <li data-src="Tracks/Great Silkie.mp3" data-title="Great Silkie" data-author="Unknown" data-century="18th" data-date-composed="1700s" data-category="Child Ballads" data-comments="The Great Silkie is a traditional folk ballad from the Orkney Islands, categorized as Child Ballad 113 by Francis James Child. Its origins are unclear, but it likely predates the 19th century. A silkie, in folklore, is a mythical seal that can transform into a human. The song tells of a silkie who reveals himself as the father of a woman's child, foretelling the child's future while lamenting their doomed, transient connection.">Great Silkie<div class="hover-box">The Great Silkie is a traditional folk ballad from the Orkney Islands, categorized as Child Ballad 113 by Francis James Child. Its origins are unclear, but it likely predates the 19th century. A silkie, in folklore, is a mythical seal that can transform into a human. The song tells of a silkie who reveals himself as the father of a woman's child, foretelling the child's future while lamenting their doomed, transient connection.</div></li>
-<li data-src="Tracks/Green Fields Of America.mp3" data-title="Green Fields Of America" data-author="Unknown" data-comments="Green Fields of America is a traditional Irish emigrant song, likely dating back to the 19th century, when many Irish left for new lands. It expresses sorrow and longing for Ireland’s green fields. The song has no known single author, as it was passed down through oral tradition, with variations recorded by different folk singers over time." data-category="Irish"  data-date-composed="1800s"  data-century="19th" data-author="Unknown">Green Fields Of America<div class="hover-box">Green Fields of America is a traditional Irish emigrant song, likely dating back to the 19th century, when many Irish left for new lands. It expresses sorrow and longing for Ireland’s green fields. The song has no known single author, as it was passed down through oral tradition, with variations recorded by different folk singers over time.</div></li>
+<li data-src="Tracks/Green Fields Of America.mp3" data-title="Green Fields Of America" data-author="Robert Burns" data-comments="Green Fields of America is a traditional Irish emigrant song, likely dating back to the 19th century, when many Irish left for new lands. It expresses sorrow and longing for Ireland’s green fields. The song has no known single author, as it was passed down through oral tradition, with variations recorded by different folk singers over time." data-category="Irish"  data-date-composed="1800s"  data-century="19th" data-author="Unknown">Green Fields Of America<div class="hover-box">Green Fields of America is a traditional Irish emigrant song, likely dating back to the 19th century, when many Irish left for new lands. It expresses sorrow and longing for Ireland’s green fields. The song has no known single author, as it was passed down through oral tradition, with variations recorded by different folk singers over time.</div></li>
 <li data-src="Tracks/Green Grow the Rashes, O.mp3" data-title="Green Grow the Rashes, O" data-author="Robert Burns" data-comments="Written by Robert Burns, 1785. Child Ballad 250. A Scottish song celebrating the virtues of simple, rustic life over material wealth.">Green Grow the Rashes, O<div class="hover-box">Written by Robert Burns, 1785. Child Ballad 250. A Scottish song celebrating the virtues of simple, rustic life over material wealth.</div></li>
 <li data-src="Tracks/Greenland Fisheries.mp3" data-title="Greenland Fisheries" data-comments="Traditional British sea shanty, first known in the 19th century. A song about the Greenland whaling industry and the hardships faced by sailors.">Greenland Fisheries<div class="hover-box">Traditional British sea shanty, first known in the 19th century. A song about the Greenland whaling industry and the hardships faced by sailors.</div></li>
 <li data-src="Tracks/Greensleeves.mp3" data-title="Greensleeves" data-comments="Traditional English folk song, first known in the 16th century. Child Ballad 158. A song about unrequited love, often associated with the Tudor period.">Greensleeves<div class="hover-box">Traditional English folk song, first known in the 16th century. Child Ballad 158. A song about unrequited love, often associated with the Tudor period.</div></li>
@@ -321,7 +329,6 @@
 <li data-src="Tracks/I'm A Rover.mp3" data-title="I'm A Rover" data-century="18th" data-date-composed="1700s" data-author="Unknown" data-category="Scottish" data-comments="I'm A Rover is a traditional Scottish or Irish folk song, with origins likely in the 18th or early 19th century, though no single composer is known. It tells the story of a rover who visits his lover at night, braving danger to be with her. The song, often performed in a lilting waltz rhythm, has remained popular in folk traditions, recorded by numerous artists for its romantic and wandering themes.">I'm A Rover<div class="hover-box">I'm A Rover is a traditional Scottish or Irish folk song, with origins likely in the 18th or early 19th century, though no single composer is known. It tells the story of a rover who visits his lover at night, braving danger to be with her. The song, often performed in a lilting waltz rhythm, has remained popular in folk traditions, recorded by numerous artists for its romantic and wandering themes.</div></li>
 <li data-src="Tracks/I'm Gettin Nuttin For Christmas.mp3" data-title="I'm Gettin Nuttin For Christmas" data-author="Sid Tepper and Roy C. Bennett" data-category="Christmas" data-date-composed="1955" data-century="20th" data-comments="I'm Gettin' Nuttin' for Christmas is a novelty Christmas song written by Sid Tepper and Roy C. Bennett in 1955. The humorous song humorously recounts a child's mischievous deeds and the resulting punishment of receiving nothing for Christmas. It became popular through renditions by artists like Stan Freberg and Ricky Zahnd.">I'm Gettin Nuttin For Christmas<div class="hover-box">I'm Gettin' Nuttin' for Christmas is a novelty Christmas song written by Sid Tepper and Roy C. Bennett in 1955. The humorous song humorously recounts a child's mischievous deeds and the resulting punishment of receiving nothing for Christmas. It became popular through renditions by artists like Stan Freberg and Ricky Zahnd.</div></li>
 <li data-src="Tracks/I'm Going Down The Road Feeling Bad.mp3" data-title="I'm Going Down The Road Feeling Bad" data-comments="Traditional American folk song, first known in the 19th century. A song about leaving and the sorrow of parting.">I'm Going Down The Road Feeling Bad<div class="hover-box">Traditional American folk song, first known in the 19th century. A song about leaving and the sorrow of parting.</div></li>
-<li data-src="Tracks/I'm Gonna Say It Now.mp3" data-title="I'm Gonna Say It Now" data-author="Phil Ochs" data-date-composed="1969" data-century="20th" data-category="Folk" data-comments="I'm Gonna Say It Now is another Phil Ochs song, released in 1969 on Rehearsals for Retirement. It’s a defiant anthem from the perspective of a student confronting academic authority and the status quo. Bold and direct, the song channels 1960s protest energy and reflects Ochs' deepening political frustration.">I'm Gonna Say It Now<div class="hover-box">I'm Gonna Say It Now is another Phil Ochs song, released in 1969 on Rehearsals for Retirement. It’s a defiant anthem from the perspective of a student confronting academic authority and the status quo. Bold and direct, the song channels 1960s protest energy and reflects Ochs' deepening political frustration.</div></li>
 <li data-src="Tracks/I'm On My Way.mp3" data-title="I'm On My Way" data-comments="I'm On My Way is a traditional African American spiritual song, often associated with the civil rights movement. Its origins date back to the 19th century, and it's been performed in various forms by artists like Mahalia Jackson. The song speaks of faith, perseverance, and the journey to freedom or salvation.">I'm On My Way<div class="hover-box">I'm On My Way is a traditional African American spiritual song, often associated with the civil rights movement. Its origins date back to the 19th century, and it's been performed in various forms by artists like Mahalia Jackson. The song speaks of faith, perseverance, and the journey to freedom or salvation.</div></li>
 <li data-src="Tracks/I'm So Lonesome I Could Cry.mp3" data-title="I'm So Lonesome I Could Cry" data-date-composed="1949" data-century="20th" data-author="Hank Williams" data-category="Country" data-comments="I'm So Lonesome I Could Cry is a country song written and recorded by Hank Williams in 1949. Released as the B-side to My Bucket's Got a Hole in It, the song became one of his most enduring classics. Its melancholic lyrics and haunting melody capture deep loneliness and sorrow, drawing inspiration from Williams' troubled personal life. The song has since been covered by numerous artists across various genres.">I'm So Lonesome I Could Cry<div class="hover-box">I'm So Lonesome I Could Cry is a country song written and recorded by Hank Williams in 1949. Released as the B-side to My Bucket's Got a Hole in It, the song became one of his most enduring classics. Its melancholic lyrics and haunting melody capture deep loneliness and sorrow, drawing inspiration from Williams' troubled personal life. The song has since been covered by numerous artists across various genres.</div></li>
 <li data-src="Tracks/I'm Walking The Dog.mp3" data-title="I'm Walking The Dog" data-author="Rudy Toombs" data-comments="Written by Rudy Toombs, 1950. A blues song about a man’s interactions with his dog and reflections on life.">I'm Walking The Dog<div class="hover-box">Written by Rudy Toombs, 1950. A blues song about a man’s interactions with his dog and reflections on life.</div></li>
@@ -553,7 +560,6 @@
 <li data-src="Tracks/The Farmer In The Dell.mp3" data-title="The Farmer In The Dell" data-comments="Traditional nursery rhyme, first known in the 19th century. A rhyme about a farmer and the characters who join him in the dell. The earliest recorded reference to 'The Farmer in the Dell' in English dates to the 1820s in Germany. The song was likely brought to the United States by German immigrants and became popular in the 1830s and 1840s. By the 1850s, it was already widely known in American schools and among children, solidifying its presence in English-speaking cultures during the early-to-mid 19th century.">The Farmer In The Dell<div class="hover-box">Traditional nursery rhyme, first known in the 19th century. A rhyme about a farmer and the characters who join him in the dell. The earliest recorded reference to 'The Farmer in the Dell' in English dates to the 1820s in Germany. The song was likely brought to the United States by German immigrants and became popular in the 1830s and 1840s. By the 1850s, it was already widely known in American schools and among children, solidifying its presence in English-speaking cultures during the early-to-mid 19th century.</div></li>
 <li data-src="Tracks/The First Cut Is The Deepest.mp3" data-title="The First Cut Is The Deepest" data-comments="The song The First Cut Is the Deepest was written by British singer-songwriter Cat Stevens in 1965 and first recorded by P.P. Arnold in 1967. It became a hit and was later covered by numerous artists, including Rod Stewart in 1977 and Sheryl Crow in 2003. The song expresses heartbreak over lost love, with lyrics reflecting the pain of opening up to love again after being hurt." data-date-composed="1965" data-century="20th" data-category="Folk" data-author="Cat Stevens">The First Cut Is The Deepest<div class="hover-box">The song The First Cut Is the Deepest was written by British singer-songwriter Cat Stevens in 1965 and first recorded by P.P. Arnold in 1967. It became a hit and was later covered by numerous artists, including Rod Stewart in 1977 and Sheryl Crow in 2003. The song expresses heartbreak over lost love, with lyrics reflecting the pain of opening up to love again after being hurt.</div></li>
 <li data-src="Tracks/The First Noel.mp3" data-title="The First Noel" data-comments="A traditional English Christmas carol, believed to have originated in the early 19th century in Cornwall. Its exact authorship is unknown, and it was first published in 'Carols Ancient and Modern' in 1823. The song recounts the story of the birth of Jesus.">The First Noel<div class="hover-box">A traditional English Christmas carol, believed to have originated in the early 19th century in Cornwall. Its exact authorship is unknown, and it was first published in 'Carols Ancient and Modern' in 1823. The song recounts the story of the birth of Jesus.</div></li>
-<li data-src="Tracks/The Flower Lady.mp3" data-title="The Flower Lady" data-comments="The Flower Lady was written and recorded by Phil Ochs in 1967 for his album Pleasures of the Harbor. It contrasts the innocence of a street flower vendor with the cynical and corrupt world around her, delivered in poetic, surreal lyrics and a haunting classical arrangement. Ochs used this song to reflect on societal decay and personal disillusionment during the Vietnam era." data-date-composed="1967" data-century="20th" data-category="Folk" data-author="PHIL oCHS" >The Flower Lady<div class="hover-box">The Flower Lady was written and recorded by Phil Ochs in 1967 for his album Pleasures of the Harbor. It contrasts the innocence of a street flower vendor with the cynical and corrupt world around her, delivered in poetic, surreal lyrics and a haunting classical arrangement. Ochs used this song to reflect on societal decay and personal disillusionment during the Vietnam era.</div></li>
 <li data-src="Tracks/The Fox.mp3" data-title="The Fox" data-comments="The Fox is a traditional folk song of unknown origin, dating back to at least the 15th century. It tells the story of a fox sneaking into a farm to steal a goose. The song has been passed down orally, with various versions across England, Scotland, and America. No specific author is known.">The Fox<div class="hover-box">The Fox is a traditional folk song of unknown origin, dating back to at least the 15th century. It tells the story of a fox sneaking into a farm to steal a goose. The song has been passed down orally, with various versions across England, Scotland, and America. No specific author is known.</div></li>
 <li data-src="Tracks/The Golden Vanity.mp3" data-title="The Golden Vanity" ata-comments="Traditional English ballad, first known in the 16th century. Child Ballad 11. A tragic tale about a brother’s cruelty and the consequences of his actions.">The Golden Vanity<div class="hover-box">Traditional English ballad, first known in the 16th century. Child Ballad 11. A tragic tale about a brother’s cruelty and the consequences of his actions.</div></li>
 <li data-src="Tracks/The Idiot.mp3" data-title="The Idiot" data-author="Stan Rogers" data-comments="Written by Stan Rogers, first released in 1981 on his album Northwest Passage. Stan Rogers was a Canadian folk musician known for his powerful voice and songwriting, often reflecting Canadian life and history.">The Idiot<div class="hover-box">Written by Stan Rogers, first released in 1981 on his album Northwest Passage. Stan Rogers was a Canadian folk musician known for his powerful voice and songwriting, often reflecting Canadian life and history.</div></li>
@@ -633,6 +639,7 @@
 <li data-src="Tracks/Zip-A-Dee-Doo-Dah.mp3" data-title="Zip-A-Dee-Doo-Dah" data-author="Allie Wrubgel and Ray Gilbert" data-comments="Written by Allie Wrubel and lyricist Ray Gilbert in 1946 for the Disney film Song of the South. Sung by actor James Baskett in his role as Uncle Remus, the song won the Academy Award for Best Original Song in 1948. Its upbeat, cheerful melody and lyrics reflect a carefree, optimistic attitude, often associated with a bright, sunny day. Despite its musical success, the film itself has become controversial for its depiction of race and plantation life in the American South.">Zip-A-Dee-Doo-Dah<div class="hover-box">Written by Allie Wrubel and lyricist Ray Gilbert in 1946 for the Disney film Song of the South. Sung by actor James Baskett in his role as Uncle Remus, the song won the Academy Award for Best Original Song in 1948. Its upbeat, cheerful melody and lyrics reflect a carefree, optimistic attitude, often associated with a bright, sunny day. Despite its musical success, the film itself has become controversial for its depiction of race and plantation life in the American South.</div></li>
 <!-- Add more tracks here as needed -->
         </ul>
+    
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const trackListItems = document.querySelectorAll('.track-list li');
@@ -702,13 +709,15 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
-<div id="footer">
-<p>Copyright © 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> · 
+
+ <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
         | <a href="homepage.html">Homepage</a></p>
-</div>
+    </div>
 </div>
 
-</div><script>
+
+<script>
   function getAllTrackItems() {
     return Array.from(document.querySelectorAll(".track-list li"));
   }
@@ -726,6 +735,11 @@ document.addEventListener("DOMContentLoaded", function() {
     selected.forEach(item => item.classList.add("selected"));
   }
 
+  document.getElementById("selectRandomButton").addEventListener("click", () => {
+    const defaultCount = 10; // You can change this
+    selectRandomItems(defaultCount);
+  });
+
   document.getElementById("selectNumberButton").addEventListener("click", () => {
     const total = getAllTrackItems().length;
     const input = prompt(`Enter the number of songs to select (1 to ${total}):`, "10");
@@ -736,5 +750,8 @@ document.addEventListener("DOMContentLoaded", function() {
       alert("Please enter a valid number between 1 and " + total);
     }
   });
-</script></body>
+</script>
+
+</body>
 </html>
+
