@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>All Tracks</title>
-<link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
-<link href="print.css" media="print" rel="stylesheet" type="text/css"/>
-<style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folk</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
         body {
             font-family: Arial, sans-serif;
             background-image: url('');
@@ -36,14 +36,22 @@
             color: blue; /* Selected text color */
         }
 
-        .styled-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #808080; /* Grey background */
-            color: #fff; /* White text */
-            border: none;
-            cursor: pointer;
-        }
+.styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
+      .styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
 
         #footer {
             display: flex;
@@ -70,33 +78,24 @@
         .track-list li:hover .hover-box {
             display: block;
         }
-
-     /* Ensuring buttons are placed properly */
-        #controls {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-        }  
     </style>
 </head>
 <body>
 <div id="wrap">
-<div id="header">
-<h1><a href="#">All Tracks</a></h1>
-<img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
-<h1>Select Tracks</h1>
-<!-- Search input -->
-<input id="searchInput" placeholder="Search for a song by title or author..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
-<!-- Select All Button -->
-<button class="styled-button" id="selectAllButton">Select All</button>
-<!-- Select Random Button -->
+    <div id="header">
+        <h1><a href="#">Folk</a></h1>
+        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+        <h1>Select Tracks</h1>
+        <!-- Search input -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
 
-<!-- Select Nuumber Button -->
-<button class="styled-button" id="selectNumberButton">Select Random Songs</button>
+<!-- Select All Button -->
+<button id="selectAllButton" class="styled-button">Select All</button>
+
 <!-- Play Button -->
 <button class="styled-button" id="finished-selecting">Play</button>
 
-         <ul class="track-list">
+        <ul class="track-list">
            
 <li data-src="Tracks/A Bicycle Built For Two.mp3" data-title="A Bicycle Built For Two" data-author="Harry Dacre" data-comments="A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.">A Bicycle Built For Two<div class="hover-box">A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.</div></li>
 <li data-src="Tracks/Abraham, Martin and John.mp3" data-title="Abraham, Martin and John" data-author="Dick Holler" data-date-composed="1968" data-century="20th" data-category="Folk" data-comments="Abraham, Martin and John is a song written by Dick Holler in 1968 and first recorded by Dion. It mourns the assassinations of Abraham Lincoln, Martin Luther King Jr., and John F. Kennedy, later adding Robert F. Kennedy in some versions. The song became a major hit for Dion, marking his transition from teen idol to a more serious artist. Its folk-pop style and reflective lyrics made it a poignant anthem of the era.">Abraham, Martin and John<div class="hover-box">Abraham, Martin and John is a song written by Dick Holler in 1968 and first recorded by Dion. It mourns the assassinations of Abraham Lincoln, Martin Luther King Jr., and John F. Kennedy, later adding Robert F. Kennedy in some versions. The song became a major hit for Dion, marking his transition from teen idol to a more serious artist. Its folk-pop style and reflective lyrics made it a poignant anthem of the era.</div></li>
@@ -315,19 +314,20 @@
 <li data-src="Tracks/Zip-A-Dee-Doo-Dah.mp3" data-title="Zip-A-Dee-Doo-Dah" data-author="Allie Wrubgel and Ray Gilbert" data-comments="Written by Allie Wrubel and lyricist Ray Gilbert in 1946 for the Disney film Song of the South. Sung by actor James Baskett in his role as Uncle Remus, the song won the Academy Award for Best Original Song in 1948. Its upbeat, cheerful melody and lyrics reflect a carefree, optimistic attitude, often associated with a bright, sunny day. Despite its musical success, the film itself has become controversial for its depiction of race and plantation life in the American South.">Zip-A-Dee-Doo-Dah<div class="hover-box">Written by Allie Wrubel and lyricist Ray Gilbert in 1946 for the Disney film Song of the South. Sung by actor James Baskett in his role as Uncle Remus, the song won the Academy Award for Best Original Song in 1948. Its upbeat, cheerful melody and lyrics reflect a carefree, optimistic attitude, often associated with a bright, sunny day. Despite its musical success, the film itself has become controversial for its depiction of race and plantation life in the American South.</div></li>
             <!-- Add more tracks here as needed -->
         </ul>
+   
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const trackListItems = document.querySelectorAll('.track-list li');
-    const searchInput = document.getElementById('searchInput');
-    const selectAllButton = document.getElementById("selectAllButton");
-    const finishedButton = document.getElementById('finished-selecting');
-
     // Select All functionality
-    selectAllButton.addEventListener("click", function() {
+    document.getElementById("selectAllButton").addEventListener("click", function() {
+        const trackListItems = document.querySelectorAll('.track-list li');
         trackListItems.forEach(item => item.classList.add('selected'));
     });
 
-    // Finished selecting functionality (Play button)
+    const trackListItems = document.querySelectorAll('.track-list li');
+    const finishedButton = document.getElementById('finished-selecting');
+    const searchInput = document.getElementById('searchInput');
+
     finishedButton.addEventListener('click', function() {
         const selectedPlaylist = [];
         trackListItems.forEach(item => {
@@ -346,28 +346,25 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = 'index.html';
     });
 
-    // Toggle selection of individual tracks
     trackListItems.forEach(item => {
         item.addEventListener('click', function() {
             item.classList.toggle('selected');
         });
     });
 
-    // Search functionality by title or author
+    // Add search functionality
     searchInput.addEventListener('input', function() {
         const filter = searchInput.value.toLowerCase();
         trackListItems.forEach(function(item) {
             const title = item.getAttribute('data-title').toLowerCase();
-            const author = item.getAttribute('data-author') ? item.getAttribute('data-author').toLowerCase() : '';
-            if (title.includes(filter) || author.includes(filter)) {
+            if (title.includes(filter)) {
                 item.style.display = '';
             } else {
                 item.style.display = 'none';
             }
         });
     });
-    
-    // Hover box adjustment for overflow
+});
     document.querySelectorAll('.track-list li').forEach(function(track) {
         track.addEventListener('mouseover', function() {
             const hoverBox = this.querySelector('.hover-box');
@@ -382,41 +379,13 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
-});
+
 </script>
-<div id="footer">
-<p>Copyright © 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> · 
-        | <a href="homepage.html">Homepage</a></p>
+
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="homepage.html">Homepage</a></p>
+    </div>
 </div>
-</div>
-
-</div><script>
-  function getAllTrackItems() {
-    return Array.from(document.querySelectorAll(".track-list li"));
-  }
-
-  function clearAllSelections() {
-    getAllTrackItems().forEach(item => item.classList.remove("selected"));
-  }
-
-  function selectRandomItems(count) {
-    const items = getAllTrackItems();
-    clearAllSelections();
-    if (count > items.length) count = items.length;
-    const shuffled = [...items].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, count);
-    selected.forEach(item => item.classList.add("selected"));
-  }
-
-  document.getElementById("selectNumberButton").addEventListener("click", () => {
-    const total = getAllTrackItems().length;
-    const input = prompt(`Enter the number of songs to select (1 to ${total}):`, "10");
-    const num = parseInt(input, 10);
-    if (!isNaN(num) && num > 0 && num <= total) {
-      selectRandomItems(num);
-    } else {
-      alert("Please enter a valid number between 1 and " + total);
-    }
-  });
-</script></body>
+</body>
 </html>
