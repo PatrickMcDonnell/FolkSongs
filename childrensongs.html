@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Children's Songs</title>
-    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
-    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>All Tracks</title>
+<link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
+<link href="print.css" media="print" rel="stylesheet" type="text/css"/>
+<style>
         body {
             font-family: Arial, sans-serif;
             background-image: url('');
@@ -35,22 +36,14 @@
             color: blue; /* Selected text color */
         }
 
-.styled-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #808080; /* Grey background */
-    color: #fff; /* White text */
-    border: none;
-    cursor: pointer;
-}
-      .styled-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #808080; /* Grey background */
-    color: #fff; /* White text */
-    border: none;
-    cursor: pointer;
-}
+        .styled-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
 
         #footer {
             display: flex;
@@ -77,24 +70,33 @@
         .track-list li:hover .hover-box {
             display: block;
         }
+
+     /* Ensuring buttons are placed properly */
+        #controls {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }  
     </style>
 </head>
 <body>
 <div id="wrap">
-    <div id="header">
-        <h1><a href="#">Children's Songs</a></h1>
-        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
-        <h1>Select Tracks</h1>
-        <!-- Search input -->
-        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
-
+<div id="header">
+<h1><a href="#">All Tracks</a></h1>
+<img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
+<h1>Select Tracks</h1>
+<!-- Search input -->
+<input id="searchInput" placeholder="Search for a song by title or author..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
 <!-- Select All Button -->
-<button id="selectAllButton" class="styled-button">Select All</button>
+<button class="styled-button" id="selectAllButton">Select All</button>
+<!-- Select Random Button -->
 
+<!-- Select Nuumber Button -->
+<button class="styled-button" id="selectNumberButton">Select Random Songs</button>
 <!-- Play Button -->
 <button class="styled-button" id="finished-selecting">Play</button>
 
-        <ul class="track-list">
+         <ul class="track-list">
            
 <li data-src="Tracks/Baa Baa Black Sheep.mp3" data-title="Baa Baa Black Sheep" data-comments="Traditional English nursery rhyme, first known in 1731. A simple and catchy nursery rhyme about a black sheep giving wool.">Baa Baa Black Sheep<div class="hover-box">Traditional English nursery rhyme, first known in 1731. A simple and catchy nursery rhyme about a black sheep giving wool.</div></li>
 <li data-src="Tracks/Baby Bumble Bee.mp3" data-title="Baby Bumble Bee" data-comments="Traditional American children's song, first known in the early 20th century. A playful and humorous song about bringing home a baby bumblebee.">Baby Bumble Bee<div class="hover-box">Traditional American children's song, first known in the early 20th century. A playful and humorous song about bringing home a baby bumblebee.</div></li>
@@ -129,21 +131,19 @@
 
 
             <!-- Add more tracks here as needed -->
-        </ul>
-   
-
-<script>
+        </ul><script>
 document.addEventListener("DOMContentLoaded", function() {
+    const trackListItems = document.querySelectorAll('.track-list li');
+    const searchInput = document.getElementById('searchInput');
+    const selectAllButton = document.getElementById("selectAllButton");
+    const finishedButton = document.getElementById('finished-selecting');
+
     // Select All functionality
-    document.getElementById("selectAllButton").addEventListener("click", function() {
-        const trackListItems = document.querySelectorAll('.track-list li');
+    selectAllButton.addEventListener("click", function() {
         trackListItems.forEach(item => item.classList.add('selected'));
     });
 
-    const trackListItems = document.querySelectorAll('.track-list li');
-    const finishedButton = document.getElementById('finished-selecting');
-    const searchInput = document.getElementById('searchInput');
-
+    // Finished selecting functionality (Play button)
     finishedButton.addEventListener('click', function() {
         const selectedPlaylist = [];
         trackListItems.forEach(item => {
@@ -162,25 +162,28 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = 'index.html';
     });
 
+    // Toggle selection of individual tracks
     trackListItems.forEach(item => {
         item.addEventListener('click', function() {
             item.classList.toggle('selected');
         });
     });
 
-    // Add search functionality
+    // Search functionality by title or author
     searchInput.addEventListener('input', function() {
         const filter = searchInput.value.toLowerCase();
         trackListItems.forEach(function(item) {
             const title = item.getAttribute('data-title').toLowerCase();
-            if (title.includes(filter)) {
+            const author = item.getAttribute('data-author') ? item.getAttribute('data-author').toLowerCase() : '';
+            if (title.includes(filter) || author.includes(filter)) {
                 item.style.display = '';
             } else {
                 item.style.display = 'none';
             }
         });
     });
-});
+    
+    // Hover box adjustment for overflow
     document.querySelectorAll('.track-list li').forEach(function(track) {
         track.addEventListener('mouseover', function() {
             const hoverBox = this.querySelector('.hover-box');
@@ -195,13 +198,41 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
-
+});
 </script>
-
-    <div id="footer">
-        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
-            | <a href="homepage.html">Homepage</a></p>
-    </div>
+<div id="footer">
+<p>Copyright © 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> · 
+        | <a href="homepage.html">Homepage</a></p>
 </div>
-</body>
+</div>
+
+</div><script>
+  function getAllTrackItems() {
+    return Array.from(document.querySelectorAll(".track-list li"));
+  }
+
+  function clearAllSelections() {
+    getAllTrackItems().forEach(item => item.classList.remove("selected"));
+  }
+
+  function selectRandomItems(count) {
+    const items = getAllTrackItems();
+    clearAllSelections();
+    if (count > items.length) count = items.length;
+    const shuffled = [...items].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, count);
+    selected.forEach(item => item.classList.add("selected"));
+  }
+
+  document.getElementById("selectNumberButton").addEventListener("click", () => {
+    const total = getAllTrackItems().length;
+    const input = prompt(`Enter the number of songs to select (1 to ${total}):`, "10");
+    const num = parseInt(input, 10);
+    if (!isNaN(num) && num > 0 && num <= total) {
+      selectRandomItems(num);
+    } else {
+      alert("Please enter a valid number between 1 and " + total);
+    }
+  });
+</script></body>
 </html>
