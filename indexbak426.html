@@ -92,10 +92,8 @@
     <audio id="audio-player" controls>Your browser does not support the audio element.</audio>
     <ul class="song-list" id="playlist"></ul>
 
-<button class="clear-button" id="clear-playlist">Clear Playlist</button>
-<button class="share-button" id="share-playlist">Share Playlist</button>
-<button class="share-button" id="open-visualizer">Open Visualizer</button>
-
+    <button class="clear-button" id="clear-playlist">Clear Playlist</button>
+    <button class="share-button" id="share-playlist">Share Playlist</button>
 
     <script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
     <script>
@@ -235,20 +233,6 @@
                 window.location.href = `mailto:?subject=${subject}&body=${body}`;
             });
         });
-
-const visualizerButton = document.getElementById('open-visualizer');
-
-visualizerButton.addEventListener('click', function() {
-    const audioPlayer = document.getElementById('audio-player');
-    const currentSong = audioPlayer.src;
-    if (currentSong) {
-        window.open('Visualizer.html?song=' + encodeURIComponent(currentSong), '_blank');
-    } else {
-        alert('No song is playing!');
-    }
-});
-
-
     </script>
 </div>
 
