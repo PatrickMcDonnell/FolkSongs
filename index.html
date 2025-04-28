@@ -167,8 +167,7 @@ audioPlayer.addEventListener('play', () => {
 });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
-   <script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
   const playlist = document.getElementById('playlist');
   const clearButton = document.getElementById('clear-playlist');
@@ -255,6 +254,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const body = encodeURIComponent(`Here is a playlist I thought you might like: ${shareURL}`);
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
   });
+
+  initializePlaylistFromURL();
+});
+</script>
 
 
             initializePlaylistFromURL();
