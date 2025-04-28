@@ -111,8 +111,10 @@ function draw() {
   ctx.fillStyle = 'black';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = 'lime';
+ctx.strokeStyle = '#66ccff';  // soft light blue
+ctx.lineWidth = 7;
+
+ 
   ctx.beginPath();
 
   const sliceWidth = canvas.width * 1.0 / bufferLength;
