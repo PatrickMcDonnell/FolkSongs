@@ -204,8 +204,8 @@ document.addEventListener('DOMContentLoaded', function () {
       audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
       audioPlayer.play();
 
+      // Use the 'ended' event to move to the next song
       audioPlayer.addEventListener('ended', function () {
-        // Move to the next song
         currentSongIndex++;
         if (currentSongIndex >= playlist.children.length) {
           currentSongIndex = 0; // Loop back to the first song
@@ -214,32 +214,6 @@ document.addEventListener('DOMContentLoaded', function () {
         audioPlayer.src = nextSong.getAttribute('data-src');
         audioPlayer.play();
       });
-    } else {
-      // Fallback: load from localStorage
-      const storedPlaylist = JSON.parse(localStorage.getItem('playlist') || '[]');
-      storedPlaylist.forEach(song => {
-        const li = document.createElement('li');
-        li.textContent = song.title;
-        li.setAttribute('data-src', song.src);
-
-        const hover = document.createElement('div');
-        hover.className = 'hover-box';
-        hover.textContent = song.comments || '';
-        li.appendChild(hover);
-
-        li.addEventListener('click', () => {
-          currentSongIndex = [...playlist.children].indexOf(li);
-          audioPlayer.src = li.getAttribute('data-src');
-          audioPlayer.play();
-        });
-
-        playlist.appendChild(li);
-      });
-
-      if (storedPlaylist.length > 0) {
-        audioPlayer.src = storedPlaylist[0].src;
-        audioPlayer.play();
-      }
     }
   }
 
@@ -247,7 +221,5 @@ document.addEventListener('DOMContentLoaded', function () {
   initializePlaylist();
 });
 </script>
-
-
 </body>
 </html>
