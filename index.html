@@ -118,11 +118,13 @@ const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
 async function initializePlaylist() {
   const songPaths = new URLSearchParams(window.location.search).get('songs')?.split(';') || [];
   if (songPaths.length === 0) {
+    console.error('No songs found in the playlist');
     return;
   }
 
   playlist.innerHTML = ''; // Clear the existing playlist
 
+  // Add each song to the playlist
   songPaths.forEach(async (path, index) => {
     const title = decodeURIComponent(path.split('/').pop()).replace(/\.mp3$/, '');
     const li = document.createElement('li');
@@ -137,7 +139,9 @@ async function initializePlaylist() {
     li.addEventListener('click', () => {
       currentSongIndex = index;
       audioPlayer.src = li.getAttribute('data-src');
-      audioPlayer.play();
+      audioPlayer.play().catch(error => {
+        console.error('Error starting the selected song:', error);
+      });
     });
 
     playlist.appendChild(li);
@@ -146,12 +150,13 @@ async function initializePlaylist() {
   // Play the first song in the list
   if (songPaths.length > 0) {
     audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
-    audioPlayer.play();
-    console.log('First song playing:', songPaths[0]); // Log the first song
+    audioPlayer.play().catch(error => {
+      console.error('Error starting the first song:', error);
+    });
+    console.log('First song playing:', songPaths[0]);
     audioPlayer.addEventListener('ended', playNextSong);
   }
 }
-
 
 // Fetch comments from the Tracks.html file
 async function fetchSongComments(songPath) {
@@ -182,16 +187,18 @@ function playNextSong() {
   }
   console.log('Current song index after increment:', currentSongIndex);
   const nextSong = playlist.children[currentSongIndex];
+
+  // Check if the audio player is already trying to play a new song
+  if (!audioPlayer.paused) {
+    audioPlayer.pause();  // Pause the current song
+  }
+
+  // Now load and play the next song
   audioPlayer.src = nextSong.getAttribute('data-src');
-  audioPlayer.play();
+  audioPlayer.play().catch(error => {
+    console.error('Error playing next song:', error);
+  });
 }
-
-
-
-audioPlayer.addEventListener('ended', () => {
-  console.log('Song ended, triggering playNextSong...');
-  playNextSong();
-});
 
 // Clear Playlist Button
 clearButton.addEventListener('click', () => {
@@ -212,8 +219,8 @@ shareButton.addEventListener('click', () => {
 // Initialize the playlist on page load
 document.addEventListener('DOMContentLoaded', initializePlaylist);
 </script>
-
 </body>
 </html>
+
 
 
