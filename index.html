@@ -38,7 +38,47 @@
     background-color: black;
     border: 2px solid #444;
   }
+
+    #playlist {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #playlist li {
+        position: relative;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    .hover-box {
+         display: block;
+  position: absolute;
+  background-color: #f5f5f5;
+  border: 1px solid #bbb;
+  padding: 12px;
+  z-index: 1;
+  white-space: pre-wrap;
+  width: 260px;
+  max-height: 80vh;
+  overflow-y: auto;
+  top: -10px;
+  left: calc(100% + 10px);
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+    }
+
+    #playlist li:hover .hover-box {
+        display: block;
+    }
 </style>
+
+
+
 </head>
 <body>
 <div id="wrap">
@@ -221,39 +261,6 @@ audioPlayer.addEventListener('play', () => {
 
                     if (songPaths.length > 0) {
                         audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
-                        audioPlayer.play();
-                    }
-                }
-            }
-
-            function initializePlaylist() {
-                playlist.innerHTML = '';
-                const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
-
-                if (storedPlaylist) {
-                    storedPlaylist.forEach((song) => {
-                        const li = document.createElement('li');
-                        li.textContent = song.title;  
-                        li.setAttribute('data-src', song.src);
-
-                        const hoverBox = document.createElement('div');
-                        hoverBox.classList.add('hover-box');
-                        hoverBox.textContent = song.comments || "Song details not available.";  
-                        li.appendChild(hoverBox);
-
-                        playlist.appendChild(li);
-
-                        // Add event listener to play song when clicked
-                        li.addEventListener('click', function() {
-                            currentSongIndex = Array.from(playlist.children).indexOf(li);
-                            audioPlayer.src = li.getAttribute('data-src');
-                            audioPlayer.play();
-                        });
-                    });
-
-                    if (storedPlaylist.length > 0) {
-                        const firstSong = playlist.children[0];
-                        audioPlayer.src = firstSong.getAttribute('data-src');
                         audioPlayer.play();
                     }
                 }
