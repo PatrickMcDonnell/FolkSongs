@@ -223,6 +223,17 @@ document.addEventListener('DOMContentLoaded', function () {
       playlist.appendChild(li);
     });
 
+// Automatically move to the next song after the current one ends
+audioPlayer.addEventListener('ended', function () {
+  currentSongIndex++;
+  if (currentSongIndex >= playlist.children.length) {
+    currentSongIndex = 0; // Loop back to the first song
+  }
+  const nextSong = playlist.children[currentSongIndex];
+  audioPlayer.src = nextSong.getAttribute('data-src');
+  audioPlayer.play();
+});
+
     audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
     audioPlayer.play();
   } else {
