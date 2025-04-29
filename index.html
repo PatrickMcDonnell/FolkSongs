@@ -1,18 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A comprehensive collection of traditional folk songs and ballads from around the world, including historical background.">
-    <meta name="keywords" content="folk songs, ballads, traditional music, folk music, Child Ballads, Irish folk, Scottish, Children's Songs, Christmas, American folk, lyrics, song collection, Patrick McDonnell, Kansas City folk singer">
-    <meta name="robots" content="index, follow">
-    <title>Folk Song Collection - Traditional Music and Ballads</title>
-    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
-    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
-
-    <style>
-        <body>
+    <title>Folksong Collection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 <div id="wrap">
     <div id="header">
         <h1><a href="#">Folksong Collection</a></h1>
@@ -47,175 +40,172 @@
 
         <script src="https://cdn.jsdelivr.net/npm/id3js@2.1.0/dist/id3.min.js"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const audioPlayer = document.getElementById('audio-player');
-                const playlist = document.getElementById('playlist');
-                const clearButton = document.getElementById('clear-playlist');
-                const shareButton = document.getElementById('share-playlist');
-                const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
-                let currentSongIndex = 0;
+        document.addEventListener('DOMContentLoaded', function () {
+            const audioPlayer = document.getElementById('audio-player');
+            const playlist = document.getElementById('playlist');
+            const clearButton = document.getElementById('clear-playlist');
+            const shareButton = document.getElementById('share-playlist');
+            const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
+            let currentSongIndex = 0;
 
-                function fetchSongComments(songPath) {
-                    return fetch(baseUrl + 'Tracks.html')
-                        .then(response => response.text())
-                        .then(html => {
-                            const parser = new DOMParser();
-                            const doc = parser.parseFromString(html, 'text/html');
-                            const songItems = doc.querySelectorAll('li');
-                            let songComments = '';
+            function fetchSongComments(songPath) {
+                return fetch(baseUrl + 'Tracks.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        const songItems = doc.querySelectorAll('li');
+                        let songComments = '';
 
-                            songItems.forEach(item => {
-                                const src = item.getAttribute('data-src');
-                                if (src && src.endsWith(songPath)) {
-                                    const hoverBox = item.querySelector('.hover-box');
-                                    if (hoverBox) {
-                                        songComments = hoverBox.textContent;
-                                    }
+                        songItems.forEach(item => {
+                            const src = item.getAttribute('data-src');
+                            if (src && src.endsWith(songPath)) {
+                                const hoverBox = item.querySelector('.hover-box');
+                                if (hoverBox) {
+                                    songComments = hoverBox.textContent;
                                 }
-                            });
+                            }
+                        });
 
-                            return songComments || "Song details not available.";
-                        })
-                        .catch(() => "Song details not available.");
+                        return songComments || "Song details not available.";
+                    })
+                    .catch(() => "Song details not available.");
+            }
+
+            function playNextSong() {
+                currentSongIndex++;
+                if (currentSongIndex < playlist.children.length) {
+                    const nextSong = playlist.children[currentSongIndex];
+                    audioPlayer.src = nextSong.getAttribute('data-src');
+                    audioPlayer.play();
                 }
+            }
 
-                function playNextSong() {
-                    currentSongIndex++;
-                    if (currentSongIndex < playlist.children.length) {
-                        const nextSong = playlist.children[currentSongIndex];
-                        audioPlayer.src = nextSong.getAttribute('data-src');
+            audioPlayer.addEventListener('ended', playNextSong);
+
+            function initializePlaylistFromURL() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const songsParam = urlParams.get('songs');
+
+                if (songsParam) {
+                    playlist.innerHTML = '';
+                    const songPaths = songsParam.split(';');
+                    songPaths.forEach(async path => {
+                        const filename = decodeURIComponent(path.split('/').pop());
+                        const title = filename.replace(/\.mp3$/, '');
+
+                        const li = document.createElement('li');
+                        li.textContent = title;
+                        li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
+
+                        const hoverBox = document.createElement('div');
+                        hoverBox.classList.add('hover-box');
+                        const comments = await fetchSongComments(decodeURIComponent(path));
+                        hoverBox.textContent = comments;
+                        li.appendChild(hoverBox);
+
+                        playlist.appendChild(li);
+
+                        li.addEventListener('click', function () {
+                            currentSongIndex = Array.from(playlist.children).indexOf(li);
+                            audioPlayer.src = li.getAttribute('data-src');
+                            audioPlayer.play();
+                        });
+                    });
+
+                    if (songPaths.length > 0) {
+                        audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
                         audioPlayer.play();
                     }
                 }
+            }
 
-                audioPlayer.addEventListener('ended', playNextSong);
+            function initializePlaylist() {
+                playlist.innerHTML = '';
+                const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
 
-                function initializePlaylistFromURL() {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const songsParam = urlParams.get('songs');
+                if (storedPlaylist) {
+                    storedPlaylist.forEach((song) => {
+                        const li = document.createElement('li');
+                        li.textContent = song.title;
+                        li.setAttribute('data-src', song.src);
 
-                    if (songsParam) {
-                        playlist.innerHTML = '';
-                        const songPaths = songsParam.split(';');
-                        songPaths.forEach(async path => {
-                            const filename = decodeURIComponent(path.split('/').pop());
-                            const title = filename.replace(/\.mp3$/, '');
+                        const hoverBox = document.createElement('div');
+                        hoverBox.classList.add('hover-box');
+                        hoverBox.textContent = song.comments || "Song details not available.";
+                        li.appendChild(hoverBox);
 
-                            const li = document.createElement('li');
-                            li.textContent = title;
-                            li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
+                        playlist.appendChild(li);
 
-                            const hoverBox = document.createElement('div');
-                            hoverBox.classList.add('hover-box');
-                            const comments = await fetchSongComments(decodeURIComponent(path));
-                            hoverBox.textContent = comments;
-                            li.appendChild(hoverBox);
-
-                            playlist.appendChild(li);
-
-                            li.addEventListener('click', function () {
-                                currentSongIndex = Array.from(playlist.children).indexOf(li);
-                                audioPlayer.src = li.getAttribute('data-src');
-                                audioPlayer.play();
-                            });
-                        });
-
-                        if (songPaths.length > 0) {
-                            audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
+                        li.addEventListener('click', function () {
+                            currentSongIndex = Array.from(playlist.children).indexOf(li);
+                            audioPlayer.src = li.getAttribute('data-src');
                             audioPlayer.play();
-                        }
-                    }
-                }
-
-                function initializePlaylist() {
-                    playlist.innerHTML = '';
-                    const storedPlaylist = JSON.parse(localStorage.getItem('playlist'));
-
-                    if (storedPlaylist) {
-                        storedPlaylist.forEach((song) => {
-                            const li = document.createElement('li');
-                            li.textContent = song.title;
-                            li.setAttribute('data-src', song.src);
-
-                            const hoverBox = document.createElement('div');
-                            hoverBox.classList.add('hover-box');
-                            hoverBox.textContent = song.comments || "Song details not available.";
-                            li.appendChild(hoverBox);
-
-                            playlist.appendChild(li);
-
-                            li.addEventListener('click', function () {
-                                currentSongIndex = Array.from(playlist.children).indexOf(li);
-                                audioPlayer.src = li.getAttribute('data-src');
-                                audioPlayer.play();
-                            });
                         });
+                    });
 
-                        if (storedPlaylist.length > 0) {
-                            const firstSong = playlist.children[0];
-                            audioPlayer.src = firstSong.getAttribute('data-src');
-                            audioPlayer.play();
-                        }
+                    if (storedPlaylist.length > 0) {
+                        const firstSong = playlist.children[0];
+                        audioPlayer.src = firstSong.getAttribute('data-src');
+                        audioPlayer.play();
                     }
                 }
+            }
 
-                function clearPlaylist() {
-                    localStorage.removeItem('playlist');
-                    playlist.innerHTML = '';
-                    audioPlayer.pause();
-                    audioPlayer.currentTime = 0;
-                    currentSongIndex = 0;
-                }
+            function clearPlaylist() {
+                localStorage.removeItem('playlist');
+                playlist.innerHTML = '';
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+                currentSongIndex = 0;
+            }
 
-                initializePlaylistFromURL();
-                initializePlaylist();
+            initializePlaylistFromURL();
+            initializePlaylist();
 
-                clearButton.addEventListener('click', clearPlaylist);
+            clearButton.addEventListener('click', clearPlaylist);
 
-                shareButton.addEventListener('click', function () {
-                    const songPaths = Array.from(playlist.children).map(li => encodeURIComponent(li.getAttribute('data-src')));
-                    const playlistParam = songPaths.join(';');
-                    const shareURL = `${window.location.origin}${window.location.pathname}?songs=${playlistParam}`;
-                    const subject = encodeURIComponent('Check out this playlist');
-                    const body = encodeURIComponent(`Here is a playlist I thought you might like: ${shareURL}`);
-                    window.location.href = `mailto:?subject=${subject}&body=${body}`;
-                });
-
-                // AUDIO VISUALIZER
-                const canvas = document.getElementById('visualizer-canvas');
-                const ctx = canvas.getContext('2d');
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const analyser = audioCtx.createAnalyser();
-                const source = audioCtx.createMediaElementSource(audioPlayer);
-                source.connect(analyser);
-                analyser.connect(audioCtx.destination);
-
-                analyser.fftSize = 256;
-                const bufferLength = analyser.frequencyBinCount;
-                const dataArray = new Uint8Array(bufferLength);
-
-                function draw() {
-                    requestAnimationFrame(draw);
-
-                    analyser.getByteFrequencyData(dataArray);
-
-                    ctx.fillStyle = 'white';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                    const barWidth = (canvas.width / bufferLength) * 2.5;
-                    let barHeight;
-                    let x = 0;
-
-                    for (let i = 0; i < bufferLength; i++) {
-                        barHeight = dataArray[i];
-                        ctx.fillStyle = `rgb(${barHeight + 100},50,50)`;
-                        ctx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight / 2);
-                        x += barWidth + 1;
-                    }
-                }
-
-                draw();
+            shareButton.addEventListener('click', function () {
+                const songPaths = Array.from(playlist.children).map(li => encodeURIComponent(li.getAttribute('data-src')));
+                const playlistParam = songPaths.join(';');
+                const shareURL = `${window.location.origin}${window.location.pathname}?songs=${playlistParam}`;
+                const subject = encodeURIComponent('Check out this playlist');
+                const body = encodeURIComponent(`Here is a playlist I thought you might like: ${shareURL}`);
+                window.location.href = `mailto:?subject=${subject}&body=${body}`;
             });
+
+            // AUDIO VISUALIZER
+            const canvas = document.getElementById('visualizer-canvas');
+            const ctx = canvas.getContext('2d');
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const analyser = audioCtx.createAnalyser();
+            const source = audioCtx.createMediaElementSource(audioPlayer);
+            source.connect(analyser);
+            analyser.connect(audioCtx.destination);
+
+            analyser.fftSize = 256;
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+
+            function draw() {
+                requestAnimationFrame(draw);
+                analyser.getByteFrequencyData(dataArray);
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                const barWidth = (canvas.width / bufferLength) * 2.5;
+                let x = 0;
+
+                for (let i = 0; i < bufferLength; i++) {
+                    const barHeight = dataArray[i];
+                    ctx.fillStyle = `rgb(${barHeight + 100},50,50)`;
+                    ctx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight / 2);
+                    x += barWidth + 1;
+                }
+            }
+
+            draw();
+        });
         </script>
     </div>
 
@@ -225,4 +215,3 @@
 </div>
 </body>
 </html>
-
