@@ -219,7 +219,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initialize playlist when the DOM content is loaded
   initializePlaylist();
+
+  // Clear Playlist Button
+  const clearButton = document.getElementById('clear-playlist');
+  clearButton.addEventListener('click', () => {
+    playlist.innerHTML = ''; // Clear playlist display
+    audioPlayer.pause();
+    audioPlayer.src = ''; // Stop the audio player
+  });
+
+  // Share Playlist Button
+  const shareButton = document.getElementById('share-playlist');
+  shareButton.addEventListener('click', () => {
+    const songPaths = Array.from(playlist.children)
+      .map(li => li.getAttribute('data-src'))
+      .join(';');
+    const url = `${window.location.origin}?songs=${encodeURIComponent(songPaths)}`;
+    prompt('Share this playlist link:', url); // Prompt user to copy the URL
+  });
 });
 </script>
+
 </body>
+
 </html>
+
