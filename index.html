@@ -46,64 +46,8 @@
     .hover-box {
       display: block;
       position: absolute;
-      function initializePlaylist() {
-  playlist.innerHTML = '';
-  const songsParam = new URLSearchParams(window.location.search).get('songs');
-
-  if (songsParam) {
-    const songPaths = songsParam.split(';');
-    songPaths.forEach(async path => {
-      const title = decodeURIComponent(path.split('/').pop()).replace(/\.mp3$/, '');
-      const li = document.createElement('li');
-      li.textContent = title;
-      li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
-
-      const hover = document.createElement('div');
-      hover.className = 'hover-box';
-      hover.textContent = await fetchSongComments(decodeURIComponent(path));
-      li.appendChild(hover);
-
-      li.addEventListener('click', () => {
-        currentSongIndex = [...playlist.children].indexOf(li);
-        audioPlayer.src = li.getAttribute('data-src');
-        audioPlayer.play();
-      });
-
-      playlist.appendChild(li);
-    });
-
-    audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
-    audioPlayer.play();
-  } else {
-    // Fallback: load from localStorage
-    const storedPlaylist = JSON.parse(localStorage.getItem('playlist') || '[]');
-    storedPlaylist.forEach(song => {
-      const li = document.createElement('li');
-      li.textContent = song.title;
-      li.setAttribute('data-src', song.src);
-
-      const hover = document.createElement('div');
-      hover.className = 'hover-box';
-      hover.textContent = song.comments || '';
-      li.appendChild(hover);
-
-      li.addEventListener('click', () => {
-        currentSongIndex = [...playlist.children].indexOf(li);
-        audioPlayer.src = li.getAttribute('data-src');
-        audioPlayer.play();
-      });
-
-      playlist.appendChild(li);
-    });
-
-    if (storedPlaylist.length > 0) {
-      audioPlayer.src = storedPlaylist[0].src;
-      audioPlayer.play();
-    }
-  }
-}
-
-      border: 1px solid #ccc;
+      background-color: #fdfefe;
+      border: 1px solid #bbb;
       padding: 12px;
       z-index: 1;
       white-space: pre-wrap;
@@ -114,7 +58,7 @@
       left: calc(100% + 10px);
       box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
       border-radius: 6px;
-      font-size: 14px;
+      font-size: 12px;
       line-height: 1.5;
       opacity: 0;
       pointer-events: none;
@@ -164,174 +108,112 @@
 
 <script>
 const audioPlayer = document.getElementById('audio-player');
-const canvas = document.getElementById('visualizer');
-const ctx = canvas.getContext('2d');
-let audioCtx, analyser, source;
+const playlist = document.getElementById('playlist');
+const clearButton = document.getElementById('clear-playlist');
+const shareButton = document.getElementById('share-playlist');
+let currentSongIndex = 0;
 
-function setupAudioContext() {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 2048;
-    source = audioCtx.createMediaElementSource(audioPlayer);
-    source.connect(analyser);
-    analyser.connect(audioCtx.destination);
-  }
-}
-function draw() {
-  requestAnimationFrame(draw);
-  const bufferLength = analyser.fftSize;
-  const dataArray = new Uint8Array(bufferLength);
-  analyser.getByteTimeDomainData(dataArray);
-  ctx.fillStyle = 'black';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.lineWidth = 7;
-  ctx.strokeStyle = '#66ccff';
-  ctx.beginPath();
-  const sliceWidth = canvas.width / bufferLength;
-  let x = 0;
-  for (let i = 0; i < bufferLength; i++) {
-    const v = dataArray[i] / 128.0;
-    const y = v * canvas.height / 2;
-    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    x += sliceWidth;
-  }
-  ctx.lineTo(canvas.width, canvas.height / 2);
-  ctx.stroke();
-}
-audioPlayer.addEventListener('play', () => { setupAudioContext(); draw(); });
-</script>
-<!-- END OF PART 1 -->
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const playlist = document.getElementById('playlist');
-  const clearButton = document.getElementById('clear-playlist');
-  const shareButton = document.getElementById('share-playlist');
-  const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
-  let currentSongIndex = 0;
+const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
 
-  async function fetchSongComments(songPath) {
-    try {
-      const response = await fetch(baseUrl + 'Tracks.html');
-      const html = await response.text();
-      const doc = new DOMParser().parseFromString(html, 'text/html');
-      const items = doc.querySelectorAll('li');
-      for (let item of items) {
-        const src = item.getAttribute('data-src');
-        if (src && decodeURIComponent(src).endsWith(songPath)) {
-          const hoverBox = item.querySelector('.hover-box');
-          return hoverBox ? hoverBox.textContent : '';
-        }
-      }
-    } catch (e) {
-      console.error('Comment fetch error:', e);
-    }
-    return '';
+async function initializePlaylist() {
+  const songPaths = new URLSearchParams(window.location.search).get('songs')?.split(';') || [];
+  if (songPaths.length === 0) {
+    return;
   }
 
-  async function createSongItem(path) {
-    const filename = decodeURIComponent(path.split('/').pop());
-    const title = filename.replace(/\.mp3$/, '');
+  playlist.innerHTML = ''; // Clear the existing playlist
+
+  songPaths.forEach(async (path, index) => {
+    const title = decodeURIComponent(path.split('/').pop()).replace(/\.mp3$/, '');
     const li = document.createElement('li');
     li.textContent = title;
     li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
-    playlist.appendChild(li);
 
-    const comments = await fetchSongComments(decodeURIComponent(path));
-    if (comments) {
-      const hover = document.createElement('div');
-      hover.className = 'hover-box';
-      hover.textContent = comments;
-      li.appendChild(hover);
-    }
+    const hover = document.createElement('div');
+    hover.className = 'hover-box';
+    hover.textContent = await fetchSongComments(decodeURIComponent(path));
+    li.appendChild(hover);
 
     li.addEventListener('click', () => {
-      currentSongIndex = [...playlist.children].indexOf(li);
+      currentSongIndex = index;
       audioPlayer.src = li.getAttribute('data-src');
       audioPlayer.play();
     });
-  }
 
-  function initializePlaylist() {
-  playlist.innerHTML = '';
-  const songsParam = new URLSearchParams(window.location.search).get('songs');
+    playlist.appendChild(li);
+  });
 
-  if (songsParam) {
-    const songPaths = songsParam.split(';');
-    songPaths.forEach(async path => {
-      const title = decodeURIComponent(path.split('/').pop()).replace(/\.mp3$/, '');
-      const li = document.createElement('li');
-      li.textContent = title;
-      li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
-
-      const hover = document.createElement('div');
-      hover.className = 'hover-box';
-      hover.textContent = await fetchSongComments(decodeURIComponent(path));
-      li.appendChild(hover);
-
-      li.addEventListener('click', () => {
-        currentSongIndex = [...playlist.children].indexOf(li);
-        audioPlayer.src = li.getAttribute('data-src');
-        audioPlayer.play();
-      });
-
-      playlist.appendChild(li);
-    });
-
+  // Play the first song in the list
+  if (songPaths.length > 0) {
     audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
     audioPlayer.play();
-  } else {
-    // Fallback: load from localStorage
-    const storedPlaylist = JSON.parse(localStorage.getItem('playlist') || '[]');
-    storedPlaylist.forEach(song => {
-      const li = document.createElement('li');
-      li.textContent = song.title;
-      li.setAttribute('data-src', song.src);
-
-      const hover = document.createElement('div');
-      hover.className = 'hover-box';
-      hover.textContent = song.comments || '';
-      li.appendChild(hover);
-
-      li.addEventListener('click', () => {
-        currentSongIndex = [...playlist.children].indexOf(li);
-        audioPlayer.src = li.getAttribute('data-src');
-        audioPlayer.play();
-      });
-
-      playlist.appendChild(li);
-    });
-
-    if (storedPlaylist.length > 0) {
-      audioPlayer.src = storedPlaylist[0].src;
-      audioPlayer.play();
-    }
+    console.log('First song playing:', songPaths[0]); // Log the first song
+    audioPlayer.addEventListener('ended', playNextSong);
   }
 }
 
 
-  function clearPlaylist() {
-    playlist.innerHTML = '';
-    audioPlayer.pause();
-    audioPlayer.currentTime = 0;
-    currentSongIndex = 0;
+// Fetch comments from the Tracks.html file
+async function fetchSongComments(songPath) {
+  try {
+    const response = await fetch(baseUrl + 'Tracks.html');
+    const html = await response.text();
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const items = doc.querySelectorAll('li');
+    for (let item of items) {
+      const src = item.getAttribute('data-src');
+      if (src && decodeURIComponent(src).endsWith(songPath)) {
+        const hoverBox = item.querySelector('.hover-box');
+        return hoverBox ? hoverBox.textContent : '';
+      }
+    }
+  } catch (e) {
+    console.error('Error fetching comments:', e);
   }
+  return '';
+}
 
-  clearButton.addEventListener('click', clearPlaylist);
+// Move to the next song after the current one ends
+function playNextSong() {
+  console.log('Current song index before increment:', currentSongIndex);
+  currentSongIndex++;
+  if (currentSongIndex >= playlist.children.length) {
+    currentSongIndex = 0; // Loop back to the first song
+  }
+  console.log('Current song index after increment:', currentSongIndex);
+  const nextSong = playlist.children[currentSongIndex];
+  audioPlayer.src = nextSong.getAttribute('data-src');
+  audioPlayer.play();
+}
 
-  shareButton.addEventListener('click', () => {
-    const songPaths = [...playlist.children].map(li =>
-      encodeURIComponent(li.getAttribute('data-src').replace(baseUrl, ''))
-    );
-    const param = songPaths.join(';');
-    const url = `${window.location.origin}${window.location.pathname}?songs=${param}`;
-    const subject = 'Check out this playlist';
-    const body = `Here is a playlist I thought you might like: ${url}`;
-    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  });
 
-  initializePlaylist();
+
+audioPlayer.addEventListener('ended', () => {
+  console.log('Song ended, triggering playNextSong...');
+  playNextSong();
 });
+
+// Clear Playlist Button
+clearButton.addEventListener('click', () => {
+  playlist.innerHTML = ''; // Clear the playlist
+  audioPlayer.pause();
+  audioPlayer.src = ''; // Stop the audio player
+});
+
+// Share Playlist Button
+shareButton.addEventListener('click', () => {
+  const songPaths = Array.from(playlist.children)
+    .map(li => li.getAttribute('data-src'))
+    .join(';');
+  const url = `${window.location.origin}?songs=${encodeURIComponent(songPaths)}`;
+  prompt('Share this playlist link:', url); // Prompt user to copy the URL
+});
+
+// Initialize the playlist on page load
+document.addEventListener('DOMContentLoaded', initializePlaylist);
 </script>
+
 </body>
 </html>
+
+
