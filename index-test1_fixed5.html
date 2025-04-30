@@ -180,6 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const shareButton = document.getElementById('share-playlist');
 
 
+
 const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
   let currentSongIndex = 0;
 
@@ -214,6 +215,43 @@ const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
     });
   }
 
+
+  function initializePlaylist() {
+    const storedPlaylist = localStorage.getItem('playlist');
+    if (!storedPlaylist) return;
+
+    const playlistData = JSON.parse(storedPlaylist);
+    playlist.innerHTML = '';
+    playlistData.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item.title;
+      li.setAttribute('data-src', baseUrl + item.src);
+
+      const hoverBox = document.createElement('div');
+      hoverBox.classList.add('hover-box');
+      hoverBox.textContent = item.comments || 'Song details not available.';
+      li.appendChild(hoverBox);
+
+      playlist.appendChild(li);
+
+      li.addEventListener('click', function () {
+        currentSongIndex = Array.from(playlist.children).indexOf(li);
+        audioPlayer.src = li.getAttribute('data-src');
+        audioPlayer.play();
+        highlightCurrentSong();
+      });
+    });
+
+    if (playlistData.length > 0) {
+      audioPlayer.src = baseUrl + playlistData[0].src;
+      audioPlayer.play();
+      currentSongIndex = 0;
+      highlightCurrentSong();
+    }
+
+    localStorage.removeItem('playlist');
+  }
+
 function initializePlaylistFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     const songsParam = urlParams.get('songs');
@@ -242,16 +280,13 @@ function initializePlaylistFromURL() {
           currentSongIndex = Array.from(playlist.children).indexOf(li);
           audioPlayer.src = li.getAttribute('data-src');
           audioPlayer.play();
-          highlightCurrentSong();
         });
       });
 
       if (songPaths.length > 0) {
         audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
         audioPlayer.play();
-          highlightCurrentSong();
       }
-    currentSongIndex = 0;
     }
   }
 
@@ -265,7 +300,7 @@ function initializePlaylistFromURL() {
   clearButton.addEventListener('click', clearPlaylist);
 
   shareButton.addEventListener('click', function() {
-    const songPaths = Array.from(playlist.children).map(li => encodeURIComponent(li.getAttribute('data-src')));
+    const songPaths = Array.from(playlist.children).map(li => encodeURIComponent(li.getAttribute('data-src').replace(baseUrl, '')));
     const playlistParam = songPaths.join(';');
     const shareURL = `${window.location.origin}${window.location.pathname}?songs=${playlistParam}`;
     const subject = encodeURIComponent('Check out this playlist');
@@ -274,12 +309,13 @@ function initializePlaylistFromURL() {
   });
 
             initializePlaylistFromURL();
+  initializePlaylist();
             initializePlaylist();
 
             clearButton.addEventListener('click', clearPlaylist);
 
             shareButton.addEventListener('click', function() {
-                const songPaths = Array.from(playlist.children).map(li => encodeURIComponent(li.getAttribute('data-src')));
+                const songPaths = Array.from(playlist.children).map(li => encodeURIComponent(li.getAttribute('data-src').replace(baseUrl, '')));
                 const playlistParam = songPaths.join(';');
                 const shareURL = `${window.location.origin}${window.location.pathname}?songs=${playlistParam}`;
                 const subject = encodeURIComponent('Check out this playlist');
