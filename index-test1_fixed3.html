@@ -41,7 +41,7 @@
 .hover-box {
   display: none;
   position: absolute;
-  background-color: #fdf6e3; /* Warm parchment tone */
+  background-color: #f9f9f9;
   border: 1px solid #ccc;
   padding: 12px;
   z-index: 1;
@@ -53,22 +53,20 @@
   left: calc(100% + 10px);
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.5;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
-
+.song-list li {
+  position: relative;
+}
 .song-list li:hover .hover-box {
   display: block;
   opacity: 1;
-}
+  pointer-events: auto;
 
-.song-list li.playing {
-  background-color: #ddd;
-  font-weight: bold;
 }
-
 </style>
 </head>
 <body>
@@ -167,6 +165,15 @@ function draw() {
   ctx.stroke();
 }
 
+
+audioPlayer.addEventListener('ended', () => {
+  currentSongIndex++;
+  if (currentSongIndex < playlist.children.length) {
+    const next = playlist.children[currentSongIndex];
+    audioPlayer.src = next.getAttribute('data-src');
+    audioPlayer.play();
+  }
+});
 audioPlayer.addEventListener('play', () => {
   setupAudioContext();
   draw();
@@ -179,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const clearButton = document.getElementById('clear-playlist');
   const shareButton = document.getElementById('share-playlist');
 
-<--const baseUrl = 'C:/Users/Owner/Documents/PatMcD/Genealogy/McDonnellGitHubSite/Songs/FolkSongs/';-->
+
 
 const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
   let currentSongIndex = 0;
@@ -208,14 +215,7 @@ const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
       .catch(() => "Song details not available.");
   }
 
-  
-  function highlightCurrentSong() {
-    playlist.querySelectorAll('li').forEach((li, index) => {
-      li.classList.toggle('playing', index === currentSongIndex);
-    });
-  }
-
-function initializePlaylistFromURL() {
+  function initializePlaylistFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     const songsParam = urlParams.get('songs');
 
@@ -243,16 +243,13 @@ function initializePlaylistFromURL() {
           currentSongIndex = Array.from(playlist.children).indexOf(li);
           audioPlayer.src = li.getAttribute('data-src');
           audioPlayer.play();
-          highlightCurrentSong();
         });
       });
 
       if (songPaths.length > 0) {
         audioPlayer.src = baseUrl + decodeURIComponent(songPaths[0]);
         audioPlayer.play();
-          highlightCurrentSong();
       }
-    currentSongIndex = 0;
     }
   }
 
@@ -266,7 +263,7 @@ function initializePlaylistFromURL() {
   clearButton.addEventListener('click', clearPlaylist);
 
   shareButton.addEventListener('click', function() {
-    const songPaths = Array.from(playlist.children).map(li => encodeURIComponent(li.getAttribute('data-src')));
+    const songPaths = Array.from(playlist.children).map(li => encodeURIComponent(li.getAttribute('data-src').replace(baseUrl, '')));
     const playlistParam = songPaths.join(';');
     const shareURL = `${window.location.origin}${window.location.pathname}?songs=${playlistParam}`;
     const subject = encodeURIComponent('Check out this playlist');
@@ -274,13 +271,47 @@ function initializePlaylistFromURL() {
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
   });
 
-            initializePlaylistFromURL();
+            
+  function initializePlaylist() {
+    const storedPlaylist = localStorage.getItem('playlist');
+    if (!storedPlaylist) return;
+
+    const playlistData = JSON.parse(storedPlaylist);
+    playlist.innerHTML = '';
+    playlistData.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item.title;
+      li.setAttribute('data-src', baseUrl + item.src);
+
+      const hoverBox = document.createElement('div');
+      hoverBox.classList.add('hover-box');
+      hoverBox.textContent = item.comments || 'Song details not available.';
+      li.appendChild(hoverBox);
+
+      playlist.appendChild(li);
+
+      li.addEventListener('click', function () {
+        currentSongIndex = Array.from(playlist.children).indexOf(li);
+        audioPlayer.src = li.getAttribute('data-src');
+        audioPlayer.play();
+      });
+    });
+
+    if (playlistData.length > 0) {
+      audioPlayer.src = baseUrl + playlistData[0].src;
+      audioPlayer.play();
+    }
+
+    localStorage.removeItem('playlist');
+  }
+
+  initializePlaylistFromURL();
             initializePlaylist();
 
             clearButton.addEventListener('click', clearPlaylist);
 
             shareButton.addEventListener('click', function() {
-                const songPaths = Array.from(playlist.children).map(li => encodeURIComponent(li.getAttribute('data-src')));
+                const songPaths = Array.from(playlist.children).map(li => encodeURIComponent(li.getAttribute('data-src').replace(baseUrl, '')));
                 const playlistParam = songPaths.join(';');
                 const shareURL = `${window.location.origin}${window.location.pathname}?songs=${playlistParam}`;
                 const subject = encodeURIComponent('Check out this playlist');
@@ -288,6 +319,25 @@ function initializePlaylistFromURL() {
                 window.location.href = `mailto:?subject=${subject}&body=${body}`;
             });
         });
+
+playlist.addEventListener('mouseover', function (e) {
+  const li = e.target.closest('li');
+  if (li) {
+    const hoverBox = li.querySelector('.hover-box');
+    if (hoverBox) {
+      const rect = hoverBox.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+
+      if (rect.bottom > viewportHeight) {
+        hoverBox.style.top = `-${rect.height}px`;
+      } else {
+        hoverBox.style.top = '0';
+      }
+    }
+  }
+});
+
+
     </script>
 
 
