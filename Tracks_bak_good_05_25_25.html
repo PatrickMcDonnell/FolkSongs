@@ -93,14 +93,8 @@
     <h1>
      Select Tracks
     </h1>
-  
-  <!-- Search input -->
-<input id="searchInput" placeholder="Search for a song by title, author or year composed..." 
-       style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
-
-<small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
-  You can search by title, author, or year range the song was originally composed (e.g., 1900-1920) or, below, filter by when the song was recorded here.
-</small>
+    <!-- Search input -->
+    <input id="searchInput" placeholder="Search for a song by title or author..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
 
 <div style="margin-bottom: 1em;">
   <label for="from-date">From: </label>
@@ -1353,34 +1347,19 @@
         });
     });
 
- searchInput.addEventListener('input', function() {
-    const filter = searchInput.value.toLowerCase();
-    const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // e.g. "1900-1920"
-    
-    trackListItems.forEach(function(item) {
-        const title = item.getAttribute('data-title')?.toLowerCase() || '';
-        const author = item.getAttribute('data-author')?.toLowerCase() || '';
-        const dateComposedStr = item.getAttribute('data-date-composed') || '';
-        const dateComposed = parseInt(dateComposedStr);
-
-        let match = false;
-
-        if (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter)) {
-            match = true;
-        }
-
-        // Handle range like "1900-1920"
-        if (rangeMatch && !isNaN(dateComposed)) {
-            const startYear = parseInt(rangeMatch[1]);
-            const endYear = parseInt(rangeMatch[2]);
-            match = dateComposed >= startYear && dateComposed <= endYear;
-        }
-
-        item.style.display = match ? '' : 'none';
+    // Search functionality by title or author
+    searchInput.addEventListener('input', function() {
+        const filter = searchInput.value.toLowerCase();
+        trackListItems.forEach(function(item) {
+            const title = item.getAttribute('data-title').toLowerCase();
+            const author = item.getAttribute('data-author') ? item.getAttribute('data-author').toLowerCase() : '';
+            if (title.includes(filter) || author.includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
     });
-});
-
-
     
     // Hover box adjustment for overflow
     document.querySelectorAll('.track-list li').forEach(function(track) {
