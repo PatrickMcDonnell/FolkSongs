@@ -1459,21 +1459,24 @@ function filterByDate() {
 
   items.forEach(li => {
     const modDate = li.getAttribute('data-modified');
+    const yearMatch = modDate.match(/^(\d{4})/); // Extract 4-digit year
 
-    if (/^\d{4}$/.test(modDate)) {
+    if (yearMatch) {
+      const year = yearMatch[1];
       if (
-        (!fromDate || modDate >= fromDate) &&
-        (!toDate || modDate <= toDate)
+        (!fromDate || year >= fromDate) &&
+        (!toDate || year <= toDate)
       ) {
         li.style.display = '';
       } else {
         li.style.display = 'none';
       }
     } else {
-      li.style.display = 'none'; // hide if invalid or missing
+      li.style.display = 'none'; // hide if no valid year
     }
   });
 }
+
 
 function clearDateFilter() {
   document.getElementById('from-date').value = '';
