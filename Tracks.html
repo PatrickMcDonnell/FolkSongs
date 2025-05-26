@@ -1455,10 +1455,10 @@ let sortAscending = true;
 function filterByDate() {
   const fromDate = document.getElementById('from-date').value;
   const toDate = document.getElementById('to-date').value;
-  const items = document.querySelectorAll('li[data-date-modified]');
+  const items = document.querySelectorAll('li[data-modified]');
 
   items.forEach(li => {
-    const modDate = li.getAttribute('data-date-modified');
+    const modDate = li.getAttribute('data-modified');
 
     if (/^\d{4}$/.test(modDate)) {
       if (
@@ -1475,15 +1475,13 @@ function filterByDate() {
   });
 }
 
-
 function clearDateFilter() {
   document.getElementById('from-date').value = '';
   document.getElementById('to-date').value = '';
-  document.querySelectorAll('li[data-date-modified]').forEach(li => {
+  document.querySelectorAll('li[data-modified]').forEach(li => {
     li.style.display = '';
   });
 }
-
 
 function sortByDate() {
   const ul = document.querySelector('ul');
@@ -1498,7 +1496,6 @@ function sortByDate() {
   items.forEach(li => ul.appendChild(li));
   sortAscending = !sortAscending;
 }
-</script>
 
 
 
