@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   All Tracks
+  </title>
+  <link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
+  <link href="print.css" media="print" rel="stylesheet" type="text/css"/>
+  <style>
+   body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set default text color to black */
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
+        }
+        .track-list li {
+            position: relative; /* Ensure the hover box is positioned relative to the item */
+            margin: 0;
+            line-height: 1.5; /* Set line height for single spacing */
+            cursor: pointer;
+            color: #000; /* Default text color */
+        }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
+        }
+
+        .styled-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
+
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px;
+            max-height: 80vh;
+            overflow: auto;
+            left: calc(100% + 10px);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block;
+        }
+
+     /* Ensuring buttons are placed properly */
+        #controls {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+  </style>
+ </head>
+ <body>
+
+  <div id="wrap">
+   <div id="header">
+    <h1>
+     <a href="#">
+      All Tracks
+     </a>
+    </h1>
+    <img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
+    <h1>
+     Select Tracks
+    </h1>
+  
+  <!-- Search input -->
+<input id="searchInput" placeholder="Search for a song by title, author or year composed..." 
+       style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
+
+<small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
+  You can search by title, author, or year range the song was originally composed (e.g., 1900-1920) or, below, filter by when the song was recorded here.
+</small>
+
+<div style="margin-bottom: 1em;">
+ <label for="from-date">From:</label>
+<input type="text" id="from-date" size="4" maxlength="4" oninput="filterByDate()">
+<label for="to-date">To:</label>
+<input type="text" id="to-date" size="4" maxlength="4" oninput="filterByDate()">
+<button onclick="clearDateFilter()">Clear</button>
+
+</div>
+
+
+    <!-- Select All Button -->
+    <button class="styled-button" id="selectAllButton">
+     Select All
+    </button>
+    <!-- Select Random Button -->
+    <!-- Select Number Button -->
+    <button class="styled-button" id="selectNumberButton">
+     Select Random Songs
+    </button>
+
+    <!-- Play Button -->
+    <button class="styled-button" id="finished-selecting">
+     Play
+    </button>
+
+<div style="margin: 10px 0;">
+  <input type="text" id="from-date" placeholder="From year (e.g. 2022)" oninput="filterByDate()">
+  <input type="text" id="to-date" placeholder="To year (e.g. 2024)" oninput="filterByDate()">
+  <button onclick="clearDateFilter()">Clear</button>
+</div>
+
+<div style="margin-bottom: 1em;">
+  <input type="text" id="from-date" placeholder="From year (e.g. 2022)" oninput="filterByDate()">
+  <input type="text" id="to-date" placeholder="To year (e.g. 2024)" oninput="filterByDate()">
+</div>
+
+
+    <ul class="track-list">
+
+<li data-src="Tracks/A Bicycle Built For Two.mp3" data-title="A Bicycle Built For Two" data-author="Harry Dacre" data-modified="2024-10-13" data-comments="A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.">A Bicycle Built For Two<div class="hover-box">A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.</div></li>
+
+<li data-src="Tracks/A Drink for My Father.mp3" data-title="A Drink for My Father" data-author="Donal Lunny" data-modified="2024-08-05" data-comments="Composed by Donal Lunny, an influential Irish musician, composer, and producer. He is known for his work with several prominent Irish bands, including Planxty, The Bothy Band, and Moving Hearts. The song first gained recognition in the early 1980s.">A Drink for My Father<div class="hover-box">Composed by Donal Lunny, an influential Irish musician, composer, and producer. He is known for his work with several prominent Irish bands, including Planxty, The Bothy Band, and Moving Hearts. The song first gained recognition in the early 1980s.</div></li>
+
+<li data-src="Tracks/A Song For A Winter's Night.mp3" data-title="A Song For A Winter's Night" data-author="Gordon Lightfoot" data-category="Folk" data-century="20th" data-date-composed="1967" data-modified="2025-03-08" data-comments="A Song for a Winter’s Night – Written and recorded by Gordon Lightfoot in 1967, this gentle folk song evokes a sense of longing and solitude on a winter evening. Originally penned during a summer thunderstorm, its melancholic lyrics and warm melody have made it a seasonal favorite, covered by artists like Sarah McLachlan.">A Song For A Winter's Night<div class="hover-box">A Song for a Winter’s Night – Written and recorded by Gordon Lightfoot in 1967, this gentle folk song evokes a sense of longing and solitude on a winter evening. Originally penned during a summer thunderstorm, its melancholic lyrics and warm melody have made it a seasonal favorite, covered by artists like Sarah McLachlan.</div></li>
+
+<li data-src="Tracks/Abraham, Martin and John.mp3" data-title="Abraham, Martin and John" data-author="Dick Holler" data-category="Folk" data-century="20th" data-date-composed="1968" data-modified="2025-02-19" data-comments="Abraham, Martin and John is a song written by Dick Holler in 1968 and first recorded by Dion. It mourns the assassinations of Abraham Lincoln, Martin Luther King Jr., and John F. Kennedy, later adding Robert F. Kennedy in some versions. The song became a major hit for Dion, marking his transition from teen idol to a more serious artist. Its folk-pop style and reflective lyrics made it a poignant anthem of the era.">Abraham, Martin and John<div class="hover-box">Abraham, Martin and John is a song written by Dick Holler in 1968 and first recorded by Dion. It mourns the assassinations of Abraham Lincoln, Martin Luther King Jr., and John F. Kennedy, later adding Robert F. Kennedy in some versions. The song became a major hit for Dion, marking his transition from teen idol to a more serious artist. Its folk-pop style and reflective lyrics made it a poignant anthem of the era.</div></li
+
+<li data-src="Tracks/Zip-A-Dee-Doo-Dah.mp3" data-title="Zip-A-Dee-Doo-Dah" data-author="Allie Wrubgel and Ray Gilbert" data-modified="2024-10-02" data-comments="Written by Allie Wrubel and lyricist Ray Gilbert in 1946 for the Disney film Song of the South. Sung by actor James Baskett in his role as Uncle Remus, the song won the Academy Award for Best Original Song in 1948. Its upbeat, cheerful melody and lyrics reflect a carefree, optimistic attitude, often associated with a bright, sunny day. Despite its musical success, the film itself has become controversial for its depiction of race and plantation life in the American South.">Zip-A-Dee-Doo-Dah<div class="hover-box">Written by Allie Wrubel and lyricist Ray Gilbert in 1946 for the Disney film Song of the South. Sung by actor James Baskett in his role as Uncle Remus, the song won the Academy Award for Best Original Song in 1948. Its upbeat, cheerful melody and lyrics reflect a carefree, optimistic attitude, often associated with a bright, sunny day. Despite its musical success, the film itself has become controversial for its depiction of race and plantation life in the American South.</div></li>
+
+</ul>
+    <script>
+     document.addEventListener("DOMContentLoaded", function() {
+    const trackListItems = document.querySelectorAll('.track-list li');
+    const searchInput = document.getElementById('searchInput');
+    const selectAllButton = document.getElementById("selectAllButton");
+    const finishedButton = document.getElementById('finished-selecting');
+
+    // Select All functionality
+    selectAllButton.addEventListener("click", function() {
+        trackListItems.forEach(item => item.classList.add('selected'));
+    });
+
+    // Finished selecting functionality (Play button)
+    finishedButton.addEventListener('click', function() {
+        const selectedPlaylist = [];
+        trackListItems.forEach(item => {
+            if (item.classList.contains('selected')) {
+                const songSrc = item.getAttribute('data-src');
+                const songTitle = item.getAttribute('data-title');
+                const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
+                selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+            }
+        });
+
+        // Store selected playlist in localStorage
+        localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+        // Redirect back to index.html
+        window.location.href = 'index.html';
+    });
+
+    // Toggle selection of individual tracks
+    trackListItems.forEach(item => {
+        item.addEventListener('click', function() {
+            item.classList.toggle('selected');
+        });
+    });
+
+ searchInput.addEventListener('input', function() {
+    const filter = searchInput.value.toLowerCase();
+    const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // e.g. "1900-1920"
+    
+    trackListItems.forEach(function(item) {
+        const title = item.getAttribute('data-title')?.toLowerCase() || '';
+        const author = item.getAttribute('data-author')?.toLowerCase() || '';
+        const dateComposedStr = item.getAttribute('data-date-composed') || '';
+        const dateComposed = parseInt(dateComposedStr);
+
+        let match = false;
+
+        if (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter)) {
+            match = true;
+        }
+
+        // Handle range like "1900-1920"
+        if (rangeMatch && !isNaN(dateComposed)) {
+            const startYear = parseInt(rangeMatch[1]);
+            const endYear = parseInt(rangeMatch[2]);
+            match = dateComposed >= startYear && dateComposed <= endYear;
+        }
+
+        item.style.display = match ? '' : 'none';
+    });
+});
+
+
+    
+    // Hover box adjustment for overflow
+    document.querySelectorAll('.track-list li').forEach(function(track) {
+        track.addEventListener('mouseover', function() {
+            const hoverBox = this.querySelector('.hover-box');
+            const rect = hoverBox.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Check if hover box would go below the viewport
+            if (rect.bottom > viewportHeight) {
+                hoverBox.style.top = `-${rect.height}px`;
+            } else {
+                hoverBox.style.top = '0';
+            }
+        });
+    });
+});
+    </script>
+    <div id="footer">
+     <p>
+      Copyright © 2024
+      <a href="img/PatMcD4x4.jpg">
+       Thomas Patrick McDonnell
+      </a>
+      · 
+        |
+      <a href="homepage.html">
+       Homepage
+      </a>
+     </p>
+    </div>
+   </div>
+  </div>
+  <script>
+   function getAllTrackItems() {
+    return Array.from(document.querySelectorAll(".track-list li"));
+  }
+
+  function clearAllSelections() {
+    getAllTrackItems().forEach(item => item.classList.remove("selected"));
+  }
+
+  function selectRandomItems(count) {
+    const items = getAllTrackItems();
+    clearAllSelections();
+    if (count > items.length) count = items.length;
+    const shuffled = [...items].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, count);
+    selected.forEach(item => item.classList.add("selected"));
+  }
+
+  document.getElementById("selectNumberButton").addEventListener("click", () => {
+    const total = getAllTrackItems().length;
+    const input = prompt(`Enter the number of songs to select (1 to ${total}):`, "10");
+    const num = parseInt(input, 10);
+    if (!isNaN(num) && num > 0 && num <= total) {
+      selectRandomItems(num);
+    } else {
+      alert("Please enter a valid number between 1 and " + total);
+    }
+  });
+  </script>
+
+<script>
+let sortAscending = true;
+
+function filterByDate() {
+  const fromDate = document.getElementById('from-date').value;
+  const toDate = document.getElementById('to-date').value;
+  const items = document.querySelectorAll('li[data-modified]');
+
+  items.forEach(li => {
+    const modDate = li.getAttribute('data-modified') || '';
+    const modYearMatch = modDate.match(/^(\d{4})/);
+    const modYear = modYearMatch ? modYearMatch[1] : '';
+
+    if (
+      (!fromDate || modYear >= fromDate) &&
+      (!toDate || modYear <= toDate)
+    ) {
+      li.style.display = '';
+    } else {
+      li.style.display = 'none';
+    }
+  });
+}
+
+
+
+function clearDateFilter() {
+  document.getElementById('from-date').value = '';
+  document.getElementById('to-date').value = '';
+  document.querySelectorAll('li[data-modified]').forEach(li => {
+    li.style.display = '';
+  });
+}
+
+function sortByDate() {
+  const ul = document.querySelector('ul');
+  const items = Array.from(document.querySelectorAll('li[data-date-composed]'));
+
+  items.sort((a, b) => {
+    const dateA = a.getAttribute('data-date-composed');
+    const dateB = b.getAttribute('data-date-composed');
+    return sortAscending ? dateA.localeCompare(dateB) : dateB.localeCompare(dateA);
+  });
+
+  items.forEach(li => ul.appendChild(li));
+  sortAscending = !sortAscending;
+}
+</script>
+
+
+ </body>
+</html>
