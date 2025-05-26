@@ -127,6 +127,13 @@
     <button class="styled-button" id="finished-selecting">
      Play
     </button>
+
+<div style="margin: 10px 0;">
+  <input type="text" id="from-date" placeholder="From year (e.g. 2022)" oninput="filterByDate()">
+  <input type="text" id="to-date" placeholder="To year (e.g. 2024)" oninput="filterByDate()">
+  <button onclick="clearDateFilter()">Clear</button>
+</div>
+
     <ul class="track-list">
 
 <li data-src="Tracks/A Bicycle Built For Two.mp3" data-title="A Bicycle Built For Two" data-author="Harry Dacre" data-modified="2024-10-13" data-comments="A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.">A Bicycle Built For Two<div class="hover-box">A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.</div></li>
@@ -1453,27 +1460,35 @@
 let sortAscending = true;
 
 function filterByDate() {
-  const fromDate = document.getElementById('from-date').value;
-  const toDate = document.getElementById('to-date').value;
-  const items = document.querySelectorAll('li[data-modified]');
+  const fromYear = parseInt(document.getElementById('from-date').value);
+  const toYear = parseInt(document.getElementById('to-date').value);
 
-  items.forEach(li => {
-    const modDate = li.getAttribute('data-modified');
-    const yearMatch = modDate.match(/^(\d{4})/); // Extract 4-digit year
+  document.querySelectorAll('.track-list li').forEach(item => {
+    const modStr = item.getAttribute('data-modified') || '';
+    const modYearMatch = modStr.match(/^(\d{4})/);
+    const modYear = modYearMatch ? parseInt(modYearMatch[1]) : NaN;
 
-    if (yearMatch) {
-      const year = yearMatch[1];
-      if (
-        (!fromDate || year >= fromDate) &&
-        (!toDate || year <= toDate)
-      ) {
-        li.style.display = '';
-      } else {
-        li.style.display = 'none';
-      }
-    } else {
-      li.style.display = 'none'; // hide if no valid year
-    }
+    let inDateRange = true;
+    if (!isNaN(fromYear)) inDateRange = modYear >= fromYear;
+    if (!isNaN(toYear)) inDateRange = inDateRange && modYear <= toYear;
+
+    // Also respect current search input
+    const filter = document.getElementById('searchInput').value.toLowerCase();
+    const title = item.getAttribute('data-title')?.toLowerCase() || '';
+    const author = item.getAttribute('data-author')?.toLowerCase() || '';
+    const dateComposedStr = item.getAttribute('data-date-composed') || '';
+
+    let matchesSearch = (
+      title.includes(filter) ||
+      author.includes(filter) ||
+      dateComposedStr.includes(filter) ||
+      filter.match(/\d{4}\s*[-–]\s*\d{4}/) // handle search ranges like 1900-1920
+    );
+
+    // If no search text, count as match
+    if (!filter.trim()) matchesSearch = true;
+
+    item.style.display = (inDateRange && matchesSearch) ? '' : 'none';
   });
 }
 
