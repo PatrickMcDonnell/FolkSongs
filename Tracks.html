@@ -1455,34 +1455,35 @@ let sortAscending = true;
 function filterByDate() {
   const fromDate = document.getElementById('from-date').value;
   const toDate = document.getElementById('to-date').value;
-  const items = document.querySelectorAll('li[data-date-composed]');
+  const items = document.querySelectorAll('li[data-date-modified]');
 
   items.forEach(li => {
-    const compDate = li.getAttribute('data-date-composed');
+    const modDate = li.getAttribute('data-date-modified');
 
-    // Only include entries with a clean 4-digit year
-    if (/^\d{4}$/.test(compDate)) {
+    if (/^\d{4}$/.test(modDate)) {
       if (
-        (!fromDate || compDate >= fromDate) &&
-        (!toDate || compDate <= toDate)
+        (!fromDate || modDate >= fromDate) &&
+        (!toDate || modDate <= toDate)
       ) {
         li.style.display = '';
       } else {
         li.style.display = 'none';
       }
     } else {
-      li.style.display = 'none'; // hide imprecise or invalid dates
+      li.style.display = 'none'; // hide if invalid or missing
     }
   });
 }
 
+
 function clearDateFilter() {
   document.getElementById('from-date').value = '';
   document.getElementById('to-date').value = '';
-  document.querySelectorAll('li[data-date-composed]').forEach(li => {
+  document.querySelectorAll('li[data-date-modified]').forEach(li => {
     li.style.display = '';
   });
 }
+
 
 function sortByDate() {
   const ul = document.querySelector('ul');
