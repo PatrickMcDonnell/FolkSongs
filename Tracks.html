@@ -103,13 +103,12 @@
 </small>
 
 <div style="margin-bottom: 1em;">
-  <label for="from-date">Recorded From: </label>
-  <input type="date" id="from-date">
-  <label for="to-date">To: </label>
-  <input type="date" id="to-date">
-  <button onclick="filterByDate()">Filter</button>
-  <button onclick="clearDateFilter()">Clear</button>
-  <button onclick="sortByDate()">Sort by Date</button>
+ <label for="from-date">From:</label>
+<input type="text" id="from-date" size="4" maxlength="4" oninput="filterByDate()">
+<label for="to-date">To:</label>
+<input type="text" id="to-date" size="4" maxlength="4" oninput="filterByDate()">
+<button onclick="clearDateFilter()">Clear</button>
+
 </div>
 
 
@@ -1466,37 +1465,26 @@
 let sortAscending = true;
 
 function filterByDate() {
-  const fromYear = parseInt(document.getElementById('from-date').value);
-  const toYear = parseInt(document.getElementById('to-date').value);
+  const fromDate = document.getElementById('from-date').value;
+  const toDate = document.getElementById('to-date').value;
+  const items = document.querySelectorAll('li[data-modified]');
 
-  document.querySelectorAll('.track-list li').forEach(item => {
-    const modStr = item.getAttribute('data-modified') || '';
-    const modYearMatch = modStr.match(/^(\d{4})/);
-    const modYear = modYearMatch ? parseInt(modYearMatch[1]) : NaN;
+  items.forEach(li => {
+    const modDate = li.getAttribute('data-modified') || '';
+    const modYearMatch = modDate.match(/^(\d{4})/);
+    const modYear = modYearMatch ? modYearMatch[1] : '';
 
-    let inDateRange = true;
-    if (!isNaN(fromYear)) inDateRange = modYear >= fromYear;
-    if (!isNaN(toYear)) inDateRange = inDateRange && modYear <= toYear;
-
-    // Also respect current search input
-    const filter = document.getElementById('searchInput').value.toLowerCase();
-    const title = item.getAttribute('data-title')?.toLowerCase() || '';
-    const author = item.getAttribute('data-author')?.toLowerCase() || '';
-    const dateComposedStr = item.getAttribute('data-date-composed') || '';
-
-    let matchesSearch = (
-      title.includes(filter) ||
-      author.includes(filter) ||
-      dateComposedStr.includes(filter) ||
-      filter.match(/\d{4}\s*[-–]\s*\d{4}/) // handle search ranges like 1900-1920
-    );
-
-    // If no search text, count as match
-    if (!filter.trim()) matchesSearch = true;
-
-    item.style.display = (inDateRange && matchesSearch) ? '' : 'none';
+    if (
+      (!fromDate || modYear >= fromDate) &&
+      (!toDate || modYear <= toDate)
+    ) {
+      li.style.display = '';
+    } else {
+      li.style.display = 'none';
+    }
   });
 }
+
 
 
 function clearDateFilter() {
