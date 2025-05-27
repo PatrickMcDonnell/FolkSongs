@@ -1403,7 +1403,43 @@
         });
     });
 });
-    </script>
+    
+// Filter by recorded date using data-modified
+function filterByDate() {
+    const fromInput = document.getElementById('from-date').value;
+    const toInput = document.getElementById('to-date').value;
+
+    const fromDate = fromInput ? new Date(fromInput) : null;
+    const toDate = toInput ? new Date(toInput) : null;
+
+    document.querySelectorAll('.track-list li').forEach(item => {
+        const modifiedStr = item.getAttribute('data-modified');
+        if (!modifiedStr) {
+            item.style.display = 'none';
+            return;
+        }
+
+        const modifiedDate = new Date(modifiedStr);
+        const inRange =
+            (!fromDate || modifiedDate >= fromDate) &&
+            (!toDate || modifiedDate <= toDate);
+
+        item.style.display = inRange ? '' : 'none';
+    });
+}
+
+// Clear date filter and show all tracks
+function clearDateFilter() {
+    document.getElementById('from-date').value = '';
+    document.getElementById('to-date').value = '';
+
+    // Show all items again (resets only date filtering)
+    document.querySelectorAll('.track-list li').forEach(item => {
+        item.style.display = '';
+    });
+}
+
+</script>
     <div id="footer">
      <p>
       Copyright © 2024
