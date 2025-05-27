@@ -1486,7 +1486,6 @@ function clearDateFilter() {
 
 <script>
 
-// REMOVE let sortAscending = true;
 
 function filterByDate() {
   const fromInput = document.getElementById('from-date').value;
@@ -1521,7 +1520,7 @@ function clearDateFilter() {
   });
 }
 
-
+let sortAscending = true;
 function sortByDate() {
   const ul = document.querySelector('ul');
   const items = Array.from(document.querySelectorAll('li[data-modified]'));
