@@ -1491,26 +1491,26 @@ function filterByDate() {
   const fromInput = document.getElementById('from-date').value;
   const toInput = document.getElementById('to-date').value;
 
-  const fromYear = fromInput ? parseInt(fromInput, 10) : null;
-  const toYear = toInput ? parseInt(toInput, 10) : null;
+  const fromDate = fromInput ? new Date(fromInput) : null;
+  const toDate = toInput ? new Date(toInput) : null;
 
   document.querySelectorAll('.track-list li').forEach(item => {
     const modifiedStr = item.getAttribute('data-modified');
-    
-    // Only match items with a valid 4-digit year
-    if (!/^\d{4}$/.test(modifiedStr)) {
+    const modifiedDate = new Date(modifiedStr);
+
+    if (isNaN(modifiedDate)) {
       item.style.display = 'none';
       return;
     }
 
-    const modifiedYear = parseInt(modifiedStr, 10);
-    const inRange = 
-      (!fromYear || modifiedYear >= fromYear) &&
-      (!toYear || modifiedYear <= toYear);
+    const inRange =
+      (!fromDate || modifiedDate >= fromDate) &&
+      (!toDate || modifiedDate <= toDate);
 
     item.style.display = inRange ? '' : 'none';
   });
 }
+
 
 function clearDateFilter() {
   document.getElementById('from-date').value = '';
