@@ -1485,39 +1485,42 @@ function clearDateFilter() {
   </script>
 
 <script>
-let sortAscending = true;
+
+// REMOVE let sortAscending = true;
 
 function filterByDate() {
-  const fromDate = document.getElementById('from-date').value;
-  const toDate = document.getElementById('to-date').value;
-  const items = document.querySelectorAll('li[data-modified]');
+  const fromInput = document.getElementById('from-date').value;
+  const toInput = document.getElementById('to-date').value;
 
-  items.forEach(li => {
-    const modDate = li.getAttribute('data-modified');
+  const fromYear = fromInput ? parseInt(fromInput, 10) : null;
+  const toYear = toInput ? parseInt(toInput, 10) : null;
 
-    // Only include entries with a clean 4-digit year
-    if (/^\d{4}$/.test(modDate)) {
-      if (
-        (!fromDate || modDate >= fromDate) &&
-        (!toDate || modDate <= toDate)
-      ) {
-        li.style.display = '';
-      } else {
-        li.style.display = 'none';
-      }
-    } else {
-      li.style.display = 'none'; // hide imprecise or invalid dates
+  document.querySelectorAll('.track-list li').forEach(item => {
+    const modifiedStr = item.getAttribute('data-modified');
+    
+    // Only match items with a valid 4-digit year
+    if (!/^\d{4}$/.test(modifiedStr)) {
+      item.style.display = 'none';
+      return;
     }
+
+    const modifiedYear = parseInt(modifiedStr, 10);
+    const inRange = 
+      (!fromYear || modifiedYear >= fromYear) &&
+      (!toYear || modifiedYear <= toYear);
+
+    item.style.display = inRange ? '' : 'none';
   });
 }
 
 function clearDateFilter() {
   document.getElementById('from-date').value = '';
   document.getElementById('to-date').value = '';
-  document.querySelectorAll('li[data-modified]').forEach(li => {
-    li.style.display = '';
+  document.querySelectorAll('.track-list li').forEach(item => {
+    item.style.display = '';
   });
 }
+
 
 function sortByDate() {
   const ul = document.querySelector('ul');
