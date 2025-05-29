@@ -256,19 +256,16 @@ async function initializePlaylistFromURL() {
   }
 
  if (paths.length > 0) {
+  // Important: Delay playback just slightly to allow DOM to update
   setTimeout(() => {
-    // Check if audioPlayer has a source and is ready
-    if (audioPlayer.src || audioPlayer.children.length > 0) {
-      audioPlayer.play().catch(() => {
-        autoplayWasBlocked = true;
-        console.warn('Autoplay was blocked. Waiting for user to click Start Playlist.');
-        startButton.style.display = 'inline-block';
-      });
-    } else {
-      console.warn('Audio player is not ready.');
-    }
-  }, 300); // slight delay — you can increase to 500 if needed
+    audioPlayer.play().catch(() => {
+      autoplayWasBlocked = true;
+      console.warn('Autoplay was blocked. Waiting for user to click Start Playlist.');
+      startButton.style.display = 'inline-block';
+    });
+  }, 100); // 100ms usually enough
 }
+
 
 }
 
