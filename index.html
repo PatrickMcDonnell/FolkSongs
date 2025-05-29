@@ -251,29 +251,19 @@ async function initializePlaylistFromURL() {
     paths = songsParam.split(';');
   }
 
-  // FIX: restore the for-loop here
   for (const path of paths) {
     await addSongToPlaylist(path);
   }
 
-  //if (paths.length > 0) {
- //  audioPlayer.play().catch(() => {
-  //    autoplayWasBlocked = true;
-   //   console.warn('Autoplay was blocked. Waiting for user to click Start Playlist.');
-  //    startButton.style.display = 'inline-block';
- //   });
-// }
-
-if (paths.length > 0) {
-  // Wait for a moment to give the DOM and audio element time to settle
-  setTimeout(() => {
+  if (paths.length > 0) {
     audioPlayer.play().catch(() => {
       autoplayWasBlocked = true;
       console.warn('Autoplay was blocked. Waiting for user to click Start Playlist.');
       startButton.style.display = 'inline-block';
     });
-  }, 500); // Delay in milliseconds (adjust if needed)
+  }
 }
+
 
   // LocalStorage fallback
   async function initializePlaylistFromStorage() {
