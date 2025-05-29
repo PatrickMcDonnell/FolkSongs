@@ -257,21 +257,19 @@ async function initializePlaylistFromURL() {
   }
 
  if (paths.length > 0) {
-  // Small delay to ensure DOM is updated before trying to play
   setTimeout(() => {
-    // Make sure the playlist has items and audio source is ready
-    if (playlist.children.length > 0 && audioPlayer.src) {
+    // Check if audioPlayer has a source and is ready
+    if (audioPlayer.src || audioPlayer.children.length > 0) {
       audioPlayer.play().catch(() => {
         autoplayWasBlocked = true;
         console.warn('Autoplay was blocked. Waiting for user to click Start Playlist.');
         startButton.style.display = 'inline-block';
       });
     } else {
-      console.warn('Playlist loaded, but no playable source found.');
+      console.warn('Audio player is not ready.');
     }
-  }, 150); // Slight delay to let browser update src
+  }, 300); // slight delay — you can increase to 500 if needed
 }
-
 }
 
   // LocalStorage fallback
