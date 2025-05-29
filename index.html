@@ -236,8 +236,30 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!songsParam) return;
 
     playlist.innerHTML = '';
+
+// Here is where the last change was made to remove const paths = songParam.split(';');
     const paths = songsParam.split(';');
-    for (const path of paths) {
+
+
+// Here is what substituted for that one line, above.
+
+let paths;
+if (songsParam === 'random') {
+  const songElements = document.querySelectorAll('#songlist li a');
+  const total = songElements.length;
+  const count = Math.min(3, total); // Change 3 to any number of random songs you'd prefer
+  const indices = [];
+  while (indices.length < count) {
+    const i = Math.floor(Math.random() * total);
+    if (!indices.includes(i)) indices.push(i);
+  }
+  paths = indices.map(i => songElements[i].getAttribute('href'));
+} else {
+  paths = songsParam.split(';');
+}
+
+// HEre is where the substituted code ended
+
       await addSongToPlaylist(path);
     }
 
