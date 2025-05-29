@@ -277,6 +277,7 @@ async function initializePlaylistFromURL() {
     const stored = localStorage.getItem('playlist');
     if (!stored) return;
 
+
     const list = JSON.parse(stored);
     playlist.innerHTML = '';
     for (const item of list) {
