@@ -247,7 +247,7 @@ let paths;
 if (songsParam === 'random') {
   const songElements = document.querySelectorAll('#songlist li a');
   const total = songElements.length;
-  const count = Math.min(3, total); // Change 3 to any number of random songs you'd prefer
+  const count = Math.min(6, total); // Change 6 to any number of random songs you'd prefer
   const indices = [];
   while (indices.length < count) {
     const i = Math.floor(Math.random() * total);
