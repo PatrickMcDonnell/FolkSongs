@@ -228,49 +228,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
     playlist.appendChild(li);
   }
+// URL-based playlist
+async function initializePlaylistFromURL() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const songsParam = urlParams.get('songs');
+  if (!songsParam) return;
 
-  // URL-based playlist
-  async function initializePlaylistFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const songsParam = urlParams.get('songs');
-    if (!songsParam) return;
+  playlist.innerHTML = '';
 
-    playlist.innerHTML = '';
-
-// Here is where the last change was made to remove const paths = songParam.split(';');
-
-
-
-// Here is what substituted for that one line, above.
-
-let paths;
-if (songsParam === 'random') {
-  const songElements = document.querySelectorAll('#songlist li a');
-  const total = songElements.length;
-  const count = Math.min(6, total); // Change 6 to any number of random songs you'd prefer
-  const indices = [];
-  while (indices.length < count) {
-    const i = Math.floor(Math.random() * total);
-    if (!indices.includes(i)) indices.push(i);
+  let paths;
+  if (songsParam === 'random') {
+    const songElements = document.querySelectorAll('#songlist li a');
+    const total = songElements.length;
+    const count = Math.min(6, total); // Change 6 to any number of random songs you'd prefer
+    const indices = [];
+    while (indices.length < count) {
+      const i = Math.floor(Math.random() * total);
+      if (!indices.includes(i)) indices.push(i);
+    }
+    paths = indices.map(i => songElements[i].getAttribute('href'));
+  } else {
+    paths = songsParam.split(';');
   }
-  paths = indices.map(i => songElements[i].getAttribute('href'));
-} else {
-  paths = songsParam.split(';');
+
+  // FIX: restore the for-loop here
+  for (const path of paths) {
+    await addSongToPlaylist(path);
+  }
+
+  if (paths.length > 0) {
+    audioPlayer.play().catch(() => {
+      autoplayWasBlocked = true;
+      console.warn('Autoplay was blocked. Waiting for user to click Start Playlist.');
+      startButton.style.display = 'inline-block';
+    });
+  }
 }
-
-// HEre is where the substituted code ended
-
-      await addSongToPlaylist(path);
-    }
-
-    if (paths.length > 0) {
-      audioPlayer.play().catch(() => {
-        autoplayWasBlocked = true;
-        console.warn('Autoplay was blocked. Waiting for user to click Start Playlist.');
-        startButton.style.display = 'inline-block';
-      });
-    }
-  }
 
   // LocalStorage fallback
   async function initializePlaylistFromStorage() {
