@@ -236,15 +236,23 @@ console.log('Trying to autoplay. Current src:', audioPlayer.src);
 async function initializePlaylistFromURL() {
   const urlParams = new URLSearchParams(window.location.search);
   const songsParam = urlParams.get('songs');
+  const countParam = parseInt(urlParams.get('count')) || 6;
   if (!songsParam) return;
 
   playlist.innerHTML = '';
 
   let paths;
+
   if (songsParam === 'random') {
-    const songElements = document.querySelectorAll('#songlist li a');
+    // Fetch and parse Tracks.html
+    const response = await fetch('Tracks.html');
+    const html = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const songElements = [...doc.querySelectorAll('#songlist li a')];
+
     const total = songElements.length;
-    const count = Math.min(6, total); // change to any number of random songs
+    const count = Math.min(countParam, total);
     const indices = [];
     while (indices.length < count) {
       const i = Math.floor(Math.random() * total);
@@ -258,6 +266,38 @@ async function initializePlaylistFromURL() {
   for (const path of paths) {
     await addSongToPlaylist(path);
   }
+}
+
+
+
+
+
+// URL-based playlist
+//async function initializePlaylistFromURL() {
+//  const urlParams = new URLSearchParams(window.location.search);
+//  const songsParam = urlParams.get('songs');
+//  if (!songsParam) return;
+
+//  playlist.innerHTML = '';
+
+//  let paths;
+//  if (songsParam === 'random') {
+//    const songElements = document.querySelectorAll('#songlist li a');
+//    const total = songElements.length;
+//    const count = Math.min(6, total); // change to any number of random songs
+//    const indices = [];
+//    while (indices.length < count) {
+//      const i = Math.floor(Math.random() * total);
+//      if (!indices.includes(i)) indices.push(i);
+//    }
+//    paths = indices.map(i => songElements[i].getAttribute('href'));
+//  } else {
+//    paths = songsParam.split(';');
+//  }
+//
+//  for (const path of paths) {
+//    await addSongToPlaylist(path);
+//  }
 
 if (paths.length > 0 && playlist.children.length > 0) {
   const first = playlist.children[0];
