@@ -249,7 +249,7 @@ async function initializePlaylistFromURL() {
     const html = await response.text();
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
-    const songElements = [...doc.querySelectorAll('#songlist li a')];
+    const songElements = [...doc.querySelectorAll('.track-list li a')];
 
     const total = songElements.length;
     const count = Math.min(countParam, total);
