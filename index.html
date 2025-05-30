@@ -303,11 +303,12 @@ async function initializePlaylistFromURL() {
 
     if (list.length > 0) {
       audioPlayer.src = baseUrl + list[0].src;
-      
-audioPlayer.play().catch(() => {
+
+audioPlayer.play().then(() => {
+  console.log('Autoplay started successfully.');
+}).catch((err) => {
   autoplayWasBlocked = true;
-  console.warn('Autoplay was blocked. Waiting for user to click Start Playlist.');
-  console.log('Showing Start Playlist button because autoplay was blocked');
+  console.warn('Autoplay was blocked or failed:', err);
   startButton.style.display = 'inline-block';
 });
 
