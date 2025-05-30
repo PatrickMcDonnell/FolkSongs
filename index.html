@@ -303,11 +303,14 @@ async function initializePlaylistFromURL() {
 
     if (list.length > 0) {
       audioPlayer.src = baseUrl + list[0].src;
-      audioPlayer.play().catch(() => {
-        autoplayWasBlocked = true;
-        console.warn('Autoplay was blocked. Waiting for user to click Start Playlist.');
-        startButton.style.display = 'inline-block';
-      });
+      
+audioPlayer.play().catch(() => {
+  autoplayWasBlocked = true;
+  console.warn('Autoplay was blocked. Waiting for user to click Start Playlist.');
+  console.log('Showing Start Playlist button because autoplay was blocked');
+  startButton.style.display = 'inline-block';
+});
+
     }
 
     localStorage.removeItem('playlist');
@@ -333,16 +336,19 @@ async function initializePlaylistFromURL() {
   });
 
   // Start playback button
-  startButton.addEventListener('click', () => {
-    if (playlist.children.length > 0) {
-      currentSongIndex = 0;
-      const first = playlist.children[currentSongIndex];
-      audioPlayer.src = first.getAttribute('data-src');
-      audioPlayer.play().catch(() => {
-        console.warn('Playback failed on manual start');
-      });
-    }
-  });
+
+startButton.addEventListener('click', () => {
+  console.log('Start Playlist button clicked');
+  if (playlist.children.length > 0) {
+    currentSongIndex = 0;
+    const first = playlist.children[currentSongIndex];
+    audioPlayer.src = first.getAttribute('data-src');
+    audioPlayer.play().catch(() => {
+      console.warn('Playback failed on manual start');
+    });
+  }
+});
+
 
   // Hover positioning
   playlist.addEventListener('mouseover', (e) => {
