@@ -1,114 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>All Tracks</title>
-  <link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
-  <link href="print.css" media="print" rel="stylesheet" type="text/css"/>
-  <style>
-   body {
-    font-family: Arial, sans-serif;
-    background-image: url('');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: 0;
-    padding: 20px;
-    color: #000;
-   }
-   .track-list {
-    list-style-type: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-   }
-   .track-list li {
-    position: relative;
-    margin: 0;
-    line-height: 1.5;
-    cursor: pointer;
-    color: #000;
-   }
-   .track-list li.selected {
-    color: blue;
-   }
-   .styled-button {
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blues</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set default text color to black */
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
+        }
+        .track-list li {
+            position: relative; /* Ensure the hover box is positioned relative to the item */
+            margin: 0;
+            line-height: 1.5; /* Set line height for single spacing */
+            cursor: pointer;
+            color: #000; /* Default text color */
+        }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
+        }
+
+.styled-button {
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #808080;
-    color: #fff;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
     border: none;
     cursor: pointer;
-   }
-   #footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 10px;
-    clear: both;
+}
+      .styled-button {
     margin-top: 20px;
-    background-color: #f0f0f0;
-    border-top: 1px solid #ccc;
-   }
-   .hover-box {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    border: 2px solid #ccc;
-    padding: 10px;
-    z-index: 1;
-    white-space: pre-wrap;
-    width: 250px;
-    max-height: 80vh;
-    overflow: auto;
-    left: calc(100% + 10px);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-   }
-   .track-list li:hover .hover-box {
-    display: block;
-   }
-   #controls {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-   }
-  </style>
- </head>
- <body>
-  <div id="wrap">
-   <div id="header">
-    <h1><a href="#">All Tracks</a></h1>
-    <img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
-    <h1>Select Tracks</h1>
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
 
-    <!-- Search input -->
-    <input id="searchInput" placeholder="Search for a song by title, author or year composed..." 
-           style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px;
+            max-height: 80vh;
+            overflow: auto;
+            left: calc(100% + 10px);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <h1><a href="#">All Tracks</a></h1>
+        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+        <h1>Select Tracks</h1>
+        <!-- Search input -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
 
-    <small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
-      You can search by title, author, or year range the song was originally composed (e.g., 1900-1920) or, below, filter by when the song was recorded here.
-    </small>
+<!-- Select All Button -->
+<button id="selectAllButton" class="styled-button">Select All</button>
 
-    <div style="margin-bottom: 1em;">
-      <label for="from-date">Recorded From: </label>
-      <input type="date" id="from-date">
-      <label for="to-date">To: </label>
-      <input type="date" id="to-date">
-      <button onclick="filterByDate()">Filter</button>
-      <button onclick="clearDateFilter()">Clear</button>
-      <button onclick="sortByDate()">Sort by Date</button>
-    </div>
+<!-- Play Button -->
+<button class="styled-button" id="finished-selecting">Play</button>
 
-    <!-- Buttons -->
-    <button class="styled-button" id="selectAllButton">Select All</button>
-    <button class="styled-button" id="selectNumberButton">Select Random Songs</button>
-    <button class="styled-button" id="finished-selecting">Play</button>
-
-    <ul class="track-list" id="track-list">
+        <ul class="track-list">
+           
 
 <li data-src="Tracks/A Bicycle Built For Two.mp3" data-title="A Bicycle Built For Two" data-author="Harry Dacre" data-modified="2024-10-13" data-comments="A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.">A Bicycle Built For Two<div class="hover-box">A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.</div></li>
 
@@ -1310,113 +1297,80 @@
 
 </ul>
 
-    <div id="footer">
-     <p>
-      Copyright © 2024
-      <a href="img/PatMcD4x4.jpg">
-       Thomas Patrick McDonnell
-      </a>
-      · 
-        |
-      <a href="homepage.html">
-       Homepage
-      </a>
-     </p>
-    </div>
-
-   </div>
-  </div>
+            <!-- Add more tracks here as needed -->
+        </ul>
+   
 
 <script>
-function filterByDate() {
-  const from = new Date(document.getElementById("from-date").value);
-  const to = new Date(document.getElementById("to-date").value);
-  document.querySelectorAll("#track-list li").forEach(li => {
-    const modifiedStr = li.getAttribute("data-modified");
-    if (!modifiedStr) return;
-    const modified = new Date(modifiedStr);
-    if ((!isNaN(from) && modified < from) || (!isNaN(to) && modified > to)) {
-      li.style.display = "none";
-    } else {
-      li.style.display = "";
-    }
-  });
-}
+document.addEventListener("DOMContentLoaded", function() {
+    // Select All functionality
+    document.getElementById("selectAllButton").addEventListener("click", function() {
+        const trackListItems = document.querySelectorAll('.track-list li');
+        trackListItems.forEach(item => item.classList.add('selected'));
+    });
 
-function clearDateFilter() {
-  document.getElementById("from-date").value = "";
-  document.getElementById("to-date").value = "";
-  document.querySelectorAll("#track-list li").forEach(li => {
-    li.style.display = "";
-  });
-}
+    const trackListItems = document.querySelectorAll('.track-list li');
+    const finishedButton = document.getElementById('finished-selecting');
+    const searchInput = document.getElementById('searchInput');
 
-function sortByDate() {
-  const list = document.getElementById("track-list");
-  const items = Array.from(list.children);
-  items.sort((a, b) => {
-    const dateA = new Date(a.getAttribute("data-modified"));
-    const dateB = new Date(b.getAttribute("data-modified"));
-    return dateA - dateB;
-  });
-  items.forEach(item => list.appendChild(item));
-}
+    finishedButton.addEventListener('click', function() {
+        const selectedPlaylist = [];
+        trackListItems.forEach(item => {
+            if (item.classList.contains('selected')) {
+                const songSrc = item.getAttribute('data-src');
+                const songTitle = item.getAttribute('data-title');
+                const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
+                selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+            }
+        });
 
-document.getElementById("searchInput").addEventListener("input", function () {
-  const query = this.value.toLowerCase();
-  document.querySelectorAll("#track-list li").forEach(li => {
-    const title = li.getAttribute("data-title") || "";
-    const author = li.getAttribute("data-author") || "";
-    const year = li.getAttribute("data-date-composed") || "";
-    if (
-      title.toLowerCase().includes(query) ||
-      author.toLowerCase().includes(query) ||
-      year.includes(query)
-    ) {
-      li.style.display = "";
-    } else {
-      li.style.display = "none";
-    }
-  });
+        // Store selected playlist in localStorage
+        localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+        // Redirect back to index.html
+        window.location.href = 'index.html';
+    });
+
+    trackListItems.forEach(item => {
+        item.addEventListener('click', function() {
+            item.classList.toggle('selected');
+        });
+    });
+
+    // Add search functionality
+    searchInput.addEventListener('input', function() {
+        const filter = searchInput.value.toLowerCase();
+        trackListItems.forEach(function(item) {
+            const title = item.getAttribute('data-title').toLowerCase();
+            if (title.includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
 });
+    document.querySelectorAll('.track-list li').forEach(function(track) {
+        track.addEventListener('mouseover', function() {
+            const hoverBox = this.querySelector('.hover-box');
+            const rect = hoverBox.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
 
-document.getElementById("selectAllButton").addEventListener("click", () => {
-  document.querySelectorAll("#track-list li").forEach(li => {
-    li.classList.add("selected");
-  });
-});
+            // Check if hover box would go below the viewport
+            if (rect.bottom > viewportHeight) {
+                hoverBox.style.top = `-${rect.height}px`;
+            } else {
+                hoverBox.style.top = '0';
+            }
+        });
+    });
 
-document.getElementById("selectNumberButton").addEventListener("click", () => {
-  const allItems = [...document.querySelectorAll("#track-list li")];
-  const count = 10; // change to how many random songs you want
-  const selected = [];
-
-  while (selected.length < count && allItems.length > 0) {
-    const index = Math.floor(Math.random() * allItems.length);
-    const [item] = allItems.splice(index, 1);
-    selected.push(item);
-  }
-
-  document.querySelectorAll("#track-list li").forEach(li => {
-    li.classList.remove("selected");
-  });
-
-  selected.forEach(li => li.classList.add("selected"));
-});
-
-document.getElementById("finished-selecting").addEventListener("click", () => {
-  const selected = [...document.querySelectorAll("#track-list li.selected")];
-  if (selected.length === 0) {
-    alert("No songs selected.");
-    return;
-  }
-  const urls = selected.map(li => li.getAttribute("data-src"));
-  const indexUrl = `index.html?playlist=${encodeURIComponent(urls.join(","))}`;
-  window.location.href = indexUrl;
-});
 </script>
 
-
-
- </body>
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="homepage.html">Homepage</a></p>
+    </div>
+</div>
+</body>
 </html>
