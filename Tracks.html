@@ -42,14 +42,7 @@
     color: #fff; /* White text */
     border: none;
     cursor: pointer;
-}
-      .styled-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #808080; /* Grey background */
-    color: #fff; /* White text */
-    border: none;
-    cursor: pointer;
+
 }
 
         #footer {
@@ -77,6 +70,13 @@
         .track-list li:hover .hover-box {
             display: block;
         }
+
+  /* Ensuring buttons are placed properly */
+        #controls {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
 </head>
 <body>
@@ -86,10 +86,31 @@
         <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
         <h1>Select Tracks</h1>
         <!-- Search input -->
-        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+        <input type="text" id="searchInput" placeholder="Search for a song by title, author or year composed..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+
+type="text"/>
+
+<small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
+  You can search by title, author, or year range the song was originally composed (e.g., 1900-1920) or, below, filter by when the song was recorded here.
+</small>
+
+<div style="margin-bottom: 1em;">
+  <label for="from-date">Recorded From: </label>
+  <input type="date" id="from-date">
+  <label for="to-date">To: </label>
+  <input type="date" id="to-date">
+  <button onclick="filterByDate()">Filter</button>
+  <button onclick="clearDateFilter()">Clear</button>
+  <button onclick="sortByDate()">Sort by Date</button>
+</div>
 
 <!-- Select All Button -->
 <button id="selectAllButton" class="styled-button">Select All</button>
+   <!-- Select Random Button -->
+    <!-- Select Number Button -->
+    <button class="styled-button" id="selectNumberButton">
+     Select Random Songs
+    </button>
 
 <!-- Play Button -->
 <button class="styled-button" id="finished-selecting">Play</button>
