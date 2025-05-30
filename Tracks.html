@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blues</title>
+    <title>All Tracks</title>
     <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
     <link rel="stylesheet" type="text/css" href="print.css" media="print" />
     <style>
@@ -86,9 +86,7 @@
         <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
         <h1>Select Tracks</h1>
         <!-- Search input -->
-        <input type="text" id="searchInput" placeholder="Search for a song by title, author or year composed..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
-
-type="text"/>
+        <input type="text" id="searchInput" placeholder="Search for a song by title, author or year composed..." style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
 
 <small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
   You can search by title, author, or year range the song was originally composed (e.g., 1900-1920) or, below, filter by when the song was recorded here.
@@ -1322,18 +1320,19 @@ type="text"/>
         </ul>
    
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
+ <script>
+     document.addEventListener("DOMContentLoaded", function() {
+    const trackListItems = document.querySelectorAll('.track-list li');
+    const searchInput = document.getElementById('searchInput');
+    const selectAllButton = document.getElementById("selectAllButton");
+    const finishedButton = document.getElementById('finished-selecting');
+
     // Select All functionality
-    document.getElementById("selectAllButton").addEventListener("click", function() {
-        const trackListItems = document.querySelectorAll('.track-list li');
+    selectAllButton.addEventListener("click", function() {
         trackListItems.forEach(item => item.classList.add('selected'));
     });
 
-    const trackListItems = document.querySelectorAll('.track-list li');
-    const finishedButton = document.getElementById('finished-selecting');
-    const searchInput = document.getElementById('searchInput');
-
+    // Finished selecting functionality (Play button)
     finishedButton.addEventListener('click', function() {
         const selectedPlaylist = [];
         trackListItems.forEach(item => {
@@ -1352,25 +1351,47 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = 'index.html';
     });
 
+    // Toggle selection of individual tracks
     trackListItems.forEach(item => {
         item.addEventListener('click', function() {
             item.classList.toggle('selected');
         });
     });
 
-    // Add search functionality
-    searchInput.addEventListener('input', function() {
-        const filter = searchInput.value.toLowerCase();
-        trackListItems.forEach(function(item) {
-            const title = item.getAttribute('data-title').toLowerCase();
-            if (title.includes(filter)) {
-                item.style.display = '';
-            } else {
-                item.style.display = 'none';
-            }
-        });
+ searchInput.addEventListener('input', function () {
+    const filter = searchInput.value.toLowerCase().trim();
+    const rangeMatch = filter.match(/^(\d{4})\s*[-–]\s*(\d{4})$/); // only accept full 4-digit ranges
+
+    trackListItems.forEach(function (item) {
+        const title = item.getAttribute('data-title')?.toLowerCase() || '';
+        const author = item.getAttribute('data-author')?.toLowerCase() || '';
+        const dateComposedStr = item.getAttribute('data-date-composed') || '';
+
+        let match = false;
+
+        // Only consider data-date-composed entries that are exactly 4-digit years
+        const exactYearMatch = dateComposedStr.match(/^\d{4}$/);
+        const dateComposed = exactYearMatch ? parseInt(dateComposedStr) : NaN;
+
+        // Handle text match (only if year is precise)
+        if (exactYearMatch && (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter))) {
+            match = true;
+        }
+
+        // Handle range like "1900-1920" (only if year is precise)
+        if (rangeMatch && !isNaN(dateComposed)) {
+            const startYear = parseInt(rangeMatch[1]);
+            const endYear = parseInt(rangeMatch[2]);
+            match = dateComposed >= startYear && dateComposed <= endYear;
+        }
+
+        item.style.display = match ? '' : 'none';
     });
 });
+
+
+    
+    // Hover box adjustment for overflow
     document.querySelectorAll('.track-list li').forEach(function(track) {
         track.addEventListener('mouseover', function() {
             const hoverBox = this.querySelector('.hover-box');
@@ -1385,7 +1406,126 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
+});
+    
+// Filter by recorded date using data-modified
+function filterByDate() {
+    const fromInput = document.getElementById('from-date').value;
+    const toInput = document.getElementById('to-date').value;
 
+    const fromDate = fromInput ? new Date(fromInput) : null;
+    const toDate = toInput ? new Date(toInput) : null;
+
+    document.querySelectorAll('.track-list li').forEach(item => {
+        const modifiedStr = item.getAttribute('data-modified');
+        if (!modifiedStr) {
+            item.style.display = 'none';
+            return;
+        }
+
+        const modifiedDate = new Date(modifiedStr);
+        const inRange =
+            (!fromDate || modifiedDate >= fromDate) &&
+            (!toDate || modifiedDate <= toDate);
+
+        item.style.display = inRange ? '' : 'none';
+    });
+}
+
+// Clear date filter and show all tracks
+function clearDateFilter() {
+    document.getElementById('from-date').value = '';
+    document.getElementById('to-date').value = '';
+
+    // Show all items again (resets only date filtering)
+    document.querySelectorAll('.track-list li').forEach(item => {
+        item.style.display = '';
+    });
+}
+</script>
+  
+   </div>
+  </div>
+  <script>
+   function getAllTrackItems() {
+    return Array.from(document.querySelectorAll(".track-list li"));
+  }
+
+  function clearAllSelections() {
+    getAllTrackItems().forEach(item => item.classList.remove("selected"));
+  }
+
+  function selectRandomItems(count) {
+    const items = getAllTrackItems();
+    clearAllSelections();
+    if (count > items.length) count = items.length;
+    const shuffled = [...items].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, count);
+    selected.forEach(item => item.classList.add("selected"));
+  }
+
+  document.getElementById("selectNumberButton").addEventListener("click", () => {
+    const total = getAllTrackItems().length;
+    const input = prompt(`Enter the number of songs to select (1 to ${total}):`, "10");
+    const num = parseInt(input, 10);
+    if (!isNaN(num) && num > 0 && num <= total) {
+      selectRandomItems(num);
+    } else {
+      alert("Please enter a valid number between 1 and " + total);
+    }
+  });
+  </script>
+
+<script>
+
+
+function filterByDate() {
+  const fromInput = document.getElementById('from-date').value;
+  const toInput = document.getElementById('to-date').value;
+
+  const fromDate = fromInput ? new Date(fromInput) : null;
+  const toDate = toInput ? new Date(toInput) : null;
+
+  document.querySelectorAll('.track-list li').forEach(item => {
+    const modifiedStr = item.getAttribute('data-modified');
+    const modifiedDate = new Date(modifiedStr);
+
+    if (isNaN(modifiedDate)) {
+      item.style.display = 'none';
+      return;
+    }
+
+    const inRange =
+      (!fromDate || modifiedDate >= fromDate) &&
+      (!toDate || modifiedDate <= toDate);
+
+    item.style.display = inRange ? '' : 'none';
+  });
+}
+
+
+function clearDateFilter() {
+  document.getElementById('from-date').value = '';
+  document.getElementById('to-date').value = '';
+  document.querySelectorAll('.track-list li').forEach(item => {
+    item.style.display = '';
+  });
+}
+
+let sortAscending = true;
+function sortByDate() {
+  const ul = document.querySelector('ul');
+  const items = Array.from(document.querySelectorAll('li[data-modified]'));
+
+  items.sort((a, b) => {
+    const dateA = a.getAttribute('data-modified');
+    const dateB = b.getAttribute('data-modified');
+    return sortAscending ? dateA.localeCompare(dateB) : dateB.localeCompare(dateA);
+  });
+
+  items.forEach(li => ul.appendChild(li)); // Reorder in DOM
+  sortAscending = !sortAscending;
+}
 </script>
 
     <div id="footer">
