@@ -223,6 +223,9 @@ document.addEventListener('DOMContentLoaded', function () {
     li.addEventListener('click', () => {
       currentSongIndex = Array.from(playlist.children).indexOf(li);
       audioPlayer.src = li.getAttribute('data-src');
+
+console.log('Trying to autoplay. Current src:', audioPlayer.src);
+
       audioPlayer.play();
     });
 
