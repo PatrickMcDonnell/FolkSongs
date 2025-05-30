@@ -259,24 +259,24 @@ async function initializePlaylistFromURL() {
     await addSongToPlaylist(path);
   }
 
- if (paths.length > 0) {
-  // Small delay to ensure DOM is updated before trying to play
-  setTimeout(() => {
-    // Make sure the playlist has items and audio source is ready
-    if (playlist.children.length > 0 && audioPlayer.src) {
-     audioPlayer.play().then(() => {
-  console.log('Autoplay started successfully.');
-}).catch((err) => {
-  autoplayWasBlocked = true;
-  console.warn('Autoplay was blocked or failed:', err);
-  startButton.style.display = 'inline-block';
-});
+if (paths.length > 0 && playlist.children.length > 0) {
+  const first = playlist.children[0];
+  const src = first.getAttribute('data-src');
+  audioPlayer.src = src;
 
-    } else {
-      console.warn('Playlist loaded, but no playable source found.');
-    }
-  }, 150); // Slight delay to let browser update src
+  console.log('Autoplay attempt with src:', src);
+
+  setTimeout(() => {
+    audioPlayer.play().then(() => {
+      console.log('Autoplay started successfully.');
+    }).catch((err) => {
+      autoplayWasBlocked = true;
+      console.warn('Autoplay was blocked or failed:', err);
+      startButton.style.display = 'inline-block';
+    });
+  }, 150);
 }
+ 
 
 }
 
