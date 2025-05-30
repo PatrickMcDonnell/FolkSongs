@@ -1327,6 +1327,87 @@
    </div>
   </div>
 
-  <script src="tracks-script.js"></script>
+<script>
+function filterSongs() {
+  const search = document.getElementById("search").value.toLowerCase();
+  const songs = document.querySelectorAll("#song-list li");
+  songs.forEach(song => {
+    const text = song.textContent.toLowerCase();
+    const year = song.getAttribute("data-date-composed") || "";
+    if (text.includes(search) || year.includes(search)) {
+      song.style.display = "";
+    } else {
+      song.style.display = "none";
+    }
+  });
+}
+
+function populateAuthorOptions() {
+  const select = document.getElementById("author-select");
+  const authors = new Set();
+  document.querySelectorAll("#song-list li").forEach(li => {
+    const author = li.getAttribute("data-author");
+    if (author) authors.add(author);
+  });
+
+  [...authors].sort().forEach(author => {
+    const option = document.createElement("option");
+    option.value = author;
+    option.textContent = author;
+    select.appendChild(option);
+  });
+}
+
+function filterByAuthor() {
+  const author = document.getElementById("author-select").value;
+  document.querySelectorAll("#song-list li").forEach(li => {
+    if (!author || li.getAttribute("data-author") === author) {
+      li.style.display = "";
+    } else {
+      li.style.display = "none";
+    }
+  });
+}
+
+function filterByDate() {
+  const from = parseInt(document.getElementById("date-from").value) || 0;
+  const to = parseInt(document.getElementById("date-to").value) || 9999;
+  document.querySelectorAll("#song-list li").forEach(li => {
+    const modified = parseInt(li.getAttribute("data-modified")) || 0;
+    if (modified >= from && modified <= to) {
+      li.style.display = "";
+    } else {
+      li.style.display = "none";
+    }
+  });
+}
+
+function clearDateFilter() {
+  document.getElementById("date-from").value = "";
+  document.getElementById("date-to").value = "";
+  document.querySelectorAll("#song-list li").forEach(li => {
+    li.style.display = "";
+  });
+}
+
+function selectRandomSongs() {
+  const count = parseInt(document.getElementById("random-count").value) || 1;
+  const allSongs = [...document.querySelectorAll("#song-list li")].filter(li => li.style.display !== "none");
+  const selected = [];
+
+  while (selected.length < count && allSongs.length > 0) {
+    const index = Math.floor(Math.random() * allSongs.length);
+    selected.push(allSongs.splice(index, 1)[0]);
+  }
+
+  document.querySelectorAll("#song-list li").forEach(li => {
+    li.style.display = selected.includes(li) ? "" : "none";
+  });
+}
+
+window.onload = populateAuthorOptions;
+</script>
+
+
  </body>
 </html>
