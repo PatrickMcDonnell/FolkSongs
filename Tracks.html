@@ -108,7 +108,7 @@
     <button class="styled-button" id="selectNumberButton">Select Random Songs</button>
     <button class="styled-button" id="finished-selecting">Play</button>
 
-    <ul class="track-list">
+    <ul class="track-list" id="track-list">
 
 <li data-src="Tracks/A Bicycle Built For Two.mp3" data-title="A Bicycle Built For Two" data-author="Harry Dacre" data-modified="2024-10-13" data-comments="A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.">A Bicycle Built For Two<div class="hover-box">A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.</div></li>
 
@@ -1328,85 +1328,94 @@
   </div>
 
 <script>
-function filterSongs() {
-  const search = document.getElementById("search").value.toLowerCase();
-  const songs = document.querySelectorAll("#song-list li");
-  songs.forEach(song => {
-    const text = song.textContent.toLowerCase();
-    const year = song.getAttribute("data-date-composed") || "";
-    if (text.includes(search) || year.includes(search)) {
-      song.style.display = "";
-    } else {
-      song.style.display = "none";
-    }
-  });
-}
-
-function populateAuthorOptions() {
-  const select = document.getElementById("author-select");
-  const authors = new Set();
-  document.querySelectorAll("#song-list li").forEach(li => {
-    const author = li.getAttribute("data-author");
-    if (author) authors.add(author);
-  });
-
-  [...authors].sort().forEach(author => {
-    const option = document.createElement("option");
-    option.value = author;
-    option.textContent = author;
-    select.appendChild(option);
-  });
-}
-
-function filterByAuthor() {
-  const author = document.getElementById("author-select").value;
-  document.querySelectorAll("#song-list li").forEach(li => {
-    if (!author || li.getAttribute("data-author") === author) {
-      li.style.display = "";
-    } else {
-      li.style.display = "none";
-    }
-  });
-}
-
 function filterByDate() {
-  const from = parseInt(document.getElementById("date-from").value) || 0;
-  const to = parseInt(document.getElementById("date-to").value) || 9999;
-  document.querySelectorAll("#song-list li").forEach(li => {
-    const modified = parseInt(li.getAttribute("data-modified")) || 0;
-    if (modified >= from && modified <= to) {
-      li.style.display = "";
-    } else {
+  const from = new Date(document.getElementById("from-date").value);
+  const to = new Date(document.getElementById("to-date").value);
+  document.querySelectorAll("#track-list li").forEach(li => {
+    const modifiedStr = li.getAttribute("data-modified");
+    if (!modifiedStr) return;
+    const modified = new Date(modifiedStr);
+    if ((!isNaN(from) && modified < from) || (!isNaN(to) && modified > to)) {
       li.style.display = "none";
+    } else {
+      li.style.display = "";
     }
   });
 }
 
 function clearDateFilter() {
-  document.getElementById("date-from").value = "";
-  document.getElementById("date-to").value = "";
-  document.querySelectorAll("#song-list li").forEach(li => {
+  document.getElementById("from-date").value = "";
+  document.getElementById("to-date").value = "";
+  document.querySelectorAll("#track-list li").forEach(li => {
     li.style.display = "";
   });
 }
 
-function selectRandomSongs() {
-  const count = parseInt(document.getElementById("random-count").value) || 1;
-  const allSongs = [...document.querySelectorAll("#song-list li")].filter(li => li.style.display !== "none");
-  const selected = [];
-
-  while (selected.length < count && allSongs.length > 0) {
-    const index = Math.floor(Math.random() * allSongs.length);
-    selected.push(allSongs.splice(index, 1)[0]);
-  }
-
-  document.querySelectorAll("#song-list li").forEach(li => {
-    li.style.display = selected.includes(li) ? "" : "none";
+function sortByDate() {
+  const list = document.getElementById("track-list");
+  const items = Array.from(list.children);
+  items.sort((a, b) => {
+    const dateA = new Date(a.getAttribute("data-modified"));
+    const dateB = new Date(b.getAttribute("data-modified"));
+    return dateA - dateB;
   });
+  items.forEach(item => list.appendChild(item));
 }
 
-window.onload = populateAuthorOptions;
+document.getElementById("searchInput").addEventListener("input", function () {
+  const query = this.value.toLowerCase();
+  document.querySelectorAll("#track-list li").forEach(li => {
+    const title = li.getAttribute("data-title") || "";
+    const author = li.getAttribute("data-author") || "";
+    const year = li.getAttribute("data-date-composed") || "";
+    if (
+      title.toLowerCase().includes(query) ||
+      author.toLowerCase().includes(query) ||
+      year.includes(query)
+    ) {
+      li.style.display = "";
+    } else {
+      li.style.display = "none";
+    }
+  });
+});
+
+document.getElementById("selectAllButton").addEventListener("click", () => {
+  document.querySelectorAll("#track-list li").forEach(li => {
+    li.classList.add("selected");
+  });
+});
+
+document.getElementById("selectNumberButton").addEventListener("click", () => {
+  const allItems = [...document.querySelectorAll("#track-list li")];
+  const count = 10; // change to how many random songs you want
+  const selected = [];
+
+  while (selected.length < count && allItems.length > 0) {
+    const index = Math.floor(Math.random() * allItems.length);
+    const [item] = allItems.splice(index, 1);
+    selected.push(item);
+  }
+
+  document.querySelectorAll("#track-list li").forEach(li => {
+    li.classList.remove("selected");
+  });
+
+  selected.forEach(li => li.classList.add("selected"));
+});
+
+document.getElementById("finished-selecting").addEventListener("click", () => {
+  const selected = [...document.querySelectorAll("#track-list li.selected")];
+  if (selected.length === 0) {
+    alert("No songs selected.");
+    return;
+  }
+  const urls = selected.map(li => li.getAttribute("data-src"));
+  const indexUrl = `index.html?playlist=${encodeURIComponent(urls.join(","))}`;
+  window.location.href = indexUrl;
+});
 </script>
+
 
 
  </body>
