@@ -1363,23 +1363,27 @@
         });
     });
 
- searchInput.addEventListener('input', function() {
-    const filter = searchInput.value.toLowerCase();
-    const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // e.g. "1900-1920"
-    
-    trackListItems.forEach(function(item) {
+searchInput.addEventListener('input', function () {
+    const filter = searchInput.value.toLowerCase().trim();
+    const rangeMatch = filter.match(/^(\d{4})\s*[-–]\s*(\d{4})$/); // only accept full 4-digit ranges
+
+    trackListItems.forEach(function (item) {
         const title = item.getAttribute('data-title')?.toLowerCase() || '';
         const author = item.getAttribute('data-author')?.toLowerCase() || '';
         const dateComposedStr = item.getAttribute('data-date-composed') || '';
-        const dateComposed = parseInt(dateComposedStr);
 
         let match = false;
 
-        if (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter)) {
+        // Only consider data-date-composed entries that are exactly 4-digit years
+        const exactYearMatch = dateComposedStr.match(/^\d{4}$/);
+        const dateComposed = exactYearMatch ? parseInt(dateComposedStr) : NaN;
+
+        // Handle text match (only if year is precise)
+        if (exactYearMatch && (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter))) {
             match = true;
         }
 
-        // Handle range like "1900-1920"
+        // Handle range like "1900-1920" (only if year is precise)
         if (rangeMatch && !isNaN(dateComposed)) {
             const startYear = parseInt(rangeMatch[1]);
             const endYear = parseInt(rangeMatch[2]);
@@ -1483,6 +1487,7 @@ function clearDateFilter() {
   });
 }
 
+let sortAscending = true;
 function sortByDate() {
   const ul = document.querySelector('ul');
   const items = Array.from(document.querySelectorAll('li[data-modified]'));
@@ -1498,6 +1503,10 @@ function sortByDate() {
 }
 </script>
 
-
- </body>
+    <div id="footer">
+        <p>Copyright &copy; 2025 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="homepage.html">Homepage</a></p>
+    </div>
+</div>
+</body>
 </html>
