@@ -1364,38 +1364,38 @@
     });
 
 searchInput.addEventListener('input', function() {
-  const filter = searchInput.value.toLowerCase();
-  const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // e.g. "1900-1920"
+  const filter = searchInput.value.toLowerCase().trim();
+  const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // Handles "1900-1920"
 
   trackListItems.forEach(function(item) {
     const title = item.getAttribute('data-title')?.toLowerCase() || '';
     const author = item.getAttribute('data-author')?.toLowerCase() || '';
-    const dateComposedStr = item.getAttribute('data-date-composed') || '';
-
+    const dateComposedStr = item.getAttribute('data-date-composed')?.toLowerCase() || '';
     let match = false;
 
-    // Full text match on title/author/date string
-    if (title.includes(filter) || author.includes(filter) || dateComposedStr.toLowerCase().includes(filter)) {
+    // Text search (e.g., "Irish", "Dylan", "1960s")
+    if (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter)) {
       match = true;
     }
 
-    // Handle range match with strict 4-digit dates only
+    // If a numeric year range is entered, override the match logic
     if (rangeMatch) {
       const startYear = parseInt(rangeMatch[1]);
       const endYear = parseInt(rangeMatch[2]);
 
-      // Only apply range check to precise 4-digit year strings
+      // Only evaluate as a year if it's a strict 4-digit number
       if (/^\d{4}$/.test(dateComposedStr)) {
         const year = parseInt(dateComposedStr);
-        if (year >= startYear && year <= endYear) {
-          match = true;
-        } else {
-          match = false;
-        }
+        match = (year >= startYear && year <= endYear);
       } else {
-        match = false;
+        match = false; // Exclude "1960s", "early 1900s", etc. from numeric range matches
       }
     }
+
+    item.style.display = match ? '' : 'none';
+  });
+});
+
 
     item.style.display = match ? '' : 'none';
   });
