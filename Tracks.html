@@ -1333,93 +1333,79 @@
   </div>
 
 <script>
-function filterByDate() {
-  const from = new Date(document.getElementById("from-date").value);
-  const to = new Date(document.getElementById("to-date").value);
-  document.querySelectorAll("#track-list li").forEach(li => {
-    const modifiedStr = li.getAttribute("data-modified");
-    if (!modifiedStr) return;
-    const modified = new Date(modifiedStr);
-    if ((!isNaN(from) && modified < from) || (!isNaN(to) && modified > to)) {
-      li.style.display = "none";
+  function getAllTrackItems() {
+    return Array.from(document.querySelectorAll(".track-list li"));
+  }
+
+  function clearAllSelections() {
+    getAllTrackItems().forEach(item => item.classList.remove("selected"));
+  }
+
+  function selectRandomItems(count) {
+    const items = getAllTrackItems();
+    clearAllSelections();
+    if (count > items.length) count = items.length;
+    const shuffled = [...items].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, count);
+    selected.forEach(item => item.classList.add("selected"));
+  }
+
+  document.getElementById("selectNumberButton").addEventListener("click", () => {
+    const total = getAllTrackItems().length;
+    const input = prompt(`Enter the number of songs to select (1 to ${total}):`, "10");
+    const num = parseInt(input, 10);
+    if (!isNaN(num) && num > 0 && num <= total) {
+      selectRandomItems(num);
     } else {
-      li.style.display = "";
+      alert("Please enter a valid number between 1 and " + total);
+    }
+  });
+</script>
+
+<script>
+let sortAscending = true;
+
+function filterByDate() {
+  const fromDate = document.getElementById('from-date').value;
+  const toDate = document.getElementById('to-date').value;
+  const items = document.querySelectorAll('li[data-modified]');
+
+  items.forEach(li => {
+    const modDate = li.getAttribute('data-modified');
+    if (
+      (!fromDate || modDate >= fromDate) &&
+      (!toDate || modDate <= toDate)
+    ) {
+      li.style.display = '';
+    } else {
+      li.style.display = 'none';
     }
   });
 }
 
 function clearDateFilter() {
-  document.getElementById("from-date").value = "";
-  document.getElementById("to-date").value = "";
-  document.querySelectorAll("#track-list li").forEach(li => {
-    li.style.display = "";
+  document.getElementById('from-date').value = '';
+  document.getElementById('to-date').value = '';
+  document.querySelectorAll('li[data-modified]').forEach(li => {
+    li.style.display = '';
   });
 }
 
 function sortByDate() {
-  const list = document.getElementById("track-list");
-  const items = Array.from(list.children);
+  const ul = document.querySelector('ul');
+  const items = Array.from(document.querySelectorAll('li[data-modified]'));
+
   items.sort((a, b) => {
-    const dateA = new Date(a.getAttribute("data-modified"));
-    const dateB = new Date(b.getAttribute("data-modified"));
-    return dateA - dateB;
+    const dateA = a.getAttribute('data-modified');
+    const dateB = b.getAttribute('data-modified');
+    return sortAscending ? dateA.localeCompare(dateB) : dateB.localeCompare(dateA);
   });
-  items.forEach(item => list.appendChild(item));
+
+  items.forEach(li => ul.appendChild(li));
+  sortAscending = !sortAscending;
 }
-
-document.getElementById("searchInput").addEventListener("input", function () {
-  const query = this.value.toLowerCase();
-  document.querySelectorAll("#track-list li").forEach(li => {
-    const title = li.getAttribute("data-title") || "";
-    const author = li.getAttribute("data-author") || "";
-    const year = li.getAttribute("data-date-composed") || "";
-    if (
-      title.toLowerCase().includes(query) ||
-      author.toLowerCase().includes(query) ||
-      year.includes(query)
-    ) {
-      li.style.display = "";
-    } else {
-      li.style.display = "none";
-    }
-  });
-});
-
-document.getElementById("selectAllButton").addEventListener("click", () => {
-  document.querySelectorAll("#track-list li").forEach(li => {
-    li.classList.add("selected");
-  });
-});
-
-document.getElementById("selectNumberButton").addEventListener("click", () => {
-  const allItems = [...document.querySelectorAll("#track-list li")];
-  const count = 10; // change to how many random songs you want
-  const selected = [];
-
-  while (selected.length < count && allItems.length > 0) {
-    const index = Math.floor(Math.random() * allItems.length);
-    const [item] = allItems.splice(index, 1);
-    selected.push(item);
-  }
-
-  document.querySelectorAll("#track-list li").forEach(li => {
-    li.classList.remove("selected");
-  });
-
-  selected.forEach(li => li.classList.add("selected"));
-});
-
-document.getElementById("finished-selecting").addEventListener("click", () => {
-  const selected = [...document.querySelectorAll("#track-list li.selected")];
-  if (selected.length === 0) {
-    alert("No songs selected.");
-    return;
-  }
-  const urls = selected.map(li => li.getAttribute("data-src"));
-  const indexUrl = `index.html?playlist=${encodeURIComponent(urls.join(","))}`;
-  window.location.href = indexUrl;
-});
 </script>
+
 
 
 
