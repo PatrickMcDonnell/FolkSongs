@@ -1,9 +1,0 @@
-
-<li data-src="Tracks/BlackIsTheColor.mp3" data-title="Black Is The Color" data-author="Traditional" data-date-composed="Unknown" data-century="18th" data-category="Folk Song">Black Is The Color<div class="hover-box">Traditional Appalachian folk song of Scottish origin, expressing love and longing.</div></li>
-
-<li data-src="Tracks/BuryMeNotOnTheLonePrairie.mp3" data-title="Bury Me Not on the Lone Prairie" data-author="Traditional" data-date-composed="Unknown" data-century="19th" data-category="Cowboy Song">Bury Me Not on the Lone Prairie<div class="hover-box">Traditional American cowboy ballad reflecting the somber themes of death and the harsh life of the cowboy.</div></li>
-
-<li data-src="Tracks/CottonEyedJoe.mp3" data-title="Cotton-Eyed Joe" data-author="Traditional" data-date-composed="Unknown" data-century="19th" data-category="American Folk Song">Cotton-Eyed Joe<div class="hover-box">Traditional American folk song, popular in the South, often associated with dance and celebration.</div></li>
-
-<li data-src="Tracks/DeepRiver.mp3" data-title="Deep River" data-author="Traditional" data-date-composed="Unknown" data-century="19th" data-category="Spiritual">   Deep River<div class="hover-box">Traditional African-American spiritual, expressing longing for freedom and the Promised Land.</div></li>
-
