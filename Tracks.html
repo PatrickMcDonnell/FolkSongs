@@ -1362,7 +1362,6 @@
             item.classList.toggle('selected');
         });
     });
-
 searchInput.addEventListener('input', function() {
   const filter = searchInput.value.toLowerCase().trim();
   const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // Handles "1900-1920"
@@ -1391,11 +1390,6 @@ searchInput.addEventListener('input', function() {
         match = false; // Exclude "1960s", "early 1900s", etc. from numeric range matches
       }
     }
-
-    item.style.display = match ? '' : 'none';
-  });
-});
-
 
     item.style.display = match ? '' : 'none';
   });
