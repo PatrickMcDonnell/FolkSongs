@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Tracks</title>
-    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
-    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
-    <style>
-        body {
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   All Tracks
+  </title>
+  <link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
+  <link href="print.css" media="print" rel="stylesheet" type="text/css"/>
+  <style>
+   body {
             font-family: Arial, sans-serif;
             background-image: url('');
             background-size: cover;
@@ -35,15 +37,14 @@
             color: blue; /* Selected text color */
         }
 
-.styled-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #808080; /* Grey background */
-    color: #fff; /* White text */
-    border: none;
-    cursor: pointer;
-
-}
+        .styled-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
 
         #footer {
             display: flex;
@@ -71,29 +72,38 @@
             display: block;
         }
 
-  <--! /* Ensuring buttons are placed properly */  -->
+     /* Ensuring buttons are placed properly */
         #controls {
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
         }
-    </style>
-</head>
-<body>
-<div id="wrap">
-    <div id="header">
-        <h1><a href="#">All Tracks</a></h1>
-        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
-        <h1>Select Tracks</h1>
-        <!-- Search input -->
-        <input type="text" id="searchInput" placeholder="Search for a song by title, author or year composed..." style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
+  </style>
+ </head>
+ <body>
+
+  <div id="wrap">
+   <div id="header">
+    <h1>
+     <a href="#">
+      All Tracks
+     </a>
+    </h1>
+    <img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
+    <h1>
+     Select Tracks
+    </h1>
+  
+  <!-- Search input -->
+<input id="searchInput" placeholder="Search for a song by title, author or year composed..." 
+       style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
 
 <small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
   You can search by title, author, or year range the song was originally composed (e.g., 1900-1920) or, below, filter by when the song was recorded here.
 </small>
 
 <div style="margin-bottom: 1em;">
-  <label for="from-date">Recorded From: </label>
+  <label for="from-date">From: </label>
   <input type="date" id="from-date">
   <label for="to-date">To: </label>
   <input type="date" id="to-date">
@@ -102,19 +112,21 @@
   <button onclick="sortByDate()">Sort by Date</button>
 </div>
 
-<!-- Select All Button -->
-<button id="selectAllButton" class="styled-button">Select All</button>
-   <!-- Select Random Button -->
+    <!-- Select All Button -->
+    <button class="styled-button" id="selectAllButton">
+     Select All
+    </button>
+    <!-- Select Random Button -->
     <!-- Select Number Button -->
     <button class="styled-button" id="selectNumberButton">
      Select Random Songs
     </button>
 
-<!-- Play Button -->
-<button class="styled-button" id="finished-selecting">Play</button>
-
-        <ul class="track-list">
-           
+    <!-- Play Button -->
+    <button class="styled-button" id="finished-selecting">
+     Play
+    </button>
+    <ul class="track-list">
 
 <li data-src="Tracks/A Bicycle Built For Two.mp3" data-title="A Bicycle Built For Two" data-author="Harry Dacre" data-modified="2024-10-13" data-comments="A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.">A Bicycle Built For Two<div class="hover-box">A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.</div></li>
 
@@ -194,7 +206,7 @@
 
 <li data-src="Tracks/Battle Of New Orleans.mp3" data-title="Battle Of New Orleans" data-author="Jimmy Driftwood" data-modified="2024-06-09" data-comments="Written by Jimmy Driftwood, 1959. A song recounting the 1815 Battle of New Orleans during the War of 1812, known for its lively tune and humorous lyrics.">Battle Of New Orleans<div class="hover-box">Written by Jimmy Driftwood, 1959. A song recounting the 1815 Battle of New Orleans during the War of 1812, known for its lively tune and humorous lyrics.</div></li>
 
-<li data-src="Tracks/Beautiful Dreamer.mp3" data-title="Beautiful Dreamer" data-author="Stephen Foster" data-modified="2024-09-29" data-date-composed="1864" data-comments="Beautiful Dreamer is a classic American parlor song written by Stephen Foster, one of the most influential songwriters of the 19th century. Composed in early 1864, it is considered one of Foster's last works, as he died later that year. The song features a gentle, lullaby-like melody and lyrics that evoke dreamy, romantic imagery, often interpreted as a serenade to a lover or a vision of peace. Despite being written in a period marked by hardship for Foster, Beautiful Dreamer remains one of his most enduring and beloved songs.">Beautiful Dreamer<div class="hover-box">Beautiful Dreamer is a classic American parlor song written by Stephen Foster, one of the most influential songwriters of the 19th century. Composed in early 1864, it is considered one of Foster's last works, as he died later that year. The song features a gentle, lullaby-like melody and lyrics that evoke dreamy, romantic imagery, often interpreted as a serenade to a lover or a vision of peace. Despite being written in a period marked by hardship for Foster, Beautiful Dreamer remains one of his most enduring and beloved songs.</div></li>
+<li data-src="Tracks/Beautiful Dreamer.mp3" data-title="Beautiful Dreamer" data-author="Stephen Foster" data-modified="2024-09-29" data-comments="Beautiful Dreamer is a classic American parlor song written by Stephen Foster, one of the most influential songwriters of the 19th century. Composed in early 1864, it is considered one of Foster's last works, as he died later that year. The song features a gentle, lullaby-like melody and lyrics that evoke dreamy, romantic imagery, often interpreted as a serenade to a lover or a vision of peace. Despite being written in a period marked by hardship for Foster, Beautiful Dreamer remains one of his most enduring and beloved songs.">Beautiful Dreamer<div class="hover-box">Beautiful Dreamer is a classic American parlor song written by Stephen Foster, one of the most influential songwriters of the 19th century. Composed in early 1864, it is considered one of Foster's last works, as he died later that year. The song features a gentle, lullaby-like melody and lyrics that evoke dreamy, romantic imagery, often interpreted as a serenade to a lover or a vision of peace. Despite being written in a period marked by hardship for Foster, Beautiful Dreamer remains one of his most enduring and beloved songs.</div></li>
 
 <li data-src="Tracks/Beeswing.mp3" data-title="Beeswing" data-author="Richard Thompson" data-category="Scottish" data-century="20th" data-date-composed="1994" data-modified="2025-05-19" data-comments="Beeswing, written and recorded by Scottish folk musician Richard Thompson in 1994, tells the bittersweet story of a free-spirited woman during the 1960s and ’70s counterculture. The narrator recalls a brief romance with her, marked by her refusal to be tied down. Featured on Thompson’s album Mirror Blue, the song blends nostalgic storytelling with Celtic folk influences and has become one of his most beloved works.">Beeswing<div class="hover-box">Beeswing, written and recorded by Scottish folk musician Richard Thompson in 1994, tells the bittersweet story of a free-spirited woman during the 1960s and ’70s counterculture. The narrator recalls a brief romance with her, marked by her refusal to be tied down. Featured on Thompson’s album Mirror Blue, the song blends nostalgic storytelling with Celtic folk influences and has become one of his most beloved works.</div></li>
 
@@ -454,15 +466,11 @@
 
 <li data-src="Tracks/Garden Song.mp3" data-title="Garden Song" data-author="David Mallett" data-modified="2024-05-15" data-comments="Written by David Mallett, 1975. A folk song about the joys of gardening and life’s cycles, known for its nostalgic and uplifting lyrics.">Garden Song<div class="hover-box">Song Written by David Mallett, 1975. A folk song about the joys of gardening and life’s cycles, known for its nostalgic and uplifting lyrics.</div></li>
 
-<li data-src="Tracks/Gentle Arms Of Eden.mp3" data-title="Gentle Arms Of Eden" data-author="Dave Carter" data-date-composed="2001" data-modified="2025-05-22" data-comments="Gentle Arms of Eden – Written by Dave Carter and performed with Tracy Grammer, this 2000 folk song honors the natural world as a sacred refuge. With poetic lyrics and rich imagery, it evokes a return to harmony with the earth, carried by the 'gentle arms of Eden.'">Gentle Arms Of Eden<div class="hover-box">Gentle Arms of Eden – Written by Dave Carter and performed with Tracy Grammer, this 2000 folk song honors the natural world as a sacred refuge. With poetic lyrics and rich imagery, it evokes a return to harmony with the earth, carried by the 'gentle arms of Eden.</div></li>
-
-<li data-src="Tracks/Gentle On My Mind.mp3" data-title="Gentle On My Mind" data-author="John Hartford" data-date-composed="1967" data-modified="2025-05-27" data-comments="Gentle on My Mind was written by John Hartford in 1967 and became a major hit when recorded by Glen Campbell the same year. Known for its flowing lyrics and sentimental tone, the song describes a drifter's affection for a woman who gives him emotional freedom. It won four Grammy Awards and became a signature tune for Campbell, helping to blend folk, country, and pop styles.">Gentle On My Mind<div class="hover-box">Gentle on My Mind was written by John Hartford in 1967 and became a major hit when recorded by Glen Campbell the same year. Known for its flowing lyrics and sentimental tone, the song describes a drifter's affection for a woman who gives him emotional freedom. It won four Grammy Awards and became a signature tune for Campbell, helping to blend folk, country, and pop styles.</div></li>
+<li data-src="Tracks/Gentle Arms Of Eden.mp3" data-title="Gentle Arms Of Eden" data-author="Dave Carter" data-modified="2025-05-22" data-comments="Gentle Arms of Eden – Written by Dave Carter and performed with Tracy Grammer, this 2000 folk song honors the natural world as a sacred refuge. With poetic lyrics and rich imagery, it evokes a return to harmony with the earth, carried by the 'gentle arms of Eden.'">Gentle Arms Of Eden<div class="hover-box">Gentle Arms of Eden – Written by Dave Carter and performed with Tracy Grammer, this 2000 folk song honors the natural world as a sacred refuge. With poetic lyrics and rich imagery, it evokes a return to harmony with the earth, carried by the 'gentle arms of Eden.</div></li>
 
 <li data-src="Tracks/Geordie.mp3" data-title="Geordie" data-modified="2024-05-15" data-comments="Traditional English ballad, first known in the 18th century. Child Ballad 209. A ballad about the outlaw Geordie, who is wrongfully imprisoned and eventually executed.">Geordie<div class="hover-box">Traditional English ballad, first known in the 18th century. Child Ballad 209. A ballad about the outlaw Geordie, who is wrongfully imprisoned and eventually executed.</div></li>
 
 <li data-src="Tracks/Georgie Porgie.mp3" data-title="Georgie Porgie" data-modified="2024-07-13" data-comments="Traditional nursery rhyme, first known in the 19th century. A playful rhyme about Georgie Porgie and his interactions with the girls.">Georgie Porgie<div class="hover-box">Traditional nursery rhyme, first known in the 19th century. A playful rhyme about Georgie Porgie and his interactions with the girls.</div></li>
-
-<li data-src="Tracks/Georgy Girl.mp3" data-title="Georgy Girl" data-modified="2025-05-29" data-category="Folk" data-date-composed="1966" data-century="20th" data-comments="Georgy Girl was written by Tom Springfield (music) and Jim Dale (lyrics) for the 1966 British film of the same name. It was performed by the Seekers and became a major international hit. The upbeat tune contrasts with the film's more bittersweet tone, offering a message of self-confidence and transformation. It reached No. 2 on the U.S. Billboard Hot 100 and was nominated for an Academy Award.">Georgy Girl<div class="hover-box">Georgy Girl was written by Tom Springfield (music) and Jim Dale (lyrics) for the 1966 British film of the same name. It was performed by the Seekers and became a major international hit. The upbeat tune contrasts with the film's more bittersweet tone, offering a message of self-confidence and transformation. It reached No. 2 on the U.S. Billboard Hot 100 and was nominated for an Academy Award.</div></li>
 
 <li data-src="Tracks/Gin I Were A Baron's Heir.mp3" data-title="Gin I Were A Baron's Heir" data-author="William Edmondstoune Aytoun" data-category="Scottish" data-century="19th" data-date-composed="1800s" data-modified="2025-05-02" data-comments="Gin I Were a Baron's Heir is a Scottish love song written by William Edmondstoune Aytoun in the 19th century. Set to a gentle, lyrical melody, the song expresses the longing of a poor man who dreams of winning the love of a lady far above his station. Aytoun, a poet and professor, captured romantic yearning and class disparity in this well-loved piece, often sung in traditional folk settings.">Gin I Were A Baron's Heir<div class="hover-box">Gin I Were a Baron's Heir is a Scottish love song written by William Edmondstoune Aytoun in the 19th century. Set to a gentle, lyrical melody, the song expresses the longing of a poor man who dreams of winning the love of a lady far above his station. Aytoun, a poet and professor, captured romantic yearning and class disparity in this well-loved piece, often sung in traditional folk settings.</div></li>
 
@@ -654,7 +662,7 @@
 
 <li data-src="Tracks/Is This Land Your Land_.mp3" data-title="Is This Land Your Land" data-author="Woody Guthrie" data-modified="2024-05-15" data-comments="Written by Woody Guthrie, 1940. A folk song exploring themes of nationalism and social justice, known for its broad appeal and enduring relevance.">Is This Land Your Land<div class="hover-box">Written by Woody Guthrie, 1940. A folk song exploring themes of nationalism and social justice, known for its broad appeal and enduring relevance.</div></li>
 
-<li data-src="Tracks/Isle Of Hope.mp3" data-title="Isle Of Hope" data-author="Brendan Graham" data-category="Irish" data-century="20th" data-date-composed="1900s" data-modified="2024-12-23" data-comments="Brendan Graham wrote this emotional song in 1990, inspired by the story of Irish immigrants passing through Ellis Island during the early 20th century.">Isle Of Hope<div class="hover-box">Brendan Graham wrote this emotional song in 1990, inspired by the story of Irish immigrants passing through Ellis Island during the early 20th century.</div></li>
+<li data-src="Tracks/Isle Of Hope.mp3" data-title="Isle Of Hope" data-author="Brendan Graham" data-category="Irish" data-century="20th" data-date-composed="1900" data-modified="2024-12-23" data-comments="Brendan Graham wrote this emotional song in 1990, inspired by the story of Irish immigrants passing through Ellis Island during the early 20th century.">Isle Of Hope<div class="hover-box">Brendan Graham wrote this emotional song in 1990, inspired by the story of Irish immigrants passing through Ellis Island during the early 20th century.</div></li>
 
 <li data-src="Tracks/It Takes A Worried Man.mp3" data-title="It Takes A Worried Man" data-modified="2024-05-15" data-comments="Traditional American folk song, first known in the 19th century. A song about the struggles and worries of life, often performed in bluegrass styles.">It Takes A Worried Man<div class="hover-box">Traditional American folk song, first known in the 19th century. A song about the struggles and worries of life, often performed in bluegrass styles.</div></li>
 
@@ -1004,8 +1012,6 @@
 
 <li data-src="Tracks/Scarborough Fair.mp3" data-title="Scarborough Fair" data-author="unknown" data-category="Folk" data-century="17th" data-date-composed="1600s" data-modified="2025-01-16" data-comments="Scarborough Fair is a traditional English folk song dating back to at least the 17th century, though its exact origins are unknown. It is not classified as a Child Ballad but shares thematic similarities with them. The song gained widespread recognition through Simon & Garfunkel's 1966 rendition, though the lyrics and melody have evolved over centuries.">Scarborough Fair<div class="hover-box">Scarborough Fair is a traditional English folk song dating back to at least the 17th century, though its exact origins are unknown. It is not classified as a Child Ballad but shares thematic similarities with them. The song gained widespread recognition through Simon &amp; Garfunkel's 1966 rendition, though the lyrics and melody have evolved over centuries.</div></li>
 
-<li data-src="Tracks/School Days.mp3" data-title="School Days" data-author="Will D. Cobb and Gus Edwards" data-category="Folk" data-century="20th" data-date-composed="1907" data-modified="2025-05-25" data-comments="School Days was written by Will D. Cobb (lyrics) and Gus Edwards (music) in 1907. It fondly recalls childhood memories of school and young love, with the chorus "School days, school days, dear old golden rule days." The nostalgic tune became a popular standard in vaudeville and early recordings, celebrating simpler times and traditional education.">School Days<div class="hover-box">School Days was written by Will D. Cobb (lyrics) and Gus Edwards (music) in 1907. It fondly recalls childhood memories of school and young love, with the chorus "School days, school days, dear old golden rule days." The nostalgic tune became a popular standard in vaudeville and early recordings, celebrating simpler times and traditional education.</div></li>
-
 <li data-src="Tracks/Seems Like A Long Time.mp3" data-title="Seems Like A Long Time" data-author="Ted Anderson" data-category="Folk" data-century="20th" data-date-composed="1971" data-modified="2025-03-26" data-comments="Seems Like a Long Time was written by Ted Anderson and first recorded by Rod Stewart for his 1971 album Every Picture Tells a Story. The song reflects on the passage of time and feelings of melancholy, with a slow, contemplative arrangement. Later covered by other artists, including Brewer & Shipley, it remains a lesser-known but evocative folk-rock ballad.">Seems Like A Long Time<div class="hover-box">Seems Like a Long Time was written by Ted Anderson and first recorded by Rod Stewart for his 1971 album Every Picture Tells a Story. The song reflects on the passage of time and feelings of melancholy, with a slow, contemplative arrangement. Later covered by other artists, including Brewer &amp; Shipley, it remains a lesser-known but evocative folk-rock ballad.</div></li>
 
 <li data-src="Tracks/Shady Grove.mp3" data-title="Shady Grove" data-author="unknown" data-category="Folk" data-century="19th" data-date-composed="1800s" data-modified="2024-11-16" data-comments="Shady Grove is a traditional Appalachian folk song with roots tracing back to the British Isles. Its authorship is unknown, as it evolved through oral tradition over centuries. Popularized in the United States in the 19th century, it features lyrics about love and longing and has been widely adapted across bluegrass and old-time music.">Shady Grove<div class="hover-box">Shady Grove is a traditional Appalachian folk song with roots tracing back to the British Isles. Its authorship is unknown, as it evolved through oral tradition over centuries. Popularized in the United States in the 19th century, it features lyrics about love and longing and has been widely adapted across bluegrass and old-time music.</div></li>
@@ -1077,8 +1083,6 @@
 <li data-src="Tracks/Sundown.mp3" data-title="Sundown" data-author="Gordon Lightfoot" data-category="Folk" data-century="20th" data-date-composed="1974" data-modified="2025-02-16" data-comments="Sundown, written and recorded by Gordon Lightfoot, was released in 1974 as the title track of his album. The song, blending folk and soft rock, became Lightfoot's only No. 1 hit on the Billboard Hot 100. Its lyrics suggest themes of jealousy and mistrust in a troubled relationship, reportedly inspired by his romance with Cathy Smith. The moody, rhythmic groove and haunting melody define its enduring appeal.">Sundown<div class="hover-box">Sundown, written and recorded by Gordon Lightfoot, was released in 1974 as the title track of his album. The song, blending folk and soft rock, became Lightfoot's only No. 1 hit on the Billboard Hot 100. Its lyrics suggest themes of jealousy and mistrust in a troubled relationship, reportedly inspired by his romance with Cathy Smith. The moody, rhythmic groove and haunting melody define its enduring appeal.</div></li>
 
 <li data-src="Tracks/Sunshine On My Shoulders.mp3" data-title="Sunshine On My Shoulders" data-author="John Denver" data-category="Folk" data-century="20th" data-date-composed="1971" data-modified="2025-01-03" data-comments="Sunshine on My Shoulders is a heartfelt song written by John Denver, along with collaborators Dick Kniss and Mike Taylor. It was released in 1971 as part of Denver's album Poems, Prayers & Promises. Inspired by the warmth and optimism of a sunny day, it became one of his most beloved hits, reaching widespread acclaim.">Sunshine On My Shoulders<div class="hover-box">Sunshine on My Shoulders is a heartfelt song written by John Denver, along with collaborators Dick Kniss and Mike Taylor. It was released in 1971 as part of Denver's album Poems, Prayers &amp; Promises. Inspired by the warmth and optimism of a sunny day, it became one of his most beloved hits, reaching widespread acclaim.</div></li>
-
-<li data-src="Tracks/Susanne.mp3" data-title="Susanne" data-author="Leonard Cohen" data-category="Folk" data-century="20th" data-date-composed="1966" data-modified="2025-03-31" data-comments="Suzanne was written by Leonard Cohen in the 1960s and first recorded by Judy Collins in 1966 before Cohen released his own version in 1967. The song, inspired by Cohen’s relationship with Suzanne Verdal, blends poetic lyrics with spiritual and romantic imagery.">Suzanne<div class="hover-box">Susanne was written by Leonard Cohen in the 1960s and first recorded by Judy Collins in 1966 before Cohen released his own version in 1967. The song, inspired by Cohen’s relationship with Suzanne Verdal, blends poetic lyrics with spiritual and romantic imagery.</div></li>
 
 <li data-src="Tracks/Suzanne.mp3" data-title="Suzanne" data-author="Leonard Cohen" data-category="Folk" data-century="20th" data-date-composed="1966" data-modified="2025-03-31" data-comments="Suzanne was written by Leonard Cohen in the 1960s and first recorded by Judy Collins in 1966 before Cohen released his own version in 1967. The song, inspired by Cohen’s relationship with Suzanne Verdal, blends poetic lyrics with spiritual and romantic imagery.">Suzanne<div class="hover-box">Suzanne was written by Leonard Cohen in the 1960s and first recorded by Judy Collins in 1966 before Cohen released his own version in 1967. The song, inspired by Cohen’s relationship with Suzanne Verdal, blends poetic lyrics with spiritual and romantic imagery.</div></li>
 
@@ -1190,8 +1194,6 @@
 
 <li data-src="Tracks/This Old Man.mp3" data-title="This Old Man" data-modified="2024-07-16" data-comments="Traditional nursery rhyme, first known in the 19th century. A playful song about an old man and his various activities.">This Old Man<div class="hover-box">Traditional nursery rhyme, first known in the 19th century. A playful song about an old man and his various activities.</div></li>
 
-<li data-src="Tracks/Those Were The Days.mp3" data-title="Those Were The Days" data-modified="2025-05-30" data-category="Folk" data-century="20th" data-date-composed="1968" data-comments="Those Were the Days was written by Gene Raskin in the 1960s, adapting a Russian romance song by Boris Fomin (music, 1925) and Konstantin Podrevsky (lyrics). Raskin added new English lyrics reflecting nostalgia and lost youth. The most famous recording was by Mary Hopkin in 1968, produced by Paul McCartney. The song became an international hit and captures a bittersweet, old-world charm.">Those Were The Days<div class="hover-box">Those Were the Days was written by Gene Raskin in the 1960s, adapting a Russian romance song by Boris Fomin (music, 1925) and Konstantin Podrevsky (lyrics). Raskin added new English lyrics reflecting nostalgia and lost youth. The most famous recording was by Mary Hopkin in 1968, produced by Paul McCartney. The song became an international hit and captures a bittersweet, old-world charm.</div></li>
-
 <li data-src="Tracks/Three Blind Mice.mp3" data-title="Three Blind Mice" data-modified="2024-06-28" data-comments="Traditional English nursery rhyme, first known in the 16th century. A rhyme about three blind mice and their misadventures.">Three Blind Mice<div class="hover-box">Traditional English nursery rhyme, first known in the 16th century. A rhyme about three blind mice and their misadventures.</div></li>
 
 <li data-src="Tracks/Three Jolly Coachmen.mp3" data-title="Three Jolly Coachmen" data-modified="2024-06-16" data-comments="Traditional English folk song, first known in the 19th century. A song about three coachmen and their various exploits.">Three Jolly Coachmen<div class="hover-box">Traditional English folk song, first known in the 19th century. A song about three coachmen and their various exploits.</div></li>
@@ -1211,8 +1213,6 @@
 <li data-src="Tracks/True Tale of Robin Hood.mp3" data-title="True Tale of Robin Hood" data-modified="2024-08-17" data-comments="The ballad was first published in the 17th century, around 1631. It is attributed to Martin Parker, a known ballad writer of the time. Child Ballad #154.">True Tale of Robin Hood<div class="hover-box">The ballad was first published in the 17th century, around 1631. It is attributed to Martin Parker, a known ballad writer of the time. Child Ballad #154.</div></li>
 
 <li data-src="Tracks/Turkey In The Straw.mp3" data-title="Turkey In The Straw" data-modified="2024-07-30" data-comments="Traditional American folk song, first known in the 19th century. A lively tune often performed at barn dances and folk gatherings.">Turkey In The Straw<div class="hover-box">Traditional American folk song, first known in the 19th century. A lively tune often performed at barn dances and folk gatherings.</div></li>
-
-<li data-src="Tracks/Turn The Radio On.mp3" data-title="Turn The Radio On" data-modified="2025-05-28" data-author="Albert E. Brumley" data-category="Country" data-date-composed="1938" data-century="20th" data-comments="Turn the Radio On was written by Albert E. Brumley, a prolific Southern gospel composer best known for 'I'll Fly Away.' This song, sometimes titled 'Turn Your Radio On,' was published in 1938. It encourages listeners to tune into God's message as if through a spiritual radio, blending gospel themes with the imagery of 1930s technology. It's often performed in a lively, country-gospel style.">Turn The Radio On<div class="hover-box">Turn the Radio On was written by Albert E. Brumley, a prolific Southern gospel composer best known for 'I'll Fly Away.' This song, sometimes titled 'Turn Your Radio On,' was published in 1938. It encourages listeners to tune into God's message as if through a spiritual radio, blending gospel themes with the imagery of 1930s technology. It's often performed in a lively, country-gospel style.</div></li>
 
 <li data-src="Tracks/Twelve Days Of Christmas.mp3" data-title="Twelve Days Of Christmas" data-author="Unknown" data-century="18th" data-date-composed="1780" data-modified="2024-12-11" data-comments="Twelve Days of Christmas is a traditional English carol first published in 1780 in a children’s book called Mirth Without Mischief. Its author and composer are unknown. The cumulative song lists increasingly elaborate gifts given over twelve days, possibly rooted in a memory game or a religious catechism aid. A colly bird refers to a blackbird, with 'colly' deriving from the Old English word 'col,' meaning coal, which is black. In early versions of the song Twelve Days of Christmas, 'colly birds' is the original phrase, though it has since been replaced by 'calling birds' in many modern renditions.">Twelve Days Of Christmas<div class="hover-box">Twelve Days of Christmas is a traditional English carol first published in 1780 in a children’s book called Mirth Without Mischief. Its author and composer are unknown. The cumulative song lists increasingly elaborate gifts given over twelve days, possibly rooted in a memory game or a religious catechism aid. A colly bird refers to a blackbird, with 'colly' deriving from the Old English word 'col,' meaning coal, which is black. In early versions of the song Twelve Days of Christmas, 'colly birds' is the original phrase, though it has since been replaced by 'calling birds' in many modern renditions.</div></li>
 
@@ -1314,12 +1314,8 @@
 
 <li data-src="Tracks/Zip-A-Dee-Doo-Dah.mp3" data-title="Zip-A-Dee-Doo-Dah" data-author="Allie Wrubgel and Ray Gilbert" data-modified="2024-10-02" data-comments="Written by Allie Wrubel and lyricist Ray Gilbert in 1946 for the Disney film Song of the South. Sung by actor James Baskett in his role as Uncle Remus, the song won the Academy Award for Best Original Song in 1948. Its upbeat, cheerful melody and lyrics reflect a carefree, optimistic attitude, often associated with a bright, sunny day. Despite its musical success, the film itself has become controversial for its depiction of race and plantation life in the American South.">Zip-A-Dee-Doo-Dah<div class="hover-box">Written by Allie Wrubel and lyricist Ray Gilbert in 1946 for the Disney film Song of the South. Sung by actor James Baskett in his role as Uncle Remus, the song won the Academy Award for Best Original Song in 1948. Its upbeat, cheerful melody and lyrics reflect a carefree, optimistic attitude, often associated with a bright, sunny day. Despite its musical success, the film itself has become controversial for its depiction of race and plantation life in the American South.</div></li>
 
-
-            <!-- Add more tracks here as needed -->
-        </ul>
-   
-
- <script>
+</ul>
+    <script>
      document.addEventListener("DOMContentLoaded", function() {
     const trackListItems = document.querySelectorAll('.track-list li');
     const searchInput = document.getElementById('searchInput');
@@ -1357,27 +1353,23 @@
         });
     });
 
- searchInput.addEventListener('input', function () {
-    const filter = searchInput.value.toLowerCase().trim();
-    const rangeMatch = filter.match(/^(\d{4})\s*[-–]\s*(\d{4})$/); // only accept full 4-digit ranges
-
-    trackListItems.forEach(function (item) {
+ searchInput.addEventListener('input', function() {
+    const filter = searchInput.value.toLowerCase();
+    const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // e.g. "1900-1920"
+    
+    trackListItems.forEach(function(item) {
         const title = item.getAttribute('data-title')?.toLowerCase() || '';
         const author = item.getAttribute('data-author')?.toLowerCase() || '';
         const dateComposedStr = item.getAttribute('data-date-composed') || '';
+        const dateComposed = parseInt(dateComposedStr);
 
         let match = false;
 
-        // Only consider data-date-composed entries that are exactly 4-digit years
-        const exactYearMatch = dateComposedStr.match(/^\d{4}$/);
-        const dateComposed = exactYearMatch ? parseInt(dateComposedStr) : NaN;
-
-        // Handle text match (only if year is precise)
-        if (exactYearMatch && (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter))) {
+        if (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter)) {
             match = true;
         }
 
-        // Handle range like "1900-1920" (only if year is precise)
+        // Handle range like "1900-1920"
         if (rangeMatch && !isNaN(dateComposed)) {
             const startYear = parseInt(rangeMatch[1]);
             const endYear = parseInt(rangeMatch[2]);
@@ -1406,43 +1398,23 @@
         });
     });
 });
-    
-// Filter by recorded date using data-modified
-function filterByDate() {
-    const fromInput = document.getElementById('from-date').value;
-    const toInput = document.getElementById('to-date').value;
-
-    const fromDate = fromInput ? new Date(fromInput) : null;
-    const toDate = toInput ? new Date(toInput) : null;
-
-    document.querySelectorAll('.track-list li').forEach(item => {
-        const modifiedStr = item.getAttribute('data-modified');
-        if (!modifiedStr) {
-            item.style.display = 'none';
-            return;
-        }
-
-        const modifiedDate = new Date(modifiedStr);
-        const inRange =
-            (!fromDate || modifiedDate >= fromDate) &&
-            (!toDate || modifiedDate <= toDate);
-
-        item.style.display = inRange ? '' : 'none';
-    });
-}
-
-// Clear date filter and show all tracks
-function clearDateFilter() {
-    document.getElementById('from-date').value = '';
-    document.getElementById('to-date').value = '';
-
-    // Show all items again (resets only date filtering)
-    document.querySelectorAll('.track-list li').forEach(item => {
-        item.style.display = '';
-    });
-}
-
-
+    </script>
+    <div id="footer">
+     <p>
+      Copyright © 2024
+      <a href="img/PatMcD4x4.jpg">
+       Thomas Patrick McDonnell
+      </a>
+      · 
+        |
+      <a href="homepage.html">
+       Homepage
+      </a>
+     </p>
+    </div>
+   </div>
+  </div>
+  <script>
    function getAllTrackItems() {
     return Array.from(document.querySelectorAll(".track-list li"));
   }
@@ -1470,43 +1442,37 @@ function clearDateFilter() {
       alert("Please enter a valid number between 1 and " + total);
     }
   });
+  </script>
 
-
+<script>
+let sortAscending = true;
 
 function filterByDate() {
-  const fromInput = document.getElementById('from-date').value;
-  const toInput = document.getElementById('to-date').value;
+  const fromDate = document.getElementById('from-date').value;
+  const toDate = document.getElementById('to-date').value;
+  const items = document.querySelectorAll('li[data-modified]');
 
-  const fromDate = fromInput ? new Date(fromInput) : null;
-  const toDate = toInput ? new Date(toInput) : null;
-
-  document.querySelectorAll('.track-list li').forEach(item => {
-    const modifiedStr = item.getAttribute('data-modified');
-    const modifiedDate = new Date(modifiedStr);
-
-    if (isNaN(modifiedDate)) {
-      item.style.display = 'none';
-      return;
+  items.forEach(li => {
+    const modDate = li.getAttribute('data-modified');
+    if (
+      (!fromDate || modDate >= fromDate) &&
+      (!toDate || modDate <= toDate)
+    ) {
+      li.style.display = '';
+    } else {
+      li.style.display = 'none';
     }
-
-    const inRange =
-      (!fromDate || modifiedDate >= fromDate) &&
-      (!toDate || modifiedDate <= toDate);
-
-    item.style.display = inRange ? '' : 'none';
   });
 }
-
 
 function clearDateFilter() {
   document.getElementById('from-date').value = '';
   document.getElementById('to-date').value = '';
-  document.querySelectorAll('.track-list li').forEach(item => {
-    item.style.display = '';
+  document.querySelectorAll('li[data-modified]').forEach(li => {
+    li.style.display = '';
   });
 }
 
-let sortAscending = true;
 function sortByDate() {
   const ul = document.querySelector('ul');
   const items = Array.from(document.querySelectorAll('li[data-modified]'));
@@ -1522,10 +1488,6 @@ function sortByDate() {
 }
 </script>
 
-    <div id="footer">
-        <p>Copyright &copy; 2025 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
-            | <a href="homepage.html">Homepage</a></p>
-    </div>
-</div>
-</body>
+
+ </body>
 </html>
