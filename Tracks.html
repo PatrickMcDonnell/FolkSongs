@@ -45,13 +45,16 @@
             border: none;
             cursor: pointer;
         }
-
-        #footer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 10px;
+   #footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    clear: both;
+    margin-top: 20px;
+    background-color: #f0f0f0;
+    border-top: 1px solid #ccc;
         }
         .hover-box {
             display: none;
@@ -71,7 +74,6 @@
         .track-list li:hover .hover-box {
             display: block;
         }
-
      /* Ensuring buttons are placed properly */
         #controls {
             margin-bottom: 20px;
@@ -84,15 +86,10 @@
 
   <div id="wrap">
    <div id="header">
-    <h1>
-     <a href="#">
-      All Tracks
-     </a>
-    </h1>
+    <h1><a href="#">All Tracks</a></h1>
     <img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
-    <h1>
-     Select Tracks
-    </h1>
+
+    <h1>Select Tracks</h1>
   
   <!-- Search input -->
 <input id="searchInput" placeholder="Search for a song by title, author or year composed..." 
@@ -103,7 +100,7 @@
 </small>
 
 <div style="margin-bottom: 1em;">
-  <label for="from-date">From: </label>
+  <label for="from-date">Recorded From: </label>
   <input type="date" id="from-date">
   <label for="to-date">To: </label>
   <input type="date" id="to-date">
@@ -112,21 +109,12 @@
   <button onclick="sortByDate()">Sort by Date</button>
 </div>
 
-    <!-- Select All Button -->
-    <button class="styled-button" id="selectAllButton">
-     Select All
-    </button>
-    <!-- Select Random Button -->
-    <!-- Select Number Button -->
-    <button class="styled-button" id="selectNumberButton">
-     Select Random Songs
-    </button>
+    <!-- Buttons -->
+    <button class="styled-button" id="selectAllButton">Select All</button>
+    <button class="styled-button" id="selectNumberButton">Select Random Songs</button>
+    <button class="styled-button" id="finished-selecting">Play</button>
 
-    <!-- Play Button -->
-    <button class="styled-button" id="finished-selecting">
-     Play
-    </button>
-    <ul class="track-list">
+    <ul class="track-list" id="track-list"> 
 
 <li data-src="Tracks/A Bicycle Built For Two.mp3" data-title="A Bicycle Built For Two" data-author="Harry Dacre" data-modified="2024-10-13" data-comments="A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.">A Bicycle Built For Two<div class="hover-box">A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.</div></li>
 
