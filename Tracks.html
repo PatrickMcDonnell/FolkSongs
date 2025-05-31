@@ -1363,32 +1363,44 @@
         });
     });
 
- searchInput.addEventListener('input', function() {
-    const filter = searchInput.value.toLowerCase();
-    const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // e.g. "1900-1920"
-    
-    trackListItems.forEach(function(item) {
-        const title = item.getAttribute('data-title')?.toLowerCase() || '';
-        const author = item.getAttribute('data-author')?.toLowerCase() || '';
-        const dateComposedStr = item.getAttribute('data-date-composed') || '';
-        const dateComposed = parseInt(dateComposedStr);
+searchInput.addEventListener('input', function() {
+  const filter = searchInput.value.toLowerCase();
+  const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // e.g. "1900-1920"
 
-        let match = false;
+  trackListItems.forEach(function(item) {
+    const title = item.getAttribute('data-title')?.toLowerCase() || '';
+    const author = item.getAttribute('data-author')?.toLowerCase() || '';
+    const dateComposedStr = item.getAttribute('data-date-composed') || '';
 
-        if (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter)) {
-            match = true;
+    let match = false;
+
+    // Full text match on title/author/date string
+    if (title.includes(filter) || author.includes(filter) || dateComposedStr.toLowerCase().includes(filter)) {
+      match = true;
+    }
+
+    // Handle range match with strict 4-digit dates only
+    if (rangeMatch) {
+      const startYear = parseInt(rangeMatch[1]);
+      const endYear = parseInt(rangeMatch[2]);
+
+      // Only apply range check to precise 4-digit year strings
+      if (/^\d{4}$/.test(dateComposedStr)) {
+        const year = parseInt(dateComposedStr);
+        if (year >= startYear && year <= endYear) {
+          match = true;
+        } else {
+          match = false;
         }
+      } else {
+        match = false;
+      }
+    }
 
-        // Handle range like "1900-1920"
-        if (rangeMatch && !isNaN(dateComposed)) {
-            const startYear = parseInt(rangeMatch[1]);
-            const endYear = parseInt(rangeMatch[2]);
-            match = dateComposed >= startYear && dateComposed <= endYear;
-        }
-
-        item.style.display = match ? '' : 'none';
-    });
+    item.style.display = match ? '' : 'none';
+  });
 });
+
 
 
     
