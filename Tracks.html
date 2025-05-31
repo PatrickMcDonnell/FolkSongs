@@ -1317,7 +1317,7 @@
 
     <div id="footer">
      <p>
-      Copyright © 2025
+      Copyright © 2024
       <a href="img/PatMcD4x4.jpg">
        Thomas Patrick McDonnell
       </a>
@@ -1332,167 +1332,96 @@
    </div>
   </div>
 
-    <script>
-     document.addEventListener("DOMContentLoaded", function() {
-    const trackListItems = document.querySelectorAll('.track-list li');
-    const searchInput = document.getElementById('searchInput');
-    const selectAllButton = document.getElementById("selectAllButton");
-    const finishedButton = document.getElementById('finished-selecting');
-
-    // Select All functionality
-    selectAllButton.addEventListener("click", function() {
-        trackListItems.forEach(item => item.classList.add('selected'));
-    });
-
-    // Finished selecting functionality (Play button)
-    finishedButton.addEventListener('click', function() {
-        const selectedPlaylist = [];
-        trackListItems.forEach(item => {
-            if (item.classList.contains('selected')) {
-                const songSrc = item.getAttribute('data-src');
-                const songTitle = item.getAttribute('data-title');
-                const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
-                selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
-            }
-        });
-
-        // Store selected playlist in localStorage
-        localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
-
-        // Redirect back to index.html
-        window.location.href = 'index.html';
-    });
-
-    // Toggle selection of individual tracks
-    trackListItems.forEach(item => {
-        item.addEventListener('click', function() {
-            item.classList.toggle('selected');
-        });
-    });
-
-searchInput.addEventListener('input', function () {
-    const filter = searchInput.value.toLowerCase().trim();
-    const rangeMatch = filter.match(/^(\d{4})\s*[-–]\s*(\d{4})$/); // only accept full 4-digit ranges
-
-    trackListItems.forEach(function (item) {
-        const title = item.getAttribute('data-title')?.toLowerCase() || '';
-        const author = item.getAttribute('data-author')?.toLowerCase() || '';
-        const dateComposedStr = item.getAttribute('data-date-composed') || '';
-
-        let match = false;
-
-        // Only consider data-date-composed entries that are exactly 4-digit years
-        const exactYearMatch = dateComposedStr.match(/^\d{4}$/);
-        const dateComposed = exactYearMatch ? parseInt(dateComposedStr) : NaN;
-
-        // Handle text match (only if year is precise)
-        if (exactYearMatch && (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter))) {
-            match = true;
-        }
-
-        // Handle range like "1900-1920" (only if year is precise)
-        if (rangeMatch && !isNaN(dateComposed)) {
-            const startYear = parseInt(rangeMatch[1]);
-            const endYear = parseInt(rangeMatch[2]);
-            match = dateComposed >= startYear && dateComposed <= endYear;
-        }
-
-        item.style.display = match ? '' : 'none';
-    });
-});
-    
-    // Hover box adjustment for overflow
-    document.querySelectorAll('.track-list li').forEach(function(track) {
-        track.addEventListener('mouseover', function() {
-            const hoverBox = this.querySelector('.hover-box');
-            const rect = hoverBox.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
-
-            // Check if hover box would go below the viewport
-            if (rect.bottom > viewportHeight) {
-                hoverBox.style.top = `-${rect.height}px`;
-            } else {
-                hoverBox.style.top = '0';
-            }
-        });
-    });
-});
-
-// This is where I removed the footer and two </Div> </Div> codes  
-
-
-   function getAllTrackItems() {
-    return Array.from(document.querySelectorAll(".track-list li"));
-  }
-
-  function clearAllSelections() {
-    getAllTrackItems().forEach(item => item.classList.remove("selected"));
-  }
-
-  function selectRandomItems(count) {
-    const items = getAllTrackItems();
-    clearAllSelections();
-    if (count > items.length) count = items.length;
-    const shuffled = [...items].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, count);
-    selected.forEach(item => item.classList.add("selected"));
-  }
-
-  document.getElementById("selectNumberButton").addEventListener("click", () => {
-    const total = getAllTrackItems().length;
-    const input = prompt(`Enter the number of songs to select (1 to ${total}):`, "10");
-    const num = parseInt(input, 10);
-    if (!isNaN(num) && num > 0 && num <= total) {
-      selectRandomItems(num);
-    } else {
-      alert("Please enter a valid number between 1 and " + total);
-    }
-  });
-
-let sortAscending = true;
-
+<script>
 function filterByDate() {
-  const fromDate = document.getElementById('from-date').value;
-  const toDate = document.getElementById('to-date').value;
-  const items = document.querySelectorAll('li[data-modified]');
-
-  items.forEach(li => {
-    const modDate = li.getAttribute('data-modified');
-    if (
-      (!fromDate || modDate >= fromDate) &&
-      (!toDate || modDate <= toDate)
-    ) {
-      li.style.display = '';
+  const from = new Date(document.getElementById("from-date").value);
+  const to = new Date(document.getElementById("to-date").value);
+  document.querySelectorAll("#track-list li").forEach(li => {
+    const modifiedStr = li.getAttribute("data-modified");
+    if (!modifiedStr) return;
+    const modified = new Date(modifiedStr);
+    if ((!isNaN(from) && modified < from) || (!isNaN(to) && modified > to)) {
+      li.style.display = "none";
     } else {
-      li.style.display = 'none';
+      li.style.display = "";
     }
   });
 }
 
 function clearDateFilter() {
-  document.getElementById('from-date').value = '';
-  document.getElementById('to-date').value = '';
-  document.querySelectorAll('li[data-modified]').forEach(li => {
-    li.style.display = '';
+  document.getElementById("from-date").value = "";
+  document.getElementById("to-date").value = "";
+  document.querySelectorAll("#track-list li").forEach(li => {
+    li.style.display = "";
   });
 }
 
-let sortAscending = true;
 function sortByDate() {
-  const ul = document.querySelector('ul');
-  const items = Array.from(document.querySelectorAll('li[data-modified]'));
-
+  const list = document.getElementById("track-list");
+  const items = Array.from(list.children);
   items.sort((a, b) => {
-    const dateA = a.getAttribute('data-modified');
-    const dateB = b.getAttribute('data-modified');
-    return sortAscending ? dateA.localeCompare(dateB) : dateB.localeCompare(dateA);
+    const dateA = new Date(a.getAttribute("data-modified"));
+    const dateB = new Date(b.getAttribute("data-modified"));
+    return dateA - dateB;
+  });
+  items.forEach(item => list.appendChild(item));
+}
+
+document.getElementById("searchInput").addEventListener("input", function () {
+  const query = this.value.toLowerCase();
+  document.querySelectorAll("#track-list li").forEach(li => {
+    const title = li.getAttribute("data-title") || "";
+    const author = li.getAttribute("data-author") || "";
+    const year = li.getAttribute("data-date-composed") || "";
+    if (
+      title.toLowerCase().includes(query) ||
+      author.toLowerCase().includes(query) ||
+      year.includes(query)
+    ) {
+      li.style.display = "";
+    } else {
+      li.style.display = "none";
+    }
+  });
+});
+
+document.getElementById("selectAllButton").addEventListener("click", () => {
+  document.querySelectorAll("#track-list li").forEach(li => {
+    li.classList.add("selected");
+  });
+});
+
+document.getElementById("selectNumberButton").addEventListener("click", () => {
+  const allItems = [...document.querySelectorAll("#track-list li")];
+  const count = 10; // change to how many random songs you want
+  const selected = [];
+
+  while (selected.length < count && allItems.length > 0) {
+    const index = Math.floor(Math.random() * allItems.length);
+    const [item] = allItems.splice(index, 1);
+    selected.push(item);
+  }
+
+  document.querySelectorAll("#track-list li").forEach(li => {
+    li.classList.remove("selected");
   });
 
-  items.forEach(li => ul.appendChild(li)); // Reorder in DOM
-  sortAscending = !sortAscending;
-}
+  selected.forEach(li => li.classList.add("selected"));
+});
+
+document.getElementById("finished-selecting").addEventListener("click", () => {
+  const selected = [...document.querySelectorAll("#track-list li.selected")];
+  if (selected.length === 0) {
+    alert("No songs selected.");
+    return;
+  }
+  const urls = selected.map(li => li.getAttribute("data-src"));
+  const indexUrl = `index.html?playlist=${encodeURIComponent(urls.join(","))}`;
+  window.location.href = indexUrl;
+});
 </script>
 
 
-</body>
+
+ </body>
 </html>
