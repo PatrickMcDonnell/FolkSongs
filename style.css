@@ -879,6 +879,8 @@ body {
 #content tr:first-child td:last-child {
 	border-width:0px 0px 1px 1px;
 }
+
+
 			
 /************ Navigation end *******************************/	
 
@@ -923,3 +925,4 @@ footer #site-generator {
 	float:left;
 }	
 .sticky {}
+

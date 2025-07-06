@@ -48,9 +48,8 @@ p {
 
 #header {
     margin:10px 0 0;
-    padding:0px;
+    padding:0;
     height:45px;
-    max-width: 100%;
 }
 
 #header h1 {
@@ -61,16 +60,6 @@ p {
     font-size:2em;
     float:left;
 }
-
-#header h2 {
-    color:#505050;
-    background-color:inherit;
-    width:100px;
-    margin:0 0 10px;
-    font-size:2em;
-    float:right;
-}
-
 
 #header h1 a {
     color:#505050;
@@ -427,33 +416,3 @@ ul.avmenu ul ul a {
 }
 
 /***********new code for top nav***********/
-.navbar {
-  list-style-type: none;
-  margin:  0;
-  padding: 0;
-  overflow: hidden;
-  background-color: white;
-margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;
-border: 1px solid black;
-
-}
-
-.navbar li {
-  float: left
-}
-
-.navbar li a {
-  display: none;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-.navbar li a:hover {
-  background-color: #333;
-}
-
-.navbar a{
-  padding-right: 9px
-}
