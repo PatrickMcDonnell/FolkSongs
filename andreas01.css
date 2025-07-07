@@ -65,7 +65,7 @@ p {
 #header h2 {
     color:#505050;
     background-color:inherit;
-    width:200px;
+    width:100px;
     margin:0 0 10px;
     font-size:2em;
     float:right;
@@ -87,12 +87,23 @@ p {
     line-height:1.3em;
 }
 
-#frontphoto {
-    margin:0 0 10px;
-    border:0;
-    max-width: 100%;
-    height: auto;
+#header, #wrap {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
+
+/****#frontphoto { ****/
+/****    margin:0 0 10px; ****/
+/****    border:0; ****/
+/****    max-width: 100%; ****/
+/****    height: auto; ****
+/****} ****/
+
+#frontphoto {
+  width: 100%;
+  height: auto;
+  display: block;
 
 /***** Left sidebar *****/
 
