@@ -89,8 +89,9 @@ p {
 
 #frontphoto { 
     margin:0 0 10px; 
-    border:0; 
-    max-width: 100%; 
+    border:0;
+    width: 760px 
+/****    max-width: 100%; ****/
     height: auto; 
 } 
 
