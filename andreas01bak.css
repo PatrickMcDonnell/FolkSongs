@@ -87,20 +87,12 @@ p {
     line-height:1.3em;
 }
 
-/****#header, #wrap { ****/
-/****  width: 100%; ****/
-/****  max-width: 100%; ****/
-/****  box-sizing: border-box; ****/
-/****} ****/
-
 #frontphoto { 
     margin:0 0 10px; 
     border:0; 
     max-width: 100%; 
     height: auto; 
 } 
-
-
 
 /***** Left sidebar *****/
 
