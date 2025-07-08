@@ -88,11 +88,17 @@ p {
 }
 
 #frontphoto { 
-    margin:0 0 10px; 
-    border:0;
-    width: 760px 
-    max-width: 100%; 
-    height: auto; 
+/****    margin:0 0 10px; ****/ 
+/****    border:0;  ****/
+/****    width: 760px   ****/
+/****    max-width: 100%; ****/
+/****    height: auto; ****/
+
+  display: block;
+    margin: 0 auto 20px auto;
+    background-color: black;
+    border: 2px solid #444;
+
 } 
 
 /***** Left sidebar *****/
