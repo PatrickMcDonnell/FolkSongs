@@ -133,7 +133,7 @@
   <button onclick="filterByDate()">Filter</button>
   <button onclick="clearDateFilter()">Clear</button>
   <button onclick="sortByDate()">Sort by Date</button>
-  <select id="authorDropdown" multiple size="5" style="min-width: 170px; max-width: 170px; height: 50px; margin-left: 8px; vertical-align: bottom; font-size: 12px;">
+  <select id="authorDropdown" multiple size="5" style="min-width: 170px; max-width: 170px; height: 50px; margin-left: 8px; vertical-align: top; font-size: 12px;">
     <option disabled>Select Author(s)...</option>
   </select>
 </div>
@@ -383,7 +383,7 @@ fetch('authors.json')
 const clearAuthorButton = document.createElement('button');
 clearAuthorButton.textContent = 'Clear Author';
 clearAuthorButton.style.marginLeft = '8px';
-clearAuthorButton.style.height = '23px';
+clearAuthorButton.style.height = '22px';
 clearAuthorButton.style.fontSize = '13px';
 clearAuthorButton.style.padding = '1px 6px';
 clearAuthorButton.style.lineHeight = 'normal';
@@ -402,6 +402,21 @@ document.addEventListener('DOMContentLoaded', () => {
     items.forEach(item => item.style.display = '');
   });
 });
+
+
+// Expand dropdown on focus, collapse on blur
+const dropdown = document.getElementById('authorDropdown');
+
+dropdown.addEventListener('focus', () => {
+  dropdown.setAttribute('size', '5');
+  dropdown.style.height = 'auto';
+});
+
+dropdown.addEventListener('blur', () => {
+  dropdown.removeAttribute('size');
+  dropdown.style.height = '22px';
+});
+
 </script>
 
 </body>
