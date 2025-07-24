@@ -395,12 +395,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const controlPanel = document.querySelector('#from-date').parentElement;
   controlPanel.insertBefore(clearAuthorButton, document.getElementById('authorDropdown').nextSibling);
 
-  clearAuthorButton.addEventListener('click', () => {
-    const dropdown = document.getElementById('authorDropdown');
-    Array.from(dropdown.options).forEach(option => option.selected = false);
-    const items = document.querySelectorAll('ul.track-list li');
-    items.forEach(item => item.style.display = '');
-  });
+clearAuthorButton.addEventListener('click', () => {
+  const dropdown = document.getElementById('authorDropdown');
+  Array.from(dropdown.options).forEach(option => option.selected = false);
+  dropdown.scrollTop = 0;       // Scroll back to the top
+  dropdown.blur();              // Collapse the dropdown
+  const items = document.querySelectorAll('ul.track-list li');
+  items.forEach(item => item.style.display = '');
+});
+
 });
 
 
