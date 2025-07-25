@@ -355,6 +355,14 @@ fetch('authors.json')
   .then(response => response.json())
   .then(authors => {
     const dropdown = document.getElementById('authorDropdown');
+
+    // Add placeholder option
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Select Author...';
+    dropdown.appendChild(defaultOption);
+
+    // Add authors
     authors.forEach(author => {
       const option = document.createElement('option');
       option.value = author;
@@ -362,14 +370,14 @@ fetch('authors.json')
       dropdown.appendChild(option);
     });
 
-    // Handle filtering when the selection changes
+    // Handle filtering on selection
     dropdown.addEventListener('change', () => {
-      const selectedOptions = Array.from(dropdown.selectedOptions).map(opt => opt.value);
+      const selectedAuthor = dropdown.value;
       const items = document.querySelectorAll('ul.track-list li');
 
       items.forEach(item => {
         const itemAuthor = item.getAttribute('data-author');
-        if (selectedOptions.length === 0 || selectedOptions.includes(itemAuthor)) {
+        if (!selectedAuthor || selectedAuthor === itemAuthor) {
           item.style.display = '';
         } else {
           item.style.display = 'none';
@@ -379,7 +387,7 @@ fetch('authors.json')
   })
   .catch(error => console.error('Error loading authors:', error));
 
-// Add Clear Author Selection button
+// Create Clear Author button
 const clearAuthorButton = document.createElement('button');
 clearAuthorButton.textContent = 'Clear Author';
 clearAuthorButton.style.marginLeft = '8px';
@@ -395,58 +403,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   clearAuthorButton.addEventListener('click', () => {
     const dropdown = document.getElementById('authorDropdown');
-
-    // Clear all selected options
-    Array.from(dropdown.options).forEach(option => {
-      option.selected = false;
-    });
-
-    // Scroll to top + collapse
+    dropdown.selectedIndex = 0;
     dropdown.scrollTop = 0;
     dropdown.blur();
-    dropdown.removeAttribute('size');
-    dropdown.style.height = '22px';
 
-    // Force redraw (hack for some browsers)
-    dropdown.style.display = 'none';
-    setTimeout(() => {
-      dropdown.style.display = '';
-    }, 0);
-
-    // Show all tracks again
+    // Reset track visibility
     const items = document.querySelectorAll('ul.track-list li');
     items.forEach(item => item.style.display = '');
   });
 
-  // Reset dropdown appearance on page load
-  const authorDropdown = document.getElementById('authorDropdown');
-  authorDropdown.scrollTop = 0;
-  authorDropdown.removeAttribute('size');
-  authorDropdown.style.height = '22px';
-  Array.from(authorDropdown.options).forEach(option => option.selected = false);
+  // On page load, reset dropdown to top
+  const dropdown = document.getElementById('authorDropdown');
+  dropdown.selectedIndex = 0;
+  dropdown.scrollTop = 0;
+  dropdown.style.height = '22px';
 
-  // Reset dropdown when a song is clicked
+  // Reset dropdown on song click
   const songs = document.querySelectorAll('ul.track-list li');
   songs.forEach(song => {
     song.addEventListener('click', () => {
-      const dropdown = document.getElementById('authorDropdown');
-      Array.from(dropdown.options).forEach(option => option.selected = false);
+      dropdown.selectedIndex = 0;
       dropdown.scrollTop = 0;
       dropdown.blur();
-      dropdown.removeAttribute('size');
-      dropdown.style.height = '22px';
     });
   });
 });
 
-// Expand dropdown on focus, collapse on blur
+// Optional: dropdown expand/collapse if you want to keep it
 const dropdown = document.getElementById('authorDropdown');
 dropdown.addEventListener('focus', () => {
-  dropdown.setAttribute('size', '5');
   dropdown.style.height = 'auto';
 });
 dropdown.addEventListener('blur', () => {
-  dropdown.removeAttribute('size');
   dropdown.style.height = '22px';
 });
 </script>
