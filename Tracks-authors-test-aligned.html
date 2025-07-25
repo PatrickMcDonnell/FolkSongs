@@ -389,57 +389,68 @@ clearAuthorButton.style.padding = '1px 6px';
 clearAuthorButton.style.lineHeight = 'normal';
 clearAuthorButton.style.verticalAlign = 'bottom';
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
   const controlPanel = document.querySelector('#from-date').parentElement;
   controlPanel.insertBefore(clearAuthorButton, document.getElementById('authorDropdown').nextSibling);
 
-clearAuthorButton.addEventListener('click', () => {
-  const dropdown = document.getElementById('authorDropdown');
+  clearAuthorButton.addEventListener('click', () => {
+    const dropdown = document.getElementById('authorDropdown');
 
-  // Clear all selected options
-  Array.from(dropdown.options).forEach(option => {
-    option.selected = false;
+    // Clear all selected options
+    Array.from(dropdown.options).forEach(option => {
+      option.selected = false;
+    });
+
+    // Scroll to top + collapse
+    dropdown.scrollTop = 0;
+    dropdown.blur();
+    dropdown.removeAttribute('size');
+    dropdown.style.height = '22px';
+
+    // Force redraw (hack for some browsers)
+    dropdown.style.display = 'none';
+    setTimeout(() => {
+      dropdown.style.display = '';
+    }, 0);
+
+    // Show all tracks again
+    const items = document.querySelectorAll('ul.track-list li');
+    items.forEach(item => item.style.display = '');
   });
 
-  // Scroll to top + collapse
-  dropdown.scrollTop = 0;
-  dropdown.blur();
+  // Reset dropdown appearance on page load
+  const authorDropdown = document.getElementById('authorDropdown');
+  authorDropdown.scrollTop = 0;
+  authorDropdown.removeAttribute('size');
+  authorDropdown.style.height = '22px';
+  Array.from(authorDropdown.options).forEach(option => option.selected = false);
 
-  // Force redraw (hack for some browsers)
-  dropdown.style.display = 'none';
-  setTimeout(() => {
-    dropdown.style.display = '';
-  }, 0);
-
-  // Show all tracks again
-  const items = document.querySelectorAll('ul.track-list li');
-  items.forEach(item => item.style.display = '');
-});
-
-
+  // Reset dropdown when a song is clicked
+  const songs = document.querySelectorAll('ul.track-list li');
+  songs.forEach(song => {
+    song.addEventListener('click', () => {
+      const dropdown = document.getElementById('authorDropdown');
+      Array.from(dropdown.options).forEach(option => option.selected = false);
+      dropdown.scrollTop = 0;
+      dropdown.blur();
+      dropdown.removeAttribute('size');
+      dropdown.style.height = '22px';
+    });
+  });
 });
 
 // Expand dropdown on focus, collapse on blur
 const dropdown = document.getElementById('authorDropdown');
-
 dropdown.addEventListener('focus', () => {
   dropdown.setAttribute('size', '5');
   dropdown.style.height = 'auto';
 });
-
 dropdown.addEventListener('blur', () => {
   dropdown.removeAttribute('size');
   dropdown.style.height = '22px';
 });
-
-document.addEventListener('DOMContentLoaded', () => {
-  const authorDropdown = document.getElementById('authorDropdown');
-  authorDropdown.scrollTop = 0;
-});
-
 </script>
+
 
 </body>
 </html>
