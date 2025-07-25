@@ -421,11 +421,6 @@ clearAuthorButton.addEventListener('click', () => {
 
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const authorDropdown = document.getElementById('authorDropdown');
-  authorDropdown.scrollTop = 0;
-});
-
 // Expand dropdown on focus, collapse on blur
 const dropdown = document.getElementById('authorDropdown');
 
@@ -437,6 +432,11 @@ dropdown.addEventListener('focus', () => {
 dropdown.addEventListener('blur', () => {
   dropdown.removeAttribute('size');
   dropdown.style.height = '22px';
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const authorDropdown = document.getElementById('authorDropdown');
+  authorDropdown.scrollTop = 0;
 });
 
 </script>
