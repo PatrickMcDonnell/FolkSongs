@@ -397,15 +397,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
 clearAuthorButton.addEventListener('click', () => {
   const dropdown = document.getElementById('authorDropdown');
-  Array.from(dropdown.options).forEach(option => option.selected = false);
-  dropdown.scrollTop = 0;       // Scroll back to the top
-  dropdown.blur();              // Collapse the dropdown
+
+  // Clear all selected options
+  Array.from(dropdown.options).forEach(option => {
+    option.selected = false;
+  });
+
+  // Scroll to top + collapse
+  dropdown.scrollTop = 0;
+  dropdown.blur();
+
+  // Force redraw (hack for some browsers)
+  dropdown.style.display = 'none';
+  setTimeout(() => {
+    dropdown.style.display = '';
+  }, 0);
+
+  // Show all tracks again
   const items = document.querySelectorAll('ul.track-list li');
   items.forEach(item => item.style.display = '');
 });
 
+
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const authorDropdown = document.getElementById('authorDropdown');
+  authorDropdown.scrollTop = 0;
+});
 
 // Expand dropdown on focus, collapse on blur
 const dropdown = document.getElementById('authorDropdown');
