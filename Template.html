@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Template
+  </title>
+  <link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
+  <link href="print.css" media="print" rel="stylesheet" type="text/css"/>
+  <style>
+  
+ body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set default text color to black */
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
+        }
+        .track-list li {
+            position: relative; /* Ensure the hover box is positioned relative to the item */
+            margin: 0;
+            line-height: 1.5; /* Set line height for single spacing */
+            cursor: pointer;
+            color: #000; /* Default text color */
+        }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
+        }
+
+        .styled-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
+
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px;
+            max-height: 80vh;
+            overflow: auto;
+            left: calc(100% + 10px);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block;
+        }
+
+     /* Ensuring buttons are placed properly */
+        #controls {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+  </style>
+ </head>
+ <body>
+
+  <div id="wrap">
+   <div id="header">
+<p></p>  <p></p> 
+    <h1>&nbsp;&nbsp;
+     <a href="#">
+      All Tracks
+     </a>
+    </h1>
+
+ <h2><a href="Help.html">Help</a></h2>
+
+ <img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
+
+<div class="navbar">
+  
+    <a href="Tracks.html">All Tracks</a>
+    <a href="blues.html">Blues</a>
+    <a href="childballads.html">Child Ballads</a>
+    <a href="childrensongs.html">Children's Songs</a>
+    <a href="christmas.html">Christmas</a>
+    <a href="country.html">Country</a>
+    <a href="folk.html">Folk Songs</a>
+    <a href="irish.html">Irish</a>
+    <a href="gospel.html">Gospel</a>
+    <a href="scottish.html">Scottish</a>
+    <a href="shanties.html">Shanties</a>
+ 
+</div>
+
+    <h1>
+     Select Tracks
+    </h1>
+  
+  <!-- Search input -->
+<input id="searchInput" placeholder="Search for a song by title, author or year composed..." 
+       style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
+
+<small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
+  Search by title, author, or year range the song was originally composed (e.g., 1900-1920). To filter by date recorded go to the All Tracks playlist.
+</small>
+
+
+
+    <!-- Select All Button -->
+    <button class="styled-button" id="selectAllButton">
+     Select All
+    </button>
+    <!-- Select Random Button -->
+    <!-- Select Number Button -->
+    <button class="styled-button" id="selectNumberButton">
+     Select Random Songs
+    </button>
+
+    <!-- Play Button -->
+    <button class="styled-button" id="finished-selecting">
+     Play
+    </button>
+
+    <ul class="track-list">
+
+    <!--Template - just add in song tracks here-->
+    <!--Replace title in header with new title to match playlist-->
+
+<li data-src="Tracks/A Different Kind Of Song.mp3" data-title="A Different Kind Of Song" data-author="John Munro" data-modified="2025-10-20" data-date-composed="2019" data-century="21st" data-comments="A Different Kind of Song is by John Campbell Munro, a Scottish-Australian folk musician. The song begins Old Quinn sailed from Antrim and is featured on his 2019 album The Kelly Collection. Munro, who emigrated from Glasgow to Adelaide in 1965, was known for blending personal and historical narratives in his music, collaborating with Eric Bogle and performing with groups such as Colcannon and Tracey-Munro-Tracey.">A Different Kind Of Song<div class="hover-box">A Different Kind of Song is by John Campbell Munro, a Scottish-Australian folk musician. The song begins Old Quinn sailed from Antrim and is featured on his 2019 album The Kelly Collection. Munro, who emigrated from Glasgow to Adelaide in 1965, was known for blending personal and historical narratives in his music, collaborating with Eric Bogle and performing with groups such as Colcannon and Tracey-Munro-Tracey.</div></li>
+<li data-src="Tracks/A Drink for My Father.mp3" data-author="Donal Lunny" data-title="A Drink for My Father" data-comments="Composed by Donal Lunny, an influential Irish musician, composer, and producer. He is known for his work with several prominent Irish bands, including Planxty, The Bothy Band, and Moving Hearts. The song first gained recognition in the early 1980s.">A Drnk for My Father<div class="hover-box">Composed by Donal Lunny, an influential Irish musician, composer, and producer. He is known for his work with several prominent Irish bands, including Planxty, The Bothy Band, and Moving Hearts. The song first gained recognition in the early 1980s.</div></li>
+    </ul>
+
+    <script>
+     document.addEventListener("DOMContentLoaded", function() {
+    const trackListItems = document.querySelectorAll('.track-list li');
+    const searchInput = document.getElementById('searchInput');
+    const selectAllButton = document.getElementById("selectAllButton");
+    const finishedButton = document.getElementById('finished-selecting');
+
+    // Select All functionality
+    selectAllButton.addEventListener("click", function() {
+        trackListItems.forEach(item => item.classList.add('selected'));
+    });
+
+    // Finished selecting functionality (Play button)
+    finishedButton.addEventListener('click', function() {
+        const selectedPlaylist = [];
+        trackListItems.forEach(item => {
+            if (item.classList.contains('selected')) {
+                const songSrc = item.getAttribute('data-src');
+                const songTitle = item.getAttribute('data-title');
+                const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
+                selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+            }
+        });
+
+        // Store selected playlist in localStorage
+        localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+        // Redirect back to index.html
+        window.location.href = 'index.html';
+    });
+
+    // Toggle selection of individual tracks
+    trackListItems.forEach(item => {
+        item.addEventListener('click', function() {
+            item.classList.toggle('selected');
+        });
+    });
+searchInput.addEventListener('input', function() {
+  const filter = searchInput.value.toLowerCase().trim();
+  const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // Handles "1900-1920"
+
+  trackListItems.forEach(function(item) {
+    const title = item.getAttribute('data-title')?.toLowerCase() || '';
+    const author = item.getAttribute('data-author')?.toLowerCase() || '';
+    const dateComposedStr = item.getAttribute('data-date-composed')?.toLowerCase() || '';
+    let match = false;
+
+    // Text search (e.g., "Irish", "Dylan", "1960s")
+    if (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter)) {
+      match = true;
+    }
+
+    // If a numeric year range is entered, override the match logic
+    if (rangeMatch) {
+      const startYear = parseInt(rangeMatch[1]);
+      const endYear = parseInt(rangeMatch[2]);
+
+      // Only evaluate as a year if it's a strict 4-digit number
+      if (/^\d{4}$/.test(dateComposedStr)) {
+        const year = parseInt(dateComposedStr);
+        match = (year >= startYear && year <= endYear);
+      } else {
+        match = false; // Exclude "1960s", "early 1900s", etc. from numeric range matches
+      }
+    }
+
+    item.style.display = match ? '' : 'none';
+  });
+});
+
+
+
+    
+    // Hover box adjustment for overflow
+    document.querySelectorAll('.track-list li').forEach(function(track) {
+        track.addEventListener('mouseover', function() {
+            const hoverBox = this.querySelector('.hover-box');
+            const rect = hoverBox.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Check if hover box would go below the viewport
+            if (rect.bottom > viewportHeight) {
+                hoverBox.style.top = `-${rect.height}px`;
+            } else {
+                hoverBox.style.top = '0';
+            }
+        });
+    });
+});
+    </script>
+    <div id="footer">
+     <p>
+      Copyright © 2025
+      <a href="img/PatMcD4x4.jpg">
+       Thomas Patrick McDonnell
+      </a>
+      · 
+        |
+      <a href="homepage.html">
+       Homepage
+      </a>
+     </p>
+    </div>
+   </div>
+  </div>
+  <script>
+   function getAllTrackItems() {
+    return Array.from(document.querySelectorAll(".track-list li"));
+  }
+
+  function clearAllSelections() {
+    getAllTrackItems().forEach(item => item.classList.remove("selected"));
+  }
+
+  function selectRandomItems(count) {
+    const items = getAllTrackItems();
+    clearAllSelections();
+    if (count > items.length) count = items.length;
+    const shuffled = [...items].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, count);
+    selected.forEach(item => item.classList.add("selected"));
+  }
+
+  document.getElementById("selectNumberButton").addEventListener("click", () => {
+    const total = getAllTrackItems().length;
+    const input = prompt(`Enter the number of songs to select (1 to ${total}):`, "10");
+    const num = parseInt(input, 10);
+    if (!isNaN(num) && num > 0 && num <= total) {
+      selectRandomItems(num);
+    } else {
+      alert("Please enter a valid number between 1 and " + total);
+    }
+  });
+  </script>
+
+
+
+ </body>
+</html>
