@@ -187,7 +187,112 @@
         </ul>
    
 
-<script>
+   <script>
+     document.addEventListener("DOMContentLoaded", function() {
+    const trackListItems = document.querySelectorAll('.track-list li');
+    const searchInput = document.getElementById('searchInput');
+    const selectAllButton = document.getElementById("selectAllButton");
+    const finishedButton = document.getElementById('finished-selecting');
+
+    // Select All functionality
+    selectAllButton.addEventListener("click", function() {
+        trackListItems.forEach(item => item.classList.add('selected'));
+    });
+
+    // Finished selecting functionality (Play button)
+    finishedButton.addEventListener('click', function() {
+        const selectedPlaylist = [];
+        trackListItems.forEach(item => {
+            if (item.classList.contains('selected')) {
+                const songSrc = item.getAttribute('data-src');
+                const songTitle = item.getAttribute('data-title');
+                const songComments = item.getAttribute('data-comments') || ''; // Retrieve comments
+                selectedPlaylist.push({ src: songSrc, title: songTitle, comments: songComments });
+            }
+        });
+
+        // Store selected playlist in localStorage
+        localStorage.setItem('playlist', JSON.stringify(selectedPlaylist));
+
+        // Redirect back to index.html
+        window.location.href = 'index.html';
+    });
+
+    // Toggle selection of individual tracks
+    trackListItems.forEach(item => {
+        item.addEventListener('click', function() {
+            item.classList.toggle('selected');
+        });
+    });
+searchInput.addEventListener('input', function() {
+  const filter = searchInput.value.toLowerCase().trim();
+  const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // Handles "1900-1920"
+
+  trackListItems.forEach(function(item) {
+    const title = item.getAttribute('data-title')?.toLowerCase() || '';
+    const author = item.getAttribute('data-author')?.toLowerCase() || '';
+    const dateComposedStr = item.getAttribute('data-date-composed')?.toLowerCase() || '';
+    let match = false;
+
+    // Text search (e.g., "Irish", "Dylan", "1960s")
+    if (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter)) {
+      match = true;
+    }
+
+    // If a numeric year range is entered, override the match logic
+    if (rangeMatch) {
+      const startYear = parseInt(rangeMatch[1]);
+      const endYear = parseInt(rangeMatch[2]);
+
+      // Only evaluate as a year if it's a strict 4-digit number
+      if (/^\d{4}$/.test(dateComposedStr)) {
+        const year = parseInt(dateComposedStr);
+        match = (year >= startYear && year <= endYear);
+      } else {
+        match = false; // Exclude "1960s", "early 1900s", etc. from numeric range matches
+      }
+    }
+
+    item.style.display = match ? '' : 'none';
+  });
+});
+
+
+
+    
+    // Hover box adjustment for overflow
+    document.querySelectorAll('.track-list li').forEach(function(track) {
+        track.addEventListener('mouseover', function() {
+            const hoverBox = this.querySelector('.hover-box');
+            const rect = hoverBox.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Check if hover box would go below the viewport
+            if (rect.bottom > viewportHeight) {
+                hoverBox.style.top = `-${rect.height}px`;
+            } else {
+                hoverBox.style.top = '0';
+            }
+        });
+    });
+});
+    </script>
+    <div id="footer">
+     <p>
+      Copyright © 2025
+      <a href="img/PatMcD4x4.jpg">
+       Thomas Patrick McDonnell
+      </a>
+      · 
+        |
+      <a href="homepage.html">
+       Homepage
+      </a>
+     </p>
+    </div>
+   </div>
+  </div>
+  <script>
    function getAllTrackItems() {
     return Array.from(document.querySelectorAll(".track-list li"));
   }
@@ -351,10 +456,5 @@ dropdown.addEventListener('blur', () => {
 });
 </script>
 
-    <div id="footer">
-        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
-            | <a href="homepage.html">Homepage</a></p>
-    </div>
-</div>
-</body>
+ </body>
 </html>
