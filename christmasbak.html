@@ -104,15 +104,44 @@
  
 </div>
 
-        <h1>Select Tracks</h1>
-        <!-- Search input -->
-        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+    <h1>
+     Select Tracks
+    </h1>
+  
+  <!-- Search input -->
+<input id="searchInput" placeholder="Search for a song by title, author or year composed..." 
+       style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
 
-<!-- Select All Button -->
-<button id="selectAllButton" class="styled-button">Select All</button>
+<small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
+  You can search by title, author, or year range the song was originally composed (e.g., 1900-1920) or, below, filter by when the song was recorded here.
+</small>
 
-<!-- Play Button -->
-<button class="styled-button" id="finished-selecting">Play</button>
+<div style="margin-bottom: 1em;">
+  <label for="from-date">From: </label>
+  <input type="date" id="from-date">
+  <label for="to-date">To: </label>
+  <input type="date" id="to-date">
+  <button onclick="filterByDate()">Filter</button>
+  <button onclick="clearDateFilter()">Clear</button>
+  <button onclick="sortByDate()">Sort by Date</button>
+  <select id="authorDropdown" style="min-width: 170px; max-width: 170px; height: 22px; margin-left: 8px; vertical-align: bottom; font-size: 13px;"></select>
+</div>
+
+    <!-- Select All Button -->
+    <button class="styled-button" id="selectAllButton">
+     Select All
+    </button>
+    <!-- Select Random Button -->
+    <!-- Select Number Button -->
+    <button class="styled-button" id="selectNumberButton">
+     Select Random Songs
+    </button>
+
+    <!-- Play Button -->
+    <button class="styled-button" id="finished-selecting">
+     Play
+    </button>
+    <ul class="track-list">
 
         <ul class="track-list">
            
