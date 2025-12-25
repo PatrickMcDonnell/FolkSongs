@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #000; /* Set default text color to black */
+        }
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid; /* Use CSS Grid for layout */
+            grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+            gap: 10px; /* Gap between items */
+        }
+        .track-list li {
+            position: relative; /* Ensure the hover box is positioned relative to the item */
+            margin: 0;
+            line-height: 1.5; /* Set line height for single spacing */
+            cursor: pointer;
+            color: #000; /* Default text color */
+        }
+        .track-list li.selected {
+            color: blue; /* Selected text color */
+        }
+
+.styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
+      .styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
+
+        #footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+        .hover-box {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            padding: 10px;
+            z-index: 1;
+            white-space: pre-wrap;
+            width: 250px;
+            max-height: 80vh;
+            overflow: auto;
+            left: calc(100% + 10px);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .track-list li:hover .hover-box {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+<p></p>  <p></p>  
+        <h1>&nbsp;&nbsp;<a href="#">Christmas</a></h1>
+        <h2><a href="Help.html">Help</a></h2>
+
+        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+
+<div class="navbar">
+  
+    <a href="Tracks.html">All Tracks</a>
+    <a href="blues.html">Blues</a>
+    <a href="childballads.html">Child Ballads</a>
+    <a href="childrensongs.html">Children's Songs</a>
+    <a href="christmas.html">Christmas</a>
+    <a href="country.html">Country</a>
+    <a href="folk.html">Folk Songs</a>
+    <a href="irish.html">Irish</a>
+    <a href="gospel.html">Gospel</a>
+    <a href="scottish.html">Scottish</a>
+    <a href="shanties.html">Shanties</a>
+ 
+</div>
+
+        <h1>Select Tracks</h1>
+        <!-- Search input -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+
+<!-- Select All Button -->
+<button id="selectAllButton" class="styled-button">Select All</button>
+
+<!-- Play Button -->
+<button class="styled-button" id="finished-selecting">Play</button>
+
+        <ul class="track-list">
+           
+<li data-src="Tracks/Adeste Fideles.mp3" data-title="Adeste Fideles" data-comments="The origins of 'Adeste Fideles' are somewhat disputed. The most commonly accepted attribution is to John Francis Wade, an 18th-century English hymnist, written around 1744 and later translated into English by Frederick Oakeley in 1841.">Adeste Fideles<div class="hover-box">The origins of 'Adeste Fideles' are somewhat disputed. The most commonly accepted attribution is to John Francis Wade, an 18th-century English hymnist, written around 1744 and later translated into English by Frederick Oakeley in 1841.</div></li> 
+<li data-src="Tracks/Angels We Have Heard On High.mp3" data-title="Angels We Have Heard On High" data-comments="A traditional Christmas carol with French origins which dates back to the 18th century and was translated in 1862 by James Chadwick, a Roman Catholic bishop.">Angels We Have Heard On High<div class="hover-box">A traditional Christmas carol with French origins which dates back to the 18th century and was translated in 1862 by James Chadwick, a Roman Catholic bishop.</div></li> 
+<li data-src="Tracks/Away In A Manger.mp3" data-title="Away In A Manger" data-comments="A popular Christmas carol often attributed to Martin Luther, the 16th-century German reformer, though this claim is widely disputed. The carol's lyrics first appeared in a Lutheran Sunday School book in the United States in 1885.">Away In A Manger<div class="hover-box">A popular Christmas carol often attributed to Martin Luther, the 16th-century German reformer, though this claim is widely disputed. The carol's lyrics first appeared in a Lutheran Sunday School book in the United States in 1885.</div></li> 
+<li data-src="Tracks/Cherry Tree Carol.mp3" data-title="Cherry Tree Carol" data-category="Christmas" data-author="Unknown" data-date-composed="1400s" data-century="15th" data-comments="The Cherry Tree Carol is one of the oldest traditional English folk carols, dating back to at least the 15th century. It blends Christian and older pagan elements, telling a miraculous and symbolic story associated with the Nativity. In the carol, Mary and Joseph are traveling when Mary asks Joseph to pick cherries for her from a tree. Joseph, in some versions irritated by her pregnancy or doubting its divine origin, refuses. At that moment, the unborn Jesus speaks from Mary’s womb, commanding the tree to bow down so she can gather the fruit herself. The tree obeys, demonstrating Mary’s sanctity and the divine nature of her child.">Cherry Tree Carol<div class="hover-box">The Cherry Tree Carol is one of the oldest traditional English folk carols, dating back to at least the 15th century. It blends Christian and older pagan elements, telling a miraculous and symbolic story associated with the Nativity. In the carol, Mary and Joseph are traveling when Mary asks Joseph to pick cherries for her from a tree. Joseph, in some versions irritated by her pregnancy or doubting its divine origin, refuses. At that moment, the unborn Jesus speaks from Mary’s womb, commanding the tree to bow down so she can gather the fruit herself. The tree obeys, demonstrating Mary’s sanctity and the divine nature of her child.</div></li>
+<li data-src="Tracks/Christmas In Prison.mp3" data-title="Christmas In Prison" data-author="John Prine" data-modified="2025-08-13" data-century="20th" data-date-composed="1973" data-category="Christmas" data-comments="Christmas in Prison is a 1973 song by American singer-songwriter John Prine, first appearing on his album Sweet Revenge. Written in Prine’s signature blend of humor and melancholy, it’s a bittersweet ballad sung from the perspective of a prisoner longing for a loved one at Christmastime. The song mixes tender imagery, plainspoken poetry, and wry observations, making it a uniquely warm yet wistful holiday tune.">Christmas In Prison<div class="hover-box">Christmas in Prison is a 1973 song by American singer-songwriter John Prine, first appearing on his album Sweet Revenge. Written in Prine’s signature blend of humor and melancholy, it’s a bittersweet ballad sung from the perspective of a prisoner longing for a loved one at Christmastime. The song mixes tender imagery, plainspoken poetry, and wry observations, making it a uniquely warm yet wistful holiday tune.</div></li>
+<li data-src="Tracks/Christmas in the Trenches.mp3" data-title="Christmas in the Trenches" data-author="John McCutcheon" data-modified="2024-06-07" data-category="Christmas" data-century="20th" data-date-composed="1984" data-comments="Written by John McCutcheon, 1984. A folk song about the Christmas Truce of 1914 during World War I, reflecting themes of peace and humanity.">Christmas in the Trenches<div class="hover-box">Written by John McCutcheon, 1984. A folk song about the Christmas Truce of 1914 during World War I, reflecting themes of peace and humanity.</div></li>
+<li data-src="Tracks/Christmas Lullaby.mp3" data-title="Christmas Lullaby" data-author="John Rutter" data-modified="2024-12-20" data-date-composed="1987" data-century="20th" dta-category="Christmas" data-comments="Christmas Lullaby is a contemporary carol written by English composer John Rutter in 1987, with words by Rutter himself. Conceived as a gentle cradle song for the Christ child, it reflects Rutter’s gift for lyrical melody and warm harmony. Though modern in origin, it draws on the simplicity and tenderness of traditional English carols.">Christmas Lullaby<div class="hover-box">Christmas Lullaby is a contemporary carol written by English composer John Rutter in 1987, with words by Rutter himself. Conceived as a gentle cradle song for the Christ child, it reflects Rutter’s gift for lyrical melody and warm harmony. Though modern in origin, it draws on the simplicity and tenderness of traditional English carols.</div></li>
+<li data-src="Tracks/Coventry Carol.mp3" data-title="Coventry Carol" data-author="Unknown" data-category="Christmas" data-century="16th" data-date-composed="1500s" data-modified="2025-12-07" data-comments="Coventry Carol is a traditional English Christmas carol dating from the 16th century, associated with the city of Coventry. It is a lullaby sung by mothers of the “innocents” doomed by King Herod, reflecting the Massacre of the Innocents story in the Bible. Its haunting melody and minor key give it a somber tone, and it has been preserved in collections of early English carols and performed widely in both choral and solo settings.">Coventry Carol<div class="hover-box">Coventry Carol is a traditional English Christmas carol dating from the 16th century, associated with the city of Coventry. It is a lullaby sung by mothers of the “innocents” doomed by King Herod, reflecting the Massacre of the Innocents story in the Bible. Its haunting melody and minor key give it a somber tone, and it has been preserved in collections of early English carols and performed widely in both choral and solo settings.</div></li> 
+<li data-src="Tracks/Deck The Halls.mp3" data-title="Deck The Halls" data-comments="A traditional Christmas carol with origins that trace back to 16th-century Wales. The melody is based on the Welsh folk tune 'Nos Galan.' English lyrics were written by Scottish musician Thomas Oliphant in 1862.">Deck The Halls<div class="hover-box">A traditional Christmas carol with origins that trace back to 16th-century Wales. The melody is based on the Welsh folk tune 'Nos Galan.' English lyrics were written by Scottish musician Thomas Oliphant in 1862.</div></li>
+<li data-src="Tracks/Detroit December.mp3" data-title="Detroit December" data-author="Si Kahn" data-category="Christmas" data-century="20th" data-date-composed="1982" data-modified="2025-08-07" data-comments="Detroit, December was written by Si Kahn and first recorded in 1982. This reflective folk song captures the bleakness of a cold industrial winter, blending personal loneliness with social awareness. Known for his activist songwriting, Kahn pairs stark imagery with a gentle melody to evoke the emotional weight of December in Detroit. It was later included on his 1994 compilation album In My Heart and has also been covered by John McCutcheon.">Detroit December<div class="hover-box">Detroit, December was written by Si Kahn and first recorded in 1982. This reflective folk song captures the bleakness of a cold industrial winter, blending personal loneliness with social awareness. Known for his activist songwriting, Kahn pairs stark imagery with a gentle melody to evoke the emotional weight of December in Detroit. It was later included on his 1994 compilation album In My Heart and has also been covered by John McCutcheon.</div></li>
+<li data-src="Tracks/Friendly Beasts.mp3" data-title="Friendly Beasts" data-author="Unknown" data-date-composed="1100s" data-cenyury="12th" data-category="Christmas" data-modified="2025-12-08" data-comments="The Friendly Beasts is a traditional Christmas carol dating to the twelfth century, likely originating in France and later translated into English in the nineteenth century. The song presents animals around the manger describing the gifts they offered to the infant Jesus. Its medieval roots and simple narrative have made it a long-loved part of the Christmas folk tradition.">Friendly Beasts<div class="hover-box">The Friendly Beasts is a traditional Christmas carol dating to the twelfth century, likely originating in France and later translated into English in the nineteenth century. The song presents animals around the manger describing the gifts they offered to the infant Jesus. Its medieval roots and simple narrative have made it a long-loved part of the Christmas folk tradition.</div></li>
+<li data-src="Tracks/Frosty The Snowman.mp3" data-title="Frosty The Snowman" data-comments="Frosty the Snowman was written by Walter 'Jack' Rollins and Steve Nelson in 1950. The song tells the story of a snowman brought to life by a magical hat, spreading holiday cheer before melting away. First recorded by Gene Autry, it's become a classic Christmas tune for children and families.">Frosty The Snowman<div class="hover-box">Frosty the Snowman was written by Walter 'Jack' Rollins and Steve Nelson in 1950. The song tells the story of a snowman brought to life by a magical hat, spreading holiday cheer before melting away. First recorded by Gene Autry, it's become a classic Christmas tune for children and families.</div></li>
+<li data-src="Tracks/God Rest Ye Merry Gentlemen.mp3" data-title="God Rest Ye Merry Gentlemen" data-category="Christmas" data-date-composed="1833" data-century="16th" data-author="Unknown" data-comments="God Rest Ye Merry Gentlemen is a traditional English carol dating back to at least the 16th century, with origins in folk music. Its author is unknown, but it was first published in a collection by William B. Sandys in 1833. The song celebrates the joy and comfort of Christ’s birth.">God Rest Ye Merry Gentlemen<div class="hover-box">God Rest Ye Merry Gentlemen is a traditional English carol dating back to at least the 16th century, with origins in folk music. Its author is unknown, but it was first published in a collection by William B. Sandys in 1833. The song celebrates the joy and comfort of Christ’s birth.</div></li>
+<li data-src="Tracks/Good King Wenceslaus.mp3" data-title="Good King Wenceslaus" data-author="John Mason Neale" data-category="Chistmas" data-century="19th" data-date-composed="1853" data-modified="2025-12-07" data-comments="Good King Wenceslaus is a Christmas carol written by John Mason Neale in 1853, set to a 13th-century spring carol melody called 'Tempus adest floridum.' It tells the story of King Wenceslaus of Bohemia braving harsh winter weather to bring food and aid to a poor peasant on the Feast of Stephen, celebrated on December 26th. The song emphasizes generosity, kindness, and Christian charity.">Good King Wenceslaus<div class="hover-box">Good King Wenceslaus is a Christmas carol written by John Mason Neale in 1853, set to a 13th-century spring carol melody called 'Tempus adest floridum.' It tells the story of King Wenceslaus of Bohemia braving harsh winter weather to bring food and aid to a poor peasant on the Feast of Stephen, celebrated on December 26th. The song emphasizes generosity, kindness, and Christian charity.</div></li>
+<li data-src="Tracks/Grandma Got Run Over By A Reindeer.mp3" data-title="Grandma Got Run Over By A Reindeer" data-author="Randy Brooks" data-date-composed="1977" data-century="20th" data-category="Christmas" data-comments="Grandma Got Run Over by a Reindeer is a humorous Christmas novelty song written by Randy Brooks in 1977. It was popularized by Elmo Shropshire and Patsy Trigg, known as Elmo & Patsy, in a 1979 recording. The song tells a comical tale of a grandmother meeting an unfortunate holiday mishap involving Santa’s sleigh.">Grandma Got Run Over By A Reindeer<div class="hover-box">Grandma Got Run Over by a Reindeer is a humorous Christmas novelty song written by Randy Brooks in 1977. It was popularized by Elmo Shropshire and Patsy Trigg, known as Elmo & Patsy, in a 1979 recording. The song tells a comical tale of a grandmother meeting an unfortunate holiday mishap involving Santa’s sleigh.</div></li>
+<li data-src="Tracks/Hark The Herald Angels Sing.mp3" data-title="Hark The Herald Angels Sing" data-author="Charles Wesley" data-date-composed="1739" data-century="18th" data-category="Christmas" data-comments="Hark the Herald Angels Sing is a Christmas carol written in 1739 by Charles Wesley, a leader of the Methodist movement. Originally published with a slower tempo and different lyrics, it was later adapted by George Whitefield and set to music by Felix Mendelssohn in 1855, becoming the version widely sung today.">Hark The Herald Angels Sing<div class="hover-box">Hark the Herald Angels Sing is a Christmas carol written in 1739 by Charles Wesley, a leader of the Methodist movement. Originally published with a slower tempo and different lyrics, it was later adapted by George Whitefield and set to music by Felix Mendelssohn in 1855, becoming the version widely sung today.</div></li>
+<li data-src="Tracks/Here Comes Santa Claus.mp3" data-title="Here Comes Santa Claus" data-author="Gene Autry" data-category="Christmas" data-century="20th" data-date-composed="1947" data-modified="2025-12-19" data-comments="Here Comes Santa Claus was written in 1947 by Gene Autry with Oakley Haldeman after Autry witnessed children excitedly calling out during a Hollywood Christmas parade. The song quickly became a popular mid-20th-century holiday standard, reflecting postwar optimism and a lighthearted, communal vision of Christmas centered on generosity, peace, and simple joy.">Here Comes Santa Claus<div class="hover-box">Here Comes Santa Claus was written in 1947 by Gene Autry with Oakley Haldeman after Autry witnessed children excitedly calling out during a Hollywood Christmas parade. The song quickly became a popular mid-20th-century holiday standard, reflecting postwar optimism and a lighthearted, communal vision of Christmas centered on generosity, peace, and simple joy.</div></li>
+<li data-src="Tracks/Here We Come A-Wassailing.mp3" data-title="Here We Come A-Wassailing" data-author="Unknown" data-category="Christmas" data-century="19th" data-date-composed="1800s" data-modified="2025-12-19" data-comments="A traditional English Christmas carol rooted in the wassailing custom of visiting homes to offer good wishes in exchange for food or drink. Wassail means 'Be Well.' The custom was for carolers to go door to door bringing their own cups to dip into the 'wassail' bowl which was usually made of wood and filled with beer or ale.">Here We Come A-Wassailing<div class="hover-box">A traditional English Christmas carol rooted in the wassailing custom of visiting homes to offer good wishes in exchange for food or drink. Wassail means 'Be Well.' The custom was for carolers to go door to door bringing their own cups to dip into the 'wassail' bowl which was usually made of wood and filled with beer or ale.</div></li>
+<li data-src="Tracks/The Holly And The Ivy.mp3" data-title="The Holly And The Ivy" data-author="Unknown" data-modified="2025-12-10" data-date-composed="1700s" data-century="18th" data-category="Christmas" data-comments="The Holly and the Ivy is a traditional English Christmas carol with roots reaching back to the early eighteenth century, though its imagery and themes likely draw on far older folk traditions that link evergreens to midwinter celebration. The most familiar melody was first published in 1911 by Cecil Sharp, who collected it from folk singers in Gloucestershire.">The Holly And The Ivy<div class="hover-box">The Holly and the Ivy is a traditional English Christmas carol with roots reaching back to the early eighteenth century, though its imagery and themes likely draw on far older folk traditions that link evergreens to midwinter celebration. The most familiar melody was first published in 1911 by Cecil Sharp, who collected it from folk singers in Gloucestershire.</div></li>
+<li data-src="Tracks/I'm Gettin Nuttin For Christmas.mp3" data-title="I'm Gettin Nuttin For Christmas" data-author="Sid Tepper and Roy C. Bennett" data-category="Christmas" data-date-composed="1955" data-century="20th" data-comments="I'm Gettin' Nuttin' for Christmas is a novelty Christmas song written by Sid Tepper and Roy C. Bennett in 1955. The humorous song humorously recounts a child's mischievous deeds and the resulting punishment of receiving nothing for Christmas. It became popular through renditions by artists like Stan Freberg and Ricky Zahnd.">I'm Gettin Nuttin For Christmas<div class="hover-box">I'm Gettin' Nuttin' for Christmas is a novelty Christmas song written by Sid Tepper and Roy C. Bennett in 1955. The humorous song humorously recounts a child's mischievous deeds and the resulting punishment of receiving nothing for Christmas. It became popular through renditions by artists like Stan Freberg and Ricky Zahnd.</div></li>
+<li data-src="Tracks/In The Bleak Midwinter.mp3" data-title="In The Bleak Midwinter" data-author="Christina Rossetti and Gustav Holst" data-comments="In The Bleak Midwinter is a Christmas carol with lyrics by English poet Christina Rossetti, written in 1872. Composer Gustav Holst set the poem to music in 1906. A later version by Harold Darke, composed in 1911, is also widely sung.">In The Bleak Midwinter<div class="hover-box">In The Bleak Midwinter is a Christmas carol with lyrics by English poet Christina Rossetti, written in 1872. Composer Gustav Holst set the poem to music in 1906. A later version by Harold Darke, composed in 1911, is also widely sung.</div></li>
+<li data-src="Tracks/Jingle Bells.mp3" data-title="Jingle Bells" data-comments="Written by James Lord Pierpont in 1857, originally titled 'One Horse Open Sleigh.' Pierpont wrote the song for a Thanksgiving church service in Savannah, Georgia, where he worked as a music director.">Jingle Bells<div class="hover-box">Written by James Lord Pierpont in 1857, originally titled 'One Horse Open Sleigh.' Pierpont wrote the song for a Thanksgiving church service in Savannah, Georgia, where he worked as a music director.</div></li>
+<li data-src="Tracks/Joy To The World.mp3" data-title="Joy To The World" data-comments="A popular Christmas hymn written by English hymn writer Isaac Watts in 1719, based on Psalm 98 from the Bible. The music commonly associated with the song was composed by Lowell Mason in 1836, drawing inspiration from Handel's 'Messiah.'">Joy To The World<div class="hover-box">A popular Christmas hymn written by English hymn writer Isaac Watts in 1719, based on Psalm 98 from the Bible. The music commonly associated with the song was composed by Lowell Mason in 1836, drawing inspiration from Handel's 'Messiah.'</div></li>
+<li data-src="Tracks/O Come, O Come Emmanuel.mp3" data-title="O Come, O Come Emmanuel" data-author="Unknown" data-date-composed="700s" data-century="8th" data-category="Christmas" data-modified="2025-12-24" data-comments="O Come, O Come Emmanuel is a traditional Christian Advent hymn rooted in the Latin O Antiphons sung in monasteries during the early Middle Ages, likely by the 8th or 9th century. The English text most commonly used was translated and adapted in 1851 by Anglican priest John Mason Neale, and the melody derives from a 15th-century French plainsong.">O Come, O Come Emmanuel<div class="hover-box">O Come, O Come Emmanuel is a traditional Christian Advent hymn rooted in the Latin O Antiphons sung in monasteries during the early Middle Ages, likely by the 8th or 9th century. The English text most commonly used was translated and adapted in 1851 by Anglican priest John Mason Neale, and the melody derives from a 15th-century French plainsong.</div></li>
+<li data-src="Tracks/Oh, Little Town of Bethlehem.mp3" data-title="Oh, Little Town of Bethlehem" data-comments="Written by Phillips Brooks, an Episcopal priest, in 1868. The music most commonly associated with the carol was composed by Lewis H. Redner, the organist of Brooks church in Philadelphia, Pennsylvania.">Oh, Little Town of Bethlehem<div class="hover-box">Written by Phillips Brooks, an Episcopal priest, in 1868. The music most commonly associated with the carol was composed by Lewis H. Redner, the organist of Brooks church in Philadelphia, Pennsylvania.</div></li>
+<li data-src="Tracks/Pretty Paper.mp3" data-title="Pretty Paper" data-modified="2025-12-06" data-category="Christmas" data-century="20th" data-author="Willie Nelson" data-comments="Willie Nelson wrote this song in 1963. It's based on a fellow he remembered from Fort Worth, Texas who was disabled and sold pencils and paper on the sidewalks of the city. Roy Orbison had a big hit with the song that year. Willie recorded it himself the following year. Many have recorded it since including a version by Randy Travis released in 1986.">Pretty Paper<div class="hover-box">Willie Nelson wrote this song in 1963. It's based on a fellow he remembered from Fort Worth, Texas who was disabled and sold pencils and paper on the sidewalks of the city. Roy Orbison had a big hit with the song that year. Willie recorded it himself the following year. Many have recorded it since including a version by Randy Travis released in 1986.</div></li>
+<li data-src="Tracks/Rudolph The Red Nosed Reindeer.mp3" data-title="Rudolph The Red Nosed Reindeer" data-comments="Rudolph the Red-Nosed Reindeer was written by Johnny Marks in 1949, inspired by a 1939 story written by Marks' brother-in-law, Robert L. May, for Montgomery Ward. The song follows Rudolph, a reindeer with a glowing red nose, as he helps guide Santa's sleigh on a foggy Christmas Eve. Gene Autry also popularized this holiday favorite.">Rudolph The Red Nosed Reindeer<div class="hover-box">Rudolph the Red-Nosed Reindeer was written by Johnny Marks in 1949, inspired by a 1939 story written by Marks' brother-in-law, Robert L. May, for Montgomery Ward. The song follows Rudolph, a reindeer with a glowing red nose, as he helps guide Santa's sleigh on a foggy Christmas Eve. Gene Autry also popularized this holiday favorite.</div></li>
+<li data-src="Tracks/Silent Night.mp3" data-title="Silent Night" data-comments="Silent Night  (original German title: Stille Nacht, heilige Nacht) is one of the most famous Christmas carols in the world. It was written in 1818 by Franz Xaver Gruber, a schoolteacher and church organist, with lyrics by Joseph Mohr, an Austrian priest.">Silent Night<div class="hover-box">Silent Night  (original German title: Stille Nacht, heilige Nacht) is one of the most famous Christmas carols in the world. It was written in 1818 by Franz Xaver Gruber, a schoolteacher and church organist, with lyrics by Joseph Mohr, an Austrian priest.</div></li>
+<li data-src="Tracks/The First Noel.mp3" data-title="The First Noel" data-comments="A traditional English Christmas carol, believed to have originated in the early 19th century in Cornwall. Its exact authorship is unknown, and it was first published in 'Carols Ancient and Modern' in 1823. The song recounts the story of the birth of Jesus.">The First Noel<div class="hover-box">A traditional English Christmas carol, believed to have originated in the early 19th century in Cornwall. Its exact authorship is unknown, and it was first published in 'Carols Ancient and Modern' in 1823. The song recounts the story of the birth of Jesus.</div></li>
+<li data-src="Tracks/Sussex Carol.mp3" data-title="Sussex Carol" data-author="John Denver" data-category="Folk" data-century="17th" data-date-composed="1600s" data-modified="2025-12-09" data-comments="Sussex Carol is a traditional English Christmas song whose text dates to the seventeenth century. Ralph Vaughan Williams collected its melody from Harriet Verrall in Monk’s Gate, Sussex, in 1904, helping to establish the modern form. Often titled On Christmas Night All Christians Sing, it is now a well-known carol in British and international holiday repertoires.">Sussex Carol<div class="hover-box">Sussex Carol is a traditional English Christmas song whose text dates to the seventeenth century. Ralph Vaughan Williams collected its melody from Harriet Verrall in Monk’s Gate, Sussex, in 1904, helping to establish the modern form. Often titled On Christmas Night All Christians Sing, it is now a well-known carol in British and international holiday repertoires.</div></li>
+<li data-src="Tracks/The Rebel Jesus.mp3" data-title="The Rebel Jesus" data-author="Jackson Browne" data-category="Christmas" data-century="20th" data-date-composed="1991" data-modified="2025-12-06" data-comments="The Rebel Jesus was written by Jackson Browne and first released in 1991 on the Chieftains album The Bells of Dublin. The song offers a reflective critique of how society treats the teachings of Jesus during the Christmas season, contrasting sincere compassion with commercial and political uses of religion.">The Rebel Jesus<div class="hover-box">The Rebel Jesus was written by Jackson Browne and first released in 1991 on the Chieftains album The Bells of Dublin. The song offers a reflective critique of how society treats the teachings of Jesus during the Christmas season, contrasting sincere compassion with commercial and political uses of religion.</div></li>
+<li data-src="Tracks/Twelve Days Of Christmas.mp3" data-date-composed="1780" data-century="18th" data-author="Unknown" data-title="Twelve Days Of Christmas" data-comments="Twelve Days of Christmas is a traditional English carol first published in 1780 in a children’s book called Mirth Without Mischief. Its author and composer are unknown. The cumulative song lists increasingly elaborate gifts given over twelve days, possibly rooted in a memory game or a religious catechism aid. A colly bird refers to a blackbird, with 'colly' deriving from the Old English word 'col,' meaning coal, which is black. In early versions of the song Twelve Days of Christmas, 'colly birds' is the original phrase, though it has since been replaced by 'calling birds' in many modern renditions.">Twelve Days Of Christmas<div class="hover-box">Twelve Days of Christmas is a traditional English carol first published in 1780 in a children’s book called Mirth Without Mischief. Its author and composer are unknown. The cumulative song lists increasingly elaborate gifts given over twelve days, possibly rooted in a memory game or a religious catechism aid. A colly bird refers to a blackbird, with 'colly' deriving from the Old English word 'col,' meaning coal, which is black. In early versions of the song Twelve Days of Christmas, 'colly birds' is the original phrase, though it has since been replaced by 'calling birds' in many modern renditions.</div></li>
+<li data-src="Tracks/We Wish You A Merry Christmas.mp3" data-title="We Wish You A Merry Christmas" data-comments="A traditional English Christmas carol that dates back to the 16th century. The song traditionally ends with a call for 'figgy pudding,' a type of dessert popular in England during the holiday season.">We Wish You A Merry Christmas<div class="hover-box">A traditional English Christmas carol that dates back to the 16th century. The song traditionally ends with a call for 'figgy pudding,' a type of dessert popular in England during the holiday season.</div></li>
+<li data-src="Tracks/Wexford Carol.mp3" data-title="Wexford Carol" data-modified="2025-12-16" data-category"Christmas" data-date-composed="1600s" data-century="17th" data-author="Unknown" data-comments="The Wexford Carol, also known as Enniscorthy Carol, is an Irish Christmas song that likely dates from the late 17th or early 18th century, preserved through oral tradition in County Wexford. The melody and text were first written down in the 19th century by local singer William Flood. It tells the Nativity story with a gentle, reverent tone typical of Irish carols.">Wexford Carol<div class="hover-box">The Wexford Carol, also known as Enniscorthy Carol, is an Irish Christmas song that likely dates from the late 17th or early 18th century, preserved through oral tradition in County Wexford. The melody and text were first written down in the 19th century by local singer William Flood. It tells the Nativity story with a gentle, reverent tone typical of Irish carols.</div></li>
+<li data-src="Tracks/What Child Is This.mp3" data-title="What Child Is This" data-comments="What Child Is This is a Christmas carol set to the traditional English folk tune Greensleeves. The lyrics were written by William Chatterton Dix in 1865, while he was recovering from a serious illness. Dix, an English hymn writer, composed the words as a poem titled The Manger Throne, and the melody was later paired with the text to create the carol.">What Child Is This<div class="hover-box">What Child Is This is a Christmas carol set to the traditional English folk tune Greensleeves. The lyrics were written by William Chatterton Dix in 1865, while he was recovering from a serious illness. Dix, an English hymn writer, composed the words as a poem titled The Manger Throne, and the melody was later paired with the text to create the carol.</div></li>
+<li data-src="Tracks/White Christmas.mp3" data-title="White Christmas" data-author="Irving Berlin" data-comments="White Christmas, written by Irving Berlin in 1942, is a timeless holiday classic first performed by Bing Crosby for the film Holiday Inn. It captures a wistful longing for a snowy Christmas, resonating with soldiers and families during World War II. Crosby's recording became one of the best-selling singles of all time, solidifying its place as a beloved seasonal staple and a cornerstone of American holiday music." data-date-composed="1942" data-century="20th" data-category="Christmas">White Christmas<div class="hover-box">White Christmas, written by Irving Berlin in 1942, is a timeless holiday classic first performed by Bing Crosby for the film Holiday Inn. It captures a wistful longing for a snowy Christmas, resonating with soldiers and families during World War II. Crosby's recording became one of the best-selling singles of all time, solidifying its place as a beloved seasonal staple and a cornerstone of American holiday music.</div></li>
+<li data-src="Tracks/Winter Wonderland.mp3" data-title="Winter Wonderland" data-author="Richard B. Smith and Felix Bernard" data-category="Folk" data-century="20th" data-date-composed="1934" data-modified="2025-12-21" data-comments="Winter Wonderland is a popular secular winter song written in 1934, with lyrics by Richard B. Smith and music by Felix Bernard. Smith reportedly wrote the lyric while recovering from tuberculosis, inspired by snowy scenes near his Westchester County home. Though often associated with Christmas, it makes no religious references and has been recorded widely across jazz, pop, and country styles.">Winter Wonderland<div class="hover-box">Winter Wonderland is a popular secular winter song written in 1934, with lyrics by Richard B. Smith and music by Felix Bernard. Smith reportedly wrote the lyric while recovering from tuberculosis, inspired by snowy scenes near his Westchester County home. Though often associated with Christmas, it makes no religious references and has been recorded widely across jazz, pop, and country styles.</div></li>
+
+            <!-- Add more tracks here as needed -->
+        </ul>
+   
+
+<script>
+   function getAllTrackItems() {
+    return Array.from(document.querySelectorAll(".track-list li"));
+  }
+
+  function clearAllSelections() {
+    getAllTrackItems().forEach(item => item.classList.remove("selected"));
+  }
+
+  function selectRandomItems(count) {
+    const items = getAllTrackItems();
+    clearAllSelections();
+    if (count > items.length) count = items.length;
+    const shuffled = [...items].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, count);
+    selected.forEach(item => item.classList.add("selected"));
+  }
+
+  document.getElementById("selectNumberButton").addEventListener("click", () => {
+    const total = getAllTrackItems().length;
+    const input = prompt(`Enter the number of songs to select (1 to ${total}):`, "10");
+    const num = parseInt(input, 10);
+    if (!isNaN(num) && num > 0 && num <= total) {
+      selectRandomItems(num);
+    } else {
+      alert("Please enter a valid number between 1 and " + total);
+    }
+  });
+  </script>
+
+<script>
+let sortAscending = true;
+
+function filterByDate() {
+  const fromDate = document.getElementById('from-date').value;
+  const toDate = document.getElementById('to-date').value;
+  const items = document.querySelectorAll('li[data-modified]');
+
+  items.forEach(li => {
+    const modDate = li.getAttribute('data-modified');
+    if (
+      (!fromDate || modDate >= fromDate) &&
+      (!toDate || modDate <= toDate)
+    ) {
+      li.style.display = '';
+    } else {
+      li.style.display = 'none';
+    }
+  });
+}
+
+function clearDateFilter() {
+  document.getElementById('from-date').value = '';
+  document.getElementById('to-date').value = '';
+  document.querySelectorAll('li[data-modified]').forEach(li => {
+    li.style.display = '';
+  });
+}
+
+function sortByDate() {
+  const ul = document.querySelector('ul');
+  const items = Array.from(document.querySelectorAll('li[data-modified]'));
+
+  items.sort((a, b) => {
+    const dateA = a.getAttribute('data-modified');
+    const dateB = b.getAttribute('data-modified');
+    return sortAscending ? dateA.localeCompare(dateB) : dateB.localeCompare(dateA);
+  });
+
+  items.forEach(li => ul.appendChild(li)); // Reorder in DOM
+  sortAscending = !sortAscending;
+}
+</script>
+
+<script>
+// Fetch authors.json and populate the dropdown
+fetch('authors.json')
+  .then(response => response.json())
+  .then(authors => {
+    const dropdown = document.getElementById('authorDropdown');
+
+    // Add placeholder option
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Select Author...';
+    dropdown.appendChild(defaultOption);
+
+    // Add authors
+    authors.forEach(author => {
+      const option = document.createElement('option');
+      option.value = author;
+      option.textContent = author;
+      dropdown.appendChild(option);
+    });
+
+    // Handle filtering on selection
+    dropdown.addEventListener('change', () => {
+      const selectedAuthor = dropdown.value;
+      const items = document.querySelectorAll('ul.track-list li');
+
+      items.forEach(item => {
+        const itemAuthor = item.getAttribute('data-author');
+        if (!selectedAuthor || selectedAuthor === itemAuthor) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  })
+  .catch(error => console.error('Error loading authors:', error));
+
+// Create Clear Author button
+const clearAuthorButton = document.createElement('button');
+clearAuthorButton.textContent = 'Clear Author';
+clearAuthorButton.style.marginLeft = '8px';
+clearAuthorButton.style.height = '22px';
+clearAuthorButton.style.fontSize = '13px';
+clearAuthorButton.style.padding = '1px 6px';
+clearAuthorButton.style.lineHeight = 'normal';
+clearAuthorButton.style.verticalAlign = 'bottom';
+
+document.addEventListener('DOMContentLoaded', () => {
+  const controlPanel = document.querySelector('#from-date').parentElement;
+  controlPanel.insertBefore(clearAuthorButton, document.getElementById('authorDropdown').nextSibling);
+
+  clearAuthorButton.addEventListener('click', () => {
+    const dropdown = document.getElementById('authorDropdown');
+    dropdown.selectedIndex = 0;
+    dropdown.scrollTop = 0;
+    dropdown.blur();
+
+    // Reset track visibility
+    const items = document.querySelectorAll('ul.track-list li');
+    items.forEach(item => item.style.display = '');
+  });
+
+  // On page load, reset dropdown to top
+  const dropdown = document.getElementById('authorDropdown');
+  dropdown.selectedIndex = 0;
+  dropdown.scrollTop = 0;
+  dropdown.style.height = '22px';
+
+  // Reset dropdown on song click
+  const songs = document.querySelectorAll('ul.track-list li');
+  songs.forEach(song => {
+    song.addEventListener('click', () => {
+      dropdown.selectedIndex = 0;
+      dropdown.scrollTop = 0;
+      dropdown.blur();
+    });
+  });
+});
+
+// Optional: dropdown expand/collapse if you want to keep it
+const dropdown = document.getElementById('authorDropdown');
+dropdown.addEventListener('focus', () => {
+  dropdown.style.height = 'auto';
+});
+dropdown.addEventListener('blur', () => {
+  dropdown.style.height = '22px';
+});
+</script>
+
+    <div id="footer">
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="homepage.html">Homepage</a></p>
+    </div>
+</div>
+</body>
+</html>
