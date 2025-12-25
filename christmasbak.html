@@ -156,6 +156,8 @@
 
     <!--Template - just add in song tracks here-->
 
+<li data-src="Tracks/A Different Kind Of Song.mp3" data-title="A Different Kind Of Song" data-author="John Munro" data-modified="2025-10-20" data-date-composed="2019" data-century="21st" data-comments="A Different Kind of Song is by John Campbell Munro, a Scottish-Australian folk musician. The song begins Old Quinn sailed from Antrim and is featured on his 2019 album The Kelly Collection. Munro, who emigrated from Glasgow to Adelaide in 1965, was known for blending personal and historical narratives in his music, collaborating with Eric Bogle and performing with groups such as Colcannon and Tracey-Munro-Tracey.">A Different Kind Of Song<div class="hover-box">A Different Kind of Song is by John Campbell Munro, a Scottish-Australian folk musician. The song begins Old Quinn sailed from Antrim and is featured on his 2019 album The Kelly Collection. Munro, who emigrated from Glasgow to Adelaide in 1965, was known for blending personal and historical narratives in his music, collaborating with Eric Bogle and performing with groups such as Colcannon and Tracey-Munro-Tracey.</div></li>
+<li data-src="Tracks/A Drink for My Father.mp3" data-title="A Drink for My Father" data-comments="Composed by Donal Lunny, an influential Irish musician, composer, and producer. He is known for his work with several prominent Irish bands, including Planxty, The Bothy Band, and Moving Hearts. The song first gained recognition in the early 1980s.">A Drnk for My Father<div class="hover-box">Composed by Donal Lunny, an influential Irish musician, composer, and producer. He is known for his work with several prominent Irish bands, including Planxty, The Bothy Band, and Moving Hearts. The song first gained recognition in the early 1980s.</div></li>
     </ul>
 
     <script>
@@ -293,139 +295,7 @@ searchInput.addEventListener('input', function() {
   });
   </script>
 
-<script>
-let sortAscending = true;
 
-function filterByDate() {
-  const fromDate = document.getElementById('from-date').value;
-  const toDate = document.getElementById('to-date').value;
-  const items = document.querySelectorAll('li[data-modified]');
-
-  items.forEach(li => {
-    const modDate = li.getAttribute('data-modified');
-    if (
-      (!fromDate || modDate >= fromDate) &&
-      (!toDate || modDate <= toDate)
-    ) {
-      li.style.display = '';
-    } else {
-      li.style.display = 'none';
-    }
-  });
-}
-
-function clearDateFilter() {
-  document.getElementById('from-date').value = '';
-  document.getElementById('to-date').value = '';
-  document.querySelectorAll('li[data-modified]').forEach(li => {
-    li.style.display = '';
-  });
-}
-
-function sortByDate() {
-  const ul = document.querySelector('ul');
-  const items = Array.from(document.querySelectorAll('li[data-modified]'));
-
-  items.sort((a, b) => {
-    const dateA = a.getAttribute('data-modified');
-    const dateB = b.getAttribute('data-modified');
-    return sortAscending ? dateA.localeCompare(dateB) : dateB.localeCompare(dateA);
-  });
-
-  items.forEach(li => ul.appendChild(li)); // Reorder in DOM
-  sortAscending = !sortAscending;
-}
-</script>
-
-<script>
-// Fetch authors.json and populate the dropdown
-fetch('authors.json')
-  .then(response => response.json())
-  .then(authors => {
-    const dropdown = document.getElementById('authorDropdown');
-
-    // Add placeholder option
-    const defaultOption = document.createElement('option');
-    defaultOption.value = '';
-    defaultOption.textContent = 'Select Author...';
-    dropdown.appendChild(defaultOption);
-
-    // Add authors
-    authors.forEach(author => {
-      const option = document.createElement('option');
-      option.value = author;
-      option.textContent = author;
-      dropdown.appendChild(option);
-    });
-
-    // Handle filtering on selection
-    dropdown.addEventListener('change', () => {
-      const selectedAuthor = dropdown.value;
-      const items = document.querySelectorAll('ul.track-list li');
-
-      items.forEach(item => {
-        const itemAuthor = item.getAttribute('data-author');
-        if (!selectedAuthor || selectedAuthor === itemAuthor) {
-          item.style.display = '';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    });
-  })
-  .catch(error => console.error('Error loading authors:', error));
-
-// Create Clear Author button
-const clearAuthorButton = document.createElement('button');
-clearAuthorButton.textContent = 'Clear Author';
-clearAuthorButton.style.marginLeft = '8px';
-clearAuthorButton.style.height = '22px';
-clearAuthorButton.style.fontSize = '13px';
-clearAuthorButton.style.padding = '1px 6px';
-clearAuthorButton.style.lineHeight = 'normal';
-clearAuthorButton.style.verticalAlign = 'bottom';
-
-document.addEventListener('DOMContentLoaded', () => {
-  const controlPanel = document.querySelector('#from-date').parentElement;
-  controlPanel.insertBefore(clearAuthorButton, document.getElementById('authorDropdown').nextSibling);
-
-  clearAuthorButton.addEventListener('click', () => {
-    const dropdown = document.getElementById('authorDropdown');
-    dropdown.selectedIndex = 0;
-    dropdown.scrollTop = 0;
-    dropdown.blur();
-
-    // Reset track visibility
-    const items = document.querySelectorAll('ul.track-list li');
-    items.forEach(item => item.style.display = '');
-  });
-
-  // On page load, reset dropdown to top
-  const dropdown = document.getElementById('authorDropdown');
-  dropdown.selectedIndex = 0;
-  dropdown.scrollTop = 0;
-  dropdown.style.height = '22px';
-
-  // Reset dropdown on song click
-  const songs = document.querySelectorAll('ul.track-list li');
-  songs.forEach(song => {
-    song.addEventListener('click', () => {
-      dropdown.selectedIndex = 0;
-      dropdown.scrollTop = 0;
-      dropdown.blur();
-    });
-  });
-});
-
-// Optional: dropdown expand/collapse if you want to keep it
-const dropdown = document.getElementById('authorDropdown');
-dropdown.addEventListener('focus', () => {
-  dropdown.style.height = 'auto';
-});
-dropdown.addEventListener('blur', () => {
-  dropdown.style.height = '22px';
-});
-</script>
 
  </body>
 </html>
