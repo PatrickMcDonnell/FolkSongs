@@ -1,13 +1,18 @@
 <!DOCTYPE html>
+
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gospel</title>
-    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
-    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
-    <style>
-        body {
+ <head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Gospel
+  </title>
+  <link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
+  <link href="print.css" media="print" rel="stylesheet" type="text/css"/>
+  <style>
+  
+ body {
             font-family: Arial, sans-serif;
             background-image: url('');
             background-size: cover;
@@ -35,22 +40,14 @@
             color: blue; /* Selected text color */
         }
 
-.styled-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #808080; /* Grey background */
-    color: #fff; /* White text */
-    border: none;
-    cursor: pointer;
-}
-      .styled-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #808080; /* Grey background */
-    color: #fff; /* White text */
-    border: none;
-    cursor: pointer;
-}
+        .styled-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #808080; /* Grey background */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
 
         #footer {
             display: flex;
@@ -77,16 +74,29 @@
         .track-list li:hover .hover-box {
             display: block;
         }
-    </style>
-</head>
-<body>
-<div id="wrap">
-    <div id="header">
-<p></p>  <p></p>   
-        <h1>&nbsp;&nbsp;<a href="#">Gospel</a></h1>
-        <h2><a href="Help.html">Help</a></h2>
 
-        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
+     /* Ensuring buttons are placed properly */
+        #controls {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+  </style>
+ </head>
+ <body>
+
+  <div id="wrap">
+   <div id="header">
+<p></p>  <p></p> 
+    <h1>&nbsp;&nbsp;
+     <a href="#">
+      All Tracks
+     </a>
+    </h1>
+
+ <h2><a href="Help.html">Help</a></h2>
+
+ <img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
 
 <div class="navbar">
   
@@ -104,17 +114,36 @@
  
 </div>
 
-        <h1>Select Tracks</h1>
-        <!-- Search input -->
-        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
+    <h1>
+     Select Tracks
+    </h1>
+  
+  <!-- Search input -->
+<input id="searchInput" placeholder="Search for a song by title, author or year composed..." 
+       style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
 
-<!-- Select All Button -->
-<button id="selectAllButton" class="styled-button">Select All</button>
+<small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
+  Search by title, author, or year range the song was originally composed (e.g., 1900-1920). To filter by date recorded go to the All Tracks playlist.
+</small>
 
-<!-- Play Button -->
-<button class="styled-button" id="finished-selecting">Play</button>
 
-        <ul class="track-list">
+
+    <!-- Select All Button -->
+    <button class="styled-button" id="selectAllButton">
+     Select All
+    </button>
+    <!-- Select Random Button -->
+    <!-- Select Number Button -->
+    <button class="styled-button" id="selectNumberButton">
+     Select Random Songs
+    </button>
+
+    <!-- Play Button -->
+    <button class="styled-button" id="finished-selecting">
+     Play
+    </button>
+
+     <ul class="track-list">
            
 <li data-src="Tracks/All My Trials.mp3" data-title="All My Trials" data-century="20th" data-author="Unknown" data-category="Gospel" data-date-composed="1900s" data-comments="All My Trials is a traditional folk song that emerged in the mid-20th century from the Bahamas or the U.S., blending spiritual and protest themes. Its author is unknown, and it reflects themes of hardship, redemption, and hope. Widely popularized by artists like Joan Baez, it became an anthem of the 1960s folk revival.">All My Trials<div class="hover-box">All My Trials is a traditional folk song that emerged in the mid-20th century from the Bahamas or the U.S., blending spiritual and protest themes. Its author is unknown, and it reflects themes of hardship, redemption, and hope. Widely popularized by artists like Joan Baez, it became an anthem of the 1960s folk revival.</div></li>
 <li data-src="Tracks/Amazing Grace.mp3" data-title="Amazing Grace" data-comments="Composed by John Newton, 1772. A Christian hymn expressing redemption and forgiveness, known for its powerful and uplifting melody.">Amazing Grace<div class="hover-box">Composed by John Newton, 1772. A Christian hymn expressing redemption and forgiveness, known for its powerful and uplifting melody.</div></li>
@@ -173,20 +202,20 @@
 
             <!-- Add more tracks here as needed -->
         </ul>
-   
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
+    <script>
+     document.addEventListener("DOMContentLoaded", function() {
+    const trackListItems = document.querySelectorAll('.track-list li');
+    const searchInput = document.getElementById('searchInput');
+    const selectAllButton = document.getElementById("selectAllButton");
+    const finishedButton = document.getElementById('finished-selecting');
+
     // Select All functionality
-    document.getElementById("selectAllButton").addEventListener("click", function() {
-        const trackListItems = document.querySelectorAll('.track-list li');
+    selectAllButton.addEventListener("click", function() {
         trackListItems.forEach(item => item.classList.add('selected'));
     });
 
-    const trackListItems = document.querySelectorAll('.track-list li');
-    const finishedButton = document.getElementById('finished-selecting');
-    const searchInput = document.getElementById('searchInput');
-
+    // Finished selecting functionality (Play button)
     finishedButton.addEventListener('click', function() {
         const selectedPlaylist = [];
         trackListItems.forEach(item => {
@@ -205,25 +234,49 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = 'index.html';
     });
 
+    // Toggle selection of individual tracks
     trackListItems.forEach(item => {
         item.addEventListener('click', function() {
             item.classList.toggle('selected');
         });
     });
+searchInput.addEventListener('input', function() {
+  const filter = searchInput.value.toLowerCase().trim();
+  const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // Handles "1900-1920"
 
-    // Add search functionality
-    searchInput.addEventListener('input', function() {
-        const filter = searchInput.value.toLowerCase();
-        trackListItems.forEach(function(item) {
-            const title = item.getAttribute('data-title').toLowerCase();
-            if (title.includes(filter)) {
-                item.style.display = '';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-    });
+  trackListItems.forEach(function(item) {
+    const title = item.getAttribute('data-title')?.toLowerCase() || '';
+    const author = item.getAttribute('data-author')?.toLowerCase() || '';
+    const dateComposedStr = item.getAttribute('data-date-composed')?.toLowerCase() || '';
+    let match = false;
+
+    // Text search (e.g., "Irish", "Dylan", "1960s")
+    if (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter)) {
+      match = true;
+    }
+
+    // If a numeric year range is entered, override the match logic
+    if (rangeMatch) {
+      const startYear = parseInt(rangeMatch[1]);
+      const endYear = parseInt(rangeMatch[2]);
+
+      // Only evaluate as a year if it's a strict 4-digit number
+      if (/^\d{4}$/.test(dateComposedStr)) {
+        const year = parseInt(dateComposedStr);
+        match = (year >= startYear && year <= endYear);
+      } else {
+        match = false; // Exclude "1960s", "early 1900s", etc. from numeric range matches
+      }
+    }
+
+    item.style.display = match ? '' : 'none';
+  });
 });
+
+
+
+    
+    // Hover box adjustment for overflow
     document.querySelectorAll('.track-list li').forEach(function(track) {
         track.addEventListener('mouseover', function() {
             const hoverBox = this.querySelector('.hover-box');
@@ -238,13 +291,54 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
-
-</script>
-
+});
+    </script>
     <div id="footer">
-        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
-            | <a href="homepage.html">Homepage</a></p>
+     <p>
+      Copyright © 2025
+      <a href="img/PatMcD4x4.jpg">
+       Thomas Patrick McDonnell
+      </a>
+      · 
+        |
+      <a href="homepage.html">
+       Homepage
+      </a>
+     </p>
     </div>
-</div>
-</body>
+   </div>
+  </div>
+  <script>
+   function getAllTrackItems() {
+    return Array.from(document.querySelectorAll(".track-list li"));
+  }
+
+  function clearAllSelections() {
+    getAllTrackItems().forEach(item => item.classList.remove("selected"));
+  }
+
+  function selectRandomItems(count) {
+    const items = getAllTrackItems();
+    clearAllSelections();
+    if (count > items.length) count = items.length;
+    const shuffled = [...items].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, count);
+    selected.forEach(item => item.classList.add("selected"));
+  }
+
+  document.getElementById("selectNumberButton").addEventListener("click", () => {
+    const total = getAllTrackItems().length;
+    const input = prompt(`Enter the number of songs to select (1 to ${total}):`, "10");
+    const num = parseInt(input, 10);
+    if (!isNaN(num) && num > 0 && num <= total) {
+      selectRandomItems(num);
+    } else {
+      alert("Please enter a valid number between 1 and " + total);
+    }
+  });
+  </script>
+
+
+
+ </body>
 </html>
