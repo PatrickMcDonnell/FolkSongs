@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>
-   All Tracks
+
+<!--Replace with new title to match playlist-->
+   Christmas
   </title>
   <link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
   <link href="print.css" media="print" rel="stylesheet" type="text/css"/>
@@ -123,19 +125,10 @@
        style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
 
 <small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
-  You can search by title, author, or year range the song was originally composed (e.g., 1900-1920). To filter by when songs were recorded go to the All Tracks playlist.
+  Search by title, author, or year range the song was originally composed (e.g., 1900-1920). To filter by date recorded go to the All Tracks playlist.
 </small>
 
-<div style="margin-bottom: 1em;">
-  <label for="from-date">From: </label>
-  <input type="date" id="from-date">
-  <label for="to-date">To: </label>
-  <input type="date" id="to-date">
-  <button onclick="filterByDate()">Filter</button>
-  <button onclick="clearDateFilter()">Clear</button>
-  <button onclick="sortByDate()">Sort by Date</button>
-  <select id="authorDropdown" style="min-width: 170px; max-width: 170px; height: 22px; margin-left: 8px; vertical-align: bottom; font-size: 13px;"></select>
-</div>
+
 
     <!-- Select All Button -->
     <button class="styled-button" id="selectAllButton">
@@ -157,7 +150,7 @@
     <!--Template - just add in song tracks here-->
 
 <li data-src="Tracks/A Different Kind Of Song.mp3" data-title="A Different Kind Of Song" data-author="John Munro" data-modified="2025-10-20" data-date-composed="2019" data-century="21st" data-comments="A Different Kind of Song is by John Campbell Munro, a Scottish-Australian folk musician. The song begins Old Quinn sailed from Antrim and is featured on his 2019 album The Kelly Collection. Munro, who emigrated from Glasgow to Adelaide in 1965, was known for blending personal and historical narratives in his music, collaborating with Eric Bogle and performing with groups such as Colcannon and Tracey-Munro-Tracey.">A Different Kind Of Song<div class="hover-box">A Different Kind of Song is by John Campbell Munro, a Scottish-Australian folk musician. The song begins Old Quinn sailed from Antrim and is featured on his 2019 album The Kelly Collection. Munro, who emigrated from Glasgow to Adelaide in 1965, was known for blending personal and historical narratives in his music, collaborating with Eric Bogle and performing with groups such as Colcannon and Tracey-Munro-Tracey.</div></li>
-<li data-src="Tracks/A Drink for My Father.mp3" data-title="A Drink for My Father" data-comments="Composed by Donal Lunny, an influential Irish musician, composer, and producer. He is known for his work with several prominent Irish bands, including Planxty, The Bothy Band, and Moving Hearts. The song first gained recognition in the early 1980s.">A Drnk for My Father<div class="hover-box">Composed by Donal Lunny, an influential Irish musician, composer, and producer. He is known for his work with several prominent Irish bands, including Planxty, The Bothy Band, and Moving Hearts. The song first gained recognition in the early 1980s.</div></li>
+<li data-src="Tracks/A Drink for My Father.mp3" data-author="Donal Lunny" data-title="A Drink for My Father" data-comments="Composed by Donal Lunny, an influential Irish musician, composer, and producer. He is known for his work with several prominent Irish bands, including Planxty, The Bothy Band, and Moving Hearts. The song first gained recognition in the early 1980s.">A Drnk for My Father<div class="hover-box">Composed by Donal Lunny, an influential Irish musician, composer, and producer. He is known for his work with several prominent Irish bands, including Planxty, The Bothy Band, and Moving Hearts. The song first gained recognition in the early 1980s.</div></li>
     </ul>
 
     <script>
