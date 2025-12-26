@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Country
-  </title>
-  <link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
-  <link href="print.css" media="print" rel="stylesheet" type="text/css"/>
-  <style>
-  
- body {
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Country</title>
+<link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
+<link href="print.css" media="print" rel="stylesheet" type="text/css"/>
+<style>
+        body {
             font-family: Arial, sans-serif;
             background-image: url('');
             background-size: cover;
@@ -80,23 +76,17 @@
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
-        }
-  </style>
- </head>
- <body>
-
-  <div id="wrap">
-   <div id="header">
+        }  
+    </style>
+</head>
+<body>
+<div id="wrap">
+<div id="header">
 <p></p>  <p></p> 
-    <h1>&nbsp;&nbsp;
-     <a href="#">
-      Country
-     </a>
-    </h1>
+<h1>&nbsp;&nbsp;<a href="#">Country</a></h1>
+<h2><a href="Help.html">Help</a></h2>
 
- <h2><a href="Help.html">Help</a></h2>
-
- <img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
+<img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
 
 <div class="navbar">
   
@@ -114,37 +104,20 @@
  
 </div>
 
-    <h1>
-     Select Tracks
-    </h1>
-  
-  <!-- Search input -->
-<input id="searchInput" placeholder="Search for a song by title, author or year composed..." 
-       style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
+<h1>Select Tracks</h1>
+<!-- Search input -->
+<input id="searchInput" placeholder="Search for a song by title or author..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
+<!-- Select All Button -->
+<button class="styled-button" id="selectAllButton">Select All</button>
+<!-- Select Random Button -->
 
-<small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
-  Search by title, author, or year range the song was originally composed (e.g., 1900-1920). To filter by date recorded go to the All Tracks playlist.
-</small>
+<!-- Select Nuumber Button -->
+<button class="styled-button" id="selectNumberButton">Select Random Songs</button>
+<!-- Play Button -->
+<button class="styled-button" id="finished-selecting">Play</button>
 
-
-
-    <!-- Select All Button -->
-    <button class="styled-button" id="selectAllButton">
-     Select All
-    </button>
-    <!-- Select Random Button -->
-    <!-- Select Number Button -->
-    <button class="styled-button" id="selectNumberButton">
-     Select Random Songs
-    </button>
-
-    <!-- Play Button -->
-    <button class="styled-button" id="finished-selecting">
-     Play
-    </button>
-
-    <ul class="track-list">
-
+        <ul class="track-list">
+           
 <li data-src="Tracks/Abner Brown.mp3" data-title="Abner Brown" data-author="Septimus Winner" data-modified="2025-09-11" data-category="Country" data-date-composed="1850s" data-century="19th" data-comments="Abner Brown is a 19th-century minstrel song written by Septimus Winner under the pseudonym Alice Hawthorne, published around 1850. Known for its comic storytelling style, it follows the misadventures of the character Abner Brown in a humorous, lighthearted way, typical of Winner’s popular parlor and minstrel pieces. The song reflects the era’s taste for witty narrative ballads performed in minstrel shows and home gatherings.">Abner Brown<div class="hover-box">Abner Brown is a 19th-century minstrel song written by Septimus Winner under the pseudonym Alice Hawthorne, published around 1850. Known for its comic storytelling style, it follows the misadventures of the character Abner Brown in a humorous, lighthearted way, typical of Winner’s popular parlor and minstrel pieces. The song reflects the era’s taste for witty narrative ballads performed in minstrel shows and home gatherings.</div></li>
 <li data-src="Tracks/Across The Great Divide.mp3" data-title="Across The Great Divide" data-author="Kate Wolf" data-category="Cuntry" data-century="20th" data-date-composed="1980" data-modified="2025-10-31" data-comments="Across the Great Divide was written by Canadian singer-songwriter Kate Wolf in 1980. The song reflects on life’s journey, the passage of time, and the hope of reunion beyond separation or death. With its gentle melody and poetic lyrics, it has become one of Wolf’s best-loved songs, often covered by folk artists for its themes of acceptance, peace, and enduring human connection.">Across The Great Divide<div class="hover-box">Across the Great Divide was written by Canadian singer-songwriter Kate Wolf in 1980. The song reflects on life’s journey, the passage of time, and the hope of reunion beyond separation or death. With its gentle melody and poetic lyrics, it has become one of Wolf’s best-loved songs, often covered by folk artists for its themes of acceptance, peace, and enduring human connection.</div></li>
 <li data-src="Tracks/All The Gold In California.mp3" data-title="All The Gold In California" data-author="Larry Gatlin" data-category="Country" data-century="20th" data-date-composed="1979" data-modified="2025-09-05" data-comments="All the Gold in California is a 1979 country hit written by Larry Gatlin and performed by Larry Gatlin & the Gatlin Brothers. The song warns that pursuing dreams of wealth in California often leads to disappointment, as competition and broken dreams overshadow success. It became one of the group’s signature songs, reaching number one on the Billboard Hot Country Singles chart.">All The Gold In California<div class="hover-box">All the Gold in California is a 1979 country hit written by Larry Gatlin and performed by Larry Gatlin & the Gatlin Brothers. The song warns that pursuing dreams of wealth in California often leads to disappointment, as competition and broken dreams overshadow success. It became one of the group’s signature songs, reaching number one on the Billboard Hot Country Singles chart.</div></li>
@@ -251,10 +224,11 @@
 <li data-src="Tracks/Yellow Rose Of Texas.mp3" data-title="Yellow Rose Of Texas" data-author="Unknown" data-century"19th" data-date-composed="1858" data-category="Country" data-comments="The Yellow Rose of Texas is a traditional American folk song that dates back to the 19th century. Its author is unknown, though it was first published in 1858 by Firth, Pond & Co. The song is associated with Texas history and folklore, particularly the legend of Emily West, an enslaved woman whose story ties to the Battle of San Jacinto. Over time, it became a symbol of Texas pride and has been adapted in various styles.">Yellow Rose Of Texas<div class="hover-box">The Yellow Rose of Texas is a traditional American folk song that dates back to the 19th century. Its author is unknown, though it was first published in 1858 by Firth, Pond & Co. The song is associated with Texas history and folklore, particularly the legend of Emily West, an enslaved woman whose story ties to the Battle of San Jacinto. Over time, it became a symbol of Texas pride and has been adapted in various styles.</div></li>
 <li data-src="Tracks/Your Cold, Cold Heart.mp3" data-title="Your Cold, Cold Heart" data-author="Hank Williams" data-century"20th" data-date-composed="1951" data-category="Country" data-comments="Cold, Cold Heart is a country song written by Hank Williams and released in 1951. It became one of his most famous songs, showcasing his signature blend of heartbreak and honky-tonk style. The song tells of a man's sorrow over a lover who cannot return his affection due to past pain. It gained widespread popularity and was notably recorded by Tony Bennett, helping to bridge country and pop music.">Your Cold, Cold Heart<div class="hover-box">Cold, Cold Heart is a country song written by Hank Williams and released in 1951. It became one of his most famous songs, showcasing his signature blend of heartbreak and honky-tonk style. The song tells of a man's sorrow over a lover who cannot return his affection due to past pain. It gained widespread popularity and was notably recorded by Tony Bennett, helping to bridge country and pop music.</div></li>
 <li data-src="Tracks/You Win Again.mp3" data-title="You Win Again" data-author="Hank Williams" data-century"20th" data-date-composed="1952" data-category="Country" data-comments="You Win Again, penned by Hank Williams in 1952, is a sorrowful ballad about heartbreak and betrayal. The lyrics convey deep sadness as the singer acknowledges the pain of being deceived yet still unable to stop loving the person who wronged him.">You Win Again<div class="hover-box">You Win Again, penned by Hank Williams in 1952, is a sorrowful ballad about heartbreak and betrayal. The lyrics convey deep sadness as the singer acknowledges the pain of being deceived yet still unable to stop loving the person who wronged him.</div></li>
-    </ul>
 
-    <script>
-     document.addEventListener("DOMContentLoaded", function() {
+            <!-- Add more tracks here as needed -->
+        </ul>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
     const trackListItems = document.querySelectorAll('.track-list li');
     const searchInput = document.getElementById('searchInput');
     const selectAllButton = document.getElementById("selectAllButton");
@@ -290,41 +264,20 @@
             item.classList.toggle('selected');
         });
     });
-searchInput.addEventListener('input', function() {
-  const filter = searchInput.value.toLowerCase().trim();
-  const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // Handles "1900-1920"
 
-  trackListItems.forEach(function(item) {
-    const title = item.getAttribute('data-title')?.toLowerCase() || '';
-    const author = item.getAttribute('data-author')?.toLowerCase() || '';
-    const dateComposedStr = item.getAttribute('data-date-composed')?.toLowerCase() || '';
-    let match = false;
-
-    // Text search (e.g., "Irish", "Dylan", "1960s")
-    if (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter)) {
-      match = true;
-    }
-
-    // If a numeric year range is entered, override the match logic
-    if (rangeMatch) {
-      const startYear = parseInt(rangeMatch[1]);
-      const endYear = parseInt(rangeMatch[2]);
-
-      // Only evaluate as a year if it's a strict 4-digit number
-      if (/^\d{4}$/.test(dateComposedStr)) {
-        const year = parseInt(dateComposedStr);
-        match = (year >= startYear && year <= endYear);
-      } else {
-        match = false; // Exclude "1960s", "early 1900s", etc. from numeric range matches
-      }
-    }
-
-    item.style.display = match ? '' : 'none';
-  });
-});
-
-
-
+    // Search functionality by title or author
+    searchInput.addEventListener('input', function() {
+        const filter = searchInput.value.toLowerCase();
+        trackListItems.forEach(function(item) {
+            const title = item.getAttribute('data-title').toLowerCase();
+            const author = item.getAttribute('data-author') ? item.getAttribute('data-author').toLowerCase() : '';
+            if (title.includes(filter) || author.includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
     
     // Hover box adjustment for overflow
     document.querySelectorAll('.track-list li').forEach(function(track) {
@@ -342,24 +295,15 @@ searchInput.addEventListener('input', function() {
         });
     });
 });
-    </script>
-    <div id="footer">
-     <p>
-      Copyright © 2025
-      <a href="img/PatMcD4x4.jpg">
-       Thomas Patrick McDonnell
-      </a>
-      · 
-        |
-      <a href="homepage.html">
-       Homepage
-      </a>
-     </p>
-    </div>
-   </div>
-  </div>
-  <script>
-   function getAllTrackItems() {
+</script>
+<div id="footer">
+<p>Copyright © 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> · 
+        | <a href="homepage.html">Homepage</a></p>
+</div>
+</div>
+
+</div><script>
+  function getAllTrackItems() {
     return Array.from(document.querySelectorAll(".track-list li"));
   }
 
@@ -386,9 +330,5 @@ searchInput.addEventListener('input', function() {
       alert("Please enter a valid number between 1 and " + total);
     }
   });
-  </script>
-
-
-
- </body>
+</script></body>
 </html>
