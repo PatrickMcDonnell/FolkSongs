@@ -1,18 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Shanties
-  </title>
-  <link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
-  <link href="print.css" media="print" rel="stylesheet" type="text/css"/>
-  <style>
-  
- body {
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shanties</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
             font-family: Arial, sans-serif;
             background-image: url('');
             background-size: cover;
@@ -40,14 +35,22 @@
             color: blue; /* Selected text color */
         }
 
-        .styled-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #808080; /* Grey background */
-            color: #fff; /* White text */
-            border: none;
-            cursor: pointer;
-        }
+.styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
+      .styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
 
         #footer {
             display: flex;
@@ -74,29 +77,16 @@
         .track-list li:hover .hover-box {
             display: block;
         }
-
-     /* Ensuring buttons are placed properly */
-        #controls {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-        }
-  </style>
- </head>
- <body>
-
-  <div id="wrap">
-   <div id="header">
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
 <p></p>  <p></p> 
-    <h1>&nbsp;&nbsp;
-     <a href="#">
-      Shanties
-     </a>
-    </h1>
+        <h1>&nbsp;&nbsp;<a href="#">Shanties</a></h1>
+        <h2><a href="Help.html">Help</a></h2>
 
- <h2><a href="Help.html">Help</a></h2>
-
- <img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
+        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
 
 <div class="navbar">
   
@@ -114,38 +104,19 @@
  
 </div>
 
-    <h1>
-     Select Tracks
-    </h1>
-  
-  <!-- Search input -->
-<input id="searchInput" placeholder="Search for a song by title, author or year composed..." 
-       style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
+        <h1>Select Tracks</h1>
+        <!-- Search input -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
 
-<small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
-  Search by title, author, or year range the song was originally composed (e.g., 1900-1920). To filter by date recorded go to the All Tracks playlist.
-</small>
+<!-- Select All Button -->
+<button id="selectAllButton" class="styled-button">Select All</button>
 
+<!-- Play Button -->
+<button class="styled-button" id="finished-selecting">Play</button>
 
-
-    <!-- Select All Button -->
-    <button class="styled-button" id="selectAllButton">
-     Select All
-    </button>
-    <!-- Select Random Button -->
-    <!-- Select Number Button -->
-    <button class="styled-button" id="selectNumberButton">
-     Select Random Songs
-    </button>
-
-    <!-- Play Button -->
-    <button class="styled-button" id="finished-selecting">
-     Play
-    </button>
-
-    <ul class="track-list">
-
- <li data-src="Tracks/All For Me Grog.mp3" data-title="All For Me Grog" data-comments="Traditional sea shanty, first known in the 19th century. A lively folk song about sailors spending their money on alcohol and tobacco.">All For Me Grog<div class="hover-box">Traditional sea shanty, first known in the 19th century. A lively folk song about sailors spending their money on alcohol and tobacco.</div></li>
+        <ul class="track-list">
+           
+<li data-src="Tracks/All For Me Grog.mp3" data-title="All For Me Grog" data-comments="Traditional sea shanty, first known in the 19th century. A lively folk song about sailors spending their money on alcohol and tobacco.">All For Me Grog<div class="hover-box">Traditional sea shanty, first known in the 19th century. A lively folk song about sailors spending their money on alcohol and tobacco.</div></li>
 
 <li data-src="Tracks/Around The Wild Cape Horn.mp3" data-title="Around The Wild Cape Horn" data-author="Hugh Williams" data-category="Shanties" data-century="20th" data-date-composed="1970s" data-modified="2025-07-29" data-comments="Around The Wild Cape Horn was written by Hugh Williams and performed by David Coffin, a renowned American folk musician and sea music specialist. The song is based on a true account by Captain Irving Johnson, who sailed aboard the Peking in 1929 as a young man. Set to an engaging rhythm, the lyrics narrate the harrowing but awe-inspiring journey around Cape Horn. It's often performed with dramatic flair, echoing the tradition of nautical storytelling.">Around The Wild Cape Horn<div class="hover-box">Around The Wild Cape Horn was written by Hugh Williams and performed by David Coffin, a renowned American folk musician and sea music specialist. The song is based on a true account by Captain Irving Johnson, who sailed aboard the Peking in 1929 as a young man. Set to an engaging rhythm, the lyrics narrate the harrowing but awe-inspiring journey around Cape Horn. It's often performed with dramatic flair, echoing the tradition of nautical storytelling.</div></li>
 <li data-src="Tracks/Barretts Privateers.mp3" data-title="Barretts Privateers" data-comments="Composed by Stan Rogers, 1976. A modern sea shanty about a privateer’s disastrous voyage.">Barretts Privateers<div class="hover-box">Composed by Stan Rogers, 1976. A modern sea shanty about a privateer’s disastrous voyage.</div></li>
@@ -178,21 +149,21 @@
 <li data-src="Tracks/Wellerman.mp3" data-title="Wellerman" data-comments="Traditional New Zealand sea shanty, first known in the 19th century. A song about whalers and the arrival of the supply ship Wellerman.">Wellerman<div class="hover-box">Traditional New Zealand sea shanty, first known in the 19th century. A song about whalers and the arrival of the supply ship Wellerman.</div></li>
 
             <!-- Add more tracks here as needed -->
-    </ul>
+        </ul>
+   
 
-    <script>
-     document.addEventListener("DOMContentLoaded", function() {
-    const trackListItems = document.querySelectorAll('.track-list li');
-    const searchInput = document.getElementById('searchInput');
-    const selectAllButton = document.getElementById("selectAllButton");
-    const finishedButton = document.getElementById('finished-selecting');
-
+<script>
+document.addEventListener("DOMContentLoaded", function() {
     // Select All functionality
-    selectAllButton.addEventListener("click", function() {
+    document.getElementById("selectAllButton").addEventListener("click", function() {
+        const trackListItems = document.querySelectorAll('.track-list li');
         trackListItems.forEach(item => item.classList.add('selected'));
     });
 
-    // Finished selecting functionality (Play button)
+    const trackListItems = document.querySelectorAll('.track-list li');
+    const finishedButton = document.getElementById('finished-selecting');
+    const searchInput = document.getElementById('searchInput');
+
     finishedButton.addEventListener('click', function() {
         const selectedPlaylist = [];
         trackListItems.forEach(item => {
@@ -211,49 +182,25 @@
         window.location.href = 'index.html';
     });
 
-    // Toggle selection of individual tracks
     trackListItems.forEach(item => {
         item.addEventListener('click', function() {
             item.classList.toggle('selected');
         });
     });
-searchInput.addEventListener('input', function() {
-  const filter = searchInput.value.toLowerCase().trim();
-  const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // Handles "1900-1920"
 
-  trackListItems.forEach(function(item) {
-    const title = item.getAttribute('data-title')?.toLowerCase() || '';
-    const author = item.getAttribute('data-author')?.toLowerCase() || '';
-    const dateComposedStr = item.getAttribute('data-date-composed')?.toLowerCase() || '';
-    let match = false;
-
-    // Text search (e.g., "Irish", "Dylan", "1960s")
-    if (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter)) {
-      match = true;
-    }
-
-    // If a numeric year range is entered, override the match logic
-    if (rangeMatch) {
-      const startYear = parseInt(rangeMatch[1]);
-      const endYear = parseInt(rangeMatch[2]);
-
-      // Only evaluate as a year if it's a strict 4-digit number
-      if (/^\d{4}$/.test(dateComposedStr)) {
-        const year = parseInt(dateComposedStr);
-        match = (year >= startYear && year <= endYear);
-      } else {
-        match = false; // Exclude "1960s", "early 1900s", etc. from numeric range matches
-      }
-    }
-
-    item.style.display = match ? '' : 'none';
-  });
+    // Add search functionality
+    searchInput.addEventListener('input', function() {
+        const filter = searchInput.value.toLowerCase();
+        trackListItems.forEach(function(item) {
+            const title = item.getAttribute('data-title').toLowerCase();
+            if (title.includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
 });
-
-
-
-    
-    // Hover box adjustment for overflow
     document.querySelectorAll('.track-list li').forEach(function(track) {
         track.addEventListener('mouseover', function() {
             const hoverBox = this.querySelector('.hover-box');
@@ -268,54 +215,13 @@ searchInput.addEventListener('input', function() {
             }
         });
     });
-});
-    </script>
+
+</script>
+
     <div id="footer">
-     <p>
-      Copyright © 2025
-      <a href="img/PatMcD4x4.jpg">
-       Thomas Patrick McDonnell
-      </a>
-      · 
-        |
-      <a href="homepage.html">
-       Homepage
-      </a>
-     </p>
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="homepage.html">Homepage</a></p>
     </div>
-   </div>
-  </div>
-  <script>
-   function getAllTrackItems() {
-    return Array.from(document.querySelectorAll(".track-list li"));
-  }
-
-  function clearAllSelections() {
-    getAllTrackItems().forEach(item => item.classList.remove("selected"));
-  }
-
-  function selectRandomItems(count) {
-    const items = getAllTrackItems();
-    clearAllSelections();
-    if (count > items.length) count = items.length;
-    const shuffled = [...items].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, count);
-    selected.forEach(item => item.classList.add("selected"));
-  }
-
-  document.getElementById("selectNumberButton").addEventListener("click", () => {
-    const total = getAllTrackItems().length;
-    const input = prompt(`Enter the number of songs to select (1 to ${total}):`, "10");
-    const num = parseInt(input, 10);
-    if (!isNaN(num) && num > 0 && num <= total) {
-      selectRandomItems(num);
-    } else {
-      alert("Please enter a valid number between 1 and " + total);
-    }
-  });
-  </script>
-
-
-
- </body>
+</div>
+</body>
 </html>

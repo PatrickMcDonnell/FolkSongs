@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Irish
-  </title>
-  <link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
-  <link href="print.css" media="print" rel="stylesheet" type="text/css"/>
-  <style>
-  
- body {
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Irish</title>
+<link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
+<link href="print.css" media="print" rel="stylesheet" type="text/css"/>
+<style>
+        body {
             font-family: Arial, sans-serif;
             background-image: url('');
             background-size: cover;
@@ -80,23 +76,17 @@
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
-        }
-  </style>
- </head>
- <body>
+        }  
+    </style>
+</head>
+<body>
+<div id="wrap">
+<div id="header">
+<p></p>  <p></p>
+<h1>&nbsp;&nbsp;<a href="#">Irish</a></h1>
+<h2><a href="Help.html">Help</a></h2>
 
-  <div id="wrap">
-   <div id="header">
-<p></p>  <p></p> 
-    <h1>&nbsp;&nbsp;
-     <a href="#">
-      Irish
-     </a>
-    </h1>
-
- <h2><a href="Help.html">Help</a></h2>
-
- <img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
+<img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
 
 <div class="navbar">
   
@@ -114,38 +104,21 @@
  
 </div>
 
-    <h1>
-     Select Tracks
-    </h1>
-  
-  <!-- Search input -->
-<input id="searchInput" placeholder="Search for a song by title, author or year composed..." 
-       style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
+<h1>Select Tracks</h1>
+<!-- Search input -->
+<input id="searchInput" placeholder="Search for a song by title or author..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
+<!-- Select All Button -->
+<button class="styled-button" id="selectAllButton">Select All</button>
+<!-- Select Random Button -->
 
-<small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
-  Search by title, author, or year range the song was originally composed (e.g., 1900-1920). To filter by date recorded go to the All Tracks playlist.
-</small>
+<!-- Select Nuumber Button -->
+<button class="styled-button" id="selectNumberButton">Select Random Songs</button>
+<!-- Play Button -->
+<button class="styled-button" id="finished-selecting">Play</button>
 
-
-
-    <!-- Select All Button -->
-    <button class="styled-button" id="selectAllButton">
-     Select All
-    </button>
-    <!-- Select Random Button -->
-    <!-- Select Number Button -->
-    <button class="styled-button" id="selectNumberButton">
-     Select Random Songs
-    </button>
-
-    <!-- Play Button -->
-    <button class="styled-button" id="finished-selecting">
-     Play
-    </button>
-
-    <ul class="track-list">
-
-   <li data-src="Tracks/Across The Western Ocean.mp3" data-title="Across The Western Ocean" data-author="Unknown" data-century="19th" data-category="Irish" data-date-composed="1850s" data-comments="Across the Western Ocean is a traditional sea shanty dating back to the 19th century, sung by sailors emigrating from Europe to America. The song reflects the hardships of ocean voyages, particularly on packet ships traveling the Atlantic. Often associated with Irish emigrants, it laments rough seas and longing for home. Though the composer is unknown, it has been recorded by folk artists like Stan Hugill and The Watersons.">Across The Western Ocean<div class="hover-box">Across the Western Ocean is a traditional sea shanty dating back to the 19th century, sung by sailors emigrating from Europe to America. The song reflects the hardships of ocean voyages, particularly on packet ships traveling the Atlantic. Often associated with Irish emigrants, it laments rough seas and longing for home. Though the composer is unknown, it has been recorded by folk artists like Stan Hugill and The Watersons.</div></li>
+        <ul class="track-list">
+           
+<li data-src="Tracks/Across The Western Ocean.mp3" data-title="Across The Western Ocean" data-author="Unknown" data-century="19th" data-category="Irish" data-date-composed="1850s" data-comments="Across the Western Ocean is a traditional sea shanty dating back to the 19th century, sung by sailors emigrating from Europe to America. The song reflects the hardships of ocean voyages, particularly on packet ships traveling the Atlantic. Often associated with Irish emigrants, it laments rough seas and longing for home. Though the composer is unknown, it has been recorded by folk artists like Stan Hugill and The Watersons.">Across The Western Ocean<div class="hover-box">Across the Western Ocean is a traditional sea shanty dating back to the 19th century, sung by sailors emigrating from Europe to America. The song reflects the hardships of ocean voyages, particularly on packet ships traveling the Atlantic. Often associated with Irish emigrants, it laments rough seas and longing for home. Though the composer is unknown, it has been recorded by folk artists like Stan Hugill and The Watersons.</div></li>
 <li data-src="Tracks/Arthur McBride.mp3" data-title="Arthur McBride" data-author="" data-century="19th" data-category="Irish" data-date-composed="1800s" data-comments="Arthur McBride is a traditional Irish folk song believed to have originated in the early 19th century, likely in Donegal. Its authorship is unknown, but it was popularized by artists like Paul Brady, whose 1970s recording helped revive the song. The lyrics tell of two Irishmen who defy British recruiters.">Arthur McBride<div class="hover-box">Arthur McBride is a traditional Irish folk song believed to have originated in the early 19th century, likely in Donegal. Its authorship is unknown, but it was popularized by artists like Paul Brady, whose 1970s recording helped revive the song. The lyrics tell of two Irishmen who defy British recruiters.</div></li>
 <li data-src="Tracks/Banks Of The Bann.mp3" data-title="Banks Of The Bann" data-comments="The Banks of the Bann is a traditional Irish folk song with origins in the 18th or early 19th century. The lyrics tell of a man's deep love for a woman, often set against the scenic backdrop of the Bann River in Northern Ireland. Some versions attribute the song to Cathal Buí Mac Giolla Ghunna, an 18th-century Irish poet, but its true authorship remains uncertain." data-author="Unknown" data-date-composed="1700s" data-century="18th" data-category="Irish">Banks Of The Bann<div class="hover-box">The Banks of the Bann is a traditional Irish folk song with origins in the 18th or early 19th century. The lyrics tell of a man's deep love for a woman, often set against the scenic backdrop of the Bann River in Northern Ireland. Some versions attribute the song to Cathal Buí Mac Giolla Ghunna, an 18th-century Irish poet, but its true authorship remains uncertain.</div></li>
 <li data-src="Tracks/Bard of Armagh.mp3" data-title="Bard of Armagh" data-comments="Traditional Irish song, first known in the 19th century. A nostalgic song celebrating the life of a bard from Armagh.">Bard of Armagh<div class="hover-box">Traditional Irish song, first known in the 19th century. A nostalgic song celebrating the life of a bard from Armagh.</div></li>
@@ -233,11 +206,9 @@
 <li data-src="Tracks/Wild Colonial Boy.mp3" data-title="Wild Colonial Boy" data-comments="Traditional (Anonymous), Mid-19th century. The story of a young outlaw in Australia who rebels against British colonial authorities. It's based on the real-life story of several bushrangers but has taken on a legendary status in folk tradition.">Wild Colonial Boy<div class="hover-box">Traditional (Anonymous), Mid-19th century. The story of a young outlaw in Australia who rebels against British colonial authorities. It's based on the real-life story of several bushrangers but has taken on a legendary status in folk tradition.</div></li>
 <li data-src="Tracks/Will You Come To The Bower.mp3" data-title="Will You Come To The Bower" data-author="Thomas Moore" data-category="Child Ballads" data-century="19th" data-date-composed="1803" data-modified="2025-11-10" data-comments="Will You Come to the Bower is an Irish ballad written around 1803, likely by Thomas Moore, expressing a longing for Ireland’s natural beauty and freedom during British rule. The song invites a beloved to join the singer in a peaceful bower, blending romantic and patriotic themes. It gained renewed popularity during Ireland’s independence movement and remains a traditional favorite.">Will You Come To The Bower<div class="hover-box">Will You Come to the Bower is an Irish ballad written around 1803, likely by Thomas Moore, expressing a longing for Ireland’s natural beauty and freedom during British rule. The song invites a beloved to join the singer in a peaceful bower, blending romantic and patriotic themes. It gained renewed popularity during Ireland’s independence movement and remains a traditional favorite.</div></li>
             <!-- Add more tracks here as needed -->
-
-    </ul>
-
-    <script>
-     document.addEventListener("DOMContentLoaded", function() {
+        </ul>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
     const trackListItems = document.querySelectorAll('.track-list li');
     const searchInput = document.getElementById('searchInput');
     const selectAllButton = document.getElementById("selectAllButton");
@@ -273,41 +244,20 @@
             item.classList.toggle('selected');
         });
     });
-searchInput.addEventListener('input', function() {
-  const filter = searchInput.value.toLowerCase().trim();
-  const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // Handles "1900-1920"
 
-  trackListItems.forEach(function(item) {
-    const title = item.getAttribute('data-title')?.toLowerCase() || '';
-    const author = item.getAttribute('data-author')?.toLowerCase() || '';
-    const dateComposedStr = item.getAttribute('data-date-composed')?.toLowerCase() || '';
-    let match = false;
-
-    // Text search (e.g., "Irish", "Dylan", "1960s")
-    if (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter)) {
-      match = true;
-    }
-
-    // If a numeric year range is entered, override the match logic
-    if (rangeMatch) {
-      const startYear = parseInt(rangeMatch[1]);
-      const endYear = parseInt(rangeMatch[2]);
-
-      // Only evaluate as a year if it's a strict 4-digit number
-      if (/^\d{4}$/.test(dateComposedStr)) {
-        const year = parseInt(dateComposedStr);
-        match = (year >= startYear && year <= endYear);
-      } else {
-        match = false; // Exclude "1960s", "early 1900s", etc. from numeric range matches
-      }
-    }
-
-    item.style.display = match ? '' : 'none';
-  });
-});
-
-
-
+    // Search functionality by title or author
+    searchInput.addEventListener('input', function() {
+        const filter = searchInput.value.toLowerCase();
+        trackListItems.forEach(function(item) {
+            const title = item.getAttribute('data-title').toLowerCase();
+            const author = item.getAttribute('data-author') ? item.getAttribute('data-author').toLowerCase() : '';
+            if (title.includes(filter) || author.includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
     
     // Hover box adjustment for overflow
     document.querySelectorAll('.track-list li').forEach(function(track) {
@@ -325,24 +275,15 @@ searchInput.addEventListener('input', function() {
         });
     });
 });
-    </script>
-    <div id="footer">
-     <p>
-      Copyright © 2025
-      <a href="img/PatMcD4x4.jpg">
-       Thomas Patrick McDonnell
-      </a>
-      · 
-        |
-      <a href="homepage.html">
-       Homepage
-      </a>
-     </p>
-    </div>
-   </div>
-  </div>
-  <script>
-   function getAllTrackItems() {
+</script>
+<div id="footer">
+<p>Copyright © 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> · 
+        | <a href="homepage.html">Homepage</a></p>
+</div>
+</div>
+
+</div><script>
+  function getAllTrackItems() {
     return Array.from(document.querySelectorAll(".track-list li"));
   }
 
@@ -369,9 +310,5 @@ searchInput.addEventListener('input', function() {
       alert("Please enter a valid number between 1 and " + total);
     }
   });
-  </script>
-
-
-
- </body>
+</script></body>
 </html>

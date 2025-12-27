@@ -1,18 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Scottish
-  </title>
-  <link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
-  <link href="print.css" media="print" rel="stylesheet" type="text/css"/>
-  <style>
-  
- body {
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scottish</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
             font-family: Arial, sans-serif;
             background-image: url('');
             background-size: cover;
@@ -40,14 +35,22 @@
             color: blue; /* Selected text color */
         }
 
-        .styled-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #808080; /* Grey background */
-            color: #fff; /* White text */
-            border: none;
-            cursor: pointer;
-        }
+.styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
+      .styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
 
         #footer {
             display: flex;
@@ -74,29 +77,16 @@
         .track-list li:hover .hover-box {
             display: block;
         }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+<p></p>  <p></p>   
+        <h1>&nbsp;&nbsp;<a href="#">Scottish</a></h1>
+        <h2><a href="Help.html">Help</a></h2>
 
-     /* Ensuring buttons are placed properly */
-        #controls {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-        }
-  </style>
- </head>
- <body>
-
-  <div id="wrap">
-   <div id="header">
-<p></p>  <p></p> 
-    <h1>&nbsp;&nbsp;
-     <a href="#">
-      Scottish
-     </a>
-    </h1>
-
- <h2><a href="Help.html">Help</a></h2>
-
- <img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
+        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
 
 <div class="navbar">
   
@@ -114,38 +104,19 @@
  
 </div>
 
-    <h1>
-     Select Tracks
-    </h1>
-  
-  <!-- Search input -->
-<input id="searchInput" placeholder="Search for a song by title, author or year composed..." 
-       style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
+        <h1>Select Tracks</h1>
+        <!-- Search input -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
 
-<small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
-  Search by title, author, or year range the song was originally composed (e.g., 1900-1920). To filter by date recorded go to the All Tracks playlist.
-</small>
+<!-- Select All Button -->
+<button id="selectAllButton" class="styled-button">Select All</button>
 
+<!-- Play Button -->
+<button class="styled-button" id="finished-selecting">Play</button>
 
-
-    <!-- Select All Button -->
-    <button class="styled-button" id="selectAllButton">
-     Select All
-    </button>
-    <!-- Select Random Button -->
-    <!-- Select Number Button -->
-    <button class="styled-button" id="selectNumberButton">
-     Select Random Songs
-    </button>
-
-    <!-- Play Button -->
-    <button class="styled-button" id="finished-selecting">
-     Play
-    </button>
-
-    <ul class="track-list">
-
- <li data-src="Tracks/Ae Fond Kiss.mp3" data-title="Ae Fond Kiss" data-author="Robert Burns" data-date-composed="1791" data-century="18th" data-category="Scottish" data-comments="Robert Burns regularly travelled and stayed at Edinburgh. While there, he established a platonic relationship with Mrs. Agnes Maclehose and they began a regular correspondence using the pseudonyms 'Clarinda' and 'Sylvander'. Burns wrote 'Ae fond kiss' after their final meeting and sent it to Maclehose on 27 December 1791 before she departed Edinburgh for Jamaica to be with her estranged husband.">Ae Fond Kiss<div class="hover-box">Robert Burns regularly travelled and stayed at Edinburgh. While there, he established a platonic relationship with Mrs. Agnes Maclehose and they began a regular correspondence using the pseudonyms 'Clarinda' and 'Sylvander'. Burns wrote 'Ae fond kiss' after their final meeting and sent it to Maclehose on 27 December 1791 before she departed Edinburgh for Jamaica to be with her estranged husband.</div></li>
+        <ul class="track-list">
+           
+<li data-src="Tracks/Ae Fond Kiss.mp3" data-title="Ae Fond Kiss" data-author="Robert Burns" data-date-composed="1791" data-century="18th" data-category="Scottish" data-comments="Robert Burns regularly travelled and stayed at Edinburgh. While there, he established a platonic relationship with Mrs. Agnes Maclehose and they began a regular correspondence using the pseudonyms 'Clarinda' and 'Sylvander'. Burns wrote 'Ae fond kiss' after their final meeting and sent it to Maclehose on 27 December 1791 before she departed Edinburgh for Jamaica to be with her estranged husband.">Ae Fond Kiss<div class="hover-box">Robert Burns regularly travelled and stayed at Edinburgh. While there, he established a platonic relationship with Mrs. Agnes Maclehose and they began a regular correspondence using the pseudonyms 'Clarinda' and 'Sylvander'. Burns wrote 'Ae fond kiss' after their final meeting and sent it to Maclehose on 27 December 1791 before she departed Edinburgh for Jamaica to be with her estranged husband.</div></li>
 <li data-src="Tracks/Annie Laurie.mp3" data-title="Annie Laurie" data-author="William Douglas" data-century="17th" data-date-composed="1680s" data-category="Scottish" data-comments="Annie Laurie is a traditional Scottish song with lyrics originally written by William Douglas in the 1680s, reportedly inspired by his love for Annie Laurie of Dumfriesshire. Later, poet Alicia Ann Spottiswoode, known as Lady John Scott, adapted and expanded the lyrics in the 1830s, pairing them with the now-familiar melody.">Annie Laurie<div class="hover-box">Annie Laurie is a traditional Scottish song with lyrics originally written by William Douglas in the 1680s, reportedly inspired by his love for Annie Laurie of Dumfriesshire. Later, poet Alicia Ann Spottiswoode, known as Lady John Scott, adapted and expanded the lyrics in the 1830s, pairing them with the now-familiar melody.</div></li>
 <li data-src="Tracks/Auld Lang Syne.mp3" data-title="Auld Lang Syne" data-comments="Written by Robert Burns, 1788. A Scottish poem set to music, traditionally sung to bid farewell to the old year at the stroke of midnight on New Year's Eve.">Auld Lang Syne <div class="hover-box">Written by Robert Burns, 1788. A Scottish poem set to music, traditionally sung to bid farewell to the old year at the stroke of midnight on New Year's Eve.</div></li>
 <li data-src="Tracks/Awa' wi' Your Witchcraft o' Beauty's Alarms.mp3" data-title="Awa' wi' Your Witchcraft o' Beauty's Alarms" data-comments="A traditional Scottish folk song. A song about rejecting superficial beauty in favor of deeper, more meaningful qualities.">Awa' wi' Your Witchcraft o' Beauty's Alarms<div class="hover-box">A traditional Scottish folk song. A song about rejecting superficial beauty in favor of deeper, more meaningful qualities.</div></li>
@@ -191,22 +162,21 @@
 <li data-src="Tracks/The Scotsman.mp3" data-title="The Scotsman" data-comments="Traditional Scottish folk song, first known in the 20th century. A humorous song about a Scotsman’s experience in a foreign land.">The Scotsman<div class="hover-box">Traditional Scottish folk song, first known in the 20th century. A humorous song about a Scotsman’s experience in a foreign land.</div></li>
 <li data-src="Tracks/The Winter It Is Past.mp3" data-title="The Winter It Is Past" data-comments="Traditional English folk song, first known in the 19th century. A song celebrating the end of winter and the arrival of spring.">The Winter It Is Past<div class="hover-box">Traditional English folk song, first known in the 19th century. A song celebrating the end of winter and the arrival of spring.</div></li>
             <!-- Add more tracks here as needed -->
+        </ul>
+   
 
-    </ul>
-
-    <script>
-     document.addEventListener("DOMContentLoaded", function() {
-    const trackListItems = document.querySelectorAll('.track-list li');
-    const searchInput = document.getElementById('searchInput');
-    const selectAllButton = document.getElementById("selectAllButton");
-    const finishedButton = document.getElementById('finished-selecting');
-
+<script>
+document.addEventListener("DOMContentLoaded", function() {
     // Select All functionality
-    selectAllButton.addEventListener("click", function() {
+    document.getElementById("selectAllButton").addEventListener("click", function() {
+        const trackListItems = document.querySelectorAll('.track-list li');
         trackListItems.forEach(item => item.classList.add('selected'));
     });
 
-    // Finished selecting functionality (Play button)
+    const trackListItems = document.querySelectorAll('.track-list li');
+    const finishedButton = document.getElementById('finished-selecting');
+    const searchInput = document.getElementById('searchInput');
+
     finishedButton.addEventListener('click', function() {
         const selectedPlaylist = [];
         trackListItems.forEach(item => {
@@ -225,49 +195,25 @@
         window.location.href = 'index.html';
     });
 
-    // Toggle selection of individual tracks
     trackListItems.forEach(item => {
         item.addEventListener('click', function() {
             item.classList.toggle('selected');
         });
     });
-searchInput.addEventListener('input', function() {
-  const filter = searchInput.value.toLowerCase().trim();
-  const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // Handles "1900-1920"
 
-  trackListItems.forEach(function(item) {
-    const title = item.getAttribute('data-title')?.toLowerCase() || '';
-    const author = item.getAttribute('data-author')?.toLowerCase() || '';
-    const dateComposedStr = item.getAttribute('data-date-composed')?.toLowerCase() || '';
-    let match = false;
-
-    // Text search (e.g., "Irish", "Dylan", "1960s")
-    if (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter)) {
-      match = true;
-    }
-
-    // If a numeric year range is entered, override the match logic
-    if (rangeMatch) {
-      const startYear = parseInt(rangeMatch[1]);
-      const endYear = parseInt(rangeMatch[2]);
-
-      // Only evaluate as a year if it's a strict 4-digit number
-      if (/^\d{4}$/.test(dateComposedStr)) {
-        const year = parseInt(dateComposedStr);
-        match = (year >= startYear && year <= endYear);
-      } else {
-        match = false; // Exclude "1960s", "early 1900s", etc. from numeric range matches
-      }
-    }
-
-    item.style.display = match ? '' : 'none';
-  });
+    // Add search functionality
+    searchInput.addEventListener('input', function() {
+        const filter = searchInput.value.toLowerCase();
+        trackListItems.forEach(function(item) {
+            const title = item.getAttribute('data-title').toLowerCase();
+            if (title.includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
 });
-
-
-
-    
-    // Hover box adjustment for overflow
     document.querySelectorAll('.track-list li').forEach(function(track) {
         track.addEventListener('mouseover', function() {
             const hoverBox = this.querySelector('.hover-box');
@@ -282,54 +228,13 @@ searchInput.addEventListener('input', function() {
             }
         });
     });
-});
-    </script>
+
+</script>
+
     <div id="footer">
-     <p>
-      Copyright © 2025
-      <a href="img/PatMcD4x4.jpg">
-       Thomas Patrick McDonnell
-      </a>
-      · 
-        |
-      <a href="homepage.html">
-       Homepage
-      </a>
-     </p>
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="homepage.html">Homepage</a></p>
     </div>
-   </div>
-  </div>
-  <script>
-   function getAllTrackItems() {
-    return Array.from(document.querySelectorAll(".track-list li"));
-  }
-
-  function clearAllSelections() {
-    getAllTrackItems().forEach(item => item.classList.remove("selected"));
-  }
-
-  function selectRandomItems(count) {
-    const items = getAllTrackItems();
-    clearAllSelections();
-    if (count > items.length) count = items.length;
-    const shuffled = [...items].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, count);
-    selected.forEach(item => item.classList.add("selected"));
-  }
-
-  document.getElementById("selectNumberButton").addEventListener("click", () => {
-    const total = getAllTrackItems().length;
-    const input = prompt(`Enter the number of songs to select (1 to ${total}):`, "10");
-    const num = parseInt(input, 10);
-    if (!isNaN(num) && num > 0 && num <= total) {
-      selectRandomItems(num);
-    } else {
-      alert("Please enter a valid number between 1 and " + total);
-    }
-  });
-  </script>
-
-
-
- </body>
+</div>
+</body>
 </html>
