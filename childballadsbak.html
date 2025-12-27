@@ -1,18 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Child Ballads
-  </title>
-  <link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
-  <link href="print.css" media="print" rel="stylesheet" type="text/css"/>
-  <style>
-  
- body {
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Ballads</title>
+    <link rel="stylesheet" type="text/css" href="andreas01.css" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="print.css" media="print" />
+    <style>
+        body {
             font-family: Arial, sans-serif;
             background-image: url('');
             background-size: cover;
@@ -40,14 +35,22 @@
             color: blue; /* Selected text color */
         }
 
-        .styled-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #808080; /* Grey background */
-            color: #fff; /* White text */
-            border: none;
-            cursor: pointer;
-        }
+.styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
+      .styled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #808080; /* Grey background */
+    color: #fff; /* White text */
+    border: none;
+    cursor: pointer;
+}
 
         #footer {
             display: flex;
@@ -74,29 +77,16 @@
         .track-list li:hover .hover-box {
             display: block;
         }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+<p></p>  <p></p>
+        <h1>&nbsp;&nbsp;<a href="#">Child Ballads</a></h1>
+        <h2><a href="Help.html">Help</a></h2>
 
-     /* Ensuring buttons are placed properly */
-        #controls {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-        }
-  </style>
- </head>
- <body>
-
-  <div id="wrap">
-   <div id="header">
-<p></p>  <p></p> 
-    <h1>&nbsp;&nbsp;
-     <a href="#">
-      Child Ballads
-     </a>
-    </h1>
-
- <h2><a href="Help.html">Help</a></h2>
-
- <img alt="" height="190" id="frontphoto" src="img/guitarplayerheader2.jpg" width="760"/>
+        <img id="frontphoto" src="img/guitarplayerheader2.jpg" width="760" height="190" alt="" />
 
 <div class="navbar">
   
@@ -114,38 +104,19 @@
  
 </div>
 
-    <h1>
-     Select Tracks
-    </h1>
-  
-  <!-- Search input -->
-<input id="searchInput" placeholder="Search for a song by title, author or year composed..." 
-       style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
+        <h1>Select Tracks</h1>
+        <!-- Search input -->
+        <input type="text" id="searchInput" placeholder="Search for a song..." style="margin-bottom: 20px; width: 100%; padding: 10px; box-sizing: border-box;">
 
-<small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
-  Search by title, author, or year range the song was originally composed (e.g., 1900-1920). To filter by date recorded go to the All Tracks playlist.
-</small>
+<!-- Select All Button -->
+<button id="selectAllButton" class="styled-button">Select All</button>
 
+<!-- Play Button -->
+<button class="styled-button" id="finished-selecting">Play</button>
 
-
-    <!-- Select All Button -->
-    <button class="styled-button" id="selectAllButton">
-     Select All
-    </button>
-    <!-- Select Random Button -->
-    <!-- Select Number Button -->
-    <button class="styled-button" id="selectNumberButton">
-     Select Random Songs
-    </button>
-
-    <!-- Play Button -->
-    <button class="styled-button" id="finished-selecting">
-     Play
-    </button>
-
-    <ul class="track-list">
-
-   <li data-src="Tracks/Anachie Gordon.mp3" data-title="Anachie Gordon" data-comments="Traditional Scottish ballad, first known in the 19th century. Child Ballad 239. A tragic love story about a young woman who dies of a broken heart waiting for her love, Anachie Gordon.">Anachie Gordon<div class="hover-box">Traditional Scottish ballad, first known in the 19th century. Child Ballad 239. A tragic love story about a young woman who dies of a broken heart waiting for her love, Anachie Gordon.</div></li>
+        <ul class="track-list">
+           
+<li data-src="Tracks/Anachie Gordon.mp3" data-title="Anachie Gordon" data-comments="Traditional Scottish ballad, first known in the 19th century. Child Ballad 239. A tragic love story about a young woman who dies of a broken heart waiting for her love, Anachie Gordon.">Anachie Gordon<div class="hover-box">Traditional Scottish ballad, first known in the 19th century. Child Ballad 239. A tragic love story about a young woman who dies of a broken heart waiting for her love, Anachie Gordon.</div></li>
 <li data-src="Tracks/Bailiff's Daughter Of Islington.mp3" data-title="Bailiff's Daughter Of Islington" data-comments="The Bailiff's Daughter of Islington is a traditional English folk song often classified as a Child Ballad, specifically number 105 in Francis James Child's collection. The song tells the story of a young couple separated by social class, where the bailiff's daughter disguises herself to reunite with her true love after he initially fails to recognize her. The origins of the song are unclear, but it was first published in the seventeenth century, and its exact authorship remains unknown, as it was likely passed down orally before being recorded. Its themes of love, perseverance, and eventual reunion have made it a popular piece in the English folk tradition." data-date-composed="1600s" data-century="17th" data-author="Unknown" data-category="Child Ballads">Bailiff's Daughter Of Islington<div class="hover-box">The Bailiff's Daughter of Islington is a traditional English folk song often classified as a Child Ballad, specifically number 105 in Francis James Child's collection. The song tells the story of a young couple separated by social class, where the bailiff's daughter disguises herself to reunite with her true love after he initially fails to recognize her. The origins of the song are unclear, but it was first published in the seventeenth century, and its exact authorship remains unknown, as it was likely passed down orally before being recorded. Its themes of love, perseverance, and eventual reunion have made it a popular piece in the English folk tradition.</div></li>
 <li data-src="Tracks/Barbara Allen.mp3" data-title="Barbara Allen" data-comments="Traditional folk song, first recorded in 1666. Child Ballad 84. A tragic ballad about unrequited love and the death of Barbara Allen.">Barbara Allen<div class="hover-box">Traditional folk song, first recorded in 1666. Child Ballad 84. A tragic ballad about unrequited love and the death of Barbara Allen.</div></li>
 <li data-src="Tracks/Blow Away The Morning Dew.mp3" data-title="Blow Away The Morning Dew" data-comments="Traditional English folk song, first known in the 16th century. Child Ballad 112. A playful song about a young woman's encounter with a deceitful suitor.">Blow Away The Morning Dew<div class="hover-box">Traditional English folk song, first known in the 16th century. Child Ballad 112. A playful song about a young woman's encounter with a deceitful suitor.</div></li>
@@ -159,7 +130,6 @@
 <li data-src="Tracks/Henry Martin.mp3" data-title="Henry Martin" data-author="Unknown" data-date-composed="1600s" data-century="17th" data-category="Child Ballads" data-comments="Henry Martin is a traditional Scottish folk ballad dating back to the 17th century, often classified as a Child Ballad (number 167) by Francis James Child. It tells the tale of a pirate who turns to robbery at sea to support his family. The author is unknown, and the song exists in various versions.">Henry Martin<div class="hover-box">Henry Martin is a traditional Scottish folk ballad dating back to the 17th century, often classified as a Child Ballad (number 167) by Francis James Child. It tells the tale of a pirate who turns to robbery at sea to support his family. The author is unknown, and the song exists in various versions.</div></li>
 <li data-src="Tracks/Hind Horn.mp3" data-title="Hind Horn" data-comments="Traditional English ballad, first known in the 16th century. Child Ballad 17. A ballad about a nobleman who is betrayed and ultimately reconciled with his lover.">Hind Horn<div class="hover-box">Traditional English ballad, first known in the 16th century. Child Ballad 17. A ballad about a nobleman who is betrayed and ultimately reconciled with his lover.</div></li>
 <li data-src="Tracks/House Carpenter's Wife.mp3" data-title="House Carpenter's Wife" data-comments="The House Carpenter's Wife, also known as Child Ballad 243, is a traditional British folk ballad that dates back to the 17th century. It tells the tragic story of a wife who leaves her husband and child for a lover, only to meet disaster. Francis James Child collected and published it in the 19th century.">House Carpenter's Wife<div class="hover-box">The House Carpenter's Wife, also known as Child Ballad 243, is a traditional British folk ballad that dates back to the 17th century. It tells the tragic story of a wife who leaves her husband and child for a lover, only to meet disaster. Francis James Child collected and published it in the 19th century.</div></li>
-<li data-src="Tracks/Johnny Be Fair.mp3" data-title="Johnny Be Fair" data-author="Unknown" data-modified="2025-12-27" data-date-composed="1600s" data-century="17th" data-category="Child Ballads" data-comments="Johnny Be Fair is a traditional Scottish comic ballad, cataloged as Child Ballad 5, with roots at least as early as the 18th century and no known author. The song centers on a young woman whose marriage prospects collapse when each suitor proves to be her half-brother, fathered by the man she believes is her father. The final twist reveals he is not her biological parent, allowing the marriage and exposing social hypocrisy.">Johnny Be Fair<div class="hover-box">Johnny Be Fair is a traditional Scottish comic ballad, cataloged as Child Ballad 5, with roots at least as early as the 18th century and no known author. The song centers on a young woman whose marriage prospects collapse when each suitor proves to be her half-brother, fathered by the man she believes is her father. The final twist reveals he is not her biological parent, allowing the marriage and exposing social hypocrisy.</div></li>
 <li data-src="Tracks/Lady Margaret.mp3" data-title="Lady Margaret" data-comments="Traditional English ballad, first known in the 17th century. Child Ballad 85. A ballad about the tragic love story of Lady Margaret and her lover.">Lady Margaret<div class="hover-box">Traditional English ballad, first known in the 17th century. Child Ballad 85. A ballad about the tragic love story of Lady Margaret and her lover.</div></li>
 <li data-src="Tracks/Lord Lovel.mp3" data-title="Lord Lovel" data-category="Child Ballads" data-author="" data-date-composed="" data-century="" data-comments="An English ballad dating back to the 15th century, this romantic tale recounts the tragic reunion of Lord Lovel and his beloved Lady Nancy. Lord Lovel is Child Ballad 75. It tells a romantic and tragic tale of Lord Lovel's departure, his beloved’s death from grief, and their eventual reunion in death, often marked by a symbolic intertwining of plants growing from their graves.">Lord Lovel<div class="hover-box">An English ballad dating back to the 15th century, this romantic tale recounts the tragic reunion of Lord Lovel and his beloved Lady Nancy. Lord Lovel is Child Ballad 75. It tells a romantic and tragic tale of Lord Lovel's departure, his beloved’s death from grief, and their eventual reunion in death, often marked by a symbolic intertwining of plants growing from their graves.</div></li>
 <li data-src="Tracks/Lord Randal.mp3" data-title="Lord Randal" data-author="Unknown" data-category="Child Ballads" data-century="17th" data-date-composed="1600s" data-modified="2025-06-28" data-comments="Lord Randal is a traditional Anglo-Scottish ballad, catalogued as Child Ballad 12. The song likely dates from the 17th century or earlier. It tells the story of a young man who returns home poisoned after visiting his lover. Through a question-and-answer dialogue with his mother, he reveals his fate. The ballad’s repetitive structure and dark theme were typical of oral storytelling traditions.">Lord Randal<div class="hover-box">Lord Randal is a traditional Anglo-Scottish ballad, catalogued as Child Ballad 12. The song likely dates from the 17th century or earlier. It tells the story of a young man who returns home poisoned after visiting his lover. Through a question-and-answer dialogue with his mother, he reveals his fate. The ballad’s repetitive structure and dark theme were typical of oral storytelling traditions.</div></li>
@@ -178,22 +148,21 @@
 <li data-src="Tracks/Willie O Winsbury.mp3" data-title="Willie O Winsbury" data-author="Unknown" data-century="17th" data-date-composed="1600s" data-category="Child Ballads" data-comments="Willie O Winsbury is a traditional Scottish ballad, cataloged as Child Ballad 100. It tells the story of a king who returns from captivity to find his daughter pregnant by a handsome stranger, Willie O Winsbury. Instead of punishing him, the king is so taken by Willie's beauty that he offers him wealth and his daughter's hand in marriage. The ballad has been recorded by artists such as Anne Briggs and Fairport Convention.">Willie O Winsbury<div class="hover-box">Willie O Winsbury is a traditional Scottish ballad, cataloged as Child Ballad 100. It tells the story of a king who returns from captivity to find his daughter pregnant by a handsome stranger, Willie O Winsbury. Instead of punishing him, the king is so taken by Willie's beauty that he offers him wealth and his daughter's hand in marriage. The ballad has been recorded by artists such as Anne Briggs and Fairport Convention.</div></li>
 
             <!-- Add more tracks here as needed -->
+        </ul>
+   
 
-    </ul>
-
-    <script>
-     document.addEventListener("DOMContentLoaded", function() {
-    const trackListItems = document.querySelectorAll('.track-list li');
-    const searchInput = document.getElementById('searchInput');
-    const selectAllButton = document.getElementById("selectAllButton");
-    const finishedButton = document.getElementById('finished-selecting');
-
+<script>
+document.addEventListener("DOMContentLoaded", function() {
     // Select All functionality
-    selectAllButton.addEventListener("click", function() {
+    document.getElementById("selectAllButton").addEventListener("click", function() {
+        const trackListItems = document.querySelectorAll('.track-list li');
         trackListItems.forEach(item => item.classList.add('selected'));
     });
 
-    // Finished selecting functionality (Play button)
+    const trackListItems = document.querySelectorAll('.track-list li');
+    const finishedButton = document.getElementById('finished-selecting');
+    const searchInput = document.getElementById('searchInput');
+
     finishedButton.addEventListener('click', function() {
         const selectedPlaylist = [];
         trackListItems.forEach(item => {
@@ -212,49 +181,25 @@
         window.location.href = 'index.html';
     });
 
-    // Toggle selection of individual tracks
     trackListItems.forEach(item => {
         item.addEventListener('click', function() {
             item.classList.toggle('selected');
         });
     });
-searchInput.addEventListener('input', function() {
-  const filter = searchInput.value.toLowerCase().trim();
-  const rangeMatch = filter.match(/(\d{4})\s*[-–]\s*(\d{4})/); // Handles "1900-1920"
 
-  trackListItems.forEach(function(item) {
-    const title = item.getAttribute('data-title')?.toLowerCase() || '';
-    const author = item.getAttribute('data-author')?.toLowerCase() || '';
-    const dateComposedStr = item.getAttribute('data-date-composed')?.toLowerCase() || '';
-    let match = false;
-
-    // Text search (e.g., "Irish", "Dylan", "1960s")
-    if (title.includes(filter) || author.includes(filter) || dateComposedStr.includes(filter)) {
-      match = true;
-    }
-
-    // If a numeric year range is entered, override the match logic
-    if (rangeMatch) {
-      const startYear = parseInt(rangeMatch[1]);
-      const endYear = parseInt(rangeMatch[2]);
-
-      // Only evaluate as a year if it's a strict 4-digit number
-      if (/^\d{4}$/.test(dateComposedStr)) {
-        const year = parseInt(dateComposedStr);
-        match = (year >= startYear && year <= endYear);
-      } else {
-        match = false; // Exclude "1960s", "early 1900s", etc. from numeric range matches
-      }
-    }
-
-    item.style.display = match ? '' : 'none';
-  });
+    // Add search functionality
+    searchInput.addEventListener('input', function() {
+        const filter = searchInput.value.toLowerCase();
+        trackListItems.forEach(function(item) {
+            const title = item.getAttribute('data-title').toLowerCase();
+            if (title.includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
 });
-
-
-
-    
-    // Hover box adjustment for overflow
     document.querySelectorAll('.track-list li').forEach(function(track) {
         track.addEventListener('mouseover', function() {
             const hoverBox = this.querySelector('.hover-box');
@@ -269,54 +214,13 @@ searchInput.addEventListener('input', function() {
             }
         });
     });
-});
-    </script>
+
+</script>
+
     <div id="footer">
-     <p>
-      Copyright © 2025
-      <a href="img/PatMcD4x4.jpg">
-       Thomas Patrick McDonnell
-      </a>
-      · 
-        |
-      <a href="homepage.html">
-       Homepage
-      </a>
-     </p>
+        <p>Copyright &copy; 2024 <a href="img/PatMcD4x4.jpg">Thomas Patrick McDonnell</a> &middot; 
+            | <a href="homepage.html">Homepage</a></p>
     </div>
-   </div>
-  </div>
-  <script>
-   function getAllTrackItems() {
-    return Array.from(document.querySelectorAll(".track-list li"));
-  }
-
-  function clearAllSelections() {
-    getAllTrackItems().forEach(item => item.classList.remove("selected"));
-  }
-
-  function selectRandomItems(count) {
-    const items = getAllTrackItems();
-    clearAllSelections();
-    if (count > items.length) count = items.length;
-    const shuffled = [...items].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, count);
-    selected.forEach(item => item.classList.add("selected"));
-  }
-
-  document.getElementById("selectNumberButton").addEventListener("click", () => {
-    const total = getAllTrackItems().length;
-    const input = prompt(`Enter the number of songs to select (1 to ${total}):`, "10");
-    const num = parseInt(input, 10);
-    if (!isNaN(num) && num > 0 && num <= total) {
-      selectRandomItems(num);
-    } else {
-      alert("Please enter a valid number between 1 and " + total);
-    }
-  });
-  </script>
-
-
-
- </body>
+</div>
+</body>
 </html>
