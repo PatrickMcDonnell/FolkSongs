@@ -192,6 +192,37 @@ ul.avmenu ul ul a {
     width:100px;
 }
 
+/* Label above sample playlists */
+.avmenu li.sample-label {
+    margin-top: 1.6em;
+    margin-bottom: 0.4em;
+    padding: 0;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    list-style: none;
+}
+
+/* Sample playlist spacing */
+.avmenu li.sample-playlist {
+    margin-top: 0.3em;
+}
+
+/* Sample playlist appearance */
+.avmenu li.sample-playlist a {
+    background-color: #dfe8f2;
+    color: #000;
+    font-style: italic;
+}
+
+/* Hover state */
+.avmenu li.sample-playlist a:hover {
+    background-color: #cddbeb;
+}
+
+
 /***** Right sidebar *****/
 
 #extras {
