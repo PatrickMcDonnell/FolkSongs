@@ -204,6 +204,7 @@ ul.avmenu ul ul a {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     list-style: none;
+    text-align: center;
 }
 
 /* Sample playlist spacing */
@@ -213,7 +214,7 @@ ul.avmenu ul ul a {
 
 /* Sample playlist appearance */
 .avmenu li.sample-playlist a {
-    background-color: #dfe8f2;
+    background-color: #cce6ff;
     color: #000;
     font-style: italic;
 }
