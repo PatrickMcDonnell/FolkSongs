@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -118,7 +117,7 @@
 
   <!-- Autoplay fallback message inserted here -->
   <p id="autoplayMessage" style="display:none; color:#555; font-style:italic;">
-    If playback doesn’t start automatically, please click "Start Playlist".
+    If playback doesn't start automatically, please click "Start Playlist".
   </p>
 
   <div class="button-group">
@@ -139,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const shareButton = document.getElementById('share-playlist');
   const startButton = document.getElementById('start-playlist');
 
-  const baseUrl = 'https://patrickmcdonnell.github.io/FolkSongs/';
+  const baseUrl = './';
   let currentSongIndex = 0;
   let autoplayWasBlocked = false;
   let audioCtx, analyser, source;
@@ -215,7 +214,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const li = document.createElement('li');
     li.textContent = title;
-    li.setAttribute('data-src', baseUrl + decodeURIComponent(path));
+    // Store relative path only (without baseUrl)
+    li.setAttribute('data-src', decodeURIComponent(path));
 
     const hoverBox = document.createElement('div');
     hoverBox.classList.add('hover-box');
@@ -224,52 +224,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     li.addEventListener('click', () => {
       currentSongIndex = Array.from(playlist.children).indexOf(li);
-      audioPlayer.src = li.getAttribute('data-src');
+      // Add baseUrl when setting audio source
+      audioPlayer.src = baseUrl + li.getAttribute('data-src');
 
-console.log('Trying to autoplay. Current src:', audioPlayer.src);
+      console.log('Trying to autoplay. Current src:', audioPlayer.src);
 
       audioPlayer.play();
     });
 
     playlist.appendChild(li);
   }
-
-// URL-based playlist
-//async function initializePlaylistFromURL() {
-//  const urlParams = new URLSearchParams(window.location.search);
-//  const songsParam = urlParams.get('songs');
-//  const countParam = parseInt(urlParams.get('count')) || 6;
-//  if (!songsParam) return;
-//
-//  playlist.innerHTML = '';
-//
-//  let paths;
-//
-//  if (songsParam === 'random') {
-    // Fetch and parse Tracks.html
-//    const response = await fetch('Tracks.html');
-//    const html = await response.text();
-//    const parser = new DOMParser();
-//    const doc = parser.parseFromString(html, 'text/html');
-//    const songElements = [...doc.querySelectorAll('.track-list li a')];
-//
-//    const total = songElements.length;
-//    const count = Math.min(countParam, total);
-//    const indices = [];
-//    while (indices.length < count) {
-//      const i = Math.floor(Math.random() * total);
-//      if (!indices.includes(i)) indices.push(i);
-//    }
-//    paths = indices.map(i => songElements[i].getAttribute('href'));
-//  } else {
-//    paths = songsParam.split(';');
-//  }
-//
-//  for (const path of paths) {
-//    await addSongToPlaylist(path);
-//  }
-//}
-
 
 // URL-based playlist
 async function initializePlaylistFromURL() {
@@ -298,39 +262,46 @@ async function initializePlaylistFromURL() {
     await addSongToPlaylist(path);
   }
 
-if (paths.length > 0 && playlist.children.length > 0) {
-  const first = playlist.children[0];
-  const src = first.getAttribute('data-src');
-  audioPlayer.src = src;
+  if (paths.length > 0 && playlist.children.length > 0) {
+    const first = playlist.children[0];
+    // Add baseUrl when setting audio source
+    const src = baseUrl + first.getAttribute('data-src');
+    audioPlayer.src = src;
 
-  console.log('Autoplay attempt with src:', src);
+    console.log('Autoplay attempt with src:', src);
 
-  setTimeout(() => {
-    audioPlayer.play().then(() => {
-      console.log('Autoplay started successfully.');
-    }).catch((err) => {
-      autoplayWasBlocked = true;
-      console.warn('Autoplay was blocked or failed:', err);
-      startButton.style.display = 'inline-block';
-    });
-  }, 150);
+    setTimeout(() => {
+      audioPlayer.play().then(() => {
+        console.log('Autoplay started successfully.');
+      }).catch((err) => {
+        autoplayWasBlocked = true;
+        console.warn('Autoplay was blocked or failed:', err);
+        startButton.style.display = 'inline-block';
+      });
+    }, 150);
+  }
 }
- 
 
-}
-
-  // LocalStorage fallback
+  // LocalStorage fallback - THIS IS THE KEY FUNCTION
   async function initializePlaylistFromStorage() {
     const stored = localStorage.getItem('playlist');
-    if (!stored) return;
-
+    console.log('LocalStorage content:', stored);
+    
+    if (!stored) {
+      console.log('No playlist found in localStorage');
+      return;
+    }
 
     const list = JSON.parse(stored);
+    console.log('Parsed playlist:', list);
+    
     playlist.innerHTML = '';
+    
     for (const item of list) {
       const li = document.createElement('li');
       li.textContent = item.title;
-      li.setAttribute('data-src', baseUrl + item.src);
+      // Store relative path only (without baseUrl)
+      li.setAttribute('data-src', item.src);
 
       const hoverBox = document.createElement('div');
       hoverBox.classList.add('hover-box');
@@ -339,7 +310,10 @@ if (paths.length > 0 && playlist.children.length > 0) {
 
       li.addEventListener('click', () => {
         currentSongIndex = Array.from(playlist.children).indexOf(li);
-        audioPlayer.src = li.getAttribute('data-src');
+        // Add baseUrl when setting audio source
+        const fullPath = baseUrl + li.getAttribute('data-src');
+        console.log('Setting audio source to:', fullPath);
+        audioPlayer.src = fullPath;
         audioPlayer.play();
       });
 
@@ -347,16 +321,18 @@ if (paths.length > 0 && playlist.children.length > 0) {
     }
 
     if (list.length > 0) {
-      audioPlayer.src = baseUrl + list[0].src;
+      // Add baseUrl when setting audio source
+      const firstPath = baseUrl + list[0].src;
+      console.log('Setting initial audio source to:', firstPath);
+      audioPlayer.src = firstPath;
 
-audioPlayer.play().then(() => {
-  console.log('Autoplay started successfully.');
-}).catch((err) => {
-  autoplayWasBlocked = true;
-  console.warn('Autoplay was blocked or failed:', err);
-  startButton.style.display = 'inline-block';
-});
-
+      audioPlayer.play().then(() => {
+        console.log('Autoplay started successfully.');
+      }).catch((err) => {
+        autoplayWasBlocked = true;
+        console.warn('Autoplay was blocked or failed:', err);
+        startButton.style.display = 'inline-block';
+      });
     }
 
     localStorage.removeItem('playlist');
@@ -373,7 +349,7 @@ audioPlayer.play().then(() => {
   // Share button
   shareButton.addEventListener('click', () => {
     const paths = Array.from(playlist.children).map(li =>
-      encodeURIComponent(li.getAttribute('data-src').replace(baseUrl, ''))
+      encodeURIComponent(li.getAttribute('data-src'))
     );
     const shareURL = `${window.location.origin}${window.location.pathname}?songs=${paths.join(';')}`;
     const subject = encodeURIComponent('Check out this playlist');
@@ -382,19 +358,20 @@ audioPlayer.play().then(() => {
   });
 
   // Start playback button
-
-startButton.addEventListener('click', () => {
-  console.log('Start Playlist button clicked');
-  if (playlist.children.length > 0) {
-    currentSongIndex = 0;
-    const first = playlist.children[currentSongIndex];
-    audioPlayer.src = first.getAttribute('data-src');
-    audioPlayer.play().catch(() => {
-      console.warn('Playback failed on manual start');
-    });
-  }
-});
-
+  startButton.addEventListener('click', () => {
+    console.log('Start Playlist button clicked');
+    if (playlist.children.length > 0) {
+      currentSongIndex = 0;
+      const first = playlist.children[currentSongIndex];
+      // Add baseUrl when setting audio source
+      const fullPath = baseUrl + first.getAttribute('data-src');
+      console.log('Manual start - setting audio source to:', fullPath);
+      audioPlayer.src = fullPath;
+      audioPlayer.play().catch(() => {
+        console.warn('Playback failed on manual start');
+      });
+    }
+  });
 
   // Hover positioning
   playlist.addEventListener('mouseover', (e) => {
@@ -423,7 +400,10 @@ startButton.addEventListener('click', () => {
     currentSongIndex++;
     if (currentSongIndex < playlist.children.length) {
       const next = playlist.children[currentSongIndex];
-      audioPlayer.src = next.getAttribute('data-src');
+      // Add baseUrl when setting audio source
+      const nextPath = baseUrl + next.getAttribute('data-src');
+      console.log('Moving to next song:', nextPath);
+      audioPlayer.src = nextPath;
       audioPlayer.play();
     }
   });
@@ -431,6 +411,9 @@ startButton.addEventListener('click', () => {
   // Init
   clearButton.addEventListener('click', clearPlaylist);
   startButton.style.display = 'none';
+  
+  // Check both URL and localStorage
+  console.log('Initializing playlist...');
   initializePlaylistFromURL();
   initializePlaylistFromStorage();
 });
