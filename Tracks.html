@@ -150,6 +150,14 @@
     <button class="styled-button" id="finished-selecting">
      Play
     </button>
+
+     <!-- Sample Playlists Button -->
+      <button class="styled-button" id="samplePlaylistsButton">Sample Playlists</button>
+
+
+    
+
+    
     <ul class="track-list">
 
 <li data-src="Tracks/A Bicycle Built For Two.mp3" data-title="A Bicycle Built For Two" data-author="Harry Dacre" data-category="Folk" data-date-composed="1892" data-modified="2024-10-13" data-comments="A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.">A Bicycle Built For Two<div class="hover-box">A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.</div></li>
@@ -2078,6 +2086,9 @@ searchInput.addEventListener('input', function() {
       alert("Please enter a valid number between 1 and " + total);
     }
   });
+  document.getElementById('samplePlaylistsButton').addEventListener('click', function() {
+    window.location.href = 'SamplePlaylists.html';
+});
   </script>
 
 <script>
