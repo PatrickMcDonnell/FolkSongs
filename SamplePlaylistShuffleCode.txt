@@ -1,0 +1,15 @@
+// Paste this into your index.html startup/init code
+const params = new URLSearchParams(window.location.search);
+const playlistName = params.get('name');
+const playlistDesc = params.get('desc');
+const isShuffled   = params.get('shuffle') === '1';
+
+if (playlistName) {
+    // Show the playlist name — point this at whatever element holds your player title
+    document.getElementById('YOUR-TITLE-ELEMENT-ID').textContent =
+        (isShuffled ? '🔀 ' : '') + playlistName;
+}
+if (playlistDesc) {
+    // Show the description — point this at whatever element you want
+    document.getElementById('YOUR-DESC-ELEMENT-ID').textContent = playlistDesc;
+}

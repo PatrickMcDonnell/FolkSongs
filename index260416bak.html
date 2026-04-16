@@ -116,10 +116,6 @@
 
 <div id="contentwide">
   <h1>Audio Player</h1>
-
-<h2 id="playlist-title"></h2>
-<p id="playlist-desc" style="font-style: italic; color:#555;"></p>
-  
   <audio id="audio-player" controls>Your browser does not support the audio element.</audio>
   <ul class="song-list" id="playlist"></ul>
 
@@ -145,21 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const clearButton = document.getElementById('clear-playlist');
   const shareButton = document.getElementById('share-playlist');
   const startButton = document.getElementById('start-playlist');
-// Paste this into your index.html startup/init code
-  const params = new URLSearchParams(window.location.search);
-  const playlistName = params.get('name');
-  const playlistDesc = params.get('desc');
-  const isShuffled   = params.get('shuffle') === '1';
 
-if (playlistName) {
-    // Show the playlist name — point this at whatever element holds your player title
-    document.getElementById('playlist-title').textContent =
-        (isShuffled ? '🔀 ' : '') + playlistName;
-}
-if (playlistDesc) {
-    // Show the description — point this at whatever element you want
-    document.getElementById('playlist-desc').textContent = playlistDesc;
-}
   const baseUrl = './';
   let currentSongIndex = 0;
   let autoplayWasBlocked = false;
