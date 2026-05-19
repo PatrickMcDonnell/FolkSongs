@@ -252,14 +252,16 @@ if (playlistDesc) {
     li.appendChild(hoverBox);
 
     li.addEventListener('click', () => {
-      currentSongIndex = Array.from(playlist.children).indexOf(li);
-      // Add baseUrl when setting audio source
-      audioPlayer.src = baseUrl + li.getAttribute('data-src');
+  currentSongIndex = Array.from(playlist.children).indexOf(li);
 
-      console.log('Trying to autoplay. Current src:', audioPlayer.src);
+  audioPlayer.src = baseUrl + li.getAttribute('data-src');
 
-      audioPlayer.play();
-    });
+  highlightCurrentSong();   // ADD THIS
+
+  console.log('Trying to autoplay. Current src:', audioPlayer.src);
+
+  audioPlayer.play();
+});
 
     playlist.appendChild(li);
   }
@@ -338,14 +340,18 @@ async function initializePlaylistFromURL() {
       hoverBox.textContent = item.comments || 'Song details not available.';
       li.appendChild(hoverBox);
 
-      li.addEventListener('click', () => {
-        currentSongIndex = Array.from(playlist.children).indexOf(li);
-        // Add baseUrl when setting audio source
-        const fullPath = baseUrl + li.getAttribute('data-src');
-        console.log('Setting audio source to:', fullPath);
-        audioPlayer.src = fullPath;
-        audioPlayer.play();
-      });
+     li.addEventListener('click', () => {
+  currentSongIndex = Array.from(playlist.children).indexOf(li);
+
+  const fullPath = baseUrl + li.getAttribute('data-src');
+  console.log('Setting audio source to:', fullPath);
+
+  audioPlayer.src = fullPath;
+
+  highlightCurrentSong();   // ADD THIS
+
+  audioPlayer.play();
+});
 
       playlist.appendChild(li);
     }
@@ -454,7 +460,6 @@ function highlightCurrentSong() {
       audioPlayer.src = nextPath;
       highlightCurrentSong();
       audioPlayer.play();
-      highlightCurrentSong();
     }
   });
 
