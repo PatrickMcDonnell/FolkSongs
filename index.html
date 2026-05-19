@@ -416,7 +416,6 @@ function highlightCurrentSong() {
       audioPlayer.src = fullPath;
       highlightCurrentSong();
       audioPlayer.play().catch(() => {
-      audioPlayer.play().catch(() => {
         console.warn('Playback failed on manual start');
       });
     }
@@ -454,7 +453,6 @@ function highlightCurrentSong() {
       console.log('Moving to next song:', nextPath);
       audioPlayer.src = nextPath;
       highlightCurrentSong();
-      audioPlayer.play();
       audioPlayer.play();
       highlightCurrentSong();
     }
