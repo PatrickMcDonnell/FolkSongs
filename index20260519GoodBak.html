@@ -81,13 +81,6 @@
     width: 760px;
 }
 
-.song-list li.now-playing {
-  background-color: #d8ecff;
-  color: #0056b3;
-  font-weight: bold;
-  padding: 4px 6px;
-  border-radius: 4px;
-}
 </style>
 </head>
 <body>
@@ -296,7 +289,6 @@ async function initializePlaylistFromURL() {
     // Add baseUrl when setting audio source
     const src = baseUrl + first.getAttribute('data-src');
     audioPlayer.src = src;
-    highlightCurrentSong();
 
     console.log('Autoplay attempt with src:', src);
 
@@ -355,7 +347,6 @@ async function initializePlaylistFromURL() {
       const firstPath = baseUrl + list[0].src;
       console.log('Setting initial audio source to:', firstPath);
       audioPlayer.src = firstPath;
-      highlightCurrentSong();
 
       audioPlayer.play().then(() => {
         console.log('Autoplay started successfully.');
@@ -368,22 +359,6 @@ async function initializePlaylistFromURL() {
 
     localStorage.removeItem('playlist');
   }
-
-function highlightCurrentSong() {
-  Array.from(playlist.children).forEach(li => {
-    li.classList.remove('now-playing');
-  });
-
-  if (playlist.children[currentSongIndex]) {
-    const currentLi = playlist.children[currentSongIndex];
-    currentLi.classList.add('now-playing');
-
-    currentLi.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest'
-    });
-  }
-}
 
   // Clear button
   function clearPlaylist() {
@@ -414,8 +389,6 @@ function highlightCurrentSong() {
       const fullPath = baseUrl + first.getAttribute('data-src');
       console.log('Manual start - setting audio source to:', fullPath);
       audioPlayer.src = fullPath;
-      highlightCurrentSong();
-      audioPlayer.play().catch(() => {
       audioPlayer.play().catch(() => {
         console.warn('Playback failed on manual start');
       });
@@ -453,10 +426,7 @@ function highlightCurrentSong() {
       const nextPath = baseUrl + next.getAttribute('data-src');
       console.log('Moving to next song:', nextPath);
       audioPlayer.src = nextPath;
-      highlightCurrentSong();
       audioPlayer.play();
-      audioPlayer.play();
-      highlightCurrentSong();
     }
   });
 
