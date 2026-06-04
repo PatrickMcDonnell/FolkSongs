@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="en">
  <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>
-   TracksBak
+   All Tracks
   </title>
   <link href="andreas01.css" media="screen,projection" rel="stylesheet" type="text/css"/>
   <link href="print.css" media="print" rel="stylesheet" type="text/css"/>
@@ -89,7 +90,7 @@
 <p></p>  <p></p> 
     <h1>&nbsp;&nbsp;
      <a href="#">
-      All Tracks Backup
+      All Tracks
      </a>
     </h1>
 
@@ -122,10 +123,19 @@
        style="width: 100%; padding: 10px; box-sizing: border-box;" type="text"/>
 
 <small style="display: block; margin-top: 4px; margin-bottom: 1em; color: #555; font-style: italic; font-size: 0.9em;">
-  Search by title, author, or year range the song was originally composed (e.g., 1900-1920). To filter by date recorded go to the All Tracks playlist.
+  You can search by title, author, or year range the song was originally composed (e.g., 1900-1920) or, below, filter by when the song was recorded here.
 </small>
 
-
+<div style="margin-bottom: 1em;">
+  <label for="from-date">From: </label>
+  <input type="date" id="from-date">
+  <label for="to-date">To: </label>
+  <input type="date" id="to-date">
+  <button onclick="filterByDate()">Filter</button>
+  <button onclick="clearDateFilter()">Clear</button>
+  <button onclick="sortByDate()">Sort by Date</button>
+  <select id="authorDropdown" style="min-width: 170px; max-width: 170px; height: 22px; margin-left: 8px; vertical-align: bottom; font-size: 13px;"></select>
+</div>
 
     <!-- Select All Button -->
     <button class="styled-button" id="selectAllButton">
@@ -142,10 +152,14 @@
      Play
     </button>
 
+     <!-- Sample Playlists Button -->
+      <button class="styled-button" id="samplePlaylistsButton">Sample Playlists</button>
+
+
+    
+
+    
     <ul class="track-list">
-
- 
-
 
 <li data-src="Tracks/A Bicycle Built For Two.mp3" data-title="A Bicycle Built For Two" data-author="Harry Dacre" data-category="Folk" data-date-composed="1892" data-modified="2024-10-13" data-comments="A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.">A Bicycle Built For Two<div class="hover-box">A Bicycle Built for Two, also known as Daisy Bell, is a popular song written in 1892 by British composer Harry Dacre. It tells the story of a man proposing marriage, suggesting they ride a tandem bicycle. The catchy tune has been featured in various media, including early computer music experiments.</div></li>
 
@@ -155,9 +169,9 @@
 
 <li data-src="Tracks/Ace.mp3" data-title="Ace" data-author="Jimmy Buffett" data-category="Folk" data-century="20th" data-date-composed="1986" data-modified="2025-10-22" data-comments="Ace is a song by Jimmy Buffett from his 1986 album Floridays. It tells the story of a man named Ace who grew up poor, worked picking cotton as a child, and never learned to read or write. The song portrays his quiet dignity, hard work, and life-earned wisdom, set to Buffett’s gentle folk-rock style with touches of Southern soul.">Ace<div class="hover-box">Ace is a song by Jimmy Buffett from his 1986 album Floridays. It tells the story of a man named Ace who grew up poor, worked picking cotton as a child, and never learned to read or write. The song portrays his quiet dignity, hard work, and life-earned wisdom, set to Buffett’s gentle folk-rock style with touches of Southern soul.</div></li>
 
-<li data-src="Tracks/A Cowboy's Hard Times.mp3" data-title="A Cowboy's Hard Times" data-author="Bill Staines" data-category="Country" data-century="20th" data-date-composed="1979" data-modified="2026-04-18" data-comments="A Cowboy’s Hard Times is a contemporary folk song written by Bill Staines in the late 1970s and first recorded on his 1979 album The Whistle of the Jay. The song portrays an aging cowboy reflecting on loss, time, and uncertainty, blending plainspoken imagery with Staines’s characteristic narrative style.">A Cowboy's Hard Times<div class="hover-box">A Cowboy’s Hard Times is a contemporary folk song written by Bill Staines in the late 1970s and first recorded on his 1979 album The Whistle of the Jay. The song portrays an aging cowboy reflecting on loss, time, and uncertainty, blending plainspoken imagery with Staines’s characteristic narrative style.</div></li>
-
 <li data-src="Tracks/A Couple More Years.mp3" data-title="A Couple More Years" data-author="Shel Silverstein" data-category="Country" data-century="20th" data-date-composed="1976" data-modified="2026-06-01" data-comments="A Couple More Years is a country-pop ballad written by Shel Silverstein and first recorded by Dr. Hook in 1976, featuring lead vocals by Dennis Locorriere. The song tells of an older man reflecting on a relationship with a younger woman, expressing both affection and concern about the years ahead. It became one of Dr. Hook’s most enduring and widely covered songs.">A Couple More Years.mp3<div class="hover-box">A Couple More Years is a country-pop ballad written by Shel Silverstein and first recorded by Dr. Hook in 1976, featuring lead vocals by Dennis Locorriere. The song tells of an older man reflecting on a relationship with a younger woman, expressing both affection and concern about the years ahead. It became one of Dr. Hook’s most enduring and widely covered songs.</div></li>
+
+<li data-src="Tracks/A Cowboy's Hard Times.mp3" data-title="A Cowboy's Hard Times" data-author="Bill Staines" data-category="Country" data-century="20th" data-date-composed="1979" data-modified="2026-04-18" data-comments="A Cowboy’s Hard Times is a contemporary folk song written by Bill Staines in the late 1970s and first recorded on his 1979 album The Whistle of the Jay. The song portrays an aging cowboy reflecting on loss, time, and uncertainty, blending plainspoken imagery with Staines’s characteristic narrative style.">A Cowboy's Hard Times<div class="hover-box">A Cowboy’s Hard Times is a contemporary folk song written by Bill Staines in the late 1970s and first recorded on his 1979 album The Whistle of the Jay. The song portrays an aging cowboy reflecting on loss, time, and uncertainty, blending plainspoken imagery with Staines’s characteristic narrative style.</div></li>
 
 <li data-src="Tracks/Acres of Clams.mp3" data-title="Acres of Clams" data-author="Francis D. Henry" data-category="Folk" data-century="19th" data-date-composed="1800s" data-modified="2024-12-31" data-comments="Acres of Clams is a traditional American folk song associated with the Pacific Northwest. Its lyrics were adapted in the mid-19th century by Francis D. Henry, a settler in Washington Territory, to the tune of Rosin the Beau. The song humorously celebrates the region's abundance, particularly clams, and reflects pioneer life.">Acres of Clams<div class="hover-box">Acres of Clams is a traditional American folk song associated with the Pacific Northwest. Its lyrics were adapted in the mid-19th century by Francis D. Henry, a settler in Washington Territory, to the tune of Rosin the Beau. The song humorously celebrates the region's abundance, particularly clams, and reflects pioneer life.</div></li>
 
@@ -289,7 +303,7 @@
 
 <li data-src="Tracks/Bells Of Rhymney.mp3" data-title="Bells Of Rhymney" data-author="Idris Davies" data-modified="2025-07-03" data-category="Folk" data-century="20th" data-date-composed="1957" data-comments="The Bells of Rhymney is a poem by Welsh miner and writer Idris Davies, adapted into a folk song by Pete Seeger in 1957. It draws on the tradition of Welsh church bells to reflect on the suffering of coal miners and broader social injustices. The poem was originally written in the 1930s, and the song became a protest staple during the 1960s folk revival, notably recorded by The Byrds in 1965.">Bells Of Rhymney<div class="hover-box">The Bells of Rhymney is a poem by Welsh miner and writer Idris Davies, adapted into a folk song by Pete Seeger in 1957. It draws on the tradition of Welsh church bells to reflect on the suffering of coal miners and broader social injustices. The poem was originally written in the 1930s, and the song became a protest staple during the 1960s folk revival, notably recorded by The Byrds in 1965.</div></li>
 
-<li data-src="Tracks/Be Still.mp3" data-title="Be Still" data-author="Isaac Slade" data-modified="2026-05-09" data-category="Folk" data-century="21st" data-date-composed="2012" data-comments="Be Still was written by Isaac Slade and Joe King and recorded by The Fray for their 2012 album Scars and Stories. A gentle, reflective ballad about offering comfort and reassurance in times of fear and uncertainty, its refrain echoes the biblical language of Psalm 46 and gives the song a calm, prayerful quality.">Be Still<div class="hover-box">Be Still was written by Isaac Slade and Joe King and recorded by The Fray for their 2012 album Scars and Stories. A gentle, reflective ballad about offering comfort and reassurance in times of fear and uncertainty, its refrain echoes the biblical language of Psalm 46 and gives the song a calm, prayerful quality.</div></li>
+<li data-src="Tracks/Be Still.mp3" data-title="Be Still" data-author="Isaac Slade" data-modified="2026-05-09" data-category="Folk" data-century="21st" data-date-composed="2012" data-comments="Be Still was written by Isaac Slade and Joe King of The Fray and released in 2012 on the album Scars and Stories. The song is a gentle message of comfort and perseverance, encouraging calm and trust during times of fear or uncertainty. Its title and central theme echo Psalm 46:10, Be still, and know that I am God, emphasizing quiet faith, reassurance, and hope amid lifes difficulties.">Be Still<div class="hover-box">Be Still was written by Isaac Slade and Joe King of The Fray and released in 2012 on the album Scars and Stories. The song is a gentle message of comfort and perseverance, encouraging calm and trust during times of fear or uncertainty. Its title and central theme echo Psalm 46:10, Be still, and know that I am God, emphasizing quiet faith, reassurance, and hope amid lifes difficulties.</div></li>
 
 <li data-src="Tracks/Be Thou My Vision.mp3" data-title="Be Thou My Vision" data-modified="2026-04-05" data-author="Saint Dallan Forgaill" data-category="Gospel" data-date-composed="600s" data-century="7th" data-comments="Traditional Irish hymn based on an early medieval Gaelic poem often attributed to Saint Dallan Forgaill, likely dating from around the 6th to 8th century. The English version most commonly sung today was translated by Mary Elizabeth Byrne in 1905 and versified by Eleanor Hull in 1912. The melody, known as Slane, is a traditional Irish tune associated with the Hill of Slane.">Be Thou My Vision<div class="hover-box">Traditional Irish hymn based on an early medieval Gaelic poem often attributed to Saint Dallan Forgaill, likely dating from around the 6th to 8th century. The English version most commonly sung today was translated by Mary Elizabeth Byrne in 1905 and versified by Eleanor Hull in 1912. The melody, known as Slane, is a traditional Irish tune associated with the Hill of Slane.</div></li>
 
@@ -327,7 +341,7 @@
 
 <li data-src="Tracks/Blue Skies.mp3" data-title="Blue Skies" data-author="Irving Berlin" data-category="Blues" data-century="20th" data-date-composed="1926" data-modified="2024-12-15" data-comments="Blue Skies is a classic song written by Irving Berlin in 1926. It debuted in the Rodgers and Hart musical Betsy, where it was an instant hit despite the show's limited success. The cheerful, optimistic tune became a jazz and pop standard, recorded by artists like Bing Crosby and Ella Fitzgerald.">Blue Skies<div class="hover-box">Blue Skies is a classic song written by Irving Berlin in 1926. It debuted in the Rodgers and Hart musical Betsy, where it was an instant hit despite the show's limited success. The cheerful, optimistic tune became a jazz and pop standard, recorded by artists like Bing Crosby and Ella Fitzgerald.</div></li>
 
-<li data-src="Tracks/Boatman's Dance.mp3" data-title="Boatman's Dance" data-author="Daiel Decatur Emmett" data-category="Folk" data-century="19th" data-date-composed="19th century" data-modified="2025-01-07" data-comments="Boatman’s Dance is a minstrel song written by Dan Emmett in 1843. Emmett, also known for composing Dixie, was a prominent figure in early American minstrel music. The song celebrates the lively spirit of Ohio River boatmen, blending African-American and European musical influences. Its upbeat tune and simple lyrics made it popular during the 19th century.">Boatman's Dance<div class="hover-box">Boatman’s Dance is a minstrel song written by Dan Emmett in 1843. Emmett, also known for composing Dixie, was a prominent figure in early American minstrel music. The song celebrates the lively spirit of Ohio River boatmen, blending African-American and European musical influences. Its upbeat tune and simple lyrics made it popular during the 19th century.</div></li>
+<li data-src="Tracks/Boatman's Dance.mp3" data-title="Boatman's Dance" data-author="Daniel Decatur Emmett" data-category="Folk" data-century="19th" data-date-composed="19th century" data-modified="2025-01-07" data-comments="Boatman’s Dance is a minstrel song written by Dan Emmett in 1843. Emmett, also known for composing Dixie, was a prominent figure in early American minstrel music. The song celebrates the lively spirit of Ohio River boatmen, blending African-American and European musical influences. Its upbeat tune and simple lyrics made it popular during the 19th century.">Boatman's Dance<div class="hover-box">Boatman’s Dance is a minstrel song written by Dan Emmett in 1843. Emmett, also known for composing Dixie, was a prominent figure in early American minstrel music. The song celebrates the lively spirit of Ohio River boatmen, blending African-American and European musical influences. Its upbeat tune and simple lyrics made it popular during the 19th century.</div></li>
 
 <li data-src="Tracks/Boil Them Cabbage Down.mp3" data-title="Boil Them Cabbage Down" data-modified="2024-09-11" data-author="Unknown" data-comments="A traditional American folk song and fiddle tune with roots in the 19th century. It originated in the southern United States and became popular in Appalachian music. The song's simple, repetitive lyrics are often used to accompany a lively dance tune, making it a staple of old-time music sessions.">Boil Them Cabbage Down<div class="hover-box">A traditional American folk song and fiddle tune with roots in the 19th century. It originated in the southern United States and became popular in Appalachian music. The song's simple, repetitive lyrics are often used to accompany a lively dance tune, making it a staple of old-time music sessions.</div></li>
 
@@ -495,6 +509,7 @@
 
 <li data-src="Tracks/Coyote.mp3" data-title="Coyote" data-author="Bill Stines" data-category="Country" data-century="20th" data-date-composed="1979" data-modified="2026-04-20" data-comments="Coyote is a reflective folk song written and recorded by Bill Staines in the 1970s, appearing on his album River released in 1979. The song uses the image of a lone coyote as a symbol of freedom, resilience, and solitude, themes common in Staines’ work. Its simple melody and thoughtful lyrics have made it a lasting favorite in contemporary folk circles.">Coyote<div class="hover-box">Coyote is a reflective folk song written and recorded by Bill Staines in the 1970s, appearing on his album River released in 1979. The song uses the image of a lone coyote as a symbol of freedom, resilience, and solitude, themes common in Staines’ work. Its simple melody and thoughtful lyrics have made it a lasting favorite in contemporary folk circles.</div></li>
 
+
 <li data-src="Tracks/Coventry Carol.mp3" data-title="Coventry Carol" data-author="Unknown" data-category="Christmas" data-century="16th" data-date-composed="1500s" data-modified="2025-12-07" data-comments="Coventry Carol is a traditional English Christmas carol dating from the 16th century, associated with the city of Coventry. It is a lullaby sung by mothers of the 'innocents' doomed by King Herod, reflecting the Massacre of the Innocents story in the Bible. Its haunting melody and minor key give it a somber tone, and it has been preserved in collections of early English carols and performed widely in both choral and solo settings.">Coventry Carol<div class="hover-box">Coventry Carol is a traditional English Christmas carol dating from the 16th century, associated with the city of Coventry. It is a lullaby sung by mothers of the 'innocents' doomed by King Herod, reflecting the Massacre of the Innocents story in the Bible. Its haunting melody and minor key give it a somber tone, and it has been preserved in collections of early English carols and performed widely in both choral and solo settings.</div></li>
 
 <li data-src="Tracks/Cowboy Singer.mp3" data-title="Cowboy Singer" data-author="Sylvia Tyson" data-category="Country" data-century="20th" data-date-composed="1975" data-modified="2025-05-20" data-comments="Cowboy Singer was written by Canadian folk artist Sylvia Tyson and first released in 1975 on her solo album Woman's World. The song tells the story of a drifter and his fleeting romance with a cowboy musician who moves on with the wind. With vivid Western imagery and emotional depth, Tyson reflects on love, loneliness, and the bittersweet charm of a traveling performer.">Cowboy Singer<div class="hover-box">Cowboy Singer was written by Canadian folk artist Sylvia Tyson and first released in 1975 on her solo album Woman's World. The song tells the story of a drifter and his fleeting romance with a cowboy musician who moves on with the wind. With vivid Western imagery and emotional depth, Tyson reflects on love, loneliness, and the bittersweet charm of a traveling performer.</div></li>
@@ -629,8 +644,6 @@
 
 <li data-src="Tracks/East Virginia Blues.mp3" data-title="East Virginia Blues" data-author="Unknown" data-category="Country" data-date-composed="1920s" data-modified="2025-01-18" data-comments="East Virginia Blues is a traditional American folk song rooted in Appalachian music, closely tied to English and Scottish ballads. Its origins are difficult to trace due to its evolution through oral tradition, but it became widely known in the 1920s. The Carter Family popularized it with their 1930s recordings, and later bluegrass artists like Bill Monroe brought it further into the American folk canon.">East Virginia Blues<div class="hover-box">East Virginia Blues is a traditional American folk song rooted in Appalachian music, closely tied to English and Scottish ballads. Its origins are difficult to trace due to its evolution through oral tradition, but it became widely known in the 1920s. The Carter Family popularized it with their 1930s recordings, and later bluegrass artists like Bill Monroe brought it further into the American folk canon.</div></li>
 
-<li data-src="Tracks/Voice In The Breeze.mp3" data-title="Voice In The Breeze" data-author="John Munro" data-modified="2026-04-12" data-comments="Voice in the Breeze is a folk song by Scottish singer songwriter John Campbell Munro, written and recorded in the late 1960s and included on his album Look Over Your Shoulder. Munro died in 1972 at a young age, and the song reflects the folk revival style of that era, using natural imagery and a gentle melody to express longing, memory, and the sense of a loved one’s presence carried on the wind.">Voice In The Breeze<div class="hover-box">Voice in the Breeze is a folk song by Scottish singer songwriter John Campbell Munro, written and recorded in the late 1960s and included on his album Look Over Your Shoulder. Munro died in 1972 at a young age, and the song reflects the folk revival style of that era, using natural imagery and a gentle melody to express longing, memory, and the sense of a loved one’s presence carried on the wind.</div></li>
-
 <li data-src="Tracks/Edward.mp3" data-title="Edward" data-author="Unknown" data-category="Child Ballads" data-century="18th" data-date-composed="1700s" data-modified="2026-03-28" data-comments="Edward is a traditional Scottish ballad, Child Ballad 13, first collected by Francis James Child in the nineteenth century from earlier oral sources. The song is structured as a dialogue in which a mother questions her son about the blood on his sword, gradually revealing that he has murdered his father, often at her urging. Known for its stark, incremental repetition and psychological intensity, it is one of the most powerful and economical narrative ballads in the tradition.">Edward<div class="hover-box">Edward is a traditional Scottish ballad, Child Ballad 13, first collected by Francis James Child in the nineteenth century from earlier oral sources. The song is structured as a dialogue in which a mother questions her son about the blood on his sword, gradually revealing that he has murdered his father, often at her urging. Known for its stark, incremental repetition and psychological intensity, it is one of the most powerful and economical narrative ballads in the tradition.</div></li>
 
 <li data-src="Tracks/Eggs And Marrowbones.mp3" data-title="Eggs And Marrowbones" data-author="Unknown" data-category="Irish" data-date-composed="1700s" data-century="18th" data-modified="2025-07-20" data-comments="Eggs and Marrowbones is a traditional folk ballad of British and Irish origin, likely dating to the 18th or early 19th century. Also known as The Old Woman of Wexford, it tells the darkly comic tale of an old woman who tries to murder her husband by drowning, only to end up dead herself. The song has many versions across Ireland, Scotland, and England, often with a chorus of nonsense syllables.">Eggs And Marrowbones<div class="hover-box">Eggs and Marrowbones is a traditional folk ballad of British and Irish origin, likely dating to the 18th or early 19th century. Also known as The Old Woman of Wexford, it tells the darkly comic tale of an old woman who tries to murder her husband by drowning, only to end up dead herself. The song has many versions across Ireland, Scotland, and England, often with a chorus of nonsense syllables.</div></li>
@@ -721,7 +734,7 @@
 
 <li data-src="Tracks/Frankie And Johnny.mp3" data-title="Frankie And Johnny" data-category="Folk" data-century="20th" data-date-composed="1900s" data-modified="2024-11-09" data-comments="Frankie and Johnny is a traditional American folk song thought to have originated in the early 20th century. Its authorship is unknown, but it recounts the story of a woman named Frankie who shoots her lover Johnny after discovering his infidelity. Various musicians have performed and adapted it, including Jimmie Rodgers, Elvis Presley, and Sam Cooke.">Frankie And Johnny<div class="hover-box">Frankie and Johnny is a traditional American folk song thought to have originated in the early 20th century. Its authorship is unknown, but it recounts the story of a woman named Frankie who shoots her lover Johnny after discovering his infidelity. Various musicians have performed and adapted it, including Jimmie Rodgers, Elvis Presley, and Sam Cooke.</div></li>
 
-<li data-src="Tracks/Frank To Valentino.mp3" data-title="Frank To Valentino" data-author="Dave Carter" data-category="Folk" data-century="20th" data-date-composed="1998" data-modified="2026-05-17" data-comments="Written by Dave Carter and released on the 1998 album When I Go, Frank to Valentino is a wry, compassionate portrait of an ordinary working man seeking reinvention and escape. Through vivid storytelling and humor, the song follows Frank as he adopts a flashier persona and heads down the highway chasing freedom, dignity, and relief from the burdens of working-class life.">Frank To Valentino<div class="hover-box">Written by Dave Carter and released on the 1998 album When I Go, Frank to Valentino is a wry, compassionate portrait of an ordinary working man seeking reinvention and escape. Through vivid storytelling and humor, the song follows Frank as he adopts a flashier persona and heads down the highway chasing freedom, dignity, and relief from the burdens of working-class life.</div></li>
+<li data-src="Tracks/Frank To Valentino.mp3" data-title="Frank To Valentino" data-category="Folk" data-century="20th" data-date-composed="1998" data-modified="2026-05-17" data-author="Dave Carter" data-comments="Written by Dave Carter and released on the 1998 album When I Go, Frank to Valentino is a wry, compassionate portrait of an ordinary working man seeking reinvention and escape. Through vivid storytelling and humor, the song follows Frank as he adopts a flashier persona and heads down the highway chasing freedom, dignity, and relief from the burdens of working-class life.">Frank To Valentino<div class="hover-box">Written by Dave Carter and released on the 1998 album When I Go, Frank to Valentino is a wry, compassionate portrait of an ordinary working man seeking reinvention and escape. Through vivid storytelling and humor, the song follows Frank as he adopts a flashier persona and heads down the highway chasing freedom, dignity, and relief from the burdens of working-class life.</div></li>
 
 <li data-src="Tracks/Freight Train.mp3" data-title="Freight Train" data-author="Elizabeth Cotton" data-modified="2024-09-25" data-comments="Freight Train was written in the early 1900s by Elizabeth Cotton, who was just 12 years old at the time. The song reflects her longing for freedom and escape, using the imagery of a train as a symbol of release from life's burdens.">Freight Train<div class="hover-box">Freight Train was written in the early 1900s by Elizabeth Cotten, who was just 12 years old at the time. The song reflects her longing for freedom and escape, using the imagery of a train as a symbol of release from life's burdens.</div></li>
 
@@ -801,7 +814,7 @@
 
 <li data-src="Tracks/Goodnight World.mp3" data-title="Goodnight World" data-modified="2026-01-20" data-author="Lisa O'Neill" data-date-composed="2023" data-century="21st" data-category="Childrens" data-comments="Goodnight World is a song written and performed by Irish singer-songwriter Lisa O’Neill, released as part of her fifth studio album All of This Is Chance on Rough Trade Records on 10 February 2023. The track showcases her distinctive folk-inflected vocal style and lyrical storytelling, and appears as one of the eight songs on the album that explore themes of life, nature, and introspection.">Goodnight World<div class="hover-box">Goodnight World is a song written and performed by Irish singer-songwriter Lisa O’Neill, released as part of her fifth studio album All of This Is Chance on Rough Trade Records on 10 February 2023. The track showcases her distinctive folk-inflected vocal style and lyrical storytelling, and appears as one of the eight songs on the album that explore themes of life, nature, and introspection.</div></li>
 
-<li data-src="Tracks/Good Old Colony Days.mp3" data-title="Good Old Colony Days" data-author="Unknown" data-modified="2025-08-15" data-century="19th" data-date-composed="1800s" data-comments="Good Old Colony Days is a traditional American folk song of uncertain authorship, often traced to the 19th century. Sung in a lighthearted, nostalgic style, it humorously recalls the hardships and peculiar customs of early colonial America. With playful exaggerations about food, clothing, and daily life, the song has been passed down in various versions through oral tradition and remains popular in historical reenactments and folk festivals.">Good Old Colony Days<div class="hover-box">Good Old Colony Days is a traditional American folk song of uncertain authorship, often traced to the 19th century. Sung in a lighthearted, nostalgic style, it humorously recalls the hardships and peculiar customs of early colonial America. With playful exaggerations about food, clothing, and daily life, the song has been passed down in various versions through oral tradition and remains popular in historical reenactments and folk festivals.</div></li>
+<li data-src="Tracks/Good Old Colony Days.mp3" data-title="Good Old Colony Days" data-author="Unknown" data-modified="2025-08-16" data-century="19th" data-date-composed="1800s" data-comments="Good Old Colony Days is a traditional American folk song of uncertain authorship, often traced to the 19th century. Sung in a lighthearted, nostalgic style, it humorously recalls the hardships and peculiar customs of early colonial America. With playful exaggerations about food, clothing, and daily life, the song has been passed down in various versions through oral tradition and remains popular in historical reenactments and folk festivals.">Good Old Colony Days<div class="hover-box">Good Old Colony Days is a traditional American folk song of uncertain authorship, often traced to the 19th century. Sung in a lighthearted, nostalgic style, it humorously recalls the hardships and peculiar customs of early colonial America. With playful exaggerations about food, clothing, and daily life, the song has been passed down in various versions through oral tradition and remains popular in historical reenactments and folk festivals.</div></li>
 
 <li data-src="Tracks/Good Riddance.mp3" data-title="Good Riddance" data-author="Billy Joe Armstrong" data-category="Folk" data-date-composed="1997" data-century=20th" data-modified="2025-06-30" data-comments="Good Riddance (Time of Your Life) was written by Billie Joe Armstrong and released by Green Day in 1997 on their album Nimrod. Though known for punk rock, the band shifted to a more acoustic, introspective tone for this song. It reflects on parting ways and accepting change, often misinterpreted as a happy graduation anthem despite its bittersweet tone.">Good Riddance<div class="hover-box">Good Riddance (Time of Your Life) was written by Billie Joe Armstrong and released by Green Day in 1997 on their album Nimrod. Though known for punk rock, the band shifted to a more acoustic, introspective tone for this song. It reflects on parting ways and accepting change, often misinterpreted as a happy graduation anthem despite its bittersweet tone.</div></li>
 
@@ -1009,11 +1022,11 @@
 
 <li data-src="Tracks/I'll Fly Away.mp3" data-title="I'll Fly Away" data-author="Albert E. Brumley" data-category="Gospel" data-date-composed="1929" data-modified="2025-01-18" data-comments="I'll Fly Away is a well-known gospel song written by Albert E. Brumley in 1929 and published in 1932. Inspired by the hope of eternal life, the song has become a staple in Christian hymnals and Southern gospel music. Its uplifting melody and lyrics have led to numerous recordings by artists across gospel, country, and folk genres.">I'll Fly Away<div class="hover-box">I'll Fly Away is a well-known gospel song written by Albert E. Brumley in 1929 and published in 1932. Inspired by the hope of eternal life, the song has become a staple in Christian hymnals and Southern gospel music. Its uplifting melody and lyrics have led to numerous recordings by artists across gospel, country, and folk genres.</div></li>
 
-<li data-src="Tracks/We'll Rant And We'll Roar.mp3" data-title="We'll Rant And We'll Roar" data-modified="2026-01-28" data-date-composed="1800s" data-century="19th" data-category="Shanties" data-author="Unknown" data-comments="We’ll Rant and We’ll Roar is a traditional Newfoundland song celebrating winter sociability, drink, music, and community spirit during long cold months. The lyrics are commonly associated with Johnny Burke of St. John’s, who collected and published many local songs in the early 20th century. The song became widely known through mid-20th-century folk revival performances and recordings.">We'll Rant And We'll Roar<div class="hover-box">We’ll Rant and We’ll Roar is a traditional Newfoundland song celebrating winter sociability, drink, music, and community spirit during long cold months. The lyrics are commonly associated with Johnny Burke of St. John’s, who collected and published many local songs in the early 20th century. The song became widely known through mid-20th-century folk revival performances and recordings.</div></li>
-
 <li data-src="Tracks/I'll Overcome Someday.mp3" data-title="I'll Overcome Someday" data-author="Charles Albert Tindley" data-category="Gospel" data-date-composed="1901" data-modified="2025-07-08" data-centulry="20th" data-comments="I'll Overcome Someday was written in 1901 by African American Methodist minister Charles Albert Tindley. A gospel hymn with hopeful, steadfast lyrics, it reflects themes of perseverance through hardship. Tindley's original refrain, “I’ll overcome someday,” inspired the civil rights anthem We Shall Overcome. The song’s spiritual roots and message of eventual triumph made it foundational to the Black church and protest movements throughout the 20th century.">I'll Overcome Someday<div class="hover-box">I'll Overcome Someday was written in 1901 by African American Methodist minister Charles Albert Tindley. A gospel hymn with hopeful, steadfast lyrics, it reflects themes of perseverance through hardship. Tindley's original refrain, “I’ll overcome someday,” inspired the civil rights anthem We Shall Overcome. The song’s spiritual roots and message of eventual triumph made it foundational to the Black church and protest movements throughout the 20th century.</div></li>
 
 <li data-src="Tracks/I'll Tell Me Ma.mp3" data-title="I'll Tell Me Ma" data-author="Unknown" data-category="Irish" data-century="19th" data-date-composed="1800s" data-modified="2025-03-16" data-comments="I'll Tell Me Ma is a traditional Irish children's song, often sung as a lively party tune. It dates back to at least the 19th century and is associated with Belfast, though variations exist across Ireland. The song playfully describes a young woman admired by many suitors, with a catchy chorus that makes it a favorite in Irish folk music.">I'll Tell Me Ma<div class="hover-box">I'll Tell Me Ma is a traditional Irish children's song, often sung as a lively party tune. It dates back to at least the 19th century and is associated with Belfast, though variations exist across Ireland. The song playfully describes a young woman admired by many suitors, with a catchy chorus that makes it a favorite in Irish folk music.</div></li>
+
+<li data-src="Tracks/Imagine.mp3" data-title="Imagine" data-author="John Lennon" data-modified="2024-09-24" data-comments="Imagine is a song written by John Lennon in 1971. It envisions a world of peace and unity without divisions such as borders or religion. Released on Lennon's album of the same name, it became one of his most iconic solo works after The Beatles.">Imagine<div class="hover-box">Imagine is a song written by John Lennon in 1971. It envisions a world of peace and unity without divisions such as borders or religion. Released on Lennon's album of the same name, it became one of his most iconic solo works after The Beatles.</div></li>
 
 <li data-src="Tracks/I'm A Rover.mp3" data-title="I'm A Rover" data-author="Unknown" data-category="Scottish" data-century="18th" data-date-composed="1700s" data-modified="2025-03-01" data-comments="I'm A Rover is a traditional Scottish or Irish folk song, with origins likely in the 18th or early 19th century, though no single composer is known. It tells the story of a rover who visits his lover at night, braving danger to be with her. The song, often performed in a lilting waltz rhythm, has remained popular in folk traditions, recorded by numerous artists for its romantic and wandering themes.">I'm A Rover<div class="hover-box">I'm A Rover is a traditional Scottish or Irish folk song, with origins likely in the 18th or early 19th century, though no single composer is known. It tells the story of a rover who visits his lover at night, braving danger to be with her. The song, often performed in a lilting waltz rhythm, has remained popular in folk traditions, recorded by numerous artists for its romantic and wandering themes.</div></li>
 
@@ -1031,11 +1044,9 @@
 
 <li data-src="Tracks/I'm So Lonesome I Could Cry.mp3" data-title="I'm So Lonesome I Could Cry" data-author="Hank Williams" data-category="Country" data-century="20th" data-date-composed="1949" data-modified="2025-02-01" data-comments="I'm So Lonesome I Could Cry is a country song written and recorded by Hank Williams in 1949. Released as the B-side to My Bucket's Got a Hole in It, the song became one of his most enduring classics. Its melancholic lyrics and haunting melody capture deep loneliness and sorrow, drawing inspiration from Williams' troubled personal life. The song has since been covered by numerous artists across various genres.">I'm So Lonesome I Could Cry<div class="hover-box">I'm So Lonesome I Could Cry is a country song written and recorded by Hank Williams in 1949. Released as the B-side to My Bucket's Got a Hole in It, the song became one of his most enduring classics. Its melancholic lyrics and haunting melody capture deep loneliness and sorrow, drawing inspiration from Williams' troubled personal life. The song has since been covered by numerous artists across various genres.</div></li>
 
-<li data-src="Tracks/Immigrant Eyes.mp3" data-title="Immigrant Eyes" data-author="Guy Clark" data-date-composed="1988" data-century="20th" data-category="Folk" data-modified="2026-06-03" data-comments="Immigrant Eyes was written by Guy Clark and first appeared on his 1988 album Old Friends. The song tells the story of a young immigrant arriving in America through the eyes of a grandson who reflects on his grandfather’s hopes, sacrifices, and determination. Widely admired for its vivid storytelling and emotional depth, it has become one of Clark’s most respected and enduring compositions.">Immigrant Eyes<div class="hover-box">Immigrant Eyes was written by Guy Clark and first appeared on his 1988 album Old Friends. The song tells the story of a young immigrant arriving in America through the eyes of a grandson who reflects on his grandfather’s hopes, sacrifices, and determination. Widely admired for its vivid storytelling and emotional depth, it has become one of Clark’s most respected and enduring compositions.</div></li>
-
 <li data-src="Tracks/I'm Walking The Dog.mp3" data-title="I'm Walking The Dog" data-author="Rudy Toombs" data-modified="2024-05-15" data-comments="Written by Rudy Toombs, 1950. A blues song about a man’s interactions with his dog and reflections on life.">I'm Walking The Dog<div class="hover-box">Written by Rudy Toombs, 1950. A blues song about a man’s interactions with his dog and reflections on life.</div></li>
 
-<li data-src="Tracks/Imagine.mp3" data-title="Imagine" data-author="John Lennon" data-modified="2024-09-24" data-comments="Imagine is a song written by John Lennon in 1971. It envisions a world of peace and unity without divisions such as borders or religion. Released on Lennon's album of the same name, it became one of his most iconic solo works after The Beatles.">Imagine<div class="hover-box">Imagine is a song written by John Lennon in 1971. It envisions a world of peace and unity without divisions such as borders or religion. Released on Lennon's album of the same name, it became one of his most iconic solo works after The Beatles.</div></li>
+<li data-src="Tracks/Immigrant Eyes.mp3" data-title="Immigrant Eyes" data-author="Guy Clark" data-date-composed="1988" data-century="20th" data-category="Folk" data-modified="2026-06-03" data-comments="Immigrant Eyes was written by Guy Clark and first appeared on his 1988 album Old Friends. The song tells the story of a young immigrant arriving in America through the eyes of a grandson who reflects on his grandfather’s hopes, sacrifices, and determination. Widely admired for its vivid storytelling and emotional depth, it has become one of Clark’s most respected and enduring compositions.">Immigrant Eyes<div class="hover-box">Immigrant Eyes was written by Guy Clark and first appeared on his 1988 album Old Friends. The song tells the story of a young immigrant arriving in America through the eyes of a grandson who reflects on his grandfather’s hopes, sacrifices, and determination. Widely admired for its vivid storytelling and emotional depth, it has become one of Clark’s most respected and enduring compositions.</div></li>
 
 <li data-src="Tracks/I Never Will Marry.mp3" data-title="I Never Will Marry" data-author="Unknown" data-category="Folk" data-century="19th" data-date-composed="1800s" data-modified="2025-02-12" data-comments="I Never Will Marry is a traditional folk song with origins in the British Isles, later popularized in the U.S. by artists like the Carter Family. It tells of a woman who vows never to marry, often with a tragic or melancholic tone.">I Never Will Marry<div class="hover-box">I Never Will Marry is a traditional folk song with origins in the British Isles, later popularized in the U.S. by artists like the Carter Family. It tells of a woman who vows never to marry, often with a tragic or melancholic tone.</div></li>
 
@@ -1044,8 +1055,6 @@
 <li data-src="Tracks/In Tall Buildings.mp3" data-title="In Tall Buildings" data-author="John Hartford" data-category="Folk" data-century="20th" data-date-composed="1976" data-modified="2025-08-05" data-comments="In Tall Buildings was written by John Hartford and first released on his 1976 album Mark Twang. The song offers a bittersweet reflection on leaving behind a simpler, freer life for the constraints of adulthood and urban work life. Its gentle melody and poignant lyrics have made it a favorite among folk artists, with notable covers by Gillian Welch and others.">In Tall Buildings<div class="hover-box">In Tall Buildings was written by John Hartford and first released on his 1976 album Mark Twang. The song offers a bittersweet reflection on leaving behind a simpler, freer life for the constraints of adulthood and urban work life. Its gentle melody and poignant lyrics have made it a favorite among folk artists, with notable covers by Gillian Welch and others.</div></li>
 
 <li data-src="Tracks/In The Bleak Midwinter.mp3" data-title="In The Bleak Midwinter" data-author="Christina Rossetti" data-modified="2024-10-03" data-comments="In The Bleak Midwinter is a Christmas carol with lyrics by English poet Christina Rossetti, written in 1872. Composer Gustav Holst set the poem to music in 1906. A later version by Harold Darke, composed in 1911, is also widely sung.">In The Bleak Midwinter<div class="hover-box">In The Bleak Midwinter is a Christmas carol with lyrics by English poet Christina Rossetti, written in 1872. Composer Gustav Holst set the poem to music in 1906. A later version by Harold Darke, composed in 1911, is also widely sung.</div></li>
-
-<li data-src="Tracks/Sueno.mp3" data-title="Sueno" data-author="Bill Staines" data-category="Folk" data-century="20th" data-date-composed="1991" data-modified="2026-04-24" data-comments="Sueño is a gentle reflective song by Bill Staines, written in the late 20th century and recorded on his 1991 album Desert Nights. Blending English and Spanish imagery, it evokes themes of memory, longing, and quiet connection across distance, carried by Staines’s characteristic melodic simplicity and warm storytelling style rooted in contemporary American folk tradition.">Sueno<div class="hover-box">Sueño is a gentle reflective song by Bill Staines, written in the late 20th century and recorded on his 1991 album Desert Nights. Blending English and Spanish imagery, it evokes themes of memory, longing, and quiet connection across distance, carried by Staines’s characteristic melodic simplicity and warm storytelling style rooted in contemporary American folk tradition.</div></li>
 
 <li data-src="Tracks/In The Good Old Summertime.mp3" data-title="In The Good Old Summertime" data-author="Ren Shields" data-category="Folk" data-century="20th" data-date-composed="1902" data-modified="2024-10-23" data-comments="In the Good Old Summer Time is a popular American song written by lyricist Ren Shields and composer George Evans in 1902. The song became an enduring classic, celebrated for its nostalgic and cheerful depiction of summer. Its upbeat melody made it a favorite in early 20th-century entertainment.">In The Good Old Summertime<div class="hover-box">In the Good Old Summer Time is a popular American song written by lyricist Ren Shields and composer George Evans in 1902. The song became an enduring classic, celebrated for its nostalgic and cheerful depiction of summer. Its upbeat melody made it a favorite in early 20th-century entertainment.</div></li>
 
@@ -1067,9 +1076,9 @@
 
 <li data-src="Tracks/I Saw The Light.mp3" data-title="I Saw The Light" data-author="Hank Williams" data-modified="2024-06-08" data-comments="Written by Hank Williams, 1948. A gospel song expressing spiritual enlightenment and the joy of finding faith.">I Saw The Light<div class="hover-box">Written by Hank Williams, 1948. A gospel song expressing spiritual enlightenment and the joy of finding faith.</div></li>
 
-<li data-src="Tracks/Isle Au Haut Lullabye.mp3" data-title="Isle Au Haut Lullabye" data-century="20th" data-date-composed="1971" data-author="Gordon Bok" data-category="Shanties" data-comments="Isle au Haut Lullabye was written by Gordon Bok in the early 1970s and is named for the small island community off the coast of Maine. The song uses the form of a lullaby to evoke safety, continuity, and belonging amid the uncertainties of maritime life. It has become one of Bok’s most widely sung and enduring compositions.">Isle Au Haut Lullabye<div class="hover-box">Isle au Haut Lullabye was written by Gordon Bok in the early 1970s and is named for the small island community off the coast of Maine. The song uses the form of a lullaby to evoke safety, continuity, and belonging amid the uncertainties of maritime life. It has become one of Bok’s most widely sung and enduring compositions.</div></li>
+<li data-src="Tracks/Isle Au Haut Lullabye.mp3" data-title="Isle Au Haut Lullabye" data-modified="2026-01-02" data-century="20th" data-date-composed="1971" data-author="Gordon Bok" data-category="Shanties" data-comments="Isle au Haut Lullabye was written by Gordon Bok in the early 1970s and is named for the small island community off the coast of Maine. The song uses the form of a lullaby to evoke safety, continuity, and belonging amid the uncertainties of maritime life. It has become one of Bok’s most widely sung and enduring compositions.">Isle Au Haut Lullabye<div class="hover-box">Isle au Haut Lullabye was written by Gordon Bok in the early 1970s and is named for the small island community off the coast of Maine. The song uses the form of a lullaby to evoke safety, continuity, and belonging amid the uncertainties of maritime life. It has become one of Bok’s most widely sung and enduring compositions.</div></li>
 
-<li data-src="Tracks/Is This Land Your Land_.mp3" data-title="Is This Land Your Land" data-author="Woody Guthrie" data-modified="2024-05-15" data-comments="Written by Woody Guthrie, 1940. A folk song exploring themes of nationalism and social justice, known for its broad appeal and enduring relevance.">Is This Land Your Land<div class="hover-box">Written by Woody Guthrie, 1940. A folk song exploring themes of nationalism and social justice, known for its broad appeal and enduring relevance.</div></li>
+<li data-src="Tracks/Is This Land Your Land.mp3" data-title="Is This Land Your Land" data-author="Woody Guthrie" data-modified="2024-05-15" data-comments="Written by Woody Guthrie, 1940. A folk song exploring themes of nationalism and social justice, known for its broad appeal and enduring relevance.">Is This Land Your Land<div class="hover-box">Written by Woody Guthrie, 1940. A folk song exploring themes of nationalism and social justice, known for its broad appeal and enduring relevance.</div></li>
 
 <li data-src="Tracks/Isle Of Hope.mp3" data-title="Isle Of Hope" data-author="Brendan Graham" data-category="Irish" data-century="20th" data-date-composed="1900" data-modified="2024-12-23" data-comments="Brendan Graham wrote this emotional song in 1990, inspired by the story of Irish immigrants passing through Ellis Island during the early 20th century.">Isle Of Hope<div class="hover-box">Brendan Graham wrote this emotional song in 1990, inspired by the story of Irish immigrants passing through Ellis Island during the early 20th century.</div></li>
 
@@ -1319,7 +1328,7 @@
 
 <li data-src="Tracks/Millworker.mp3" data-title="Millworker" data-author="James Taylor" data-century="20th" data-date-composed="1979" data-modified="2024-11-18" data-comments="Millworker is a poignant song written by James Taylor in 1979 for the Broadway musical Working, adapted from Studs Terkel's book. The song reflects the struggles and dreams of a woman working in a factory, expressing themes of resilience and longing for a better life. It remains a folk-inspired storytelling classic.">Millworker<div class="hover-box">Millworker is a poignant song written by James Taylor in 1979 for the Broadway musical Working, adapted from Studs Terkel's book. The song reflects the struggles and dreams of a woman working in a factory, expressing themes of resilience and longing for a better life. It remains a folk-inspired storytelling classic.</div></li>
 
-<li data-src="Tracks/Mingulay Boat Song.mp3" data-title="Mingulay Boat Song" data-author="Sir Hugh S. Roberton" data-century="20th" data-date-composed="1930s" data-modified="2025-06-23" data-category="Shanties" data-comments="Mingulay Boat Song was written in the 1930s by Sir Hugh S. Roberton, founder of the Glasgow Orpheus Choir. Though often mistaken for a traditional Hebridean folk song, the lyrics are Roberton’s, set to the older Gaelic tune 'Creag Ghuanach'.” The song evokes fishermen returning home to the Isle of Mingulay, blending romantic imagery with a gentle, rocking rhythm well suited to fingerpicking guitar.">Mingulay Boat Song<div class="hover-box">Mingulay Boat Song was written in the 1930s by Sir Hugh S. Roberton, founder of the Glasgow Orpheus Choir. Though often mistaken for a traditional Hebridean folk song, the lyrics are Roberton’s, set to the older Gaelic tune 'Creag Ghuanach.' The song evokes fishermen returning home to the Isle of Mingulay, blending romantic imagery with a gentle, rocking rhythm well suited to fingerpicking guitar.</div></li>
+<li data-src="Tracks/Mingulay Boat Song.mp3" data-title="Mingulay Boat Song" data-author="Sir Hugh S. Roberton" data-century="20th" data-date-composed="1930s" data-modified="2025-06-23" data-category="Shanties" data-comments="Mingulay Boat Song was written in the 1930s by Sir Hugh S. Roberton, founder of the Glasgow Orpheus Choir. Though often mistaken for a traditional Hebridean folk song, the lyrics are Roberton’s, set to the older Gaelic tune 'Creag Ghuanach'. The song evokes fishermen returning home to the Isle of Mingulay, blending romantic imagery with a gentle, rocking rhythm well suited to fingerpicking guitar.">Mingulay Boat Song<div class="hover-box">Mingulay Boat Song was written in the 1930s by Sir Hugh S. Roberton, founder of the Glasgow Orpheus Choir. Though often mistaken for a traditional Hebridean folk song, the lyrics are Roberton’s, set to the older Gaelic tune 'Creag Ghuanach.' The song evokes fishermen returning home to the Isle of Mingulay, blending romantic imagery with a gentle, rocking rhythm well suited to fingerpicking guitar.</div></li>
 
 <li data-src="Tracks/Mississippi You're On My Mind.mp3" data-title="Mississippi You're On My Mind" data-author="Jesse Winchester" data-century="20th" data-date-composed="1970" data-modified="2026-01-30" data-comments="Mississippi You’re on My Mind was written by Jesse Winchester and first released in 1970 on his self-titled debut album. Composed while he was living in Canada during the Vietnam War era, the song expresses homesickness, cultural dislocation, and affection for the American South. It became one of his best-known works and has been widely covered by folk and Americana artists.">Mississippi You're On My Mind<div class="hover-box">Mississippi You’re on My Mind was written by Jesse Winchester and first released in 1970 on his self-titled debut album. Composed while he was living in Canada during the Vietnam War era, the song expresses homesickness, cultural dislocation, and affection for the American South. It became one of his best-known works and has been widely covered by folk and Americana artists.</div></li>
 
@@ -1431,7 +1440,7 @@
 
 <li data-src="Tracks/Old Dan Tucker.mp3" data-title="Old Dan Tucker" data-author="Dan Emmett" data-category="" data-century="19th" data-date-composed="1800s" data-modified="2025-02-10" data-comments="Old Dan Tucker is a lively minstrel song from the mid-19th century, credited to Dan Emmett. It humorously describes the antics of a rough but entertaining character, often performed with energetic rhythm and dance.">Old Dan Tucker<div class="hover-box">Old Dan Tucker is a lively minstrel song from the mid-19th century, credited to Dan Emmett. It humorously describes the antics of a rough but entertaining character, often performed with energetic rhythm and dance.</div></li>
 
-<li data-src="Tracks/Old Dogs.mp3" data-title="Old Dogs" data-author="Bill Staines" data-category="Folk" data-century="20st" data-date-composed="1970s" data-modified="2026-04-21" data-comments="Old Dogs is a reflective folk song written and recorded by Bill Staines, likely in the late 1970s or early 1980s during his most active songwriting period. The song uses aging dogs as a gentle metaphor for growing older, conveying themes of loyalty, memory, and the quiet dignity of later life in Staines’ warm, narrative style.">Old Dogs<div class="hover-box">Old Dogs is a reflective folk song written and recorded by Bill Staines, likely in the late 1970s or early 1980s during his most active songwriting period. The song uses aging dogs as a gentle metaphor for growing older, conveying themes of loyalty, memory, and the quiet dignity of later life in Staines’ warm, narrative style.</div></li>
+<li data-src="Tracks/Old Dogs.mp3" data-title="Old Dogs" data-author="Bill Staines" data-category="Folk" data-century="20th" data-date-composed="1970s" data-modified="2026-04-21" data-comments="Old Dogs is a reflective folk song written and recorded by Bill Staines, likely in the late 1970s or early 1980s during his most active songwriting period. The song uses aging dogs as a gentle metaphor for growing older, conveying themes of loyalty, memory, and the quiet dignity of later life in Staines’ warm, narrative style.">Old Dogs<div class="hover-box">Old Dogs is a reflective folk song written and recorded by Bill Staines, likely in the late 1970s or early 1980s during his most active songwriting period. The song uses aging dogs as a gentle metaphor for growing older, conveying themes of loyalty, memory, and the quiet dignity of later life in Staines’ warm, narrative style.</div></li>
 
 <li data-src="Tracks/Old Dogs Children And Watermelon Wine.mp3" data-title="Old Dogs Children And Watermelon Wine" data-author="Tom T. Hall" data-category="Country" data-century="20th" data-date-composed="1972" data-modified="2026-05-30" data-comments="Old Dogs, Children and Watermelon Wine is a classic country story song written and recorded by Tom T. Hall and released in 1972. Inspired by a conversation Hall had with an elderly hotel worker in Miami, it reflects on aging, friendship, innocence, and simple pleasures. The song became one of Hall’s signature hits, reaching No. 1 on the country charts and earning lasting admiration for its warm, conversational storytelling.">Old Dogs Children And Watermelon Wine<div class="hover-box">Old Dogs, Children and Watermelon Wine is a classic country story song written and recorded by Tom T. Hall and released in 1972. Inspired by a conversation Hall had with an elderly hotel worker in Miami, it reflects on aging, friendship, innocence, and simple pleasures. The song became one of Hall’s signature hits, reaching No. 1 on the country charts and earning lasting admiration for its warm, conversational storytelling.</div></li>
 
@@ -1567,9 +1576,7 @@
 
 <li data-src="Tracks/Railroad Bill.mp3" data-title="Railroad Bill" data-author="Unknown" data-century="19th" data-date-composed="1800s" data-modified="2024-11-14" data-comments="This folk song recounts the legend of an outlaw known as Railroad Bill, who was rumored to have been a notorious figure along the Southern railroad lines in the late 19th century. The song’s origins are murky, having evolved from Southern blues and folk traditions. It’s been widely covered, especially within the American folk and blues scene, and remains an emblem of resistance against oppression.">Railroad Bill<div class="hover-box">This folk song recounts the legend of an outlaw known as Railroad Bill, who was rumored to have been a notorious figure along the Southern railroad lines in the late 19th century. The song’s origins are murky, having evolved from Southern blues and folk traditions. It’s been widely covered, especially within the American folk and blues scene, and remains an emblem of resistance against oppression.</div></li>
 
-<li data-src="Tracks/Railroad Bill.mp3" data-title="Railroad Bill" data-author="Unknown" data-century="19th" data-date-composed="1800s" data-modified="2024-11-14" data-comments="This folk song recounts the legend of an outlaw known as Railroad Bill, who was rumored to have been a notorious figure along the Southern railroad lines in the late 19th century. The song’s origins are murky, having evolved from Southern blues and folk traditions. It’s been widely covered, especially within the American folk and blues scene, and remains an emblem of resistance against oppression.">Railroad Bill<div class="hover-box">This folk song recounts the legend of an outlaw known as Railroad Bill, who was rumored to have been a notorious figure along the Southern railroad lines in the late 19th century. The song’s origins are murky, having evolved from Southern blues and folk traditions. It’s been widely covered, especially within the American folk and blues scene, and remains an emblem of resistance against oppression.</div></li>
-
-<li data-src="Tracks/Ramble To Cashel.mp3" data-title="Ramble To Cashel" data-author="Turlough O'Carolan" data-category="Irish" data-century="18th" data-date-composed="1700s" data-modified="2025-09-26" data-comments="Ramble to Cashel is an instrumental harp tune composed by the 18th-century Irish bard Turlough O’Carolan. Written in his characteristic blend of traditional Irish melody and Baroque influence, the piece reflects O’Carolan’s travels across Ireland as he honored patrons and friends. Its lilting 3/4 rhythm and graceful phrasing make it a favorite for solo guitar, harp, or fiddle arrangements in modern Celtic and folk repertoires.">Ramble To Cashel<div class="hover-box">Ramble to Cashel is an instrumental harp tune composed by the 18th-century Irish bard Turlough O’Carolan. Written in his characteristic blend of traditional Irish melody and Baroque influence, the piece reflects O’Carolan’s travels across Ireland as he honored patrons and friends. Its lilting 3/4 rhythm and graceful phrasing make it a favorite for solo guitar, harp, or fiddle arrangements in modern Celtic and folk repertoires.</div></li>
+<!-- <li data-src="Tracks/Ramble To Cashel.mp3" data-title="Ramble To Cashel" data-author="Turlough O'Carolan" data-category="Irish" data-century="18th" data-date-composed="1700s" data-modified="2025-09-26" data-comments="Ramble to Cashel is an instrumental harp tune composed by the 18th-century Irish bard Turlough O’Carolan. Written in his characteristic blend of traditional Irish melody and Baroque influence, the piece reflects O’Carolan’s travels across Ireland as he honored patrons and friends. Its lilting 3/4 rhythm and graceful phrasing make it a favorite for solo guitar, harp, or fiddle arrangements in modern Celtic and folk repertoires.">Ramble To Cashel<div class="hover-box">Ramble to Cashel is an instrumental harp tune composed by the 18th-century Irish bard Turlough O’Carolan. Written in his characteristic blend of traditional Irish melody and Baroque influence, the piece reflects O’Carolan’s travels across Ireland as he honored patrons and friends. Its lilting 3/4 rhythm and graceful phrasing make it a favorite for solo guitar, harp, or fiddle arrangements in modern Celtic and folk repertoires.</div></li> -->
 
 <li data-src="Tracks/Ramblin Boy.mp3" data-title="Ramblin Boy" data-author="Tom Paxton" data-category="Folk" data-century="20th" data-date-composed="1964" data-modified="2025-04-22" data-comments="Ramblin’ Boy was written by Tom Paxton and first released in 1964 on his debut album of the same name. The song reflects themes of friendship and wanderlust, telling the story of a close companion who chose a life on the road. Its simple, heartfelt melody and narrative lyrics have made it a staple of the 1960s folk revival and a favorite for solo acoustic performance.">Ramblin Boy<div class="hover-box">Ramblin’ Boy was written by Tom Paxton and first released in 1964 on his debut album of the same name. The song reflects themes of friendship and wanderlust, telling the story of a close companion who chose a life on the road. Its simple, heartfelt melody and narrative lyrics have made it a staple of the 1960s folk revival and a favorite for solo acoustic performance.</div></li>
 
@@ -1618,6 +1625,8 @@
 <li data-src="Tracks/Rising of The Moon.mp3" data-title="Rising of The Moon" data-category="Irish" data-date-composed="1865" data-century="19th" data-modified="2024-08-17 data-author="John Keegan Casey" data-comments="The Rising of the Moon is an Irish ballad written by John Keegan Casey around 1865, commemorating the failed Irish Rebellion of 1798. It portrays a conversation between a young rebel and an old man, recalling how insurgents once gathered at night to fight against British rule. The song became a symbol of Irish nationalism and remains popular in folk repertoires.">Rising of The Moon<div class="hover-box">The Rising of the Moon is an Irish ballad written by John Keegan Casey around 1865, commemorating the failed Irish Rebellion of 1798. It portrays a conversation between a young rebel and an old man, recalling how insurgents once gathered at night to fight against British rule. The song became a symbol of Irish nationalism and remains popular in folk repertoires.</div></li>
 
 <li data-src="Tracks/River-Staines.mp3" data-title="River-Staines" data-category="Irish" data-date-composed="1979" data-century="20th" data-modified="2026-04-17" data-author="Bill Staines" data-comments="River is a folk song written and performed by American singer-songwriter Bill Staines, known for his nature-themed storytelling and melodic fingerstyle guitar work. It appears in his late 20th-century repertoire and was frequently performed in concerts and recordings during the 1990s. The song reflects Staines’ signature style of vivid landscape imagery and gentle, flowing melodic structure typical of contemporary American folk music.">River-Staines<div class="hover-box">River is a folk song written and performed by American singer-songwriter Bill Staines, known for his nature-themed storytelling and melodic fingerstyle guitar work. It appears in his late 20th-century repertoire and was frequently performed in concerts and recordings during the 1990s. The song reflects Staines’ signature style of vivid landscape imagery and gentle, flowing melodic structure typical of contemporary American folk music.</div></li>
+
+<li data-src="Tracks/Rising of The Moon.mp3" data-title="Rising of The Moon" data-category="Irish" data-date-composed="1865" data-century="19th" data-modified="2024-08-17 data-author="John Keegan Casey" data-comments="The Rising of the Moon is an Irish ballad written by John Keegan Casey around 1865, commemorating the failed Irish Rebellion of 1798. It portrays a conversation between a young rebel and an old man, recalling how insurgents once gathered at night to fight against British rule. The song became a symbol of Irish nationalism and remains popular in folk repertoires.">Rising of The Moon<div class="hover-box">The Rising of the Moon is an Irish ballad written by John Keegan Casey around 1865, commemorating the failed Irish Rebellion of 1798. It portrays a conversation between a young rebel and an old man, recalling how insurgents once gathered at night to fight against British rule. The song became a symbol of Irish nationalism and remains popular in folk repertoires.</div></li>
 
 <li data-src="Tracks/Robert's Farm.mp3" data-title="Robert's Farm" data-modified="2025-07-13" data-author="Unknown" data-category="Folk" data-date-composed="1800s" data-century="19th" data-comments="Robert's Farm or 'Hard Times in the Country'is a comic American folk song dating back to the 19th century, possibly from the mid-to-late 1800s. It was part of the minstrel show repertoire and later circulated in oral tradition and folk revival recordings. The song humorously laments the harsh realities of rural life, sung in a bouncy rhythm; it was part of the minstrel tradition and later revived by folk singers like Pete Seeger. Its exaggerated complaints about chores and discomfort highlight the contrast between idealized and actual farm living.">Robert's Farm<div class="hover-box">Robert's Farm or 'Hard Times in the Country'is a comic American folk song dating back to the 19th century, possibly from the mid-to-late 1800s. It was part of the minstrel show repertoire and later circulated in oral tradition and folk revival recordings. The song humorously laments the harsh realities of rural life, sung in a bouncy rhythm; it was part of the minstrel tradition and later revived by folk singers like Pete Seeger. Its exaggerated complaints about chores and discomfort highlight the contrast between idealized and actual farm living.</div></li>
 
@@ -1801,6 +1810,8 @@
 
 <li data-src="Tracks/Stuff That Works.mp3" data-title="Stuff That Works" data-author="Guy Clark" data-category="Country" data-century="20th" data-date-composed="1995" data-modified="2025-09-20" data-comments="Stuff That Works is a reflective folk song written and recorded by Guy Clark, released on his 1995 album Dublin Blues. Co-written with Rodney Crowell, the song celebrates simple, reliable things—like well-made tools, trusted friends, and enduring relationships—over flashy or trendy alternatives. Its plainspoken lyrics and gentle melody embody Clark’s signature storytelling style and have become a hallmark of his songwriting legacy.">Stuff That Works<div class="hover-box">Stuff That Works is a reflective folk song written and recorded by Guy Clark, released on his 1995 album Dublin Blues. Co-written with Rodney Crowell, the song celebrates simple, reliable things—like well-made tools, trusted friends, and enduring relationships—over flashy or trendy alternatives. Its plainspoken lyrics and gentle melody embody Clark’s signature storytelling style and have become a hallmark of his songwriting legacy.</div></li>
 
+<li data-src="Tracks/Sueno.mp3" data-title="Sueno" data-author="Bill Staines" data-category="Folk" data-century="20th" data-date-composed="1991" data-modified="2026-04-24" data-comments="Sueño is a gentle reflective song by Bill Staines, written in the late 20th century and recorded on his 1991 album Desert Nights. Blending English and Spanish imagery, it evokes themes of memory, longing, and quiet connection across distance, carried by Staines’s characteristic melodic simplicity and warm storytelling style rooted in contemporary American folk tradition.">Sueno<div class="hover-box">Sueño is a gentle reflective song by Bill Staines, written in the late 20th century and recorded on his 1991 album Desert Nights. Blending English and Spanish imagery, it evokes themes of memory, longing, and quiet connection across distance, carried by Staines’s characteristic melodic simplicity and warm storytelling style rooted in contemporary American folk tradition.</div></li>
+
 <li data-src="Tracks/Summertime.mp3" data-title="Summertime" data-author="George Gershwin" data-category="Blues" data-century="20th" data-date-composed="1934" data-modified="2024-12-08" data-comments="Summertime is a classic song composed by George Gershwin in 1934 for the opera Porgy and Bess, with lyrics by DuBose Heyward. Inspired by Southern folk spirituals, it serves as a lullaby in the opera. The piece has become a jazz and pop standard, covered by countless artists across genres.">Summertime<div class="hover-box">Summertime is a classic song composed by George Gershwin in 1934 for the opera Porgy and Bess, with lyrics by DuBose Heyward. Inspired by Southern folk spirituals, it serves as a lullaby in the opera. The piece has become a jazz and pop standard, covered by countless artists across genres.</div></li>
 
 <li data-src="Tracks/Sunday Morning Coming Down.mp3" data-title="Sunday Morning Coming Down" data-author="Kris Kristofferson" data-category="Country" data-century="20th" data-date-composed="1969" data-modified="2025-09-09" data-comments="Sunday Morning Coming Down was written by Kris Kristofferson in 1969 and became widely known through Johnny Cash’s 1970 recording, which won the Country Music Association’s Song of the Year. The song portrays the loneliness and emptiness of a Sunday morning after heavy drinking, reflecting themes of alienation and searching for meaning. It remains one of Kristofferson’s most acclaimed works and a classic in American country music.">Sunday Morning Coming Down<div class="hover-box">Sunday Morning Coming Down was written by Kris Kristofferson in 1969 and became widely known through Johnny Cash’s 1970 recording, which won the Country Music Association’s Song of the Year. The song portrays the loneliness and emptiness of a Sunday morning after heavy drinking, reflecting themes of alienation and searching for meaning. It remains one of Kristofferson’s most acclaimed works and a classic in American country music.</div></li>
@@ -1961,6 +1972,8 @@
 
 <li data-src="Tracks/Thirsty Boots.mp3" data-title="Thirsty Boots" data-author="Eric Andersen" data-category="Folk" data-century="20th" data-date-composed="1960s" data-modified="2025-04-24" data-comments="Thirsty Boots was written by American singer-songwriter Eric Andersen in the early 1960s as a tribute to civil rights workers traveling through the American South. The song’s poetic lyrics express compassion, weariness, and quiet heroism, capturing the emotional toll and dignity of the movement. It's one of Andersen’s most recognized works and has been covered by artists like Judy Collins and John Denver.">Thirsty Boots<div class="hover-box">Thirsty Boots was written by American singer-songwriter Eric Andersen in the early 1960s as a tribute to civil rights workers traveling through the American South. The song’s poetic lyrics express compassion, weariness, and quiet heroism, capturing the emotional toll and dignity of the movement. It's one of Andersen’s most recognized works and has been covered by artists like Judy Collins and John Denver.</div></li>
 
+<li data-src="Tracks/Thirsty Boots2.mp3" data-title="Thirsty Boots2" data-author="Eric Andersen" data-category="Folk" data-century="20th" data-date-composed="1960s" data-modified="2025-04-24" data-comments="Thirsty Boots was written by American singer-songwriter Eric Andersen in the early 1960s as a tribute to civil rights workers traveling through the American South. The song’s poetic lyrics express compassion, weariness, and quiet heroism, capturing the emotional toll and dignity of the movement. It's one of Andersen’s most recognized works and has been covered by artists like Judy Collins and John Denver.">Thirsty Boots<div class="hover-box">Thirsty Boots was written by American singer-songwriter Eric Andersen in the early 1960s as a tribute to civil rights workers traveling through the American South. The song’s poetic lyrics express compassion, weariness, and quiet heroism, capturing the emotional toll and dignity of the movement. It's one of Andersen’s most recognized works and has been covered by artists like Judy Collins and John Denver.</div></li>
+
 <li data-src="Tracks/This Could Be My Last Song.mp3" data-title="This Could Be My Last Song" data-modified="2026-05-24" data-date-composed="2024" data-century="21st" data-author="Frank Watkinson" data-comments="A reflective folk-style song written and performed by Frank Watkinson, released in 2024. The lyrics follow an older narrator looking back on life, time passing quickly, and unfulfilled dreams, while contemplating mortality and the uncertainty of what comes next. The song frames itself as a possible 'final swan song,' emphasizing acceptance, regret, and emotional resolution through a simple, fingerpicked acoustic style.">This Could Be My Last Song<div class="hover-box">A reflective folk-style song written and performed by Frank Watkinson, released in 2024. The lyrics follow an older narrator looking back on life, time passing quickly, and unfulfilled dreams, while contemplating mortality and the uncertainty of what comes next. The song frames itself as a possible 'final swan song,' emphasizing acceptance, regret, and emotional resolution through a simple, fingerpicked acoustic style.</div></li>
 
 <li data-src="Tracks/This Old Man.mp3" data-title="This Old Man" data-modified="2024-07-16" data-author="Unknown" data-comments="Traditional nursery rhyme, first known in the 19th century. A playful song about an old man and his various activities.">This Old Man<div class="hover-box">Traditional nursery rhyme, first known in the 19th century. A playful song about an old man and his various activities.</div></li>
@@ -1991,7 +2004,9 @@
 
 <li data-src="Tracks/Town I Loved So Well.mp3" data-title="Town I Loved So Well" data-author="Phil Coulter" data-category="Irish" data-century="20th" data-date-composed="1970" data-modified="2026-05-26" data-comments="The Town I Loved So Well is a poignant Irish ballad written by Phil Coulter in the early 1970s about his hometown of Derry, Northern Ireland. The song reflects on childhood memories, social change, and the violence of the Troubles, contrasting a peaceful past with a troubled present. It has become a widely admired and frequently recorded song of remembrance and resilience.">Town I Loved So Well<div class="hover-box">The Town I Loved So Well is a poignant Irish ballad written by Phil Coulter in the early 1970s about his hometown of Derry, Northern Ireland. The song reflects on childhood memories, social change, and the violence of the Troubles, contrasting a peaceful past with a troubled present. It has become a widely admired and frequently recorded song of remembrance and resilience.</div></li>
 
-<li data-src="Tracks/Travelin Man.mp3" data-title="Travelin Man" data-modified="2026-01-08" data-author="Jerry Fuller" data-date-composed="1961" data-century="20th" data-categpru="Folk" data-comments="Travelin Man was written by Jerry Fuller and recorded by Ricky Nelson in 1961, becoming a number one hit on the Billboard Hot 100. The song reflects the early 1960s fascination with air travel and global romance, portraying a young American moving easily between cities and cultures. It became one of Nelson’s signature recordings and a defining example of polished pre–British Invasion pop.">Travelin Man<div class="hover-box">Travelin Man was written by Jerry Fuller and recorded by Ricky Nelson in 1961, becoming a number one hit on the Billboard Hot 100. The song reflects the early 1960s fascination with air travel and global romance, portraying a young American moving easily between cities and cultures. It became one of Nelson’s signature recordings and a defining example of polished pre–British Invasion pop.</div></li>
+<li data-src="Tracks/Travelin Man.mp3" data-title="Travelin Man" data-modified="2026-01-08" data-author="Jerry Fuller" data-date-composed="1961" data-century="20th" data-category="Folk" data-comments="Travelin Man was written by Jerry Fuller and recorded by Ricky Nelson in 1961, becoming a number one hit on the Billboard Hot 100. The song reflects the early 1960s fascination with air travel and global romance, portraying a young American moving easily between cities and cultures. It became one of Nelson’s signature recordings and a defining example of polished pre–British Invasion pop.">Travelin Man<div class="hover-box">Travelin Man was written by Jerry Fuller and recorded by Ricky Nelson in 1961, becoming a number one hit on the Billboard Hot 100. The song reflects the early 1960s fascination with air travel and global romance, portraying a young American moving easily between cities and cultures. It became one of Nelson’s signature recordings and a defining example of polished pre–British Invasion pop.</div></li>
+
+<li data-src="Tracks/Trouble.mp3" data-title="Trouble" data-modified="2026-01-08" data-author="Cat Stevens" data-date-composed="1970" data-century="20th" data-category="Folk" data-modified="2026-06-04" data-comments="Trouble was written by Cat Stevens and appeared on his 1970 album Mona Bone Jakon. Stevens wrote the song during his recovery from a life-threatening bout of tuberculosis and a collapsed lung, a period that led him to reevaluate his life and songwriting. The spare, haunting ballad addresses Trouble as if it were a person, pleading for relief from pain and hardship while expressing vulnerability and a desire for peace. The song gained wider recognition when it was featured in the 1971 film Harold and Maude during one of its most emotional scenes, and it remains one of Stevens' most poignant and deeply personal compositions.">Trouble<div class="hover-box">Trouble was written by Cat Stevens and appeared on his 1970 album Mona Bone Jakon. Stevens wrote the song during his recovery from a life-threatening bout of tuberculosis and a collapsed lung, a period that led him to reevaluate his life and songwriting. The spare, haunting ballad addresses Trouble as if it were a person, pleading for relief from pain and hardship while expressing vulnerability and a desire for peace. The song gained wider recognition when it was featured in the 1971 film Harold and Maude during one of its most emotional scenes, and it remains one of Stevens' most poignant and deeply personal compositions.</div></li>
 
 <li data-src="Tracks/True Tale of Robin Hood.mp3" data-title="True Tale of Robin Hood" data-modified="2024-08-17" data-author="Unknown" data-comments="The ballad was first published in the 17th century, around 1631. It is attributed to Martin Parker, a known ballad writer of the time. Child Ballad #154.">True Tale of Robin Hood<div class="hover-box">The ballad was first published in the 17th century, around 1631. It is attributed to Martin Parker, a known ballad writer of the time. Child Ballad #154.</div></li>
 
@@ -2017,7 +2032,7 @@
 
 <li data-src="Tracks/Ugly Bug Ball.mp3" data-title="Ugly Bug Ball" data-author="Richard M. Sherman" data-category="Childrens" data-century="20th" data-date-composed="1963" data-modified="2026-03-19" data-comments="Written by Richard M. Sherman and Robert B. Sherman in 1963 for the Walt Disney live-action musical film Summer Magic, this novelty song was performed by the beloved folk and country singer Burl Ives as the genial character Osh Popham. A product of Disney studio songwriting at its most warm-hearted, the song follows a lonely caterpillar who finds belonging at an annual insect dance. Walt Disney initially objected to the word ugly, but the Shermans argued persuasively that no creature finds its own kind ugly -- a philosophy of self-worth dressed up in comic crawling and clicking crickets.">Ugly Bug Ball<div class="hover-box">Written by Richard M. Sherman and Robert B. Sherman in 1963 for the Walt Disney live-action musical film Summer Magic, this novelty song was performed by the beloved folk and country singer Burl Ives as the genial character Osh Popham. A product of Disney studio songwriting at its most warm-hearted, the song follows a lonely caterpillar who finds belonging at an annual insect dance. Walt Disney initially objected to the word ugly, but the Shermans argued persuasively that no creature finds its own kind ugly -- a philosophy of self-worth dressed up in comic crawling and clicking crickets.</div></li>
 
-<li data-src="Tracks/Undone In Sorrow.mp3" data-title="Undone In Sorrow" data-author="Ola Belle Reed" data-category="Childrens" data-century="19th" data-date-composed="19th century" data-modified="2024-12-10" data-comments="Undone in Sorrow is a hauntingly beautiful folk song written by Ola Belle Reed, a renowned Appalachian singer-songwriter and banjo player, in the mid-20th century. Known for its poignant lyrics and mournful melody, the song reflects themes of heartache and longing, characteristic of Reed's deep connection to traditional mountain music.">Undone In Sorrow<div class="hover-box">Undone in Sorrow is a hauntingly beautiful folk song written by Ola Belle Reed, a renowned Appalachian singer-songwriter and banjo player, in the mid-20th century. Known for its poignant lyrics and mournful melody, the song reflects themes of heartache and longing, characteristic of Reed's deep connection to traditional mountain music.</div></li>
+<li data-src="Tracks/Undone In Sorrow.mp3" data-title="Undone In Sorrow" data-author="Ola Belle Reed" data-category="Childrens" data-century="19th" data-date-composed="19th century" data-modified="2024-12-10" data-author="Unknown" data-comments="Undone in Sorrow is a hauntingly beautiful folk song written by Ola Belle Reed, a renowned Appalachian singer-songwriter and banjo player, in the mid-20th century. Known for its poignant lyrics and mournful melody, the song reflects themes of heartache and longing, characteristic of Reed's deep connection to traditional mountain music.">Undone In Sorrow<div class="hover-box">Undone in Sorrow is a hauntingly beautiful folk song written by Ola Belle Reed, a renowned Appalachian singer-songwriter and banjo player, in the mid-20th century. Known for its poignant lyrics and mournful melody, the song reflects themes of heartache and longing, characteristic of Reed's deep connection to traditional mountain music.</div></li>
 
 <li data-src="Tracks/Union Maid.mp3" data-title="Union Maid" data-author="Woody Guthrie" data-modified="2024-09-13" data-comments="Union Maid is a protest song written in 1940 by Woody Guthrie for the Congress of Industrial Organizations. The song promotes women's involvement in labor unions and resilience in the face of intimidation. It became an anthem during labor strikes, with lyrics reflecting the struggles of working-class women.">Union Maid<div class="hover-box">Union Maid is a protest song written in 1940 by Woody Guthrie for the Congress of Industrial Organizations. The song promotes women's involvement in labor unions and resilience in the face of intimidation. It became an anthem during labor strikes, with lyrics reflecting the struggles of working-class women.</div></li>
 
@@ -2028,6 +2043,8 @@
 <li data-src="Tracks/Vacant Chair.mp3" data-title="Vacant Chair" data-date-composed="1861" data-century="19th" data-category="Gospel" data-author="Henry S. Washburn" data-modified="2025-06-10" data-comments="The Vacant Chair was written in 1861 by Henry S. Washburn, with music by George F. Root. It mourns the loss of a young Union soldier, John William Grout, who died at the Battle of Ball's Bluff during the American Civil War. The song captures the grief of a family facing an empty seat at the holiday table, becoming a widely sung anthem of wartime sorrow in both North and South.">Vacant Chair<div class="hover-box">The Vacant Chair was written in 1861 by Henry S. Washburn, with music by George F. Root. It mourns the loss of a young Union soldier, John William Grout, who died at the Battle of Ball's Bluff during the American Civil War. The song captures the grief of a family facing an empty seat at the holiday table, becoming a widely sung anthem of wartime sorrow in both North and South.</div></li>
 
 <li data-src="Tracks/Virginia Belle.mp3" data-title="Virginia Belle" data-author="Stephen Foster" data-category="Folk" data-century="19th" data-date-composed="1853" data-modified="2024-12-28" data-comments="Virginia Belle is a traditional American folk song, often categorized as a minstrel tune from the mid-19th century. It was written by Stephen Foster in 1853 and captures themes of rural life and courtship, blending romanticized depictions with lively melodies typical of Foster's work. The song reflects the cultural trends of its time, with a mix of sentimental and lively tones, and it remains a part of early American music history.">Virginia Belle<div class="hover-box">Virginia Belle is a traditional American folk song, often categorized as a minstrel tune from the mid-19th century. It was written by Stephen Foster in 1853 and captures themes of rural life and courtship, blending romanticized depictions with lively melodies typical of Foster's work. The song reflects the cultural trends of its time, with a mix of sentimental and lively tones, and it remains a part of early American music history.</div></li>
+
+<li data-src="Tracks/Voice In The Breeze.mp3" data-title="Voice In The Breeze" data-author="John Munro" data-modified="2026-04-12" data-comments="Voice in the Breeze is a folk song by Scottish singer songwriter John Campbell Munro, written and recorded in the late 1960s and included on his album Look Over Your Shoulder. Munro died in 1972 at a young age, and the song reflects the folk revival style of that era, using natural imagery and a gentle melody to express longing, memory, and the sense of a loved one’s presence carried on the wind.">Voice In The Breeze<div class="hover-box">Voice in the Breeze is a folk song by Scottish singer songwriter John Campbell Munro, written and recorded in the late 1960s and included on his album Look Over Your Shoulder. Munro died in 1972 at a young age, and the song reflects the folk revival style of that era, using natural imagery and a gentle melody to express longing, memory, and the sense of a loved one’s presence carried on the wind.</div></li>
 
 <li data-src="Tracks/Wabash Cannonball.mp3" data-title="Wabash Cannonball" data-modified="2024-09-30" data-author="Unknown" data-comments="Wabash Cannonball is a classic American folk song about a legendary train, celebrating the beauty and power of the railroads. It was popularized by the Carter Family in the 1930s, though its origins are unclear, with some attributing it to J.A. Roff in the late 1800s. Its authorship remains disputed.">Wabash Cannonball<div class="hover-box">Wabash Cannonball is a classic American folk song about a legendary train, celebrating the beauty and power of the railroads. It was popularized by the Carter Family in the 1930s, though its origins are unclear, with some attributing it to J.A. Roff in the late 1800s. Its authorship remains disputed.</div></li>
 
@@ -2053,11 +2070,14 @@
 
 <li data-src="Tracks/Week Before Easter.mp3" data-title="Week Before Easter" data-modified="2026-05-13" data-author="Unknown" data-date-composed="1700s" data-century="18th" data-comments="A Week Before Easter (also known as The False Bride) is a traditional folk ballad found in Irish and Scottish oral traditions. It tells of a man reflecting on a lost love who marries another man, often contrasting true affection with regret. The song was widely collected in the 19th and early 20th centuries, with no single known composer, and exists in many regional variants.">Week Before Easter<div class="hover-box">A Week Before Easter (also known as The False Bride) is a traditional folk ballad found in Irish and Scottish oral traditions. It tells of a man reflecting on a lost love who marries another wom, often contrasting true affection with regret. The song was widely collected in the 19th and early 20th centuries, with no single known composer, and exists in many regional variants.</div></li>
 
+
 <li data-src="Tracks/We'll Sing In The Sunshine.mp3" data-title="We'll Sing In The Sunshine" data-author="Gale Garnett" data-category="Folk" data-century="20th" data-date-composed="1964" data-modified="2025-01-01" data-comments="We'll Sing in the Sunshine is a folk-inspired pop song written and performed by Gale Garnett in 1964. It became a major hit, reaching number four on the Billboard Hot 100 and earning Garnett a Grammy Award for Best Folk Recording. The song is celebrated for its cheerful melody and independent lyrics.">We'll Sing In The Sunshine<div class="hover-box">We'll Sing in the Sunshine is a folk-inspired pop song written and performed by Gale Garnett in 1964. It became a major hit, reaching number four on the Billboard Hot 100 and earning Garnett a Grammy Award for Best Folk Recording. The song is celebrated for its cheerful melody and independent lyrics.</div></li>
 
 <li data-src="Tracks/Well, Well, Well.mp3" data-title="Well, Well, Well" data-modified="2025-02-10" data-author="Unknown" data-comments="Traditional American gospel song.">Well, Well, Well<div class="hover-box">Traditional American gospel song.</div></li>
 
 <li data-src="Tracks/Wellerman.mp3" data-title="Wellerman" data-modified="2024-07-19" data-author="Unknown" data-comments="Traditional New Zealand sea shanty, first known in the 19th century. A song about whalers and the arrival of the supply ship Wellerman.">Wellerman<div class="hover-box">Traditional New Zealand sea shanty, first known in the 19th century. A song about whalers and the arrival of the supply ship Wellerman.</div></li>
+
+<li data-src="Tracks/We'll Rant And We'll Roar.mp3" data-title="We'll Rant And We'll Roar" data-modified="2026-01-28" data-date-composed="1800s" data-century="19th" data-category="Shanties" data-author="Unknown" data-comments="We’ll Rant and We’ll Roar is a traditional Newfoundland song celebrating winter sociability, drink, music, and community spirit during long cold months. The lyrics are commonly associated with Johnny Burke of St. John’s, who collected and published many local songs in the early 20th century. The song became widely known through mid-20th-century folk revival performances and recordings.">We'll Rant And We'll Roar<div class="hover-box">We’ll Rant and We’ll Roar is a traditional Newfoundland song celebrating winter sociability, drink, music, and community spirit during long cold months. The lyrics are commonly associated with Johnny Burke of St. John’s, who collected and published many local songs in the early 20th century. The song became widely known through mid-20th-century folk revival performances and recordings.</div></li>
 
 <li data-src="Tracks/We Shall Overcome.mp3" data-title="We Shall Overcome" data-author="Charles Albert Tindley" data-category="Sea Shanty" data-century="19th" data-date-composed="19th century" data-modified="2024-11-19" data-comments="We Shall Overcome is a gospel-inspired protest song adapted from the hymn I'll Overcome Someday by Charles Albert Tindley around 1900. Later versions, shaped by Zilphia Horton, Pete Seeger, and others, became a civil rights anthem in the 1950s and 60s, symbolizing hope and unity.">We Shall Overcome<div class="hover-box">We Shall Overcome is a gospel-inspired protest song adapted from the hymn I'll Overcome Someday by Charles Albert Tindley around 1900. Later versions, shaped by Zilphia Horton, Pete Seeger, and others, became a civil rights anthem in the 1950s and 60s, symbolizing hope and unity.</div></li>
 
@@ -2171,9 +2191,8 @@
 
 <li data-src="Tracks/Zip A Dee Doo Dah.mp3" data-title="Zip A Dee Doo Dah" data-author="Allie Wrubgel" data-modified="2024-10-02" data-comments="Written by Allie Wrubel and lyricist Ray Gilbert in 1946 for the Disney film Song of the South. Sung by actor James Baskett in his role as Uncle Remus, the song won the Academy Award for Best Original Song in 1948. Its upbeat, cheerful melody and lyrics reflect a carefree, optimistic attitude, often associated with a bright, sunny day. Despite its musical success, the film itself has become controversial for its depiction of race and plantation life in the American South.">Zip A Dee Doo Dah<div class="hover-box">Written by Allie Wrubel and lyricist Ray Gilbert in 1946 for the Disney film Song of the South. Sung by actor James Baskett in his role as Uncle Remus, the song won the Academy Award for Best Original Song in 1948. Its upbeat, cheerful melody and lyrics reflect a carefree, optimistic attitude, often associated with a bright, sunny day. Despite its musical success, the film itself has become controversial for its depiction of race and plantation life in the American South.</div></li>
 
-    </ul>
-
-    <script>
+</ul>
+   <script>
      document.addEventListener("DOMContentLoaded", function() {
     const trackListItems = document.querySelectorAll('.track-list li');
     const searchInput = document.getElementById('searchInput');
@@ -2306,9 +2325,246 @@ searchInput.addEventListener('input', function() {
       alert("Please enter a valid number between 1 and " + total);
     }
   });
+  document.getElementById('samplePlaylistsButton').addEventListener('click', function() {
+    window.location.href = 'SamplePlaylists.html';
+});
   </script>
 
+<script>
+let sortAscending = true;
 
+function filterByDate() {
+  const fromDate = document.getElementById('from-date').value;
+  const toDate = document.getElementById('to-date').value;
+  const items = document.querySelectorAll('li[data-modified]');
+
+  items.forEach(li => {
+    const modDate = li.getAttribute('data-modified');
+    if (
+      (!fromDate || modDate >= fromDate) &&
+      (!toDate || modDate <= toDate)
+    ) {
+      li.style.display = '';
+    } else {
+      li.style.display = 'none';
+    }
+  });
+}
+
+function clearDateFilter() {
+  document.getElementById('from-date').value = '';
+  document.getElementById('to-date').value = '';
+  document.querySelectorAll('li[data-modified]').forEach(li => {
+    li.style.display = '';
+  });
+}
+
+function sortByDate() {
+  const ul = document.querySelector('ul');
+  const items = Array.from(document.querySelectorAll('li[data-modified]'));
+
+  items.sort((a, b) => {
+    const dateA = a.getAttribute('data-modified');
+    const dateB = b.getAttribute('data-modified');
+    return sortAscending ? dateA.localeCompare(dateB) : dateB.localeCompare(dateA);
+  });
+
+  items.forEach(li => ul.appendChild(li)); // Reorder in DOM
+  sortAscending = !sortAscending;
+}
+</script>
+
+<script>
+// Fetch authors.json and populate the dropdown
+fetch('authors.json')
+  .then(response => response.json())
+  .then(authors => {
+    const dropdown = document.getElementById('authorDropdown');
+
+    // Add placeholder option
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Select Author...';
+    dropdown.appendChild(defaultOption);
+
+    // Add authors
+    authors.forEach(author => {
+      const option = document.createElement('option');
+      option.value = author;
+      option.textContent = author;
+      dropdown.appendChild(option);
+    });
+
+    // Handle filtering on selection
+    dropdown.addEventListener('change', () => {
+      const selectedAuthor = dropdown.value;
+      const items = document.querySelectorAll('ul.track-list li');
+
+      items.forEach(item => {
+        const itemAuthor = item.getAttribute('data-author');
+        if (!selectedAuthor || selectedAuthor === itemAuthor) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  })
+  .catch(error => console.error('Error loading authors:', error));
+
+/*
+
+// Create Clear Author button
+const clearAuthorButton = document.createElement('button');
+clearAuthorButton.textContent = 'Clear Author';
+clearAuthorButton.style.marginLeft = '8px';
+clearAuthorButton.style.height = '22px';
+clearAuthorButton.style.fontSize = '13px';
+clearAuthorButton.style.padding = '1px 6px';
+clearAuthorButton.style.lineHeight = 'normal';
+clearAuthorButton.style.verticalAlign = 'bottom';
+
+document.addEventListener('DOMContentLoaded', () => {
+  const controlPanel = document.querySelector('#from-date').parentElement;
+  controlPanel.insertBefore(clearAuthorButton, document.getElementById('authorDropdown').nextSibling);
+
+  clearAuthorButton.addEventListener('click', () => {
+    const dropdown = document.getElementById('authorDropdown');
+    dropdown.selectedIndex = 0;
+    dropdown.scrollTop = 0;
+    dropdown.blur();
+
+    // Reset track visibility
+    const items = document.querySelectorAll('ul.track-list li');
+    items.forEach(item => item.style.display = '');
+  });
+
+  // On page load, reset dropdown to top
+  const dropdown = document.getElementById('authorDropdown');
+  dropdown.selectedIndex = 0;
+  dropdown.scrollTop = 0;
+  dropdown.style.height = '22px';
+
+  // Reset dropdown on song click
+  const songs = document.querySelectorAll('ul.track-list li');
+  songs.forEach(song => {
+    song.addEventListener('click', () => {
+      dropdown.selectedIndex = 0;
+      dropdown.scrollTop = 0;
+      dropdown.blur();
+    });
+  });
+});
+
+// Optional: dropdown expand/collapse if you want to keep it
+const dropdown = document.getElementById('authorDropdown');
+dropdown.addEventListener('focus', () => {
+  dropdown.style.height = 'auto';
+});
+dropdown.addEventListener('blur', () => {
+  dropdown.style.height = '22px';
+});
+
+*/
+
+// ===== TOP AUTHORS BUTTON =====
+
+const topAuthorsButton = document.createElement('button');
+topAuthorsButton.textContent = 'Top Authors';
+topAuthorsButton.style.marginLeft = '8px';
+topAuthorsButton.style.height = '22px';
+topAuthorsButton.style.fontSize = '13px';
+topAuthorsButton.style.padding = '1px 6px';
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  const authorDropdown =
+    document.getElementById('authorDropdown');
+
+  if (authorDropdown) {
+    authorDropdown.parentElement.insertBefore(
+      topAuthorsButton,
+      authorDropdown.nextSibling
+    );
+  }
+
+  topAuthorsButton.addEventListener('click', () => {
+
+    const counts = {};
+
+    document.querySelectorAll('ul.track-list li')
+      .forEach(item => {
+
+        const author =
+          item.getAttribute('data-author');
+
+        if (author) {
+          counts[author] =
+            (counts[author] || 0) + 1;
+        }
+
+      });
+
+   const minSongs = parseInt(
+  prompt(
+    'Show authors having at least how many songs?',
+    '2'
+  ),
+  10
+);
+
+if (isNaN(minSongs)) return;
+
+const authors =
+  Object.entries(counts)
+    .filter(([a,c]) =>
+      a !== 'Unknown' &&
+      c >= minSongs
+    )
+    .sort((a,b) => b[1] - a[1]);
+
+let text =
+  'AUTHORS WITH ' +
+  minSongs +
+  ' OR MORE SONGS\n\n';
+
+authors.forEach(([author,count], index) => {
+  text +=
+    (index + 1) +
+    '. ' +
+    author +
+    ' (' +
+    count +
+    ')\n';
+});
+
+const choice = prompt(
+  text + '\n\nEnter author number to filter songs:'
+);
+
+
+if (choice === null) return;
+
+const selected =
+  authors[parseInt(choice, 10) - 1];
+
+if (!selected) return;
+
+const selectedAuthor = selected[0];
+
+const dropdown =
+  document.getElementById('authorDropdown');
+
+dropdown.value = selectedAuthor;
+
+const event = new Event('change');
+dropdown.dispatchEvent(event);
+
+  });
+
+});
+
+</script>
 
  </body>
 </html>

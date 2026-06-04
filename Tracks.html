@@ -2004,7 +2004,9 @@
 
 <li data-src="Tracks/Town I Loved So Well.mp3" data-title="Town I Loved So Well" data-author="Phil Coulter" data-category="Irish" data-century="20th" data-date-composed="1970" data-modified="2026-05-26" data-comments="The Town I Loved So Well is a poignant Irish ballad written by Phil Coulter in the early 1970s about his hometown of Derry, Northern Ireland. The song reflects on childhood memories, social change, and the violence of the Troubles, contrasting a peaceful past with a troubled present. It has become a widely admired and frequently recorded song of remembrance and resilience.">Town I Loved So Well<div class="hover-box">The Town I Loved So Well is a poignant Irish ballad written by Phil Coulter in the early 1970s about his hometown of Derry, Northern Ireland. The song reflects on childhood memories, social change, and the violence of the Troubles, contrasting a peaceful past with a troubled present. It has become a widely admired and frequently recorded song of remembrance and resilience.</div></li>
 
-<li data-src="Tracks/Travelin Man.mp3" data-title="Travelin Man" data-modified="2026-01-08" data-author="Jerry Fuller" data-date-composed="1961" data-century="20th" data-categpru="Folk" data-comments="Travelin Man was written by Jerry Fuller and recorded by Ricky Nelson in 1961, becoming a number one hit on the Billboard Hot 100. The song reflects the early 1960s fascination with air travel and global romance, portraying a young American moving easily between cities and cultures. It became one of Nelson’s signature recordings and a defining example of polished pre–British Invasion pop.">Travelin Man<div class="hover-box">Travelin Man was written by Jerry Fuller and recorded by Ricky Nelson in 1961, becoming a number one hit on the Billboard Hot 100. The song reflects the early 1960s fascination with air travel and global romance, portraying a young American moving easily between cities and cultures. It became one of Nelson’s signature recordings and a defining example of polished pre–British Invasion pop.</div></li>
+<li data-src="Tracks/Travelin Man.mp3" data-title="Travelin Man" data-modified="2026-01-08" data-author="Jerry Fuller" data-date-composed="1961" data-century="20th" data-category="Folk" data-comments="Travelin Man was written by Jerry Fuller and recorded by Ricky Nelson in 1961, becoming a number one hit on the Billboard Hot 100. The song reflects the early 1960s fascination with air travel and global romance, portraying a young American moving easily between cities and cultures. It became one of Nelson’s signature recordings and a defining example of polished pre–British Invasion pop.">Travelin Man<div class="hover-box">Travelin Man was written by Jerry Fuller and recorded by Ricky Nelson in 1961, becoming a number one hit on the Billboard Hot 100. The song reflects the early 1960s fascination with air travel and global romance, portraying a young American moving easily between cities and cultures. It became one of Nelson’s signature recordings and a defining example of polished pre–British Invasion pop.</div></li>
+
+<li data-src="Tracks/Trouble.mp3" data-title="Trouble" data-modified="2026-01-08" data-author="Cat Stevens" data-date-composed="1970" data-century="20th" data-category="Folk" data-modified="2026-06-04" data-comments="Trouble was written by Cat Stevens and appeared on his 1970 album Mona Bone Jakon. Stevens wrote the song during his recovery from a life-threatening bout of tuberculosis and a collapsed lung, a period that led him to reevaluate his life and songwriting. The spare, haunting ballad addresses Trouble as if it were a person, pleading for relief from pain and hardship while expressing vulnerability and a desire for peace. The song gained wider recognition when it was featured in the 1971 film Harold and Maude during one of its most emotional scenes, and it remains one of Stevens' most poignant and deeply personal compositions.">Trouble<div class="hover-box">Trouble was written by Cat Stevens and appeared on his 1970 album Mona Bone Jakon. Stevens wrote the song during his recovery from a life-threatening bout of tuberculosis and a collapsed lung, a period that led him to reevaluate his life and songwriting. The spare, haunting ballad addresses Trouble as if it were a person, pleading for relief from pain and hardship while expressing vulnerability and a desire for peace. The song gained wider recognition when it was featured in the 1971 film Harold and Maude during one of its most emotional scenes, and it remains one of Stevens' most poignant and deeply personal compositions.</div></li>
 
 <li data-src="Tracks/True Tale of Robin Hood.mp3" data-title="True Tale of Robin Hood" data-modified="2024-08-17" data-author="Unknown" data-comments="The ballad was first published in the 17th century, around 1631. It is attributed to Martin Parker, a known ballad writer of the time. Child Ballad #154.">True Tale of Robin Hood<div class="hover-box">The ballad was first published in the 17th century, around 1631. It is attributed to Martin Parker, a known ballad writer of the time. Child Ballad #154.</div></li>
 
@@ -2190,7 +2192,7 @@
 <li data-src="Tracks/Zip A Dee Doo Dah.mp3" data-title="Zip A Dee Doo Dah" data-author="Allie Wrubgel" data-modified="2024-10-02" data-comments="Written by Allie Wrubel and lyricist Ray Gilbert in 1946 for the Disney film Song of the South. Sung by actor James Baskett in his role as Uncle Remus, the song won the Academy Award for Best Original Song in 1948. Its upbeat, cheerful melody and lyrics reflect a carefree, optimistic attitude, often associated with a bright, sunny day. Despite its musical success, the film itself has become controversial for its depiction of race and plantation life in the American South.">Zip A Dee Doo Dah<div class="hover-box">Written by Allie Wrubel and lyricist Ray Gilbert in 1946 for the Disney film Song of the South. Sung by actor James Baskett in his role as Uncle Remus, the song won the Academy Award for Best Original Song in 1948. Its upbeat, cheerful melody and lyrics reflect a carefree, optimistic attitude, often associated with a bright, sunny day. Despite its musical success, the film itself has become controversial for its depiction of race and plantation life in the American South.</div></li>
 
 </ul>
-    <script>
+   <script>
      document.addEventListener("DOMContentLoaded", function() {
     const trackListItems = document.querySelectorAll('.track-list li');
     const searchInput = document.getElementById('searchInput');
@@ -2410,6 +2412,8 @@ fetch('authors.json')
   })
   .catch(error => console.error('Error loading authors:', error));
 
+/*
+
 // Create Clear Author button
 const clearAuthorButton = document.createElement('button');
 clearAuthorButton.textContent = 'Clear Author';
@@ -2460,6 +2464,106 @@ dropdown.addEventListener('focus', () => {
 dropdown.addEventListener('blur', () => {
   dropdown.style.height = '22px';
 });
+
+*/
+
+// ===== TOP AUTHORS BUTTON =====
+
+const topAuthorsButton = document.createElement('button');
+topAuthorsButton.textContent = 'Top Authors';
+topAuthorsButton.style.marginLeft = '8px';
+topAuthorsButton.style.height = '22px';
+topAuthorsButton.style.fontSize = '13px';
+topAuthorsButton.style.padding = '1px 6px';
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  const authorDropdown =
+    document.getElementById('authorDropdown');
+
+  if (authorDropdown) {
+    authorDropdown.parentElement.insertBefore(
+      topAuthorsButton,
+      authorDropdown.nextSibling
+    );
+  }
+
+  topAuthorsButton.addEventListener('click', () => {
+
+    const counts = {};
+
+    document.querySelectorAll('ul.track-list li')
+      .forEach(item => {
+
+        const author =
+          item.getAttribute('data-author');
+
+        if (author) {
+          counts[author] =
+            (counts[author] || 0) + 1;
+        }
+
+      });
+
+   const minSongs = parseInt(
+  prompt(
+    'Show authors having at least how many songs?',
+    '2'
+  ),
+  10
+);
+
+if (isNaN(minSongs)) return;
+
+const authors =
+  Object.entries(counts)
+    .filter(([a,c]) =>
+      a !== 'Unknown' &&
+      c >= minSongs
+    )
+    .sort((a,b) => b[1] - a[1]);
+
+let text =
+  'AUTHORS WITH ' +
+  minSongs +
+  ' OR MORE SONGS\n\n';
+
+authors.forEach(([author,count], index) => {
+  text +=
+    (index + 1) +
+    '. ' +
+    author +
+    ' (' +
+    count +
+    ')\n';
+});
+
+const choice = prompt(
+  text + '\n\nEnter author number to filter songs:'
+);
+
+
+if (choice === null) return;
+
+const selected =
+  authors[parseInt(choice, 10) - 1];
+
+if (!selected) return;
+
+const selectedAuthor = selected[0];
+
+const dropdown =
+  document.getElementById('authorDropdown');
+
+dropdown.value = selectedAuthor;
+
+const event = new Event('change');
+dropdown.dispatchEvent(event);
+
+  });
+
+});
+
 </script>
 
  </body>
