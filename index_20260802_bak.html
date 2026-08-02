@@ -173,15 +173,6 @@ if (playlistDesc) {
   let audioCtx, analyser, source;
   let isDrawing = false;
 
-  // Detect iOS (iPhone/iPad/iPod). iOS Safari has a well-documented bug where
-  // routing an <audio> element through the Web Audio API (AudioContext +
-  // createMediaElementSource) causes playback to silently stall after roughly
-  // 25-30 seconds. Desktop Safari does not have this problem, so we only skip
-  // the visualizer's audio graph on iOS and leave native playback untouched.
-  function isIOS() {
-    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-  }
-
   // Audio visualizer setup
   function setupAudioContext() {
     if (!audioCtx) {
@@ -451,12 +442,6 @@ function highlightCurrentSong() {
 
   // Visualizer activation
   audioPlayer.addEventListener('play', () => {
-    // Skip the Web Audio API graph on iOS — connecting <audio> through
-    // AudioContext/createMediaElementSource is known to cause playback to
-    // stall after ~25-30 seconds on iPhone/iPad. Native playback (no
-    // visualizer) is reliable on iOS, so we just leave it out there.
-    if (isIOS()) return;
-
     setupAudioContext();
     if (!isDrawing) {
       isDrawing = true;
