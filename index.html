@@ -126,6 +126,7 @@
 
 <h2 id="playlist-title"></h2>
 <p id="playlist-desc" style="font-style: italic; color:#555;"></p>
+  <p id="playlist-duration" style="font-weight: bold; color:#444;">Playlist duration: 0:00</p>
   
   <audio id="audio-player" controls>Your browser does not support the audio element.</audio>
   <ul class="song-list" id="playlist"></ul>
@@ -152,6 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const clearButton = document.getElementById('clear-playlist');
   const shareButton = document.getElementById('share-playlist');
   const startButton = document.getElementById('start-playlist');
+  const durationDisplay = document.getElementById('playlist-duration');
 // Paste this into your index.html startup/init code
   const params = new URLSearchParams(window.location.search);
   const playlistName = params.get('name');
@@ -169,6 +171,73 @@ if (playlistDesc) {
 }
   const baseUrl = './';
   let currentSongIndex = 0;
+
+  // Format seconds as m:ss, or h:mm:ss for playlists over an hour.
+  function formatPlaylistDuration(seconds) {
+    const total = Math.round(seconds);
+    const hours = Math.floor(total / 3600);
+    const minutes = Math.floor((total % 3600) / 60);
+    const remainingSeconds = total % 60;
+    const pad = value => String(value).padStart(2, '0');
+
+    return hours > 0
+      ? `${hours}:${pad(minutes)}:${pad(remainingSeconds)}`
+      : `${minutes}:${pad(remainingSeconds)}`;
+  }
+
+  // Add up the durations that have loaded and report any still pending.
+  function updatePlaylistDuration() {
+    const songs = Array.from(playlist.children);
+
+    if (songs.length === 0) {
+      durationDisplay.textContent = 'Playlist duration: 0:00';
+      return;
+    }
+
+    const loaded = songs.filter(li => li.dataset.durationStatus === 'loaded');
+    const pending = songs.filter(li => li.dataset.durationStatus === 'pending').length;
+    const failed = songs.filter(li => li.dataset.durationStatus === 'error').length;
+    const totalSeconds = loaded.reduce(
+      (sum, li) => sum + Number(li.dataset.duration), 0
+    );
+
+    let message = `Playlist duration: ${formatPlaylistDuration(totalSeconds)}`;
+
+    if (pending > 0) {
+      message += ` (calculating ${pending} of ${songs.length} songs...)`;
+    } else if (failed > 0) {
+      message += ` (duration unavailable for ${failed} song${failed === 1 ? '' : 's'})`;
+    }
+
+    durationDisplay.textContent = message;
+  }
+
+  // Ask the browser to read only the MP3 metadata; this does not play the song.
+  function loadSongDuration(li) {
+    li.dataset.durationStatus = 'pending';
+    updatePlaylistDuration();
+
+    const metadataAudio = new Audio();
+    metadataAudio.preload = 'metadata';
+
+    metadataAudio.addEventListener('loadedmetadata', () => {
+      if (Number.isFinite(metadataAudio.duration)) {
+        li.dataset.duration = metadataAudio.duration;
+        li.dataset.durationStatus = 'loaded';
+      } else {
+        li.dataset.durationStatus = 'error';
+      }
+      updatePlaylistDuration();
+    }, { once: true });
+
+    metadataAudio.addEventListener('error', () => {
+      li.dataset.durationStatus = 'error';
+      updatePlaylistDuration();
+    }, { once: true });
+
+    metadataAudio.src = baseUrl + li.getAttribute('data-src');
+    metadataAudio.load();
+  }
   let autoplayWasBlocked = false;
   let audioCtx, analyser, source;
   let isDrawing = false;
@@ -273,6 +342,7 @@ if (playlistDesc) {
 });
 
     playlist.appendChild(li);
+    loadSongDuration(li);
   }
 
 // URL-based playlist
@@ -363,6 +433,7 @@ async function initializePlaylistFromURL() {
 });
 
       playlist.appendChild(li);
+      loadSongDuration(li);
     }
 
     if (list.length > 0) {
@@ -406,6 +477,7 @@ function highlightCurrentSong() {
     audioPlayer.pause();
     audioPlayer.currentTime = 0;
     currentSongIndex = 0;
+    updatePlaylistDuration();
   }
 
   // Share button
