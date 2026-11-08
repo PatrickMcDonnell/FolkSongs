@@ -127,7 +127,7 @@
 <h2 id="playlist-title"></h2>
 
 <p id="playlist-desc" style="font-style: italic; color:#555;"></p>
-  <p id="playlist-duration" style="font-weight: bold; color:#444;">Playlist duration: 0:00</p>
+  <p id="playlist-duration" style="font-weight: bold; color:#444;">Playlist duration: 0:00 | 0 songs</p>
   
   <audio id="audio-player" controls>Your browser does not support the audio element.</audio>
   <ul class="song-list" id="playlist"></ul>
@@ -187,31 +187,43 @@ if (playlistDesc) {
   }
 
   // Add up the durations that have loaded and report any still pending.
-  function updatePlaylistDuration() {
+ function updatePlaylistDuration() {
     const songs = Array.from(playlist.children);
+    const songCount = songs.length;
 
-    if (songs.length === 0) {
-      durationDisplay.textContent = 'Playlist duration: 0:00';
+    if (songCount === 0) {
+      durationDisplay.textContent =
+        'Playlist duration: 0:00 | 0 songs';
       return;
     }
 
-    const loaded = songs.filter(li => li.dataset.durationStatus === 'loaded');
-    const pending = songs.filter(li => li.dataset.durationStatus === 'pending').length;
-    const failed = songs.filter(li => li.dataset.durationStatus === 'error').length;
+    const loaded = songs.filter(li =>
+      li.dataset.durationStatus === 'loaded'
+    );
+
+    const pending = songs.filter(li =>
+      li.dataset.durationStatus === 'pending'
+    ).length;
+
+    const failed = songs.filter(li =>
+      li.dataset.durationStatus === 'error'
+    ).length;
+
     const totalSeconds = loaded.reduce(
       (sum, li) => sum + Number(li.dataset.duration), 0
     );
 
-    let message = `Playlist duration: ${formatPlaylistDuration(totalSeconds)}`;
+    let message =
+      `Playlist duration: ${formatPlaylistDuration(totalSeconds)} | ${songCount} songs`;
 
     if (pending > 0) {
-      message += ` (calculating ${pending} of ${songs.length} songs...)`;
+      message += ` (calculating ${pending}...)`;
     } else if (failed > 0) {
-      message += ` (duration unavailable for ${failed} song${failed === 1 ? '' : 's'})`;
+      message += ` (${failed} durations unavailable)`;
     }
 
     durationDisplay.textContent = message;
-  }
+}
 
   // Ask the browser to read only the MP3 metadata; this does not play the song.
   function loadSongDuration(li) {
