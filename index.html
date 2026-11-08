@@ -90,9 +90,6 @@
 }
 
 /* Make songs whose MP3 duration cannot be read easy to spot. */
-.song-list li.duration-unavailable {
-  color: #a12622;
-}
 .song-list li .duration-warning {
   color: #a12622;
   font-size: 0.9em;
@@ -250,7 +247,8 @@ if (playlistDesc) {
     }
   }
 
-  // Ask the browser to read only the MP3 metadata; this does not play the song.
+  // Read MP3 duration without playing the song. Some browsers initially report
+  // Infinity at loadedmetadata; durationchange may provide the finite duration later.
   function loadSongDuration(li) {
     li.dataset.durationStatus = 'pending';
     li.classList.remove('duration-unavailable');
@@ -260,24 +258,39 @@ if (playlistDesc) {
 
     const metadataAudio = new Audio();
     metadataAudio.preload = 'metadata';
+    let finished = false;
 
-    metadataAudio.addEventListener('loadedmetadata', () => {
-      if (Number.isFinite(metadataAudio.duration) && metadataAudio.duration > 0) {
-        li.dataset.duration = metadataAudio.duration;
+    function finishWithDuration() {
+      if (finished) return;
+      const duration = metadataAudio.duration;
+      if (Number.isFinite(duration) && duration > 0) {
+        finished = true;
+        li.dataset.duration = String(duration);
         li.dataset.durationStatus = 'loaded';
-      } else {
-        setDurationUnavailable(li);
+        clearTimeout(timeoutId);
+        updatePlaylistDuration();
+        metadataAudio.removeAttribute('src');
+        metadataAudio.load();
       }
-      updatePlaylistDuration();
-      metadataAudio.src = '';
-    }, { once: true });
+    }
 
-    metadataAudio.addEventListener('error', () => {
+    function finishWithError() {
+      if (finished) return;
+      finished = true;
+      clearTimeout(timeoutId);
       setDurationUnavailable(li);
       updatePlaylistDuration();
-      metadataAudio.src = '';
-    }, { once: true });
+      metadataAudio.removeAttribute('src');
+      metadataAudio.load();
+    }
 
+    metadataAudio.addEventListener('loadedmetadata', finishWithDuration);
+    metadataAudio.addEventListener('durationchange', finishWithDuration);
+    metadataAudio.addEventListener('error', finishWithError, { once: true });
+
+    // Avoid declaring a song unavailable immediately if the browser needs
+    // additional time to calculate its duration.
+    const timeoutId = setTimeout(finishWithError, 15000);
     metadataAudio.src = baseUrl + li.getAttribute('data-src');
     metadataAudio.load();
   }
