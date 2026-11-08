@@ -247,30 +247,45 @@ if (playlistDesc) {
     }
   }
 
+  // Limit simultaneous metadata requests. Large playlists can contain more
+  // songs than the browser or GitHub Pages can comfortably serve at once.
+  const durationQueue = [];
+  let activeDurationRequests = 0;
+  const maxConcurrentDurationRequests = 4;
+
+  function processDurationQueue() {
+    while (activeDurationRequests < maxConcurrentDurationRequests && durationQueue.length > 0) {
+      const li = durationQueue.shift();
+      activeDurationRequests++;
+      readSongDuration(li);
+    }
+  }
+
   // Read MP3 duration without playing the song. Some browsers initially report
   // Infinity at loadedmetadata; durationchange may provide the finite duration later.
-  function loadSongDuration(li) {
-    li.dataset.durationStatus = 'pending';
-    li.classList.remove('duration-unavailable');
-    const oldWarning = li.querySelector('.duration-warning');
-    if (oldWarning) oldWarning.remove();
-    updatePlaylistDuration();
-
+  function readSongDuration(li) {
     const metadataAudio = new Audio();
     metadataAudio.preload = 'metadata';
     let finished = false;
+    let timeoutId;
+
+    function releaseRequest() {
+      activeDurationRequests = Math.max(0, activeDurationRequests - 1);
+      metadataAudio.removeAttribute('src');
+      metadataAudio.load();
+      processDurationQueue();
+    }
 
     function finishWithDuration() {
       if (finished) return;
       const duration = metadataAudio.duration;
       if (Number.isFinite(duration) && duration > 0) {
         finished = true;
+        clearTimeout(timeoutId);
         li.dataset.duration = String(duration);
         li.dataset.durationStatus = 'loaded';
-        clearTimeout(timeoutId);
         updatePlaylistDuration();
-        metadataAudio.removeAttribute('src');
-        metadataAudio.load();
+        releaseRequest();
       }
     }
 
@@ -280,20 +295,31 @@ if (playlistDesc) {
       clearTimeout(timeoutId);
       setDurationUnavailable(li);
       updatePlaylistDuration();
-      metadataAudio.removeAttribute('src');
-      metadataAudio.load();
+      releaseRequest();
     }
 
     metadataAudio.addEventListener('loadedmetadata', finishWithDuration);
     metadataAudio.addEventListener('durationchange', finishWithDuration);
     metadataAudio.addEventListener('error', finishWithError, { once: true });
 
-    // Avoid declaring a song unavailable immediately if the browser needs
-    // additional time to calculate its duration.
-    const timeoutId = setTimeout(finishWithError, 15000);
+    // Start the timeout only when this song actually begins loading, not while
+    // it waits in the queue. Allow up to 30 seconds for a slow metadata response.
+    timeoutId = setTimeout(finishWithError, 30000);
     metadataAudio.src = baseUrl + li.getAttribute('data-src');
     metadataAudio.load();
   }
+
+  // Queue each song so that only a few MP3 metadata requests run at a time.
+  function loadSongDuration(li) {
+    li.dataset.durationStatus = 'pending';
+    li.classList.remove('duration-unavailable');
+    const oldWarning = li.querySelector('.duration-warning');
+    if (oldWarning) oldWarning.remove();
+    updatePlaylistDuration();
+    durationQueue.push(li);
+    processDurationQueue();
+  }
+
   let autoplayWasBlocked = false;
   let audioCtx, analyser, source;
   let isDrawing = false;
