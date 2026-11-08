@@ -88,6 +88,17 @@
   padding: 4px 6px;
   border-radius: 4px;
 }
+
+/* Make songs whose MP3 duration cannot be read easy to spot. */
+.song-list li.duration-unavailable {
+  color: #a12622;
+}
+.song-list li .duration-warning {
+  color: #a12622;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-left: 6px;
+}
 </style>
 </head>
 <body>
@@ -225,27 +236,46 @@ if (playlistDesc) {
     durationDisplay.textContent = message;
 }
 
+  // Mark an individual song when its MP3 duration cannot be read.
+  function setDurationUnavailable(li) {
+    li.dataset.durationStatus = 'error';
+    li.classList.add('duration-unavailable');
+
+    let warning = li.querySelector('.duration-warning');
+    if (!warning) {
+      warning = document.createElement('span');
+      warning.className = 'duration-warning';
+      warning.textContent = '[duration unavailable]';
+      li.appendChild(warning);
+    }
+  }
+
   // Ask the browser to read only the MP3 metadata; this does not play the song.
   function loadSongDuration(li) {
     li.dataset.durationStatus = 'pending';
+    li.classList.remove('duration-unavailable');
+    const oldWarning = li.querySelector('.duration-warning');
+    if (oldWarning) oldWarning.remove();
     updatePlaylistDuration();
 
     const metadataAudio = new Audio();
     metadataAudio.preload = 'metadata';
 
     metadataAudio.addEventListener('loadedmetadata', () => {
-      if (Number.isFinite(metadataAudio.duration)) {
+      if (Number.isFinite(metadataAudio.duration) && metadataAudio.duration > 0) {
         li.dataset.duration = metadataAudio.duration;
         li.dataset.durationStatus = 'loaded';
       } else {
-        li.dataset.durationStatus = 'error';
+        setDurationUnavailable(li);
       }
       updatePlaylistDuration();
+      metadataAudio.src = '';
     }, { once: true });
 
     metadataAudio.addEventListener('error', () => {
-      li.dataset.durationStatus = 'error';
+      setDurationUnavailable(li);
       updatePlaylistDuration();
+      metadataAudio.src = '';
     }, { once: true });
 
     metadataAudio.src = baseUrl + li.getAttribute('data-src');
